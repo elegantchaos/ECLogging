@@ -72,6 +72,8 @@ extern "C"
 
 #define ECLogIf(test, channel, ...) do { if (test) { ECLogChannel* c = getChannel##channel(); ECMakeContext(); if (channelEnabled(c)) { logToChannel(c, &context, __VA_ARGS__); } } } while (0)
 
+#define ECLogIf(test, channel, ...) do { if (test) { ECLogChannel* c = getChannel##channel(); if (channelEnabled(c)) { logToChannel(c, __VA_ARGS__); } } } while (0)
+
 #define ECGetChannel(channel) getChannel##channel()
 
 #define ECEnableChannel(channel) enableChannel(getChannel##channel())
