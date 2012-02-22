@@ -28,6 +28,7 @@
 		226FB47013E1EB0B00BF258D /* SharedPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedPrefix.pch; sourceTree = "<group>"; };
 		226FB47113E1EB0B00BF258D /* DebugPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugPrefix.pch; sourceTree = "<group>"; };
 		226FB47213E1EB0B00BF258D /* ReleasePrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleasePrefix.pch; sourceTree = "<group>"; };
+		22970D8714F5B2FE007B254B /* test.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = test.sh; sourceTree = "<group>"; };
 		22A7235A1435DE0F00889A06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Resources/en.lproj/Credits.rtf; sourceTree = SOURCE_ROOT; };
 		22A7235C1435DE0F00889A06 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/MainMenu.xib; sourceTree = SOURCE_ROOT; };
 		22DE797E14F57AE500C13BC9 /* libECLoggingMac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libECLoggingMac.a; path = ../../../../Modules/ECLogging/build/Release/ECLoggingMac/libECLoggingMac.a; sourceTree = "<group>"; };
@@ -58,6 +59,7 @@
 			children = (
 				226FB46813E1EB0B00BF258D /* Source */,
 				226FB46013E1EB0B00BF258D /* Resources */,
+				22970D8614F5B2FE007B254B /* Scripts */,
 				226FB43A13E1EA7200BF258D /* Frameworks */,
 				226FB43813E1EA7200BF258D /* Products */,
 			);
@@ -118,6 +120,14 @@
 			);
 			name = Prefix;
 			path = prefix;
+			sourceTree = "<group>";
+		};
+		22970D8614F5B2FE007B254B /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				22970D8714F5B2FE007B254B /* test.sh */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 		22E51FBC1434E04F008F8D41 /* Other Frameworks */ = {

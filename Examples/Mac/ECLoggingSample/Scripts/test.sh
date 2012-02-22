@@ -1,10 +1,9 @@
-echo Testing Mac ECLoggingSample
+echo Testing Mac ECLoggingSample xx
 
 base=`dirname $0`
-source "$base/../../../../Scripts/shared-test.sh"
-targetMac="ECLoggingSample"
-sdkMac="macosx"
+source "$base/../../../../Tests/ECUnitTests/Scripts/test-common.sh"
 
 # build the framework
 
-xcodebuild -target "$targetMac" $config -sdk "$sdkMac" clean build
+xcodebuild -workspace "ECLoggingSample.xcworkspace" -scheme "ECLoggingSample"
+# xcodebuild -target "ECLoggingSample" -configuration $testConfig -sdk "$testSDKMac" $testOptions

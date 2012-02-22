@@ -223,6 +223,14 @@
 		2283A4D314F53D31009142F7 /* NSString+ECLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ECLogging.m"; sourceTree = "<group>"; };
 		22970D3C14F5AA80007B254B /* ECLoggingDebugPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingDebugPrefix.pch; sourceTree = "<group>"; };
 		22970D3D14F5AA80007B254B /* ECLoggingReleasePrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingReleasePrefix.pch; sourceTree = "<group>"; };
+		22970D8C14F5B362007B254B /* ECDynamicTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDynamicTestCase.h; sourceTree = "<group>"; };
+		22970D8D14F5B362007B254B /* ECDynamicTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECDynamicTestCase.m; sourceTree = "<group>"; };
+		22970D8E14F5B362007B254B /* ECTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECTestCase.h; sourceTree = "<group>"; };
+		22970D8F14F5B362007B254B /* ECTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECTestCase.m; sourceTree = "<group>"; };
+		22970D9014F5B362007B254B /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		22970D9214F5B362007B254B /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Test.bundle; sourceTree = "<group>"; };
+		22970D9414F5B362007B254B /* ocunit2junit.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = ocunit2junit.rb; sourceTree = "<group>"; };
+		22970D9514F5B362007B254B /* test-common.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "test-common.sh"; sourceTree = "<group>"; };
 		22BE50B8149662D0007CC214 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		22BE51331496BD00007CC214 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		22BE51351496BD25007CC214 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -295,6 +303,7 @@
 				2283A46414F53BCC009142F7 /* Mac */,
 				2283A4C814F53C6F009142F7 /* Prefix */,
 				2274B37714F56679003B8A0B /* Resources */,
+				22970D8914F5B362007B254B /* Tests */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -457,6 +466,53 @@
 				2283A4CB14F53C6F009142F7 /* ECLoggingSharedPrefix.pch */,
 			);
 			path = Prefix;
+			sourceTree = "<group>";
+		};
+		22970D8914F5B362007B254B /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				22970D8A14F5B362007B254B /* ECUnitTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		22970D8A14F5B362007B254B /* ECUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				22970D8B14F5B362007B254B /* Generic */,
+				22970D9014F5B362007B254B /* README */,
+				22970D9114F5B362007B254B /* Resources */,
+				22970D9314F5B362007B254B /* Scripts */,
+			);
+			path = ECUnitTests;
+			sourceTree = "<group>";
+		};
+		22970D8B14F5B362007B254B /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				22970D8C14F5B362007B254B /* ECDynamicTestCase.h */,
+				22970D8D14F5B362007B254B /* ECDynamicTestCase.m */,
+				22970D8E14F5B362007B254B /* ECTestCase.h */,
+				22970D8F14F5B362007B254B /* ECTestCase.m */,
+			);
+			path = Generic;
+			sourceTree = "<group>";
+		};
+		22970D9114F5B362007B254B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				22970D9214F5B362007B254B /* Test.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		22970D9314F5B362007B254B /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				22970D9414F5B362007B254B /* ocunit2junit.rb */,
+				22970D9514F5B362007B254B /* test-common.sh */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
