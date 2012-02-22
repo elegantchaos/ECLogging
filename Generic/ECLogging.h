@@ -10,7 +10,12 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECMacros.h"
+#ifndef EC_DEBUG
+#ifndef EC_RELEASE
+#error You must define either EC_DEBUG or EC_RELEASE
+#endif
+#endif
+
 #import "ECLogContext.h"
 
 

@@ -11,7 +11,7 @@
 #import "ECLogChannel.h"
 #import "ECLogHandlerNSLog.h"
 
-#import "NSDictionary+ECCore.h"
+// #import "NSDictionary+ECCore.h"
 
 @interface ECLogManager()
 

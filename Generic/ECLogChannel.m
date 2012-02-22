@@ -12,7 +12,7 @@
 #import "ECLogging.h"
 #import "ECLogManager.h"
 
-#import "NSString+ECCore.h"
+#import "NSString+ECLogging.h"
 
 static NSString *const kSuffixToStrip = @"Channel";
 
