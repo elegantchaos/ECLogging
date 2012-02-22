@@ -89,10 +89,11 @@
 		2283A4CE14F53C6F009142F7 /* ECLoggingSharedPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingSharedPrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		2283A4D414F53D31009142F7 /* NSString+ECLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4D214F53D31009142F7 /* NSString+ECLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2283A4D514F53D31009142F7 /* NSString+ECLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A4D314F53D31009142F7 /* NSString+ECLogging.m */; };
-		22970D3E14F5AA80007B254B /* ECLoggingDebugPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3C14F5AA80007B254B /* ECLoggingDebugPrefix.pch */; };
-		22970D3F14F5AA80007B254B /* ECLoggingDebugPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3C14F5AA80007B254B /* ECLoggingDebugPrefix.pch */; };
-		22970D4014F5AA80007B254B /* ECLoggingReleasePrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3D14F5AA80007B254B /* ECLoggingReleasePrefix.pch */; };
-		22970D4114F5AA80007B254B /* ECLoggingReleasePrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3D14F5AA80007B254B /* ECLoggingReleasePrefix.pch */; };
+		22970D3E14F5AA80007B254B /* ECLoggingDebugPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3C14F5AA80007B254B /* ECLoggingDebugPrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		22970D3F14F5AA80007B254B /* ECLoggingDebugPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3C14F5AA80007B254B /* ECLoggingDebugPrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		22970D4014F5AA80007B254B /* ECLoggingReleasePrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3D14F5AA80007B254B /* ECLoggingReleasePrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		22970D4114F5AA80007B254B /* ECLoggingReleasePrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3D14F5AA80007B254B /* ECLoggingReleasePrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		22970D4F14F5AD55007B254B /* ECLoggingSharedPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingSharedPrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		22EC40A81358A17A005C1F1A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EC40A61358A0D1005C1F1A /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
@@ -468,6 +469,7 @@
 				220253A014F56E5400F141E3 /* ECLogViewHandlerItem.h in Headers */,
 				22970D3F14F5AA80007B254B /* ECLoggingDebugPrefix.pch in Headers */,
 				22970D4114F5AA80007B254B /* ECLoggingReleasePrefix.pch in Headers */,
+				22970D4F14F5AD55007B254B /* ECLoggingSharedPrefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
