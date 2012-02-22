@@ -8,7 +8,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECLoggingMenu.h"
-#import "NSMenu+ECCore.h"
+#import "NSMenu+ECLogging.h"
 
 #import "ECLogManager.h"
 #import "ECLogChannel.h"
