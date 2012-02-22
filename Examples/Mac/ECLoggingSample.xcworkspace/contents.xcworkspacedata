@@ -5,6 +5,6 @@
       location = "group:ECLoggingSample.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../../../ECLogging.xcodeproj">
+      location = "group:../../ECLogging.xcodeproj">
    </FileRef>
 </Workspace>
