@@ -39,6 +39,7 @@
 		226FB47113E1EB0B00BF258D /* DebugPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugPrefix.pch; sourceTree = "<group>"; };
 		226FB47213E1EB0B00BF258D /* ReleasePrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleasePrefix.pch; sourceTree = "<group>"; };
 		22970D5814F5AE00007B254B /* libECLoggingIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libECLoggingIOS.a; path = "../../../build/Release-iphoneos/libECLoggingIOS.a"; sourceTree = "<group>"; };
+		22B2F8CC14F5B6A400500BDF /* test.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = test.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +63,7 @@
 				22970D5814F5AE00007B254B /* libECLoggingIOS.a */,
 				226FB46813E1EB0B00BF258D /* Source */,
 				226FB46013E1EB0B00BF258D /* Resources */,
+				22B2F8CB14F5B6A400500BDF /* Scripts */,
 				226FB43A13E1EA7200BF258D /* Frameworks */,
 				226FB43813E1EA7200BF258D /* Products */,
 			);
@@ -121,6 +123,14 @@
 			);
 			name = Prefix;
 			path = prefix;
+			sourceTree = "<group>";
+		};
+		22B2F8CB14F5B6A400500BDF /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				22B2F8CC14F5B6A400500BDF /* test.sh */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
