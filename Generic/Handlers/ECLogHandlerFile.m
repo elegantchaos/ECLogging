@@ -46,7 +46,7 @@
         NSURL* logsFolder = [libraryFolder URLByAppendingPathComponent:@"Logs"];
         self.logFolder = [logsFolder URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
         [fm removeItemAtURL:self.logFolder error:&error];
-        [fm createDirectoryAtURL:self.logFolder withIntermediateDirectories:YES attributes:nil error:&error];
+        [fm createDirectoryAtPath:[self.logFolder path] withIntermediateDirectories:YES attributes:nil error:&error];
     }
     
     return self;
