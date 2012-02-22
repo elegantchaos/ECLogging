@@ -94,6 +94,26 @@
 		22970D4014F5AA80007B254B /* ECLoggingReleasePrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3D14F5AA80007B254B /* ECLoggingReleasePrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		22970D4114F5AA80007B254B /* ECLoggingReleasePrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3D14F5AA80007B254B /* ECLoggingReleasePrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		22970D4F14F5AD55007B254B /* ECLoggingSharedPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingSharedPrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		22970D5F14F5AF1F007B254B /* ECASLClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A43C14F53BCC009142F7 /* ECASLClient.m */; };
+		22970D6014F5AF1F007B254B /* ECAssertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A43E14F53BCC009142F7 /* ECAssertion.m */; };
+		22970D6114F5AF1F007B254B /* ECErrorReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A44014F53BCC009142F7 /* ECErrorReporter.m */; };
+		22970D6214F5AF1F007B254B /* ECLogChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A44214F53BCC009142F7 /* ECLogChannel.m */; };
+		22970D6314F5AF1F007B254B /* ECLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A44514F53BCC009142F7 /* ECLogging.m */; };
+		22970D6414F5AF1F007B254B /* ECLogHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A44714F53BCC009142F7 /* ECLogHandler.m */; };
+		22970D6514F5AF1F007B254B /* ECLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A44914F53BCC009142F7 /* ECLogManager.m */; };
+		22970D6614F5AF1F007B254B /* NSString+ECLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A4D314F53D31009142F7 /* NSString+ECLogging.m */; };
+		22970D6714F5AF28007B254B /* ECLogHandlerASL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A44C14F53BCC009142F7 /* ECLogHandlerASL.m */; };
+		22970D6814F5AF28007B254B /* ECLogHandlerFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A44E14F53BCC009142F7 /* ECLogHandlerFile.m */; };
+		22970D6914F5AF28007B254B /* ECLogHandlerNSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45014F53BCC009142F7 /* ECLogHandlerNSLog.m */; };
+		22970D6A14F5AF28007B254B /* ECLogHandlerStderr.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45214F53BCC009142F7 /* ECLogHandlerStderr.m */; };
+		22970D6B14F5AF28007B254B /* ECLogHandlerStdout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45414F53BCC009142F7 /* ECLogHandlerStdout.m */; };
+		22970D6C14F5AF37007B254B /* ECDebugChannelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45714F53BCC009142F7 /* ECDebugChannelsViewController.m */; };
+		22970D6D14F5AF37007B254B /* ECDebugChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45914F53BCC009142F7 /* ECDebugChannelViewController.m */; };
+		22970D6E14F5AF37007B254B /* ECDebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45B14F53BCC009142F7 /* ECDebugViewController.m */; };
+		22970D6F14F5AF37007B254B /* ECDebugViewPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45D14F53BCC009142F7 /* ECDebugViewPopoverController.m */; };
+		22970D7014F5AF37007B254B /* ECLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45F14F53BCC009142F7 /* ECLogViewController.m */; };
+		22970D7114F5AF37007B254B /* ECLogViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46114F53BCC009142F7 /* ECLogViewHandler.m */; };
+		22970D7214F5AF37007B254B /* ECLogViewHandlerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46314F53BCC009142F7 /* ECLogViewHandlerItem.m */; };
 		22EC40A81358A17A005C1F1A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EC40A61358A0D1005C1F1A /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
@@ -661,6 +681,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22970D5F14F5AF1F007B254B /* ECASLClient.m in Sources */,
+				22970D6014F5AF1F007B254B /* ECAssertion.m in Sources */,
+				22970D6114F5AF1F007B254B /* ECErrorReporter.m in Sources */,
+				22970D6214F5AF1F007B254B /* ECLogChannel.m in Sources */,
+				22970D6314F5AF1F007B254B /* ECLogging.m in Sources */,
+				22970D6414F5AF1F007B254B /* ECLogHandler.m in Sources */,
+				22970D6514F5AF1F007B254B /* ECLogManager.m in Sources */,
+				22970D6614F5AF1F007B254B /* NSString+ECLogging.m in Sources */,
+				22970D6714F5AF28007B254B /* ECLogHandlerASL.m in Sources */,
+				22970D6814F5AF28007B254B /* ECLogHandlerFile.m in Sources */,
+				22970D6914F5AF28007B254B /* ECLogHandlerNSLog.m in Sources */,
+				22970D6A14F5AF28007B254B /* ECLogHandlerStderr.m in Sources */,
+				22970D6B14F5AF28007B254B /* ECLogHandlerStdout.m in Sources */,
+				22970D6C14F5AF37007B254B /* ECDebugChannelsViewController.m in Sources */,
+				22970D6D14F5AF37007B254B /* ECDebugChannelViewController.m in Sources */,
+				22970D6E14F5AF37007B254B /* ECDebugViewController.m in Sources */,
+				22970D6F14F5AF37007B254B /* ECDebugViewPopoverController.m in Sources */,
+				22970D7014F5AF37007B254B /* ECLogViewController.m in Sources */,
+				22970D7114F5AF37007B254B /* ECLogViewHandler.m in Sources */,
+				22970D7214F5AF37007B254B /* ECLogViewHandlerItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,19 +793,19 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOS/iOS-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = includes/eclogging;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -779,14 +819,14 @@
 				DSTROOT = /tmp/iOS.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOS/iOS-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = includes/eclogging;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
