@@ -33,7 +33,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "225EC67111EBAA4800A97AEA"
                BuildableName = "EC Foundation Unit Tests Mac.octest"
-               BlueprintName = "ECLoggingMac Tests"
+               BlueprintName = "ECLoggingMacTests"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -45,7 +45,6 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
-      ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <AdditionalOptions>

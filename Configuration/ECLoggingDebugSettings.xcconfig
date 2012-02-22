@@ -20,8 +20,8 @@ GCC_DYNAMIC_NO_PIC = NO
 GCC_OPTIMIZATION_LEVEL = 0
 
 // --------------------------------------------------------------------------
-// Deployment
+// Architectures
 // --------------------------------------------------------------------------
 
-COPY_PHASE_STRIP = NO
+ONLY_ACTIVE_ARCH = YES
 

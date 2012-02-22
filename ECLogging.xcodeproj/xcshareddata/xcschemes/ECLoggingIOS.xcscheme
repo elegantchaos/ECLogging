@@ -13,7 +13,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2237ECE114F5644C00085BF5"
+               BlueprintIdentifier = "2202536814F56DE300F141E3"
                BuildableName = "libECLoggingIOS.a"
                BlueprintName = "ECLoggingIOS"
                ReferencedContainer = "container:ECLogging.xcodeproj">
@@ -33,7 +33,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2274B38C14F56896003B8A0B"
                BuildableName = "ECLoggingIOS Tests.octest"
-               BlueprintName = "ECLoggingIOS Tests"
+               BlueprintName = "ECLoggingIOSTests"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -45,7 +45,6 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
-      ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <AdditionalOptions>
