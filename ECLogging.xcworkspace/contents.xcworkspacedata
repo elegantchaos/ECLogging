@@ -4,4 +4,7 @@
    <FileRef
       location = "group:ECLogging.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Extras/Documentation">
+   </FileRef>
 </Workspace>
