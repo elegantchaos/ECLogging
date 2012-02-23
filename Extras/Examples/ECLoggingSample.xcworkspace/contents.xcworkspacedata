@@ -2,7 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:ECLoggingSample.xcodeproj">
+      location = "group:Mac/ECLoggingSampleMac.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iOS/ECLoggingSampleIOS.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../../ECLogging.xcodeproj">

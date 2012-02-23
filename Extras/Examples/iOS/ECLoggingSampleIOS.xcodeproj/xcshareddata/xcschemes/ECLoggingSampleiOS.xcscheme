@@ -15,8 +15,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "226FB43613E1EA7200BF258D"
                BuildableName = "ECLoggingSample.app"
-               BlueprintName = "ECLoggingSample"
-               ReferencedContainer = "container:ECLoggingSample.xcodeproj">
+               BlueprintName = "ECLoggingSampleIOS"
+               ReferencedContainer = "container:ECLoggingSampleIOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,8 +33,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "226FB43613E1EA7200BF258D"
             BuildableName = "ECLoggingSample.app"
-            BlueprintName = "ECLoggingSample"
-            ReferencedContainer = "container:ECLoggingSample.xcodeproj">
+            BlueprintName = "ECLoggingSampleIOS"
+            ReferencedContainer = "container:ECLoggingSampleIOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -44,6 +44,7 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
@@ -51,8 +52,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "226FB43613E1EA7200BF258D"
             BuildableName = "ECLoggingSample.app"
-            BlueprintName = "ECLoggingSample"
-            ReferencedContainer = "container:ECLoggingSample.xcodeproj">
+            BlueprintName = "ECLoggingSampleIOS"
+            ReferencedContainer = "container:ECLoggingSampleIOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -69,8 +70,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "226FB43613E1EA7200BF258D"
             BuildableName = "ECLoggingSample.app"
-            BlueprintName = "ECLoggingSample"
-            ReferencedContainer = "container:ECLoggingSample.xcodeproj">
+            BlueprintName = "ECLoggingSampleIOS"
+            ReferencedContainer = "container:ECLoggingSampleIOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

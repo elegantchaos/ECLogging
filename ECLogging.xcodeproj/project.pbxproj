@@ -13,8 +13,8 @@
 			buildPhases = (
 			);
 			dependencies = (
+				22BBB12314F64A3E0086974D /* PBXTargetDependency */,
 				2237ED0A14F5655200085BF5 /* PBXTargetDependency */,
-				22552BBF134B9DC400B8894E /* PBXTargetDependency */,
 			);
 			name = "ECLogging Everything";
 			productName = All;
@@ -132,19 +132,19 @@
 			remoteGlobalIDString = 2283A3E714F52EC0009142F7;
 			remoteInfo = libECLoggingMac;
 		};
-		22552BBE134B9DC400B8894E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 225EC67111EBAA4800A97AEA;
-			remoteInfo = "ECFoundation SenTest Mac";
-		};
 		2274B3A414F5696D003B8A0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2283A3E714F52EC0009142F7;
 			remoteInfo = ECLoggingMac;
+		};
+		22BBB12214F64A3E0086974D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2202536814F56DE300F141E3;
+			remoteInfo = ECLoggingIOS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -298,10 +298,7 @@
 		0867D691FE84028FC02AAC07 /* ECFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				2283A43A14F53BCC009142F7 /* Generic */,
-				2283A45514F53BCC009142F7 /* iOS */,
-				2283A46414F53BCC009142F7 /* Mac */,
-				2283A4C814F53C6F009142F7 /* Prefix */,
+				22BBB10114F646D20086974D /* Source */,
 				2274B37714F56679003B8A0B /* Resources */,
 				22970D8914F5B362007B254B /* Tests */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
@@ -513,6 +510,17 @@
 				22970D9514F5B362007B254B /* test-common.sh */,
 			);
 			path = Scripts;
+			sourceTree = "<group>";
+		};
+		22BBB10114F646D20086974D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				2283A43A14F53BCC009142F7 /* Generic */,
+				2283A45514F53BCC009142F7 /* iOS */,
+				2283A46414F53BCC009142F7 /* Mac */,
+				2283A4C814F53C6F009142F7 /* Prefix */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -810,15 +818,15 @@
 			target = 2283A3E714F52EC0009142F7 /* ECLoggingMac */;
 			targetProxy = 2237ED0914F5655200085BF5 /* PBXContainerItemProxy */;
 		};
-		22552BBF134B9DC400B8894E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 225EC67111EBAA4800A97AEA /* ECLoggingMacTests */;
-			targetProxy = 22552BBE134B9DC400B8894E /* PBXContainerItemProxy */;
-		};
 		2274B3A514F5696D003B8A0B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2283A3E714F52EC0009142F7 /* ECLoggingMac */;
 			targetProxy = 2274B3A414F5696D003B8A0B /* PBXContainerItemProxy */;
+		};
+		22BBB12314F64A3E0086974D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2202536814F56DE300F141E3 /* ECLoggingIOS */;
+			targetProxy = 22BBB12214F64A3E0086974D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -827,7 +835,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "Prefix/ECLogging$(CONFIGURATION)Prefix.pch";
+				GCC_PREFIX_HEADER = "Source/Prefix/ECLogging$(CONFIGURATION)Prefix.pch";
 			};
 			name = Debug;
 		};
@@ -835,7 +843,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "Prefix/ECLogging$(CONFIGURATION)Prefix.pch";
+				GCC_PREFIX_HEADER = "Source/Prefix/ECLogging$(CONFIGURATION)Prefix.pch";
 			};
 			name = Release;
 		};
