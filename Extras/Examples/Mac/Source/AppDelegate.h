@@ -12,4 +12,8 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
+- (IBAction)clickedLogToTestChannel:(id)sender;
+- (IBAction)clickedLogToOtherChannel:(id)sender;
+- (IBAction)clickedRevealLogFiles:(id)sender;
+
 @end

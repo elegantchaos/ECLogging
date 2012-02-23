@@ -22,7 +22,7 @@
 
 /* Begin PBXFileReference section */
 		2242612E149F5D8000DB6C53 /* ECLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ECLogging.plist; path = Resources/ECLogging.plist; sourceTree = SOURCE_ROOT; };
-		226FB43713E1EA7200BF258D /* ECLoggingSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECLoggingSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		226FB43713E1EA7200BF258D /* ECLoggingSampleIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECLoggingSampleIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		226FB43B13E1EA7200BF258D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		226FB43D13E1EA7200BF258D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		226FB43F13E1EA7200BF258D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -72,7 +72,7 @@
 		226FB43813E1EA7200BF258D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				226FB43713E1EA7200BF258D /* ECLoggingSample.app */,
+				226FB43713E1EA7200BF258D /* ECLoggingSampleIOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,7 +150,7 @@
 			);
 			name = ECLoggingSampleIOS;
 			productName = ECLoggingSample;
-			productReference = 226FB43713E1EA7200BF258D /* ECLoggingSample.app */;
+			productReference = 226FB43713E1EA7200BF258D /* ECLoggingSampleIOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

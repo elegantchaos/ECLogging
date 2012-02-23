@@ -22,6 +22,8 @@
 ECDefineDebugChannel(ApplicationChannel);
 ECDefineDebugChannel(ApplicationUpdateChannel);
 ECDefineDebugChannel(ObjectChannel);
+ECDefineDebugChannel(TestChannel);
+ECDefineDebugChannel(OtherChannel);
 
 #pragma mark - Properties
 
@@ -126,6 +128,31 @@ ECDefineDebugChannel(ObjectChannel);
 {
     ECDebug(ApplicationChannel, @"did change screen parameters");
 }
+
+#pragma mark - Actions
+
+- (IBAction)clickedLogToTestChannel:(id)sender
+{
+    ECLog(TestChannel, @"This message is being logged to the test channel");
+}
+
+- (IBAction)clickedLogToOtherChannel:(id)sender
+{
+    ECLog(OtherChannel, @"This message is being logged to the other channel");
+}
+
+
+- (IBAction)clickedRevealLogFiles:(id)sender
+{
+    NSError* error = nil;
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSURL* libraryFolder = [fm URLForDirectory:NSLibraryDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
+    NSURL* logsFolder = [libraryFolder URLByAppendingPathComponent:@"Logs"];
+    NSURL* logFolder = [logsFolder URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
+
+    [[NSWorkspace sharedWorkspace] selectFile:[logFolder path] inFileViewerRootedAtPath:nil];
+}
+
 
 
 

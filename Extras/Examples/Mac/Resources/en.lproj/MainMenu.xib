@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11C73</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1138.23</string>
-		<string key="IBDocument.HIToolboxVersion">567.00</string>
+		<string key="IBDocument.SystemVersion">11D50b</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2427</string>
+		<string key="IBDocument.AppKitVersion">1138.32</string>
+		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1938</string>
+			<string key="NS.object.0">2427</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSTextField</string>
@@ -17,6 +17,8 @@
 			<string>NSMenu</string>
 			<string>NSMenuItem</string>
 			<string>NSTextFieldCell</string>
+			<string>NSButtonCell</string>
+			<string>NSButton</string>
 			<string>NSCustomObject</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -1325,7 +1327,6 @@
 							<string key="NSFrame">{{17, 136}, {385, 204}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:360</string>
 							<string key="NSAntiCompressionPriority">{250, 750}</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1364,6 +1365,79 @@ b3duIHRoZSBFQ0xvZ2dpbmcgc3lzdGVtLg</string>
 										<bytes key="NSWhite">MAA</bytes>
 									</object>
 								</object>
+							</object>
+						</object>
+						<object class="NSButton" id="363943114">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{14, 85}, {165, 32}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="55957915">
+								<int key="NSCellFlags">67108864</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Log to Test channel</string>
+								<object class="NSFont" key="NSSupport" id="59813724">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">1044</int>
+								</object>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="363943114"/>
+								<int key="NSButtonFlags">-2038284288</int>
+								<int key="NSButtonFlags2">129</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
+							</object>
+						</object>
+						<object class="NSButton" id="213626664">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{14, 53}, {173, 32}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="206765793">
+								<int key="NSCellFlags">67108864</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Log to Other channel</string>
+								<reference key="NSSupport" ref="59813724"/>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="213626664"/>
+								<int key="NSButtonFlags">-2038284288</int>
+								<int key="NSButtonFlags2">129</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
+							</object>
+						</object>
+						<object class="NSButton" id="657045998">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{331, 53}, {135, 32}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="880830402">
+								<int key="NSCellFlags">67108864</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Reveal log files</string>
+								<reference key="NSSupport" ref="59813724"/>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="657045998"/>
+								<int key="NSButtonFlags">-2038284288</int>
+								<int key="NSButtonFlags2">129</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
 							</object>
 						</object>
 					</array>
@@ -2065,6 +2139,30 @@ b3duIHRoZSBFQ0xvZ2dpbmcgc3lzdGVtLg</string>
 					</object>
 					<int key="connectionID">532</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">clickedRevealLogFiles:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="657045998"/>
+					</object>
+					<int key="connectionID">555</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">clickedLogToTestChannel:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="363943114"/>
+					</object>
+					<int key="connectionID">556</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">clickedLogToOtherChannel:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="213626664"/>
+					</object>
+					<int key="connectionID">557</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -2592,6 +2690,9 @@ b3duIHRoZSBFQ0xvZ2dpbmcgc3lzdGVtLg</string>
 						<reference key="object" ref="439893737"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="742399223"/>
+							<reference ref="363943114"/>
+							<reference ref="213626664"/>
+							<reference ref="657045998"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3095,6 +3196,45 @@ b3duIHRoZSBFQ0xvZ2dpbmcgc3lzdGVtLg</string>
 						<reference key="object" ref="1008219895"/>
 						<reference key="parent" ref="742399223"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">549</int>
+						<reference key="object" ref="363943114"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="55957915"/>
+						</array>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">550</int>
+						<reference key="object" ref="55957915"/>
+						<reference key="parent" ref="363943114"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">551</int>
+						<reference key="object" ref="657045998"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="880830402"/>
+						</array>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">552</int>
+						<reference key="object" ref="880830402"/>
+						<reference key="parent" ref="657045998"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">553</int>
+						<reference key="object" ref="213626664"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="206765793"/>
+						</array>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">554</int>
+						<reference key="object" ref="206765793"/>
+						<reference key="parent" ref="213626664"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3243,6 +3383,12 @@ b3duIHRoZSBFQ0xvZ2dpbmcgc3lzdGVtLg</string>
 				<string key="537.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="547.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="548.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="549.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="550.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="551.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="552.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="553.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="554.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3262,13 +3408,32 @@ b3duIHRoZSBFQ0xvZ2dpbmcgc3lzdGVtLg</string>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">548</int>
+			<int key="maxID">557</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="clickedLogToOtherChannel:">id</string>
+						<string key="clickedLogToTestChannel:">id</string>
+						<string key="clickedRevealLogFiles:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="clickedLogToOtherChannel:">
+							<string key="name">clickedLogToOtherChannel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickedLogToTestChannel:">
+							<string key="name">clickedLogToTestChannel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickedRevealLogFiles:">
+							<string key="name">clickedRevealLogFiles:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">window</string>
 						<string key="NS.object.0">NSWindow</string>
@@ -3288,25 +3453,17 @@ b3duIHRoZSBFQ0xvZ2dpbmcgc3lzdGVtLg</string>
 				<object class="IBPartialClassDescription">
 					<string key="className">ECLoggingMenu</string>
 					<string key="superclassName">NSMenu</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="channelSelected:">id</string>
-						<string key="disableAllSelected:">id</string>
-						<string key="enableAllSelected:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="channelSelected:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">channelSelected:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">channelSelected:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">channelSelected:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="disableAllSelected:">
-							<string key="name">disableAllSelected:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="enableAllSelected:">
-							<string key="name">enableAllSelected:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/ECLoggingMenu.h</string>
@@ -3319,8 +3476,8 @@ b3duIHRoZSBFQ0xvZ2dpbmcgc3lzdGVtLg</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NSMenuCheckmark">{9, 8}</string>
-			<string key="NSMenuMixedState">{7, 2}</string>
+			<string key="NSMenuCheckmark">{11, 11}</string>
+			<string key="NSMenuMixedState">{10, 3}</string>
 		</dictionary>
 	</data>
 </archive>
