@@ -20,7 +20,39 @@
 		22970D5914F5AE00007B254B /* libECLoggingIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22970D5814F5AE00007B254B /* libECLoggingIOS.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2203523F14F79E3000034E4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2203523714F79E3000034E4A /* ECLogging.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2283A3E814F52EC0009142F7;
+			remoteInfo = ECLoggingMac;
+		};
+		2203524114F79E3000034E4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2203523714F79E3000034E4A /* ECLogging.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 225EC67211EBAA4800A97AEA;
+			remoteInfo = ECLoggingMacTests;
+		};
+		2203524314F79E3000034E4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2203523714F79E3000034E4A /* ECLogging.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2202536914F56DE300F141E3;
+			remoteInfo = ECLoggingIOS;
+		};
+		2203524514F79E3000034E4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2203523714F79E3000034E4A /* ECLogging.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2274B38D14F56896003B8A0B;
+			remoteInfo = ECLoggingIOSTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		2203523714F79E3000034E4A /* ECLogging.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECLogging.xcodeproj; path = ../../../ECLogging.xcodeproj; sourceTree = "<group>"; };
 		2242612E149F5D8000DB6C53 /* ECLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ECLogging.plist; path = Resources/ECLogging.plist; sourceTree = SOURCE_ROOT; };
 		226FB43713E1EA7200BF258D /* ECLoggingSampleIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECLoggingSampleIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		226FB43B13E1EA7200BF258D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -57,9 +89,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2203523814F79E3000034E4A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2203524014F79E3000034E4A /* libECLoggingMac.a */,
+				2203524214F79E3000034E4A /* EC Foundation Unit Tests Mac.octest */,
+				2203524414F79E3000034E4A /* libECLoggingIOS.a */,
+				2203524614F79E3000034E4A /* ECLoggingIOSTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		226FB42C13E1EA7200BF258D = {
 			isa = PBXGroup;
 			children = (
+				2203523714F79E3000034E4A /* ECLogging.xcodeproj */,
 				22970D5814F5AE00007B254B /* libECLoggingIOS.a */,
 				226FB46813E1EB0B00BF258D /* Source */,
 				226FB46013E1EB0B00BF258D /* Resources */,
@@ -171,12 +215,49 @@
 			mainGroup = 226FB42C13E1EA7200BF258D;
 			productRefGroup = 226FB43813E1EA7200BF258D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2203523814F79E3000034E4A /* Products */;
+					ProjectRef = 2203523714F79E3000034E4A /* ECLogging.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				226FB43613E1EA7200BF258D /* ECLoggingSampleIOS */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2203524014F79E3000034E4A /* libECLoggingMac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libECLoggingMac.a;
+			remoteRef = 2203523F14F79E3000034E4A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2203524214F79E3000034E4A /* EC Foundation Unit Tests Mac.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "EC Foundation Unit Tests Mac.octest";
+			remoteRef = 2203524114F79E3000034E4A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2203524414F79E3000034E4A /* libECLoggingIOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libECLoggingIOS.a;
+			remoteRef = 2203524314F79E3000034E4A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2203524614F79E3000034E4A /* ECLoggingIOSTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ECLoggingIOSTests.octest;
+			remoteRef = 2203524514F79E3000034E4A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		226FB43513E1EA7200BF258D /* Resources */ = {

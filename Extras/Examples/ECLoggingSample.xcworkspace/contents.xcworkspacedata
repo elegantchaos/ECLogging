@@ -7,7 +7,4 @@
    <FileRef
       location = "group:iOS/ECLoggingSampleIOS.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:../../ECLogging.xcodeproj">
-   </FileRef>
 </Workspace>
