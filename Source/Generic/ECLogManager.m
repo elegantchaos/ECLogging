@@ -343,15 +343,16 @@ static ECLogManager* gSharedInstance = nil;
 {
     LogManagerLog(@"log manager saving settings");
     
+	NSURL* defaultSettingsFile = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"plist"];
+	NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
+	NSDictionary* defaultChannelSettings = [defaultSettings objectForKey:ChannelsSetting];
 	NSMutableDictionary* allChannelSettings = [[NSMutableDictionary alloc] init];
 
 	for (ECLogChannel* channel in [self.channels allValues])
 	{
-        NSMutableDictionary* channelSettings = [[NSMutableDictionary alloc] initWithObjectsAndKeys: 
-                                                [NSNumber numberWithBool: channel.enabled], EnabledSetting,
-                                                [NSNumber numberWithInteger: channel.context], ContextSetting,
-                                                nil];
-        
+        NSMutableDictionary* channelSettings = [NSMutableDictionary dictionaryWithDictionary:[defaultChannelSettings objectForKey:channel.name]];
+		[channelSettings setObject:[NSNumber numberWithBool: channel.enabled] forKey:EnabledSetting];
+		[channelSettings setObject:[NSNumber numberWithInteger: channel.context] forKey:ContextSetting];
         NSSet* channelHandlers = channel.handlers;
         if (channelHandlers)
         {

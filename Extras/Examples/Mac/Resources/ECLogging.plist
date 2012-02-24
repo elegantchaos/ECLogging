@@ -16,8 +16,20 @@
 			<key>Enabled</key>
 			<true/>
 		</dict>
+		<key>Test</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+		</dict>
+		<key>Other</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+		</dict>
 	</dict>
 	<key>Handlers</key>
 	<dict/>
+	<key>Test</key>
+	<string>blah</string>
 </dict>
 </plist>
