@@ -367,7 +367,6 @@ static ECLogManager* gSharedInstance = nil;
         LogManagerLog(@"settings for channel %@:%@", channel.name, channelSettings);
 
 		[allChannelSettings setObject: channelSettings forKey: channel.name];
-		[channelSettings release];
 	}
 	
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];

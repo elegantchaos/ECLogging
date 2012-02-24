@@ -50,8 +50,8 @@ ECDefineDebugChannel(ApplicationChannel);
     [lm registerHandler:[[[ECLogHandlerStdout alloc] init] autorelease]];
     [lm registerHandler:[[[ECLogHandlerStderr alloc] init] autorelease]];
     [lm registerHandler:[[[ECLogHandlerASL alloc] init] autorelease]];
-
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
     // Override point for customization after application launch.
     ECLoggingSampleViewController* view;
@@ -65,16 +65,16 @@ ECDefineDebugChannel(ApplicationChannel);
     }
     
     self.viewController = view;
+    [view release];
     
     UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:view];
     navigation.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController = navigation;
-
+    [navigation release];
+    
     self.window.rootViewController = navigation;
     [self.window makeKeyAndVisible];
 
-    [view release];
-    [navigationController release];
 
     return YES;
 }
