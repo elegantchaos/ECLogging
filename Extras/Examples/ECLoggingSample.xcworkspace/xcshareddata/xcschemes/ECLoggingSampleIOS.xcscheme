@@ -13,6 +13,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2202536814F56DE300F141E3"
+               BuildableName = "libECLoggingIOS.a"
+               BlueprintName = "ECLoggingIOS"
+               ReferencedContainer = "container:../../ECLogging.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "226FB43613E1EA7200BF258D"
                BuildableName = "ECLoggingSampleIOS.app"
                BlueprintName = "ECLoggingSampleIOS"
