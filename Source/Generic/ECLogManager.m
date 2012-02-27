@@ -16,7 +16,7 @@
 @interface ECLogManager()
 
 // Turn this setting on to output debug message on the log manager itself, using NSLog
-#define LOG_MANAGER_DEBUGGING 1
+#define LOG_MANAGER_DEBUGGING 0
 
 #if LOG_MANAGER_DEBUGGING
 #define LogManagerLog(format, ...) NSLog(@"ECLogManager: %@", [NSString stringWithFormat:format, ## __VA_ARGS__])
