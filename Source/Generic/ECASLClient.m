@@ -9,7 +9,6 @@
 
 #import "ECASLClient.h"
 
-#import <asl.h>
 
 static ECASLClient* gSharedInstance = nil;
 
