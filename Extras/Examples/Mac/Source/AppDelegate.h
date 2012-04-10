@@ -14,6 +14,8 @@
 
 - (IBAction)clickedLogToTestChannel:(id)sender;
 - (IBAction)clickedLogToOtherChannel:(id)sender;
+- (IBAction)clickedTestError:(id)sender;
+- (IBAction)clickedTestAssertion:(id)sender;
 - (IBAction)clickedRevealLogFiles:(id)sender;
 
 @end

@@ -14,6 +14,8 @@
 #import "ECLogHandlerStdout.h"
 #import "ECLogHandlerStderr.h"
 #import "ECLogHandlerASL.h"
+#import "ECErrorReporter.h"
+#import "ECErrorPresenterHandler.h"
 
 @implementation AppDelegate
 
@@ -41,16 +43,8 @@ ECDefineDebugChannel(OtherChannel);
 - (void)applicationWillFinishLaunching:(NSNotification *)notification
 {
     // initialise log manager
-    ECLogManager* lm = [ECLogManager sharedInstance];
-    [lm startup];
-    
-    // install some handlers
-    [lm registerHandler:[[[ECLogHandlerNSLog alloc] init] autorelease]];
-    [lm registerHandler:[[[ECLogHandlerFile alloc] init] autorelease]];
-    [lm registerHandler:[[[ECLogHandlerStdout alloc] init] autorelease]];
-    [lm registerHandler:[[[ECLogHandlerStderr alloc] init] autorelease]];
-    [lm registerHandler:[[[ECLogHandlerASL alloc] init] autorelease]];
-    
+    [ECLogManager startupWithHandlerNames:@"ECLogHandlerNSLog", @"ECLogHandlerFile", @"ECLogHandlerStdout", @"ECLogHandlerStderr", @"ECLogHandlerASL", @"ECErrorPresenterHandler", nil];
+
     ECDebug(ApplicationChannel, @"will finish launching");
 
     // example of logging a non-string object
@@ -141,6 +135,16 @@ ECDefineDebugChannel(OtherChannel);
     ECLog(OtherChannel, @"This message is being logged to the other channel");
 }
 
+- (IBAction)clickedTestError:(id)sender
+{
+    NSError* error = [NSError errorWithDomain:@"Test Error" code:123 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Test Error Description", NSLocalizedDescriptionKey, nil]];
+    [ECErrorReporter reportError:error message:@"Test Message"];
+}
+
+- (IBAction)clickedTestAssertion:(id)sender
+{
+    
+}
 
 - (IBAction)clickedRevealLogFiles:(id)sender
 {
