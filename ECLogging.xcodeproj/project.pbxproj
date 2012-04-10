@@ -117,9 +117,12 @@
 		22EC40A81358A17A005C1F1A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EC40A61358A0D1005C1F1A /* SystemConfiguration.framework */; };
 		22F2CA621534864400F0A01D /* ECErrorPresenterHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2CA631534864400F0A01D /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */; };
-		22F2CA6815348A5300F0A01D /* ECErrorAndMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */; };
+		22F2CA6815348A5300F0A01D /* ECErrorAndMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2CA6915348A5300F0A01D /* ECErrorAndMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA6715348A5300F0A01D /* ECErrorAndMessage.m */; };
 		22F2CA6A15348A5300F0A01D /* ECErrorAndMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA6715348A5300F0A01D /* ECErrorAndMessage.m */; };
+		22F2CA6B1534A34F00F0A01D /* ECErrorAndMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA6715348A5300F0A01D /* ECErrorAndMessage.m */; };
+		22F2CA6C1534A35000F0A01D /* ECErrorAndMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA6715348A5300F0A01D /* ECErrorAndMessage.m */; };
+		22F2CA6D1534A35B00F0A01D /* ECErrorAndMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -568,6 +571,7 @@
 				22970D3F14F5AA80007B254B /* ECLoggingDebugPrefix.pch in Headers */,
 				22970D4114F5AA80007B254B /* ECLoggingReleasePrefix.pch in Headers */,
 				22970D4F14F5AD55007B254B /* ECLoggingSharedPrefix.pch in Headers */,
+				22F2CA6D1534A35B00F0A01D /* ECErrorAndMessage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,6 +785,7 @@
 				22970D7014F5AF37007B254B /* ECLogViewController.m in Sources */,
 				22970D7114F5AF37007B254B /* ECLogViewHandler.m in Sources */,
 				22970D7214F5AF37007B254B /* ECLogViewHandlerItem.m in Sources */,
+				22F2CA6B1534A34F00F0A01D /* ECErrorAndMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,6 +802,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F2CA6C1534A35000F0A01D /* ECErrorAndMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
