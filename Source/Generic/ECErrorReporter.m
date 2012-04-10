@@ -90,7 +90,7 @@ ECDefineLogChannel(ErrorChannel);
 	{
         va_list args;
         va_start(args, message);
-        [self reportError:error format:message arguments:args assertInDebug:YES];
+        [self reportError:error format:message arguments:args assertInDebug:NO];
         va_end(args);
     }
 }
@@ -107,7 +107,7 @@ ECDefineLogChannel(ErrorChannel);
 	{
         va_list args;
         va_start(args, message);
-        [self reportError:nil format:message arguments:args assertInDebug:YES];
+        [self reportError:nil format:message arguments:args assertInDebug:NO];
         va_end(args);
     }
 }
@@ -124,7 +124,7 @@ ECDefineLogChannel(ErrorChannel);
 	{
         va_list args;
         va_start(args, message);
-        [self reportError:nil format:message arguments:args assertInDebug:YES];
+        [self reportError:nil format:message arguments:args assertInDebug:NO];
         va_end(args);
     }
 }
@@ -141,7 +141,7 @@ ECDefineLogChannel(ErrorChannel);
 	{
         va_list args;
         va_start(args, message);
-        [self reportError:error format:message arguments:args assertInDebug:YES];
+        [self reportError:error format:message arguments:args assertInDebug:NO];
         va_end(args);
     }
 }

@@ -91,4 +91,28 @@
     return result;
 }
 
+#pragma mark - Default Enabled/Disabled Notifications
+
+// --------------------------------------------------------------------------
+//! Indicate that the handler was enabled for a given channel.
+//! By default we just log the fact to the channel.
+// --------------------------------------------------------------------------
+
+- (void)wasEnabledForChannel:(ECLogChannel *)channel
+{
+	ECMakeContext();
+    logToChannel(channel, &ecLogContext, @"Enabled handler %@", self.name);
+}
+
+// --------------------------------------------------------------------------
+//! Indicate that the handler was disabled for a given channel.
+//! By default we just log the fact to the channel.
+// --------------------------------------------------------------------------
+
+- (void)wasDisabledForChannel:(ECLogChannel *)channel
+{
+	ECMakeContext();
+    logToChannel(channel, &ecLogContext, @"Disabled handler %@", self.name);
+}
+
 @end

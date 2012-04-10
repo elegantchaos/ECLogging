@@ -52,4 +52,26 @@ const NSInteger ECLoggingUnknownError = -1;
 	[[NSApplication sharedApplication] presentError:error];
 }
 
+// --------------------------------------------------------------------------
+//! Called to indicate that the handler was enabled for a given channel.
+//! We don't want to do the default thing here - which would have been
+//! to log the information to the channel, since that would cause us
+//! to display an error alert which we only want to do for actual errors.
+// --------------------------------------------------------------------------
+
+- (void)wasEnabledForChannel:(ECLogChannel *)channel
+{
+}
+
+// --------------------------------------------------------------------------
+//! Called to indicate that the handler was disabled for a given channel.
+//! We don't want to do the default thing here - which would have been
+//! to log the information to the channel, since that would cause us
+//! to display an error alert which we only want to do for actual errors.
+// --------------------------------------------------------------------------
+
+- (void)wasDisabledForChannel:(ECLogChannel *)channel
+{
+}
+
 @end

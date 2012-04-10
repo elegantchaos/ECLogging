@@ -111,8 +111,7 @@ static NSString *const kSuffixToStrip = @"Channel";
         [self.handlers addObject:handler];
     }
     
-    ECMakeContext();
-    logToChannel(self, &ecLogContext, @"Enabled handler %@", handler.name);
+	[handler wasEnabledForChannel:self];
 }
 
 // --------------------------------------------------------------------------
@@ -121,8 +120,8 @@ static NSString *const kSuffixToStrip = @"Channel";
 
 - (void) disableHandler: (ECLogHandler*) handler
 {
-    ECMakeContext();
-    logToChannel(self, &ecLogContext, @"Disabled handler %@", handler.name);
+	[handler wasDisabledForChannel:self];
+	
     if (!self.handlers)
     {
         ECLogManager* lm = [ECLogManager sharedInstance];
