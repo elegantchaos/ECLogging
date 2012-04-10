@@ -283,6 +283,29 @@ static ECLogManager* gSharedInstance = nil;
 }
 
 // --------------------------------------------------------------------------
+//! Convenience method which registers a bunch of handlers
+//! with the default log manager then starts it up.
+// --------------------------------------------------------------------------
+
++ (void)startupWithHandlerNames:(NSString*)firstHandler, ... NS_REQUIRES_NIL_TERMINATION
+{
+	ECLogManager* lm = [self sharedInstance];
+
+	va_list args;
+	va_start(args, firstHandler);
+	NSString* handlerName;
+	while ((handlerName = va_arg(args, NSString*)) != nil)
+	{
+		Class handlerClass = NSClassFromString(handlerName);
+		ECLogHandler* handler = [[handlerClass alloc] init];
+		[lm registerHandler:handler];
+		[handler release];
+	}
+	
+	[lm startup];
+}
+
+// --------------------------------------------------------------------------
 //! Start the log manager.
 //! This should be called after handlers have been registered.
 // --------------------------------------------------------------------------
