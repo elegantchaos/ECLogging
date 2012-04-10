@@ -10,6 +10,7 @@
 #import "ECErrorReporter.h"
 #import "ECLogging.h"
 #import "ECAssertion.h"
+#import "ECErrorAndMessage.h"
 
 @interface ECErrorReporter()
 
@@ -42,30 +43,24 @@ ECDefineLogChannel(ErrorChannel);
 
 // --------------------------------------------------------------------------
 //! Internal helper which builds the message and reports the error.
+//! We bundle up the message and the error in a specia object, and
+//! log that. By default it knows how to describe itself as text,
+//! but log handlers that are looking for it can extract the error
+//! separately and do something with it (eg present it to the user)
 // --------------------------------------------------------------------------
 
 + (void)reportError:(NSError*) error format:(NSString*)format arguments:(va_list)arguments assertInDebug:(BOOL)assertInDebug
 {
-    // compose the message
-    NSString* message = [[NSString alloc] initWithFormat:format arguments:arguments];
-    if (error)
-    {
-        ECLog(ErrorChannel, @"%@ %@", message, error);
-        #if 0 // TODO -- this creates a dependancy on AppKit - should refactor this out into the Mac UI classes EC_DEBUG && TARGET_OS_MAC
-			[[NSApplication sharedApplication] presentError:error];
-		#endif
-    }
-    else
-    {
-        ECLog(ErrorChannel, message);
-    }
+	ECErrorAndMessage* ewm = [[ECErrorAndMessage alloc] init];
+	ewm.message = [[NSString alloc] initWithFormat:format arguments:arguments];
+	ewm.error = error;
+	ECLog(ErrorChannel, ewm);
+	[ewm release];
     
     if (assertInDebug)
     {
         ECAssertShouldntBeHere();
     }
-    
-    [message release];
 }
 
 // --------------------------------------------------------------------------

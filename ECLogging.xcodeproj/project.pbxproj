@@ -115,6 +115,11 @@
 		22970D7114F5AF37007B254B /* ECLogViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46114F53BCC009142F7 /* ECLogViewHandler.m */; };
 		22970D7214F5AF37007B254B /* ECLogViewHandlerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46314F53BCC009142F7 /* ECLogViewHandlerItem.m */; };
 		22EC40A81358A17A005C1F1A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EC40A61358A0D1005C1F1A /* SystemConfiguration.framework */; };
+		22F2CA621534864400F0A01D /* ECErrorPresenterHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22F2CA631534864400F0A01D /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */; };
+		22F2CA6815348A5300F0A01D /* ECErrorAndMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */; };
+		22F2CA6915348A5300F0A01D /* ECErrorAndMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA6715348A5300F0A01D /* ECErrorAndMessage.m */; };
+		22F2CA6A15348A5300F0A01D /* ECErrorAndMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA6715348A5300F0A01D /* ECErrorAndMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,6 +240,10 @@
 		22BE51331496BD00007CC214 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		22BE51351496BD25007CC214 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		22EC40A61358A0D1005C1F1A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = SDKs/MacOSX10.6.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
+		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
+		22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorAndMessage.h; sourceTree = "<group>"; };
+		22F2CA6715348A5300F0A01D /* ECErrorAndMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorAndMessage.m; sourceTree = "<group>"; };
 		22FAC46C132149E900103630 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = SDKs/MacOSX10.6.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -389,6 +398,8 @@
 				2283A43C14F53BCC009142F7 /* ECASLClient.m */,
 				2283A43D14F53BCC009142F7 /* ECAssertion.h */,
 				2283A43E14F53BCC009142F7 /* ECAssertion.m */,
+				22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */,
+				22F2CA6715348A5300F0A01D /* ECErrorAndMessage.m */,
 				2283A43F14F53BCC009142F7 /* ECErrorReporter.h */,
 				2283A44014F53BCC009142F7 /* ECErrorReporter.m */,
 				2283A44114F53BCC009142F7 /* ECLogChannel.h */,
@@ -448,6 +459,8 @@
 		2283A46414F53BCC009142F7 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
+				22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */,
+				22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */,
 				2283A46514F53BCC009142F7 /* ECLoggingMenu.h */,
 				2283A46614F53BCC009142F7 /* ECLoggingMenu.m */,
 				2237ECD914F563D200085BF5 /* NSMenu+ECLogging.h */,
@@ -581,6 +594,8 @@
 				2237ECDB14F563D200085BF5 /* NSMenu+ECLogging.h in Headers */,
 				22970D3E14F5AA80007B254B /* ECLoggingDebugPrefix.pch in Headers */,
 				22970D4014F5AA80007B254B /* ECLoggingReleasePrefix.pch in Headers */,
+				22F2CA621534864400F0A01D /* ECErrorPresenterHandler.h in Headers */,
+				22F2CA6815348A5300F0A01D /* ECErrorAndMessage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -774,6 +789,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2237ECDC14F563D200085BF5 /* NSMenu+ECLogging.m in Sources */,
+				22F2CA6A15348A5300F0A01D /* ECErrorAndMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +819,8 @@
 				2231F9CE14F541130064EB98 /* ECLogHandlerStdout.m in Sources */,
 				2231F9D114F541220064EB98 /* ECLoggingMenu.m in Sources */,
 				2237ECDD14F563D200085BF5 /* NSMenu+ECLogging.m in Sources */,
+				22F2CA631534864400F0A01D /* ECErrorPresenterHandler.m in Sources */,
+				22F2CA6915348A5300F0A01D /* ECErrorAndMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
