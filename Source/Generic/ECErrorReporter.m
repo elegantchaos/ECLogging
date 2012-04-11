@@ -52,7 +52,7 @@ ECDefineLogChannel(ErrorChannel);
 + (void)reportError:(NSError*) error format:(NSString*)format arguments:(va_list)arguments assertInDebug:(BOOL)assertInDebug
 {
 	ECErrorAndMessage* ewm = [[ECErrorAndMessage alloc] init];
-	ewm.message = [[NSString alloc] initWithFormat:format arguments:arguments];
+	ewm.message = [[[NSString alloc] initWithFormat:format arguments:arguments] autorelease];
 	ewm.error = error;
 	ECLog(ErrorChannel, ewm);
 	[ewm release];
