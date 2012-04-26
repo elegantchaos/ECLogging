@@ -16,7 +16,7 @@ ECDefineDebugChannel(AssertionChannel);
 
 + (void)failAssertion:(const char*)expression
 {
-    [NSException raise:@"ECAssertion failed" format:@"Expression:%s", expression, nil];
+    [NSException raise:@"ECAssertion failed" format:@"Expression:%s", expression];
 }
 
 @end
