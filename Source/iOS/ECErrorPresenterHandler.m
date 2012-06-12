@@ -49,8 +49,11 @@ const NSInteger ECLoggingUnknownError = -1;
 		error = [NSError errorWithDomain:ECLoggingErrorDomain code:ECLoggingUnknownError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:string, NSLocalizedDescriptionKey, nil]];
 	}
 
-	//	[[UIApplication sharedApplication] presentError:error];
-	// TODO: actually present the error
+	NSString* title = @"Error";
+	NSString* message = [error localizedDescription];
+	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
 }
 
 // --------------------------------------------------------------------------
