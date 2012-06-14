@@ -287,7 +287,7 @@ static ECLogManager* gSharedInstance = nil;
 //! with the default log manager then starts it up.
 // --------------------------------------------------------------------------
 
-+ (void)startupWithHandlerNames:(NSString*)firstHandler, ... NS_REQUIRES_NIL_TERMINATION
++ (void)startupWithHandlerNames:(NSString*)firstHandler, ...
 {
 	ECLogManager* lm = [self sharedInstance];
 
