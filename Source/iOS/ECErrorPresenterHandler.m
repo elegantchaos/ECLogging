@@ -32,25 +32,22 @@ const NSInteger ECLoggingUnknownError = -1;
 
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext *)context
 {
-	NSError* error;
-	
+	NSString* message;
 	if ([object isMemberOfClass:[NSError class]])
 	{
-		error = object;
+		message = [object localizedDescription];
 	}
 	else if ([object isMemberOfClass:[ECErrorAndMessage class]])
 	{
 		ECErrorAndMessage* eam = object;
-		error = eam.error;
+		message = [eam description];
 	}
 	else 
 	{
-		NSString* string = [self simpleOutputStringForChannel:channel withObject:object arguments:arguments context:context];
-		error = [NSError errorWithDomain:ECLoggingErrorDomain code:ECLoggingUnknownError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:string, NSLocalizedDescriptionKey, nil]];
+		message = [self simpleOutputStringForChannel:channel withObject:object arguments:arguments context:context];
 	}
 
 	NSString* title = @"Error";
-	NSString* message = [error localizedDescription];
 	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
 	[alert release];

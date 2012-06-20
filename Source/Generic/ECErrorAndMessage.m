@@ -26,7 +26,7 @@
 	NSString* result;
 	if (self.error)
 	{
-		result = [NSString stringWithFormat:@"%@ %@", self.message, self.error];
+		result = [NSString stringWithFormat:@"%@\n%@\n\n%@", self.message, self.error.localizedDescription, self.error.userInfo];
 	}
 	else
 	{
