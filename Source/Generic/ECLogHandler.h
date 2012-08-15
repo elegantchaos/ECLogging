@@ -7,7 +7,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLogging.h"
+#import "ECLoggingMacros.h"
 
 @class ECLogChannel;
 @interface ECLogHandler : NSObject 

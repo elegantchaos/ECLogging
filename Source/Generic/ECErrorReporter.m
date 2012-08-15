@@ -8,7 +8,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECErrorReporter.h"
-#import "ECLogging.h"
+#import "ECLoggingMacros.h"
 #import "ECAssertion.h"
 #import "ECErrorAndMessage.h"
 

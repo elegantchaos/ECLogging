@@ -10,64 +10,12 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#ifndef EC_DEBUG
-#ifndef EC_RELEASE
-#error You must define either EC_DEBUG or EC_RELEASE
-#endif
-#endif
-
-#import "ECLogContext.h"
-
-
-#pragma mark - Plain C interface
-
-// These routines are used in some of the macros, and are generally not intended for public use.
-
-
-#pragma mark - Channel Declaration Macros
-
-#define ECDeclareLogChannel(channel) \
-	extern ECLogChannel* getChannel##channel(void)
-
-#define ECDefineLogChannel(channel) \
-	extern ECLogChannel* getChannel##channel(void); \
-	ECLogChannel* getChannel##channel(void) \
-	{ \
-		static ECLogChannel* instance = nil; \
-		if (!instance) { instance = registerChannel(#channel); } \
-		return instance; \
-	}
-
-#pragma mark - Logging Macros
-
-#define ECLog(channel, ...) do { ECLogChannel* c = getChannel##channel(); if (channelEnabled(c)) { ECMakeContext(); logToChannel(c, &ecLogContext, __VA_ARGS__); } } while (0)
-
-#define ECLogIf(test, channel, ...) do { if (test) { ECLogChannel* c = getChannel##channel(); ECMakeContext(); if (channelEnabled(c)) { logToChannel(c, &ecLogContext, __VA_ARGS__); } } } while (0)
-
-#define ECGetChannel(channel) getChannel##channel()
-
-#define ECEnableChannel(channel) enableChannel(getChannel##channel())
-
-#define ECDisableChannel(channel) disableChannel(getChannel##channel())
-
-#define ECChannelEnabled(channel) channelEnabled(getChannel##channel())
-
-#pragma mark - Debug Only Macros
-
-#if EC_DEBUG
-
-#define ECDebug ECLog
-#define ECDebugIf ECLogIf
-#define ECDefineDebugChannel ECDefineLogChannel
-#define ECDeclareDebugChannel ECDeclareLogChannel
-#define ECDebugChannelEnabled ECChannelEnabled
-
-#else
-
-#define ECDebug(...) 
-#define ECDebugIf(...)
-#define ECDefineDebugChannel(...)
-#define ECDeclareDebugChannel(...)
-#define ECDebugChannelEnabled(channel) (false)
-
-#endif
+#import "ECLoggingMacros.h"
+#import "ECLogManager.h"
+#import "ECLogHandlerNSLog.h"
+#import "ECLogHandlerFile.h"
+#import "ECLogHandlerStdout.h"
+#import "ECLogHandlerStderr.h"
+#import "ECLogHandlerASL.h"
+#import "ECErrorReporter.h"
+#import "ECErrorPresenterHandler.h"

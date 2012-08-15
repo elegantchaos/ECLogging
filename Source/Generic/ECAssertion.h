@@ -16,7 +16,7 @@
 
 #if EC_DEBUG
 
-#import "ECLogging.h"
+#import "ECLoggingMacros.h"
 
 ECDeclareDebugChannel(AssertionChannel);
 

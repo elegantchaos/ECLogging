@@ -10,7 +10,7 @@
 #import "ECLogHandler.h"
 #import "ECAssertion.h"
 #import "ECLogChannel.h"
-#import "ECLogging.h"
+#import "ECLoggingMacros.h"
 
 @implementation ECLogHandler
 

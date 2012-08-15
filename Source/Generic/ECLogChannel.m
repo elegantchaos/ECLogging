@@ -9,7 +9,7 @@
 
 #import "ECLogChannel.h"
 #import "ECLogHandler.h"
-#import "ECLogging.h"
+#import "ECLoggingMacros.h"
 #import "ECLogManager.h"
 
 #import "NSString+ECLogging.h"
