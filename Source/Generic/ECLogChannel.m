@@ -147,7 +147,7 @@ static NSString *const kSuffixToStrip = @"Channel";
 //! Return a cleaned up version of a raw channel name.
 // --------------------------------------------------------------------------
 
-+ (NSString*) cleanName:(const char *) name;
++ (NSString*) cleanName:(const char *) name
 {
 	NSString* temp = [NSString stringWithUTF8String: name];
 

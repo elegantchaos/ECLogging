@@ -119,7 +119,7 @@ static ECLogManager* gSharedInstance = nil;
 //! If the channel was created, we register it.
 // --------------------------------------------------------------------------
 
-- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(NSDictionary*)options;
+- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(NSDictionary*)options
 {
     LogManagerLog(@"registering raw channel with name %s", rawName);
     NSString* name = [ECLogChannel cleanName:rawName];
