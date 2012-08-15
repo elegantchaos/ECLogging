@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
+   LastUpgradeVersion = "0440"
    version = "1.3">
    <BuildAction
-      parallelizeBuildables = "YES"
+      parallelizeBuildables = "NO"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
@@ -13,9 +14,37 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2202536814F56DE300F141E3"
-               BuildableName = "libECLoggingIOS.a"
-               BlueprintName = "ECLoggingIOS"
+               BlueprintIdentifier = "221CB52D15DA9816004C6398"
+               BuildableName = "ECConfig.framework"
+               BlueprintName = "ECConfigMac"
+               ReferencedContainer = "container:../ECConfig/ECConfig.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "22BEA1BE15DA55920036A04F"
+               BuildableName = "ECUnitTests.framework"
+               BlueprintName = "ECUnitTestsMac"
+               ReferencedContainer = "container:../ECUnitTests/ECUnitTests.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2251B9FE15DBCC3E00F2FE40"
+               BuildableName = "ECLogging.framework"
+               BlueprintName = "ECLoggingMac"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -27,16 +56,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2274B38C14F56896003B8A0B"
-               BuildableName = "ECLoggingIOSTests.octest"
-               BlueprintName = "ECLoggingIOSTests"
-               ReferencedContainer = "container:ECLogging.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -45,6 +64,7 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <AdditionalOptions>
