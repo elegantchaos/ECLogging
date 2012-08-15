@@ -752,6 +752,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "FRAMEWORK_ROOT=\"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}\"\n\nmkdir -p \"${FRAMEWORK_ROOT}/Versions\"\n/bin/ln -sfh A \"${FRAMEWORK_ROOT}/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${FRAMEWORK_ROOT}/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${FRAMEWORK_ROOT}/${PRODUCT_NAME}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		225EC67011EBAA4800A97AEA /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -779,6 +780,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
