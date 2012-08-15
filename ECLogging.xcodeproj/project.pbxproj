@@ -854,7 +854,7 @@
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../.. @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
 			name = Debug;
 		};
@@ -863,7 +863,7 @@
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../.. @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
 			name = Release;
 		};
