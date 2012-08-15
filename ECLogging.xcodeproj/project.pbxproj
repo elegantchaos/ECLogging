@@ -92,8 +92,8 @@
 		2251BAA515DBDC3F00F2FE40 /* ECLogViewHandlerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46314F53BCC009142F7 /* ECLogViewHandlerItem.m */; };
 		2251BAA815DBE3C800F2FE40 /* ECConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BAA615DBE3C800F2FE40 /* ECConfig.framework */; };
 		2251BAA915DBE3C800F2FE40 /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BAA715DBE3C800F2FE40 /* ECUnitTests.framework */; };
-		2251BABA15DBE48300F2FE40 /* ECConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BAB815DBE48300F2FE40 /* ECConfig.framework */; };
-		2251BABB15DBE48300F2FE40 /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BAB915DBE48300F2FE40 /* ECUnitTests.framework */; };
+		2251BABC15DBE4B900F2FE40 /* ECConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BAA615DBE3C800F2FE40 /* ECConfig.framework */; };
+		2251BABD15DBE4D000F2FE40 /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BAA715DBE3C800F2FE40 /* ECUnitTests.framework */; };
 		22552C13134BA18A00B8894E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22552C12134BA18A00B8894E /* CoreLocation.framework */; };
 		2260223C141F8A8D0044644C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22602238141F8A460044644C /* Security.framework */; };
 		2260223D141F8A980044644C /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2260223A141F8A4E0044644C /* libcrypto.dylib */; };
@@ -129,8 +129,6 @@
 		2251BA6C15DBDA5100F2FE40 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2251BAA615DBE3C800F2FE40 /* ECConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ECConfig.framework; path = "../Debug-iphonesimulator/ECConfig.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2251BAA715DBE3C800F2FE40 /* ECUnitTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ECUnitTests.framework; path = "../Debug-iphonesimulator/ECUnitTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2251BAB815DBE48300F2FE40 /* ECConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ECConfig.framework; path = "/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Debug/ECConfig.framework"; sourceTree = "<absolute>"; };
-		2251BAB915DBE48300F2FE40 /* ECUnitTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ECUnitTests.framework; path = "/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Debug/ECUnitTests.framework"; sourceTree = "<absolute>"; };
 		22552BC7134B9E5300B8894E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		22552BC9134B9E5300B8894E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		22552BCB134B9E5300B8894E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -235,8 +233,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2251BABA15DBE48300F2FE40 /* ECConfig.framework in Frameworks */,
-				2251BABB15DBE48300F2FE40 /* ECUnitTests.framework in Frameworks */,
 				2251BA6415DBD9A600F2FE40 /* ECLogging.framework in Frameworks */,
 				2268499F14F5722300B8691A /* Cocoa.framework in Frameworks */,
 				2268499E14F5720600B8691A /* SenTestingKit.framework in Frameworks */,
@@ -245,6 +241,8 @@
 				2260223C141F8A8D0044644C /* Security.framework in Frameworks */,
 				22552C13134BA18A00B8894E /* CoreLocation.framework in Frameworks */,
 				22EC40A81358A17A005C1F1A /* SystemConfiguration.framework in Frameworks */,
+				2251BABC15DBE4B900F2FE40 /* ECConfig.framework in Frameworks */,
+				2251BABD15DBE4D000F2FE40 /* ECUnitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,8 +290,6 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2251BAB815DBE48300F2FE40 /* ECConfig.framework */,
-				2251BAB915DBE48300F2FE40 /* ECUnitTests.framework */,
 				2251BAA615DBE3C800F2FE40 /* ECConfig.framework */,
 				2251BAA715DBE3C800F2FE40 /* ECUnitTests.framework */,
 				223CBAE11205C5930008A641 /* iOS */,
