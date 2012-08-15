@@ -109,7 +109,7 @@ Item kItems[] =
 //! Push a controller to the right nav controller.
 // --------------------------------------------------------------------------
 
-- (void)pushViewController:(UIViewController *)controller;
+- (void)pushViewController:(UIViewController *)controller
 {
     UINavigationController* nav = self.navController;
     if (!nav)
