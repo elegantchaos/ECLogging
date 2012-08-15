@@ -56,6 +56,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2274B38C14F56896003B8A0B"
+               BuildableName = "ECLoggingIOSTests.octest"
+               BlueprintName = "ECLoggingIOSTests"
+               ReferencedContainer = "container:ECLogging.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

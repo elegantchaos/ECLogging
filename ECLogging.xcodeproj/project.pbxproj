@@ -85,6 +85,10 @@
 		2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSRelease.xcconfig; sourceTree = "<group>"; };
 		2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacDebug.xcconfig; sourceTree = "<group>"; };
 		2251BA4615DBCD3900F2FE40 /* MacRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacRelease.xcconfig; sourceTree = "<group>"; };
+		2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSUnitTestDebug.xcconfig; sourceTree = "<group>"; };
+		2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSUnitTestRelease.xcconfig; sourceTree = "<group>"; };
+		2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacUnitTestDebug.xcconfig; sourceTree = "<group>"; };
+		2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacUnitTestRelease.xcconfig; sourceTree = "<group>"; };
 		22552BC7134B9E5300B8894E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		22552BC9134B9E5300B8894E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		22552BCB134B9E5300B8894E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -341,6 +345,10 @@
 				2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */,
 				2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */,
 				2251BA4615DBCD3900F2FE40 /* MacRelease.xcconfig */,
+				2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */,
+				2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */,
+				2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */,
+				2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -831,6 +839,7 @@
 		};
 		225EC67411EBAA4800A97AEA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
@@ -847,6 +856,7 @@
 		};
 		225EC67511EBAA4800A97AEA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = YES;
@@ -862,6 +872,7 @@
 		};
 		2274B3A214F56896003B8A0B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -881,6 +892,7 @@
 		};
 		2274B3A314F56896003B8A0B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
