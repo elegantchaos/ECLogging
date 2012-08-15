@@ -1,6 +1,3 @@
-[submodule "Tests/ECUnitTests"]
-	path = Extras/Tests/ECUnitTests
-	url = git://github.com/elegantchaos/ECUnitTests.git
 [submodule "Extras/Documentation/Wiki"]
 	path = Extras/Documentation/Wiki
 	url = git://github.com/elegantchaos/ECLogging.wiki.git
