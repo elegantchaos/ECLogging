@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		220D699915DC248300CCC17C /* ECConfig.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251BBAD15DC1B4E00F2FE40 /* ECConfig.framework */; };
 		220D699A15DC248300CCC17C /* ECUnitTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251BBA615DC18ED00F2FE40 /* ECUnitTests.framework */; };
+		220D699C15DC50CE00CCC17C /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BBA615DC18ED00F2FE40 /* ECUnitTests.framework */; };
+		220D699D15DC510900CCC17C /* ECLogging.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
 		2251BA0015DBCC3E00F2FE40 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3BB14F52E93009142F7 /* Cocoa.framework */; };
 		2251BA1F15DBCC6C00F2FE40 /* ECASLClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43B14F53BCC009142F7 /* ECASLClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2251BA2015DBCC6C00F2FE40 /* ECASLClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A43C14F53BCC009142F7 /* ECASLClient.m */; };
@@ -94,18 +96,11 @@
 		2251BAA515DBDC3F00F2FE40 /* ECLogViewHandlerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46314F53BCC009142F7 /* ECLogViewHandlerItem.m */; };
 		2251BAE415DBEA2D00F2FE40 /* ECLoggingMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2251BAE315DBEA2C00F2FE40 /* ECLoggingMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2251BAE515DBEA2D00F2FE40 /* ECLoggingMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2251BAE315DBEA2C00F2FE40 /* ECLoggingMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2251BBA815DC18ED00F2FE40 /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BBA615DC18ED00F2FE40 /* ECUnitTests.framework */; };
-		2251BBAE15DC1B4E00F2FE40 /* ECConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BBAD15DC1B4E00F2FE40 /* ECConfig.framework */; };
-		22552C13134BA18A00B8894E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22552C12134BA18A00B8894E /* CoreLocation.framework */; };
-		2260223C141F8A8D0044644C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22602238141F8A460044644C /* Security.framework */; };
-		2260223D141F8A980044644C /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2260223A141F8A4E0044644C /* libcrypto.dylib */; };
-		2260223E141F8AA40044644C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22602236141F8A230044644C /* IOKit.framework */; };
 		2268499E14F5720600B8691A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3CD14F52E93009142F7 /* SenTestingKit.framework */; };
 		2268499F14F5722300B8691A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3BB14F52E93009142F7 /* Cocoa.framework */; };
 		2274B38E14F56896003B8A0B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3CD14F52E93009142F7 /* SenTestingKit.framework */; };
 		2274B39014F56896003B8A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274B38F14F56896003B8A0B /* UIKit.framework */; };
 		2274B39114F56896003B8A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237ECE314F5644C00085BF5 /* Foundation.framework */; };
-		22EC40A81358A17A005C1F1A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EC40A61358A0D1005C1F1A /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,6 +110,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				220D699D15DC510900CCC17C /* ECLogging.framework in CopyFiles */,
 				220D699915DC248300CCC17C /* ECConfig.framework in CopyFiles */,
 				220D699A15DC248300CCC17C /* ECUnitTests.framework in CopyFiles */,
 			);
@@ -242,16 +238,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2251BBAE15DC1B4E00F2FE40 /* ECConfig.framework in Frameworks */,
-				2251BBA815DC18ED00F2FE40 /* ECUnitTests.framework in Frameworks */,
+				220D699C15DC50CE00CCC17C /* ECUnitTests.framework in Frameworks */,
 				2251BA6415DBD9A600F2FE40 /* ECLogging.framework in Frameworks */,
 				2268499F14F5722300B8691A /* Cocoa.framework in Frameworks */,
 				2268499E14F5720600B8691A /* SenTestingKit.framework in Frameworks */,
-				2260223E141F8AA40044644C /* IOKit.framework in Frameworks */,
-				2260223D141F8A980044644C /* libcrypto.dylib in Frameworks */,
-				2260223C141F8A8D0044644C /* Security.framework in Frameworks */,
-				22552C13134BA18A00B8894E /* CoreLocation.framework in Frameworks */,
-				22EC40A81358A17A005C1F1A /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
