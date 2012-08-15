@@ -871,7 +871,7 @@
 					"\"/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Release\"",
 				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/. @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/. @loader_path/../Frameworks @executable_path/../Frameworks";
 			};
 			name = Debug;
 		};
@@ -885,7 +885,7 @@
 					"\"/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Release\"",
 				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/. @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/. @loader_path/../Frameworks @executable_path/../Frameworks";
 			};
 			name = Release;
 		};
