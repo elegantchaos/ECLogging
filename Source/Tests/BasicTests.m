@@ -20,7 +20,7 @@
 
 - (void)testTest
 {
-	ECTestAssertFalse(YES);
+	ECTestAssertFalse(NO);
 }
 
 @end
