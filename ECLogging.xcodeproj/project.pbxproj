@@ -855,13 +855,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Debug\"",
-					"\"/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Release\"",
-				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/. @loader_path/../Frameworks @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../.. @loader_path/../Frameworks";
 			};
 			name = Debug;
 		};
@@ -869,13 +864,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Debug\"",
-					"\"/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Release\"",
-				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/. @loader_path/../Frameworks @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../../.. @loader_path/../Frameworks";
 			};
 			name = Release;
 		};
