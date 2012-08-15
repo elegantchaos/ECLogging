@@ -871,6 +871,7 @@
 					"\"/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Release\"",
 				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/.";
 			};
 			name = Debug;
 		};
@@ -884,6 +885,7 @@
 					"\"/Caches/DerivedData/ECLogging-elvnbhztigqjjabqhalnysonzams/Build/Products/Release\"",
 				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/.";
 			};
 			name = Release;
 		};
