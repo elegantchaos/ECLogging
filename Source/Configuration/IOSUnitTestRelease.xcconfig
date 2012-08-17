@@ -4,16 +4,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-// Annoyingly, Xcode doesn't look in the build products folder when searching for files included in xcconfig files.
-// This means that we can't include things from the XCConfig framework in a totally portable way, by doing
-// #include <ECConfig/ECMacDebug.xcconfig>
-//
-// Instead, we have to assume that the framework's source folder is actually at a known relative location.
-// If this isn't the case, you'll get a build warning:
-//
-// ECMacDebug.xcconfig line 8: Unable to find included file...
-//
-// You can fix this by adding a symbolic link called ECConfig that points to the right place.
+/// Standard xcconfig files.
+/// The use of a relative path here relies on ECConfig being in a known location. See <ImportNote> in the documentation for more details.
 
 #include "../ECConfig/Source/Configuration/ECIOSRelease.xcconfig"
 #include "../ECConfig/Source/Configuration/ECUnitTests.xcconfig"

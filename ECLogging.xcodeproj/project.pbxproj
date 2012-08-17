@@ -11,6 +11,8 @@
 		220D699A15DC248300CCC17C /* ECUnitTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251BBA615DC18ED00F2FE40 /* ECUnitTests.framework */; };
 		220D699C15DC50CE00CCC17C /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BBA615DC18ED00F2FE40 /* ECUnitTests.framework */; };
 		220D699D15DC510900CCC17C /* ECLogging.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
+		22339C3915DEC1C60017BC6B /* ECLogging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BA1215DBCC4A00F2FE40 /* ECLogging.framework */; };
+		22339C3A15DEC1E30017BC6B /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BBA615DC18ED00F2FE40 /* ECUnitTests.framework */; };
 		2251BA0015DBCC3E00F2FE40 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3BB14F52E93009142F7 /* Cocoa.framework */; };
 		2251BA1F15DBCC6C00F2FE40 /* ECASLClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43B14F53BCC009142F7 /* ECASLClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2251BA2015DBCC6C00F2FE40 /* ECASLClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A43C14F53BCC009142F7 /* ECASLClient.m */; };
@@ -50,7 +52,6 @@
 		2251BA6215DBD93700F2FE40 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2251BA6115DBD93700F2FE40 /* BasicTests.m */; };
 		2251BA6315DBD93700F2FE40 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2251BA6115DBD93700F2FE40 /* BasicTests.m */; };
 		2251BA6415DBD9A600F2FE40 /* ECLogging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
-		2251BA7115DBDB6F00F2FE40 /* ECLogging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
 		2251BA7B15DBDC2B00F2FE40 /* ECASLClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43B14F53BCC009142F7 /* ECASLClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2251BA7C15DBDC2B00F2FE40 /* ECASLClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A43C14F53BCC009142F7 /* ECASLClient.m */; };
 		2251BA7D15DBDC2B00F2FE40 /* ECAssertion.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43D14F53BCC009142F7 /* ECAssertion.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -249,7 +250,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2251BA7115DBDB6F00F2FE40 /* ECLogging.framework in Frameworks */,
+				22339C3A15DEC1E30017BC6B /* ECUnitTests.framework in Frameworks */,
+				22339C3915DEC1C60017BC6B /* ECLogging.framework in Frameworks */,
 				2274B38E14F56896003B8A0B /* SenTestingKit.framework in Frameworks */,
 				2274B39014F56896003B8A0B /* UIKit.framework in Frameworks */,
 				2274B39114F56896003B8A0B /* Foundation.framework in Frameworks */,
