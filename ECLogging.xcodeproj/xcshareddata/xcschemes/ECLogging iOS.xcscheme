@@ -43,7 +43,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2251BA1115DBCC4A00F2FE40"
-               BuildableName = ".bundle"
+               BuildableName = "ECLogging.framework"
                BlueprintName = "ECLoggingIOS"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
