@@ -13,7 +13,6 @@
 #define ECAssertCountAtLeastBase(container, countMinimum, imp)	imp([container count] >= countMinimum)
 #define ECAssertEmptyBase(object, imp)							
 
-
 #if EC_DEBUG
 
 #import "ECLoggingMacros.h"

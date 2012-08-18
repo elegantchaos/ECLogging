@@ -11,6 +11,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECLoggingMacros.h"
+#import "ECAssertion.h"
 #import "ECLogManager.h"
 #import "ECLogHandlerNSLog.h"
 #import "ECLogHandlerFile.h"

@@ -10,7 +10,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLogging.h"
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
 
