@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2204C6B615E15E4000F71E15 /* ECErrorPresenterHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2204C6B715E15E4000F71E15 /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */; };
 		220D699915DC248300CCC17C /* ECConfig.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251BBAD15DC1B4E00F2FE40 /* ECConfig.framework */; };
 		220D699A15DC248300CCC17C /* ECUnitTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251BBA615DC18ED00F2FE40 /* ECUnitTests.framework */; };
 		220D699C15DC50CE00CCC17C /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251BBA615DC18ED00F2FE40 /* ECUnitTests.framework */; };
@@ -122,6 +124,8 @@
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
+		2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
 		2229674F1354EDC5005F42E7 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		2237ECD914F563D200085BF5 /* NSMenu+ECLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMenu+ECLogging.h"; sourceTree = "<group>"; };
 		2237ECDA14F563D200085BF5 /* NSMenu+ECLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMenu+ECLogging.m"; sourceTree = "<group>"; };
@@ -433,6 +437,8 @@
 		2283A45514F53BCC009142F7 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */,
+				2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */,
 				2283A45614F53BCC009142F7 /* ECDebugChannelsViewController.h */,
 				2283A45714F53BCC009142F7 /* ECDebugChannelsViewController.m */,
 				2283A45814F53BCC009142F7 /* ECDebugChannelViewController.h */,
@@ -543,6 +549,7 @@
 				2251BAA215DBDC3F00F2FE40 /* ECLogViewHandler.h in Headers */,
 				2251BAA415DBDC3F00F2FE40 /* ECLogViewHandlerItem.h in Headers */,
 				2251BAE515DBEA2D00F2FE40 /* ECLoggingMacros.h in Headers */,
+				2204C6B615E15E4000F71E15 /* ECErrorPresenterHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,6 +790,7 @@
 				2251BAA115DBDC3F00F2FE40 /* ECLogViewController.m in Sources */,
 				2251BAA315DBDC3F00F2FE40 /* ECLogViewHandler.m in Sources */,
 				2251BAA515DBDC3F00F2FE40 /* ECLogViewHandlerItem.m in Sources */,
+				2204C6B715E15E4000F71E15 /* ECErrorPresenterHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
