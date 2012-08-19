@@ -5,3 +5,9 @@
 // --------------------------------------------------------------------------
 
 #define EC_LOGGING 1
+
+#ifdef __OBJC__
+
+#include <ECConfig/ECConfig.h>
+
+#endif
