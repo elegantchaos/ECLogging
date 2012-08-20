@@ -7,6 +7,8 @@
 #include <ECConfig/ECConfig.h>
 
 #import "ECLoggingMacros.h"
+
+#import "ECASLClient.h"
 #import "ECAssertion.h"
 #import "ECLogManager.h"
 #import "ECLogHandlerNSLog.h"
