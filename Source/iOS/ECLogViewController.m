@@ -153,9 +153,15 @@
     ECLogViewHandler* lh = [ECLogViewHandler sharedInstance];
     ECLogViewHandlerItem* item = [lh.items objectAtIndex:indexPath.row];
 
+#ifdef __IPHONE_6_0
+	NSLineBreakMode mode = NSLineBreakByWordWrapping;
+#else
+	UILineBreakMode mode = UILineBreakModeWordWrap;
+#endif
+	
     CGSize constraint = CGSizeMake(tableView.frame.size.width, 10000.0);
-    CGSize messageSize = [item.message sizeWithFont:self.messageFont constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-    CGSize contextSize = [item.context sizeWithFont:self.contextFont constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    CGSize messageSize = [item.message sizeWithFont:self.messageFont constrainedToSize:constraint lineBreakMode:mode];
+    CGSize contextSize = [item.context sizeWithFont:self.contextFont constrainedToSize:constraint lineBreakMode:mode];
     
     return messageSize.height + contextSize.height;
 }
