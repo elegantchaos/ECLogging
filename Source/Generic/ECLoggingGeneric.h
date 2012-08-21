@@ -11,6 +11,7 @@
 #import "ECASLClient.h"
 #import "ECAssertion.h"
 #import "ECLogManager.h"
+#import "ECLogChannel.h"
 #import "ECLogHandlerNSLog.h"
 #import "ECLogHandlerFile.h"
 #import "ECLogHandlerStdout.h"
