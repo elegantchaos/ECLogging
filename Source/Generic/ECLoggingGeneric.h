@@ -18,3 +18,4 @@
 #import "ECLogHandlerStderr.h"
 #import "ECLogHandlerASL.h"
 #import "ECErrorReporter.h"
+#import "ECErrorAndMessage.h"

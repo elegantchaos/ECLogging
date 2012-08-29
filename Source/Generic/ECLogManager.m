@@ -24,6 +24,7 @@
 #define LogManagerLog(...)
 #endif
 
+
 // --------------------------------------------------------------------------
 // Private Properties
 // --------------------------------------------------------------------------
@@ -53,6 +54,9 @@ NSString *const LogChannelsChanged = @"LogChannelsChanged";
 // --------------------------------------------------------------------------
 // Constants
 // --------------------------------------------------------------------------
+
+static NSString *const DebugLogSettingsFile = @"ECLoggingDebug";
+static NSString *const LogSettingsFile = @"ECLogging";
 
 NSString *const ContextSetting = @"Context";
 NSString *const EnabledSetting = @"Enabled";
@@ -331,6 +335,20 @@ static ECLogManager* gSharedInstance = nil;
     LogManagerLog(@"log manager shutdown");
 }
 
+- (NSDictionary*)defaultSettings
+{
+	NSURL* defaultSettingsFile;
+#if EC_DEBUG
+	defaultSettingsFile = [[NSBundle mainBundle] URLForResource:DebugLogSettingsFile withExtension:@"plist"];
+	if (!defaultSettingsFile)
+#endif
+		defaultSettingsFile = [[NSBundle mainBundle] URLForResource:LogSettingsFile withExtension:@"plist"];
+
+	NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
+
+	return defaultSettings;
+}
+
 // --------------------------------------------------------------------------
 //! Load saved channel details.
 //! We make and register any channel found in the settings.
@@ -341,8 +359,7 @@ static ECLogManager* gSharedInstance = nil;
     LogManagerLog(@"log manager loading settings");
 
 	NSDictionary* savedSettings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:LogManagerSettings];
-	NSURL* defaultSettingsFile = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"plist"];
-	NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
+	NSDictionary* defaultSettings = [self defaultSettings];
 	
 	NSMutableDictionary* combinedSettings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
 	[combinedSettings addEntriesFromDictionary: savedSettings];
@@ -366,8 +383,7 @@ static ECLogManager* gSharedInstance = nil;
 {
     LogManagerLog(@"log manager saving settings");
     
-	NSURL* defaultSettingsFile = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"plist"];
-	NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
+	NSDictionary* defaultSettings = [self defaultSettings];
 	NSDictionary* defaultChannelSettings = [defaultSettings objectForKey:ChannelsSetting];
 	NSMutableDictionary* allChannelSettings = [[NSMutableDictionary alloc] init];
 
@@ -471,8 +487,7 @@ static ECLogManager* gSharedInstance = nil;
 - (void) resetChannel:(ECLogChannel *)channel
 {
     LogManagerLog(@"reset channel %@", channel.name);
-    NSURL* defaultSettingsFile = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"plist"];
-    NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
+    NSDictionary* defaultSettings = [self defaultSettings];
 	NSDictionary* allChannelSettings = [defaultSettings objectForKey:ChannelsSetting];
     [self applySettings:[allChannelSettings objectForKey:channel.name] toChannel:channel];
     [self saveChannelSettings];
@@ -485,8 +500,7 @@ static ECLogManager* gSharedInstance = nil;
 - (void) resetAllChannels
 {
     LogManagerLog(@"reset all channels");
-    NSURL* defaultSettingsFile = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"plist"];
-    NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
+    NSDictionary* defaultSettings = [self defaultSettings];
 	NSDictionary* allChannelSettings = [defaultSettings objectForKey:ChannelsSetting];
 	for (NSString* name in self.channels)
 	{
