@@ -21,11 +21,11 @@
 
 {
 @private
-	NSMutableDictionary* channels;
-	NSMutableDictionary* handlers;
-	NSMutableArray* defaultHandlers;
-	NSMutableDictionary* settings;
-    ECLogContextFlags defaultContextFlags;
+	NSMutableDictionary* _channels;
+	NSMutableDictionary* _handlers;
+	NSMutableArray* _defaultHandlers;
+	NSMutableDictionary* _settings;
+    ECLogContextFlags _defaultContextFlags;
 }
 
 // --------------------------------------------------------------------------
@@ -49,7 +49,7 @@
 - (void)registerChannel:(ECLogChannel*)channel;
 - (void)registerHandler:(ECLogHandler*)handler;
 - (void)registerDefaultHandler;
-- (void)startup;
+- (void)startupWithHandlerNames:(NSArray*)handlers;
 - (void)shutdown;
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context;
 - (void)enableAllChannels;
