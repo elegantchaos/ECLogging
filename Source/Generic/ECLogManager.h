@@ -42,7 +42,7 @@
 // --------------------------------------------------------------------------
 
 + (ECLogManager*)sharedInstance;
-+ (void)startupWithHandlerNames:(NSString*)firstHandler, ... NS_REQUIRES_NIL_TERMINATION;
++ (void)startupWithHandlerNames:(NSArray*)handlers;
 
 - (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(NSDictionary*)options;
 - (ECLogChannel*)registerChannelWithName:(NSString*)name options:(NSDictionary*)options;

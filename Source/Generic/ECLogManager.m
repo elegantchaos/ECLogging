@@ -266,6 +266,8 @@ static ECLogManager* gSharedInstance = nil;
         self.defaultHandlers = array;
         [array release];
         self.defaultContextFlags = ECLogContextName | ECLogContextMessage;
+
+		[self loadSettings];
 	}
 	
 	return self;
@@ -287,19 +289,19 @@ static ECLogManager* gSharedInstance = nil;
 //! with the default log manager then starts it up.
 // --------------------------------------------------------------------------
 
-+ (void)startupWithHandlerNames:(NSString*)firstHandler, ...
++ (void)startupWithHandlerNames:(NSArray*)handlers
 {
 	ECLogManager* lm = [self sharedInstance];
 
-	va_list args;
-	va_start(args, firstHandler);
-	NSString* handlerName;
-	while ((handlerName = va_arg(args, NSString*)) != nil)
+	for (NSString* handlerName in handlers)
 	{
 		Class handlerClass = NSClassFromString(handlerName);
 		ECLogHandler* handler = [[handlerClass alloc] init];
-		[lm registerHandler:handler];
-		[handler release];
+		if (handler)
+		{
+			[lm registerHandler:handler];
+			[handler release];
+		}
 	}
 	
 	[lm startup];
@@ -313,7 +315,7 @@ static ECLogManager* gSharedInstance = nil;
 - (void) startup
 {
     LogManagerLog(@"log manager startup");
-    
+
     [self loadChannelSettings];
 }
 
@@ -336,26 +338,37 @@ static ECLogManager* gSharedInstance = nil;
 //! We make and register any channel found in the settings.
 // --------------------------------------------------------------------------
 
-- (void) loadChannelSettings
+- (void)loadSettings
 {
     LogManagerLog(@"log manager loading settings");
 
 	NSDictionary* savedSettings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:LogManagerSettings];
 	NSURL* defaultSettingsFile = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"plist"];
 	NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
-	
+
 	NSMutableDictionary* combinedSettings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
 	[combinedSettings addEntriesFromDictionary: savedSettings];
     if ([combinedSettings count] > 0)
     {
         self.settings = combinedSettings;
-		NSDictionary* channelSettings = [combinedSettings objectForKey:ChannelsSetting];
-		for (NSString* channel in [channelSettings allKeys])
-		{
-			LogManagerLog(@"loaded settings for channel %@", channel);
-			[self registerChannelWithName:channel options:nil];
-		}
-    }
+	}
+}
+
+// --------------------------------------------------------------------------
+//! Load saved channel details.
+//! We make and register any channel found in the settings.
+// --------------------------------------------------------------------------
+
+- (void) loadChannelSettings
+{
+    LogManagerLog(@"log manager loading settings");
+
+	NSDictionary* channelSettings = [self.settings objectForKey:ChannelsSetting];
+	for (NSString* channel in [channelSettings allKeys])
+	{
+		LogManagerLog(@"loaded settings for channel %@", channel);
+		[self registerChannelWithName:channel options:nil];
+	}
 }
 
 // --------------------------------------------------------------------------
