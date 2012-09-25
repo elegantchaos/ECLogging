@@ -7,6 +7,10 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#endif
+
 #define ECAssertShouldntBeHereBase(imp)							imp(FALSE)
 #define ECAssertNonNilBase(expression, imp)						imp((expression) != nil)
 #define ECAssertNilBase(expression, imp)						imp((expression) == nil)
