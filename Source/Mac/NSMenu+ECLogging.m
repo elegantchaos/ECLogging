@@ -31,4 +31,20 @@
     }
 }
 
+// --------------------------------------------------------------------------
+//! Remove this menu from its parent.
+// --------------------------------------------------------------------------
+
+- (void)removeFromParentEC
+{
+	for (NSMenuItem* item in self.supermenu.itemArray)
+	{
+		if (item.submenu == self)
+		{
+			[self.supermenu removeItem: item];
+			break;
+		}
+	}
+}
+
 @end

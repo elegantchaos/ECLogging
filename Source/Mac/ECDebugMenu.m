@@ -1,29 +1,26 @@
 // --------------------------------------------------------------------------
-//! @author Sam Deane
-//! @date 18/11/2010
-//
 //  Copyright 2012 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's 
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #import "ECDebugMenu.h"
+#import "NSMenu+ECLogging.h"
 
-@class ECLogManager;
+@implementation ECDebugMenu
 
-@interface ECLoggingMenu : ECDebugMenu
+
+#pragma mark - Lifecycle
+
+// --------------------------------------------------------------------------
+//! Set up after creation from a nib.
+// --------------------------------------------------------------------------
+
+- (void)awakeFromNib
 {
-    ECLogManager* mLogManager;
+#if EC_RELEASE
+	[self removeFromParentEC];
+#endif
 }
-
-// --------------------------------------------------------------------------
-// Public Properties
-// --------------------------------------------------------------------------
-
-// --------------------------------------------------------------------------
-// Public Methods
-// --------------------------------------------------------------------------
-
-- (IBAction) channelSelected: (id) sender;
 
 @end

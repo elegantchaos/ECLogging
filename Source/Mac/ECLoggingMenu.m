@@ -38,7 +38,11 @@
 
 - (void)awakeFromNib
 {
-	[self setup];
+	[super awakeFromNib];
+
+	#if EC_DEBUG
+		[self setup];
+	#endif
 }
 
 // --------------------------------------------------------------------------
@@ -73,21 +77,10 @@
 
 - (void)setup
 {
-#if EC_DEBUG
     mLogManager = [ECLogManager sharedInstance];
 	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver: self selector: @selector(channelsChanged:) name: LogChannelsChanged object: nil];
 	[self buildMenu];
-#else
-	for (NSMenuItem* item in self.supermenu.itemArray)
-	{
-		if (item.submenu == self)
-		{
-			[self.supermenu removeItem: item];
-			break;
-		}
-	}
-#endif
 }
 
 // --------------------------------------------------------------------------
