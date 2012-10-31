@@ -20,7 +20,9 @@ You can easily write your own handlers. Some ideas (that might one day make it i
 Using Handlers
 --------------
 
-Any handler that you want to use need to be registered with ECLogging when the application starts up.
+Any handler that you want to use need to be registered with ECLogging when the application starts up. 
+
+You do this by adding an entry to the Handlers dictionary in the ECLogging.plist file.
 
 Initially, all channels will use the default handler set - which by default is all registered handlers. 
 

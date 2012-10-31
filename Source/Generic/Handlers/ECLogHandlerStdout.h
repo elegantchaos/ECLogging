@@ -9,6 +9,11 @@
 
 #import "ECLogHandler.h"
 
+/**
+ * Handler which writes messages out to the stdout stream using printf.
+ *
+ */
+
 @interface ECLogHandlerStdout : ECLogHandler 
 {
 

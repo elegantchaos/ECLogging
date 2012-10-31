@@ -9,6 +9,10 @@
 
 #import "ECLogHandler.h"
 
+/**
+ * Handler which logs via ASL.
+ */
+
 @interface ECLogHandlerASL : ECLogHandler 
 {
 

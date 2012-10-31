@@ -9,6 +9,12 @@
 
 #import "ECLogHandler.h"
 
+/**
+ * Handler which logs to disk.
+ *
+ * Log files are created in `~/Library/Logs/app-id/channel-name.log`.
+ */
+
 @interface ECLogHandlerFile : ECLogHandler 
 {
 

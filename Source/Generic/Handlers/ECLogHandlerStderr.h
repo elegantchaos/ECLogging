@@ -9,6 +9,11 @@
 
 #import "ECLogHandler.h"
 
+/**
+ * Handler which writes messages out to the stderr stream using fprintf.
+ *
+ */
+
 @interface ECLogHandlerStderr : ECLogHandler 
 {
 

@@ -2,7 +2,7 @@ By default, all channels are disabled, and they are all set to use the default s
 
 There are two main ways to configure channels:
 
-- with the UI support classes (see [[User Interface]])
+- with the UI support classes (see [[User-Interface]])
 - with the ECLogging.plist file
 
 

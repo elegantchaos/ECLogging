@@ -9,6 +9,13 @@
 
 #import "ECLogHandler.h"
 
+/**
+ * Handler which logs to the console using NSLog calls.
+ *
+ * If you don't add an ECLogging.plist file to the application, this log handler will 
+ * automatically be registered and will be set as the default.
+ */
+
 @interface ECLogHandlerNSLog : ECLogHandler 
 {
 

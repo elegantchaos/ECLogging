@@ -1,4 +1,4 @@
-A log channel is a place to send log messages to.
+A **channel** is a place to send log messages to.
 
 You get to define as many channels as you like, organised in whatever way makes sense. 
 

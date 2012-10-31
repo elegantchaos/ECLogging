@@ -181,6 +181,11 @@
     [self addItem: resetAllItem];
     [resetAllItem release];
 
+	NSMenuItem* revealLogFilesItem = [[NSMenuItem alloc] initWithTitle: @"Reveal Log Files" action: @selector(revealLogFiles) keyEquivalent: @""];
+    revealLogFilesItem.target = self;
+    [self addItem: revealLogFilesItem];
+    [revealLogFilesItem release];
+
     [self addItem:[NSMenuItem separatorItem]];
 
     NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Default Handlers" action:nil keyEquivalent: @""];
@@ -333,6 +338,20 @@
     }
     
     return YES;
+}
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+
+- (void)revealLogFiles
+{
+	NSError* error = nil;
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSURL* libraryFolder = [fm URLForDirectory:NSLibraryDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
+    NSURL* logsFolder = [libraryFolder URLByAppendingPathComponent:@"Logs"];
+    NSURL* logFolder = [logsFolder URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
+
+    [[NSWorkspace sharedWorkspace] selectFile:[logFolder path] inFileViewerRootedAtPath:nil];
 }
 
 @end
