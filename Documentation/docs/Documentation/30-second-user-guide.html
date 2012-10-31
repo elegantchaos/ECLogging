@@ -27,6 +27,8 @@
 				<div id="container">	
 					<p>This is the 30 second introduction&hellip;</p>
 
+<h2>Usage</h2>
+
 <p>Most of the commands have a Log and a Debug variant. The Log version always works. The Debug version only works in debug builds, and does nothing in release builds.</p>
 
 <p>Before you can log to a channel, you need to define it:</p>
@@ -49,19 +51,34 @@ ECDebug(AnotherChannel, image);
 
 <p>The default log handlers deal with arbitrary objects by logging their description, but custom handlers can do more clever things like actually displaying images.</p>
 
-<p>The channels all default to off, so that the log isn&rsquo;t spammed. You can turn individual channels on using the various UI classes that you can integrate with your iOS / Mac application.</p>
+<h2>Configuration</h2>
 
-<p>The channel settings will persist, so each user/tester can set it up to only view the channels they need right now.</p>
+<p>Configuration information is stored using NSUserDefaults, so that you can change channel and handler settings during a debug session and they will remain the same next time.</p>
 
-<p>You can also turn channels on in code, using ECEnableChannel&copy; / ECDisableChannel&copy;. That&rsquo;s not generally the way to do it though, because you&rsquo;re forcing everyone to use the same channel setting, which is what the system is designed to avoid. It&rsquo;s helpful if you&rsquo;ve not yet integrated the UI though.</p>
+<p>Initial values are loaded from an ECLogging.plist (or ECLoggingDebug.plist) file, which you add to your app. If this file is missing, a basic NSLog-based log handler will be registered with the system so that you still get to see some output.</p>
 
-<p>ECDebug channels compile out completely at runtime, so anything in an ECDebug() call doesn&rsquo;t happen. ECLog calls don&rsquo;t.</p>
+<p>Channels generally default to off, so that the log isn&rsquo;t spammed.</p>
+
+<p>You can turn individual channels on:</p>
+
+<ul>
+<li>using supplied UI classes that you can add to your app&rsquo;s debug builds</li>
+<li>in the ECLogging.plist file</li>
+<li>using ECEnableChannel&copy; / ECDisableChannel&copy; in code</li>
+</ul>
+
+
+<p>Using the UI is the best way, since the changes will only apply to the machine you&rsquo;re on (so each user can enable a different set of channels).</p>
+
+<h2>Release Builds</h2>
+
+<p>ECDebug channels compile out completely for release builds, so anything in an ECDebug() call doesn&rsquo;t happen in release.</p>
+
+<p>ECLog calls don&rsquo;t &ndash; this allows you to leave some logging in to your release, default it to off, but allow a user to turn it on to help you track down bugs.</p>
+
+<p>Default settings are read from ECLogging.plist in release builds, or from ECLoggingDebug.plist (if it exists) in debug builds &ndash; thus you can have different defaults for either.</p>
 
 <p>There are some basic log handlers: ECLogHandlerNSLog, ECLogHandlerStdOut, etc. You can write log handlers to do more interesting things. You could integrate with asl, or log4j. You could send the log output to a socket. You could keep it in memory and display it in a UIView, or email it back to yourself after the user gave you permission. And so on&hellip;</p>
-
-<hr />
-
-<p>Back to [[Home]]</p>
 				</div>
 				<div id="footer">
 					<hr />
