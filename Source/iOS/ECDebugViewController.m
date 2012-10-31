@@ -46,7 +46,7 @@ typedef enum
     kShowChannelsCommand,
     kEnableAllChannelsCommand,
     kDisableAllChannelsCommand,
-    kResetAllChannelsCommand
+    kResetAllSettingsCommand
 } Command;
 
 typedef struct 
@@ -61,7 +61,7 @@ Item kItems[] =
     { @"Channels", UITableViewCellAccessoryDisclosureIndicator, kShowChannelsCommand },
     { @"Enable All", UITableViewCellAccessoryNone, kEnableAllChannelsCommand },
     { @"Disable All", UITableViewCellAccessoryNone, kDisableAllChannelsCommand },
-    { @"Reset All", UITableViewCellAccessoryNone, kResetAllChannelsCommand }
+    { @"Reset All", UITableViewCellAccessoryNone, kResetAllSettingsCommand }
 };
 
 // --------------------------------------------------------------------------
@@ -192,8 +192,8 @@ Item kItems[] =
             [[ECLogManager sharedInstance] disableAllChannels];
             break;
             
-        case kResetAllChannelsCommand:
-            [[ECLogManager sharedInstance] resetAllChannels];
+        case kResetAllSettingsCommand:
+            [[ECLogManager sharedInstance] resetAllSettings];
             break;
     }
     

@@ -48,7 +48,7 @@
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context;
 - (void)enableAllChannels;
 - (void)disableAllChannels;
-- (void)resetAllChannels;
+- (void)resetAllSettings;
 - (void)saveChannelSettings;
 - (void)resetChannel:(ECLogChannel*)channel;
 

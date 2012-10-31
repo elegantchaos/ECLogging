@@ -199,6 +199,8 @@ const ContextFlagInfo kContextFlagInfo[] =
 
 - (void)registerHandlers
 {
+	self.handlers = [NSMutableDictionary dictionary];
+	self.defaultHandlers = [NSMutableArray array];
 	NSDictionary* allHandlers = self.settings[HandlersSetting];
 	for (NSString* handlerName in allHandlers)
 	{
@@ -235,20 +237,7 @@ const ContextFlagInfo kContextFlagInfo[] =
 	if ((self = [super init])!= nil)
 	{
         LogManagerLog(@"initialised log manager");
-		
-		NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
-		self.channels = dictionary;
-		[dictionary release];
-		dictionary = [[NSMutableDictionary alloc] init];
-		self.handlers = dictionary;
-		[dictionary release];
-        NSMutableArray* array = [[NSMutableArray alloc] init];
-        self.defaultHandlers = array;
-        [array release];
-        self.defaultContextFlags = ECLogContextName | ECLogContextMessage;
-
-		[self loadSettings];
-		[self registerHandlers];
+		[self startup];
 	}
 
 	return self;
@@ -267,6 +256,23 @@ const ContextFlagInfo kContextFlagInfo[] =
 	[_settings release];
 
 	[super dealloc];
+}
+
+// --------------------------------------------------------------------------
+//! Start up the log manager, read settings, etc.
+// --------------------------------------------------------------------------
+
+- (void)startup
+{
+	LogManagerLog(@"starting log manager");
+
+	NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
+	self.channels = dictionary;
+	[dictionary release];
+	self.defaultContextFlags = ECLogContextName | ECLogContextMessage;
+
+	[self loadSettings];
+	[self registerHandlers];
 }
 
 // --------------------------------------------------------------------------
@@ -465,6 +471,7 @@ const ContextFlagInfo kContextFlagInfo[] =
     [self saveChannelSettings];
 }
 
+
 // --------------------------------------------------------------------------
 //! Revert all channels to default settings.
 // --------------------------------------------------------------------------
@@ -480,6 +487,19 @@ const ContextFlagInfo kContextFlagInfo[] =
         [self applySettings:[allChannelSettings objectForKey:name] toChannel:channel];
 	}
     [self saveChannelSettings];
+}
+
+// --------------------------------------------------------------------------
+//! Revert all channels to default settings.
+// --------------------------------------------------------------------------
+
+- (void)resetAllSettings
+{
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LogManagerSettings];
+	[self loadSettings];
+	[self registerHandlers];
+	[self resetAllChannels];
+	[self postUpdateNotification];
 }
 
 // --------------------------------------------------------------------------

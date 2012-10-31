@@ -176,7 +176,7 @@
     [self addItem: disableAllItem];
     [disableAllItem release];
 
-    NSMenuItem* resetAllItem = [[NSMenuItem alloc] initWithTitle: @"Reset All Channels" action: @selector(resetAllChannels) keyEquivalent: @""];
+    NSMenuItem* resetAllItem = [[NSMenuItem alloc] initWithTitle: @"Reset All Settings" action: @selector(resetAllSettings) keyEquivalent: @""];
     resetAllItem.target = mLogManager;
     [self addItem: resetAllItem];
     [resetAllItem release];
