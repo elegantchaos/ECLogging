@@ -62,9 +62,9 @@ NSString *const ContextSetting = @"Context";
 NSString *const EnabledSetting = @"Enabled";
 NSString *const HandlersSetting = @"Handlers";
 NSString *const LevelSetting = @"Level";
-NSString *const LogManagerSettings = @"LogManager";
+NSString *const LogManagerSettings = @"ECLogging";
 NSString *const ChannelsSetting = @"Channels";
-NSString *const DefaultsSetting = @"Defaults";
+NSString *const DefaultSetting = @"Default";
 
 typedef struct 
 {
@@ -92,31 +92,6 @@ const ContextFlagInfo kContextFlagInfo[] =
 @synthesize handlersSorted = _handlersSorted;
 @synthesize settings = _settings;
 @synthesize defaultHandlers = _defaultHandlers;
-
-// --------------------------------------------------------------------------
-// Globals
-// --------------------------------------------------------------------------
-
-static ECLogManager* gSharedInstance = nil;
-
-// --------------------------------------------------------------------------
-//! Initialise the class.
-// --------------------------------------------------------------------------
-
-+ (void)initialize
-{
-    LogManagerLog(@"created log manager");
-	gSharedInstance = [[ECLogManager alloc] init];
-}
-
-// --------------------------------------------------------------------------
-//! Return the shared instance.
-// --------------------------------------------------------------------------
-
-+ (ECLogManager*)sharedInstance
-{
-	return gSharedInstance;
-}
 
 // --------------------------------------------------------------------------
 //! Return the channel with a given name, making it first if necessary.
@@ -222,33 +197,34 @@ static ECLogManager* gSharedInstance = nil;
 //! Regist a channel with the log manager.
 // --------------------------------------------------------------------------
 
-- (void)registerHandler:(ECLogHandler*)handler
+- (void)registerHandlers
 {
-	[self.handlers setObject:handler forKey:handler.name];
-    self.handlersSorted = [[self.handlers allValues] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	NSDictionary* allHandlers = self.settings[HandlersSetting];
+	for (NSString* handlerName in allHandlers)
+	{
+		Class handlerClass = NSClassFromString(handlerName);
+		ECLogHandler* handler = [[handlerClass alloc] init];
+		if (handler)
+		{
+			NSDictionary* handlerSettings = allHandlers[handlerName];
+			[self.handlers setObject:handler forKey:handler.name];
+			if ([handlerSettings[DefaultSetting] boolValue])
+			{
+				[self.defaultHandlers addObject:handler];
+			}
 
-    // if this handler is in the list of defaults, add it to the defaults array
-    // (if the list is empty and this is the first handler we've registered, we make it the default automatically)
-	NSDictionary* allHandlersSettings = [self.settings objectForKey:HandlersSetting];
-    NSArray* defaultHandlerSettings = [allHandlersSettings objectForKey:DefaultsSetting];
-    if (([defaultHandlerSettings containsObject:handler.name])|| ((defaultHandlerSettings == nil)&& ([self.defaultHandlers count] == 0)))
-    {
-        [self.defaultHandlers addObject:handler];
-    }
-    
-    LogManagerLog(@"registered handler %@", handler.name);
+			LogManagerLog(@"registered handler %@", handler.name);
+		}
+		else
+		{
+			NSLog(@"unknown log handler class %@", handlerName);
+		}
+
+		self.handlersSorted = [[self.handlers allValues] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+
+	}
 }
 
-// --------------------------------------------------------------------------
-//! Regist the default log handler which just does an NSLog for each item.
-// --------------------------------------------------------------------------
-
-- (void)registerDefaultHandler
-{
-	ECLogHandler* handler = [[ECLogHandlerNSLog alloc] init];
-	[self registerHandler:handler];
-	[handler release];
-}
 
 // --------------------------------------------------------------------------
 //! Initialise the log manager.
@@ -272,8 +248,9 @@ static ECLogManager* gSharedInstance = nil;
         self.defaultContextFlags = ECLogContextName | ECLogContextMessage;
 
 		[self loadSettings];
+		[self registerHandlers];
 	}
-	
+
 	return self;
 }
 
@@ -290,41 +267,6 @@ static ECLogManager* gSharedInstance = nil;
 	[_settings release];
 
 	[super dealloc];
-}
-
-// --------------------------------------------------------------------------
-//! Convenience method which registers a bunch of handlers
-//! with the default log manager then starts it up.
-// --------------------------------------------------------------------------
-
-+ (void)startupWithHandlerNames:(NSArray*)handlers
-{
-	LogManagerLog(@"log manager startup");
-
-	ECLogManager* lm = [self sharedInstance];
-	[lm startupWithHandlerNames:handlers];
-}
-
-// --------------------------------------------------------------------------
-//! Start the log manager.
-//! This should be called after handlers have been registered.
-// --------------------------------------------------------------------------
-
-- (void)startupWithHandlerNames:(NSArray*)handlers
-{
-	for (NSString* handlerName in handlers)
-	{
-		Class handlerClass = NSClassFromString(handlerName);
-		ECLogHandler* handler = [[handlerClass alloc] init];
-		if (handler)
-		{
-			[self registerHandler:handler];
-			[handler release];
-		}
-	}
-
-    [self loadChannelSettings];
-
 }
 
 // --------------------------------------------------------------------------
@@ -356,6 +298,11 @@ static ECLogManager* gSharedInstance = nil;
 
 	NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
 
+	if (![defaultSettings count])
+	{
+		NSLog(@"Registering ECLogHandlerNSLog log handler. Add an ECLogging.plist file to your project to customise this behaviour.");
+		defaultSettings = [NSMutableDictionary dictionaryWithDictionary:@{ @"Handlers" : @{ @"ECLogHandlerNSLog" : @{ @"Default" : @YES } } }];
+	}
 	return defaultSettings;
 }
 
@@ -436,10 +383,15 @@ static ECLogManager* gSharedInstance = nil;
         [defaultHandlerNames addObject:handler.name];
     }
 
-    NSDictionary* allHandlerSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        defaultHandlerNames, DefaultsSetting,
-                                        nil];
-    
+	NSMutableDictionary* allHandlerSettings = [NSMutableDictionary dictionaryWithCapacity:[self.handlers count]];
+	for (NSString* handlerName in self.handlers)
+	{
+		ECLogHandler* handler = self.handlers[handlerName];
+		NSString* handlerClass = NSStringFromClass([handler class]);
+		BOOL isDefault = [self.defaultHandlers containsObject:handler];
+		allHandlerSettings[handlerClass] = @{ DefaultSetting : @(isDefault) };
+	}
+
     NSDictionary* allSettings = [NSDictionary dictionaryWithObjectsAndKeys:
                                  allChannelSettings, ChannelsSetting,
                                  allHandlerSettings, HandlersSetting,

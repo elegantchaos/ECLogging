@@ -108,6 +108,10 @@
 		2274B38E14F56896003B8A0B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3CD14F52E93009142F7 /* SenTestingKit.framework */; };
 		2274B39014F56896003B8A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274B38F14F56896003B8A0B /* UIKit.framework */; };
 		2274B39114F56896003B8A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237ECE314F5644C00085BF5 /* Foundation.framework */; };
+		22F2FEF01641418600CD3C7C /* ECLogManagerMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEEE1641418600CD3C7C /* ECLogManagerMac.h */; };
+		22F2FEF11641418600CD3C7C /* ECLogManagerMac.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEEF1641418600CD3C7C /* ECLogManagerMac.m */; };
+		22F2FEF4164142A600CD3C7C /* ECLogManagerIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOS.h */; };
+		22F2FEF5164142A600CD3C7C /* ECLogManagerIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEF3164142A600CD3C7C /* ECLogManagerIOS.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -228,6 +232,12 @@
 		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
 		22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorAndMessage.h; sourceTree = "<group>"; };
 		22F2CA6715348A5300F0A01D /* ECErrorAndMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorAndMessage.m; sourceTree = "<group>"; };
+		22F2FEEB164140D800CD3C7C /* .appledoc.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = .appledoc.plist; sourceTree = "<group>"; };
+		22F2FEED164140F700CD3C7C /* Documentation */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Documentation; path = Extras/Documentation; sourceTree = "<group>"; };
+		22F2FEEE1641418600CD3C7C /* ECLogManagerMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerMac.h; sourceTree = "<group>"; };
+		22F2FEEF1641418600CD3C7C /* ECLogManagerMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerMac.m; sourceTree = "<group>"; };
+		22F2FEF2164142A600CD3C7C /* ECLogManagerIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerIOS.h; sourceTree = "<group>"; };
+		22F2FEF3164142A600CD3C7C /* ECLogManagerIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerIOS.m; sourceTree = "<group>"; };
 		22FAC46C132149E900103630 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = SDKs/MacOSX10.6.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -292,6 +302,7 @@
 				2274B37714F56679003B8A0B /* Resources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				22F2FEEC164140E700CD3C7C /* Documentation */,
 			);
 			name = ECFoundation;
 			sourceTree = "<group>";
@@ -445,6 +456,8 @@
 		2283A45514F53BCC009142F7 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				22F2FEF2164142A600CD3C7C /* ECLogManagerIOS.h */,
+				22F2FEF3164142A600CD3C7C /* ECLogManagerIOS.m */,
 				2204C6BB15E160DA00F71E15 /* ECLogging.h */,
 				2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */,
 				2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */,
@@ -470,6 +483,8 @@
 			isa = PBXGroup;
 			children = (
 				2204C6B915E160BB00F71E15 /* ECLogging.h */,
+				22F2FEEE1641418600CD3C7C /* ECLogManagerMac.h */,
+				22F2FEEF1641418600CD3C7C /* ECLogManagerMac.m */,
 				22696F111630342E006AE56D /* ECDebugMenu.h */,
 				22696F121630342E006AE56D /* ECDebugMenu.m */,
 				22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */,
@@ -505,6 +520,15 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
+		22F2FEEC164140E700CD3C7C /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				22F2FEEB164140D800CD3C7C /* .appledoc.plist */,
+				22F2FEED164140F700CD3C7C /* Documentation */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -533,6 +557,7 @@
 				2251BAE415DBEA2D00F2FE40 /* ECLoggingMacros.h in Headers */,
 				2204C6BA15E160BB00F71E15 /* ECLogging.h in Headers */,
 				22696F131630342E006AE56D /* ECDebugMenu.h in Headers */,
+				22F2FEF01641418600CD3C7C /* ECLogManagerMac.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +590,7 @@
 				2251BAE515DBEA2D00F2FE40 /* ECLoggingMacros.h in Headers */,
 				2204C6B615E15E4000F71E15 /* ECErrorPresenterHandler.h in Headers */,
 				2204C6BC15E160DA00F71E15 /* ECLogging.h in Headers */,
+				22F2FEF4164142A600CD3C7C /* ECLogManagerIOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,6 +804,7 @@
 				2251BA3F15DBCC7B00F2FE40 /* ECLoggingMenu.m in Sources */,
 				2251BA4115DBCC7B00F2FE40 /* NSMenu+ECLogging.m in Sources */,
 				22696F141630342E006AE56D /* ECDebugMenu.m in Sources */,
+				22F2FEF11641418600CD3C7C /* ECLogManagerMac.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -807,6 +834,7 @@
 				2251BAA315DBDC3F00F2FE40 /* ECLogViewHandler.m in Sources */,
 				2251BAA515DBDC3F00F2FE40 /* ECLogViewHandlerItem.m in Sources */,
 				2204C6B715E15E4000F71E15 /* ECErrorPresenterHandler.m in Sources */,
+				22F2FEF5164142A600CD3C7C /* ECLogManagerIOS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

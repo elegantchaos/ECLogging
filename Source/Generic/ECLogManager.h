@@ -41,15 +41,9 @@
 // Public Methods
 // --------------------------------------------------------------------------
 
-+ (ECLogManager*)sharedInstance;
-+ (void)startupWithHandlerNames:(NSArray*)handlers;
-
 - (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(NSDictionary*)options;
 - (ECLogChannel*)registerChannelWithName:(NSString*)name options:(NSDictionary*)options;
 - (void)registerChannel:(ECLogChannel*)channel;
-- (void)registerHandler:(ECLogHandler*)handler;
-- (void)registerDefaultHandler;
-- (void)startupWithHandlerNames:(NSArray*)handlers;
 - (void)shutdown;
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context;
 - (void)enableAllChannels;
@@ -67,6 +61,12 @@
 - (NSString*)handlerNameForIndex:(NSUInteger)index;
 - (ECLogHandler*)handlerForIndex:(NSUInteger)index;
 - (NSUInteger)handlerCount;
+
+@end
+
+@interface ECLogManager(PlatformSpecific)
+
++ (ECLogManager*)sharedInstance;
 
 @end
 

@@ -4,7 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#include <ECConfig/ECConfig.h>
+#import <ECConfig/ECConfig.h>
 
 #import "ECLoggingMacros.h"
 
