@@ -25,7 +25,13 @@
 			<a title="Channels Document" name="top"></a>
 			<div id="overview_contents" role="main">
 				<div id="container">	
-					<h2>Log and Debug</h2>
+					<p>A log channel is a place to send log messages to.</p>
+
+<p>You get to define as many channels as you like, organised in whatever way makes sense.</p>
+
+<p>This allows you to turn most logging off most of the time, and just enable the bits that you happen to be interested in right now.</p>
+
+<h2>Log and Debug</h2>
 
 <p>Channels come in two flavours, log and debug.</p>
 
@@ -71,10 +77,6 @@ ECDebug(MyLogChannel, image);
 <p>What the log handlers do with objects that you log is up to them. The default behaviour for simple text-based log handlers is just to call [object description] on the object and log that.</p>
 
 <p>However, custom log handlers can do anything that they want. For example, you might have a log handler which takes any images that you log and displays them in a scrolling window.</p>
-
-<hr />
-
-<p>Back to [[Home]]</p>
 				</div>
 				<div id="footer">
 					<hr />
