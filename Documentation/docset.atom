@@ -1,18 +1,18 @@
 <?xml version="1.0" standalone="no"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
-    <id>http://elegantchaos.github.com/ECLogging/Documentation/docset.atom/20121031133000</id>
+    <id>http://elegantchaos.github.com/ECLogging/Documentation/docset.atom/20121031133754</id>
     <title type="text">ECLogging Documentation</title>
     <rights>Copyright © 2012 Elegant Chaos. All rights reserved.</rights>
     <link rel="self" href="http://elegantchaos.github.com/ECLogging/Documentation/docset.atom"></link>
     <docset:publisherName>Elegant Chaos</docset:publisherName>
     <docset:publisherID>com.elegantchaos.documentation</docset:publisherID>
-    <updated>2012-10-31T13:30:00+00:00</updated>
+    <updated>2012-10-31T13:37:54+00:00</updated>
     <entry>
         <id>tag:elegantchaos.github.com,2012-10-31:com.elegantchaos.ECLogging/1.0.0</id>
         <title type="text">ECLogging Documentation</title>
-        <updated>2012-10-31T13:30:00+00:00</updated>
+        <updated>2012-10-31T13:37:54+00:00</updated>
         <content type="text">ECLogging Documentation (v1.0.0)</content>
-        <link rel="enclosure" type="application/octet-stream" href="http://elegantchaos.github.com/ECLogging/Documentation/com.elegantchaos.ECLogging-1.0.xar" length="273200"></link>
+        <link rel="enclosure" type="application/octet-stream" href="http://elegantchaos.github.com/ECLogging/Documentation/com.elegantchaos.ECLogging-1.0.xar" length="290453"></link>
         <docset:identifier>com.elegantchaos.ECLogging</docset:identifier>
         <docset:version>1.0.0</docset:version>
         <docset:minimumXcodeVersion>3.0.0</docset:minimumXcodeVersion>
