@@ -13,9 +13,9 @@
 @class ECLogChannel;
 @class ECLogHandler;
 
-// --------------------------------------------------------------------------
-//! Manager which keeps track of all the log channels.
-// --------------------------------------------------------------------------
+/**
+ Manager which keeps track of all the log channels.
+ */
 
 @interface ECLogManager : NSObject
 
