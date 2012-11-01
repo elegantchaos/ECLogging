@@ -14,7 +14,11 @@
 @class ECLogHandler;
 
 /**
- Manager which keeps track of all the log channels.
+ * Singleton which keeps track of all the log channels and log handlers, and mediates the logging process.
+ * 
+ * The singleton is obtained using [ECLogManager sharedInstance], but you don't generally need to access it directly.
+ *
+ * See <Index> for more details.
  */
 
 @interface ECLogManager : NSObject
@@ -65,6 +69,10 @@
 @end
 
 @interface ECLogManager(PlatformSpecific)
+
+/** 
+ * Return the shared log manager.
+ */
 
 + (ECLogManager*)sharedInstance;
 

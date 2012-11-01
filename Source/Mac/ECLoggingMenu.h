@@ -11,6 +11,13 @@
 
 @class ECLogManager;
 
+/**
+ * A utility menu containing various items for configuration of the logging system.
+ *
+ * Note that the menu is only intended for use with debug builds - in fact it automatically
+ * removes itself from release builds.
+ */
+
 @interface ECLoggingMenu : ECDebugMenu
 {
     ECLogManager* mLogManager;
