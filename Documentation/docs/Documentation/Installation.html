@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>Installation Document</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../../css/stylesPrint.css" />	
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">ECLogging </a></h1>
+				<a id="developerHome" href="../index.html">Elegant Chaos</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode" id="pageTitleHeader">Installation Document</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar"></ul>
+		</header>
+		<article>
+			<a title="Installation Document" name="top"></a>
+			<div id="overview_contents" role="main">
+				<div id="container">	
+					<p>By &ldquo;installation&rdquo; in this context I mean: &ldquo;how can you use this thing in your project?&rdquo;</p>
+
+<p>There are essentially three answers.</p>
+
+<h2>Drop In The Source</h2>
+
+<p>You can just grab the repo (or add it to your project as a submodule), and drop the source code into your project.</p>
+
+<p>If you do this, you will want the following folders:</p>
+
+<ul>
+<li>Source/Generic/</li>
+<li>Source/Prefix/</li>
+</ul>
+
+
+<p>and one of:</p>
+
+<ul>
+<li>Source/iOS/ (on iOS)</li>
+<li>Source/Mac/ (on the Mac)</li>
+</ul>
+
+
+<p>My goal is for it to all just compile, so please let me know if there are problems (or fork it and fix them then send me a pull request!).</p>
+
+<h2>Drop In The Project</h2>
+
+<p>There is a workspace and project file included along with the code. This project builds Mac and iOS shared libraries. You can either build these as a standalone step and just use the built libraries, or you can drop the project into your own project or workspace, and link to the relevant targets.</p>
+
+<p>If you do this, don&rsquo;t forget that you&rsquo;ll need Xcode to be able to find the headers. The libraries build them to a folder called includes/eclogging/ inside the build products folder, so you can add that to your include paths. Alternatively, you can adopt some sort of hybrid option where you link to the built library but also drop the headers into your project so that Xcode can see them.</p>
+
+<h2>ECFoundation Framework</h2>
+
+<p>ECLogging is also still part of the <a href="http://github.com/elegantchaos/ECFoundation">ECFoundation</a> framework.</p>
+
+<p>The point of this framework is as an umbrella wrapper for all of my major modules of open source code. As such, the goal is to make sure that it contains versions of everything that work nicely together.</p>
+
+<p>ECFoundation builds as an actual framework (or a static linked pseudo-framework on iOS), so one option is to grab ECLogging this way.</p>
+
+<p>One downside of ECFoundation though is that the modules do lots of different things, and thus need quite a few system frameworks. So if you link to ECFoundation, you&rsquo;ll find that you need to link to quite a few optional system frameworks too. You&rsquo;ll only need to weak link to the ones you aren&rsquo;t using, but still &ndash; it&rsquo;s a bit of a hassle.</p>
+
+<p>If you choose to go down the ECFoundation route, you&rsquo;ll need to qualify your import statements accordingly.</p>
+
+<p>So rather than</p>
+
+<pre><code>#import "ECLogging."
+</code></pre>
+
+<p>you&rsquo;d do:</p>
+
+<p>   #import &lt;ECFoundation/ECLogging.h></p>
+
+<p>Other than that, it should all work the same way &ndash; it is, after all, the same code.</p>
+
+<h2>Other Things You Need To Do</h2>
+
+<h3>Defines</h3>
+
+<p>One other thing you need to do is to #define either EC_DEBUG 1, or EC_RELEASE 1, to tell ECLogging what to do with debug channels, assertions, and so on.</p>
+
+<p>There are some handy prefix files that do this for you, so one way to do it is to #import them from within your own precompiled headers.</p>
+
+<p>Alternatively, add the definition to your project file, your own prefix file, or an xcconfig file &ndash; just make sure that one of the symbols is defined before you include any ECLogging header files. If you don&rsquo;t, it should generate a compiler error to let you know!</p>
+
+<h3>Submodules</h3>
+
+<p>Also, I lied slightly when I said that ECLogging has no dependencies on any other ECFoundation modules.</p>
+
+<p>Some test scripts in the Extras/ folder rely on ECUnitTests, which is linked in as a submodule. There&rsquo;s also a link in Extras/Documentation/ to this wiki, so that you can grab a text copy of the content.</p>
+
+<p>If you want to use either of these things, you&rsquo;ll need to do the normal git submodule dance:</p>
+
+<pre><code>&gt; git submodule init
+&gt; git submodule update
+</code></pre>
+
+<p>Or use a nice graphical git client which might well do it for you.</p>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 Elegant Chaos. All rights reserved. (Last updated: 2012-11-01)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						
+					
+					</div>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
