@@ -82,6 +82,16 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
     return @"Log Channels";
 }
 
+
+// --------------------------------------------------------------------------
+//! Return the header title for a section.
+// --------------------------------------------------------------------------
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection: (NSInteger) section
+{
+    return @"This is a list of the channels encountered so far. Other channels may appear in the list as something gets logged to them. Tap a channel to enable/disable it, or tap the disclosure button to configure it.";
+}
+
 // --------------------------------------------------------------------------
 //! Return the number of rows in a section.
 // --------------------------------------------------------------------------
