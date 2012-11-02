@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class ECLogViewHandler;
+
 @interface ECLogViewController : UITableViewController
 
 @end

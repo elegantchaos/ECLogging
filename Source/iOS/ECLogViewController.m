@@ -13,6 +13,7 @@
 
 @interface ECLogViewController()
 
+@property (nonatomic, strong) NSArray* items;
 @property (nonatomic, retain) UIFont* messageFont;
 @property (nonatomic, retain) UIFont* contextFont;
 
@@ -20,86 +21,54 @@
 
 @implementation ECLogViewController
 
-@synthesize messageFont;
-@synthesize contextFont;
+@synthesize messageFont = _messageFont;
+@synthesize contextFont = _contextFont;
+@synthesize items = _items;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    
-    if ((self = [super initWithStyle:style]) != nil) 
+    if ((self = [super initWithStyle:style]) != nil)
     {
     }
     
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 - (void)dealloc
 {
-    [messageFont release];
-    [contextFont release];
-    
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:LogItemsUpdated object:nil];
+
+    [_contextFont release];
+    [_items release];
+    [_messageFont release];
+
     [super dealloc];
+}
+
+#pragma mark - Notifications
+
+- (void)logItemsUpdated:(NSNotification*)notification
+{
+	self.items = notification.object;
+	[self.tableView reloadData];
 }
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    ECLogViewHandler* lh = [ECLogViewHandler sharedInstance];
-    lh.view = self;
-
     [super viewDidLoad];
 
     self.messageFont = [UIFont systemFontOfSize:14];
     self.contextFont = [UIFont systemFontOfSize:10];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logItemsUpdated:) name:LogItemsUpdated object:nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    ECLogViewHandler* lh = [ECLogViewHandler sharedInstance];
-    lh.view = self;
-    
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    ECLogViewHandler* lh = [ECLogViewHandler sharedInstance];
-    lh.view = nil;
-
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -118,9 +87,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    ECLogViewHandler* lh = [ECLogViewHandler sharedInstance];
-    
-    return [lh.items count];
+    return [self.items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -133,8 +100,7 @@
     }
     
     // Configure the cell...
-    ECLogViewHandler* lh = [ECLogViewHandler sharedInstance];
-    ECLogViewHandlerItem* item = [lh.items objectAtIndex:indexPath.row];
+    ECLogViewHandlerItem* item = [self.items objectAtIndex:indexPath.row];
     
     cell.textLabel.text = item.message;
     cell.textLabel.font = self.messageFont;
@@ -150,8 +116,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ECLogViewHandler* lh = [ECLogViewHandler sharedInstance];
-    ECLogViewHandlerItem* item = [lh.items objectAtIndex:indexPath.row];
+    ECLogViewHandlerItem* item = [self.items objectAtIndex:indexPath.row];
 
 #ifdef __IPHONE_6_0
 	NSLineBreakMode mode = NSLineBreakByWordWrapping;

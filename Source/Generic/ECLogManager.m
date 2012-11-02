@@ -14,7 +14,7 @@
 @interface ECLogManager()
 
 // Turn this setting on to output debug message on the log manager itself, using NSLog
-#define LOG_MANAGER_DEBUGGING 0
+#define LOG_MANAGER_DEBUGGING 1
 
 #if LOG_MANAGER_DEBUGGING
 #define LogManagerLog(format, ...)NSLog(@"ECLogManager: %@", [NSString stringWithFormat:format, ## __VA_ARGS__])
@@ -301,9 +301,23 @@ const ContextFlagInfo kContextFlagInfo[] =
 	NSURL* defaultSettingsFile;
 #if EC_DEBUG
 	defaultSettingsFile = [[NSBundle mainBundle] URLForResource:DebugLogSettingsFile withExtension:@"plist"];
-	if (!defaultSettingsFile)
+	if (defaultSettingsFile)
+	{
+		LogManagerLog(@"loaded defaults from %@.plist", DebugLogSettingsFile);
+	}
+	else
 #endif
+	{
 		defaultSettingsFile = [[NSBundle mainBundle] URLForResource:LogSettingsFile withExtension:@"plist"];
+		if (defaultSettingsFile)
+		{
+			LogManagerLog(@"loaded defaults from %@.plist", LogSettingsFile);
+		}
+		else
+		{
+			LogManagerLog(@"couldn't load defaults from %@.plist", LogSettingsFile);
+		}
+	}
 
 	NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
 
@@ -326,14 +340,38 @@ const ContextFlagInfo kContextFlagInfo[] =
 
 	NSDictionary* savedSettings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:LogManagerSettings];
 	NSDictionary* defaultSettings = [self defaultSettings];
-	NSMutableDictionary* combinedSettings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
+	NSDictionary* combinedSettings;
+	
 	NSUInteger savedVersion = [[savedSettings objectForKey:VersionSetting] unsignedIntegerValue];
 	if (savedVersion == kSettingsVersion)
 	{
-		[combinedSettings addEntriesFromDictionary: savedSettings];
+		// use saved channel settings if we have them, otherwise the defaults
+		id channels = savedSettings[ChannelsSetting];
+		if (!channels)
+		{
+			channels = defaultSettings[ChannelsSetting];
+		}
+
+		// always use list of handlers from the defaults, but merge in saved handler settings
+		NSDictionary* defaultHandlers = defaultSettings[HandlersSetting];
+		NSDictionary* savedHandlers = savedSettings[HandlersSetting];
+		NSMutableDictionary* handlers = [NSMutableDictionary dictionary];
+		for (NSString* handlerName in defaultHandlers)
+		{
+			NSMutableDictionary* handlerSettings = [NSMutableDictionary dictionaryWithDictionary:defaultHandlers[handlerName]];
+			[handlerSettings addEntriesFromDictionary:savedHandlers[handlerName]];
+			handlers[handlerName] = handlerSettings;
+		}
+		
+		combinedSettings = @{ ChannelsSetting : channels, HandlersSetting : handlers };
+	}
+	else
+	{
+		combinedSettings = defaultSettings;
 	}
 
-	self.settings = combinedSettings;
+	self.settings = [NSMutableDictionary dictionaryWithDictionary:combinedSettings];
+
 }
 
 // --------------------------------------------------------------------------
