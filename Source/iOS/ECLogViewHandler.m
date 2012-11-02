@@ -17,19 +17,14 @@
 @synthesize items;
 @synthesize view;
 
+static ECLogViewHandler* gInstance = nil;
+
 // --------------------------------------------------------------------------
 //! Singleton instance.
 // --------------------------------------------------------------------------
 
 + (ECLogViewHandler*)sharedInstance
 {
-    static ECLogViewHandler* gInstance = nil;
-    if (!gInstance)
-    {
-        gInstance = [[ECLogViewHandler alloc] init];
-        [[ECLogManager sharedInstance] registerHandler:gInstance];
-    }
-    
     return gInstance;
 }
 
@@ -38,6 +33,14 @@
     if ((self = [super init]) != nil) 
     {
         self.name = @"View";
+		if (gInstance)
+		{
+			NSLog(@"creating more than one ECLogViewHandler is an error");
+		}
+		else
+		{
+			gInstance = self;
+		}
     }
     
     return self;

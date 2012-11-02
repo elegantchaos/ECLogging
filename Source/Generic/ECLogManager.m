@@ -11,8 +11,6 @@
 #import "ECLogChannel.h"
 #import "ECLogHandlerNSLog.h"
 
-// #import "NSDictionary+ECCore.h"
-
 @interface ECLogManager()
 
 // Turn this setting on to output debug message on the log manager itself, using NSLog
@@ -65,6 +63,9 @@ NSString *const LevelSetting = @"Level";
 NSString *const LogManagerSettings = @"ECLogging";
 NSString *const ChannelsSetting = @"Channels";
 NSString *const DefaultSetting = @"Default";
+NSString *const VersionSetting = @"Version";
+
+static NSUInteger kSettingsVersion = 1;
 
 typedef struct 
 {
@@ -210,12 +211,14 @@ const ContextFlagInfo kContextFlagInfo[] =
 		{
 			NSDictionary* handlerSettings = allHandlers[handlerName];
 			[self.handlers setObject:handler forKey:handler.name];
+			LogManagerLog(@"registered handler %@", handler.name);
+
 			if ([handlerSettings[DefaultSetting] boolValue])
 			{
+				LogManagerLog(@"add handler %@ to default handlers", handler.name);
 				[self.defaultHandlers addObject:handler];
 			}
 
-			LogManagerLog(@"registered handler %@", handler.name);
 		}
 		else
 		{
@@ -324,11 +327,13 @@ const ContextFlagInfo kContextFlagInfo[] =
 	NSDictionary* savedSettings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:LogManagerSettings];
 	NSDictionary* defaultSettings = [self defaultSettings];
 	NSMutableDictionary* combinedSettings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
-	[combinedSettings addEntriesFromDictionary: savedSettings];
-    if ([combinedSettings count] > 0)
-    {
-        self.settings = combinedSettings;
+	NSUInteger savedVersion = [[savedSettings objectForKey:VersionSetting] unsignedIntegerValue];
+	if (savedVersion == kSettingsVersion)
+	{
+		[combinedSettings addEntriesFromDictionary: savedSettings];
 	}
+
+	self.settings = combinedSettings;
 }
 
 // --------------------------------------------------------------------------
@@ -398,10 +403,13 @@ const ContextFlagInfo kContextFlagInfo[] =
 		allHandlerSettings[handlerClass] = @{ DefaultSetting : @(isDefault) };
 	}
 
-    NSDictionary* allSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 allChannelSettings, ChannelsSetting,
-                                 allHandlerSettings, HandlersSetting,
-                                 nil];
+    NSDictionary* allSettings =
+		@{
+		VersionSetting : @(kSettingsVersion),
+		ChannelsSetting : allChannelSettings,
+		HandlersSetting : allHandlerSettings
+		};
+
     [defaults setObject:allSettings forKey:LogManagerSettings];
     [defaults synchronize];
 
