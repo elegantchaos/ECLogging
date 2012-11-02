@@ -640,4 +640,27 @@ const ContextFlagInfo kContextFlagInfo[] =
     return [self.handlers count] + 1;
 }
 
+// --------------------------------------------------------------------------
+//! Return all the handlers.
+// --------------------------------------------------------------------------
+
+- (NSArray*)handlersSortedByName
+{
+	return self.handlersSorted;
+}
+
+- (BOOL)handlerIsDefault:(ECLogHandler*)handler
+{
+	return [self.defaultHandlers containsObject:handler];
+}
+
+- (void)handler:(ECLogHandler*)handler setDefault:(BOOL)value
+{
+	[self.defaultHandlers removeObject:handler];
+	if (value)
+	{
+		[self.defaultHandlers addObject:handler];
+	}
+}
+
 @end

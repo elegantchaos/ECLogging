@@ -1,39 +1,37 @@
 // --------------------------------------------------------------------------
 //  Copyright 2012 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
-//  liberal license: http://www.elegantchaos.com/license/liberal
+//  liberal license:http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECDebugChannelsViewController.h"
+#import "ECDebugHandlersViewController.h"
 
 #import "ECDebugChannelViewController.h"
 #import "ECDebugViewController.h"
 
-#import "ECLogChannel.h"
+#import "ECLogHandler.h"
 #import "ECLogManager.h"
 
 // --------------------------------------------------------------------------
 // Private Methods
 // --------------------------------------------------------------------------
 
-@interface ECDebugChannelsViewController()
-@end
+static NSString *const DebugHandlersViewCell = @"DebugHandlersViewCell";
 
-
-@implementation ECDebugChannelsViewController
+@implementation ECDebugHandlersViewController
 
 // --------------------------------------------------------------------------
 // Log Channels
 // --------------------------------------------------------------------------
 
-ECDefineDebugChannel(DebugChannelsViewChannel);
+ECDefineDebugChannel(DebugHandlersViewChannel);
 
 // --------------------------------------------------------------------------
 // Properties
 // --------------------------------------------------------------------------
 
-@synthesize channels;
-@synthesize debugViewController;
+@synthesize handlers = _handlers;
+@synthesize debugViewController = _debugViewController;
 
 // --------------------------------------------------------------------------
 //! Clean up.
@@ -41,8 +39,8 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 
 - (void)dealloc
 {
-    [channels release];
-    [debugViewController release];
+    [_handlers release];
+    [_debugViewController release];
     
     [super dealloc];
 }
@@ -53,9 +51,9 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 
 - (void) viewDidLoad
 {
-	ECDebug(DebugChannelsViewChannel, @"setting up view");
+	ECDebug(DebugHandlersViewChannel, @"setting up view");
 
-    self.channels = [[ECLogManager sharedInstance] channelsSortedByName];
+    self.handlers = [[ECLogManager sharedInstance] handlersSortedByName];
     [super viewDidLoad];
 }
 
@@ -74,7 +72,7 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 //! How many sections are there?
 // --------------------------------------------------------------------------
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
 {
     return 1;
 }
@@ -83,18 +81,18 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 //! Return the header title for a section.
 // --------------------------------------------------------------------------
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection: (NSInteger) section
+- (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger) section
 {
-    return @"Log Channels";
+    return @"Default Handlers";
 }
 
 // --------------------------------------------------------------------------
 //! Return the number of rows in a section.
 // --------------------------------------------------------------------------
 
-- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger) sectionIndex
+- (NSInteger)tableView:(UITableView*)table numberOfRowsInSection:(NSInteger) sectionIndex
 {
-    return [self.channels count];
+    return [self.handlers count];
 }
 
 
@@ -102,21 +100,19 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 //! Return the view for a given row.
 // --------------------------------------------------------------------------
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    ECLogChannel* channel = [self.channels objectAtIndex:indexPath.row];
+    ECLogHandler* handler = [self.handlers objectAtIndex:indexPath.row];
     
-	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: @"DebugViewCell"];
+	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:DebugHandlersViewCell];
 	if (cell == nil)
 	{
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"DebugViewCell"];
-        [cell autorelease];
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:DebugHandlersViewCell] autorelease];
 	}
 	
-    cell.textLabel.text = channel.name;
-    cell.detailTextLabel.text = channel.enabled ? @"enabled" : @"disabled";
-	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-    
+    cell.textLabel.text = handler.name;
+    cell.accessoryType = [[ECLogManager sharedInstance] handlerIsDefault:handler] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+
 	return cell;
 }
 
@@ -125,27 +121,13 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 //! Handle selecting a table row.
 // --------------------------------------------------------------------------
 
-- (void) tableView:(UITableView*) table didSelectRowAtIndexPath:(NSIndexPath*) path
+- (void) tableView:(UITableView*) table didSelectRowAtIndexPath:(NSIndexPath*)path
 {
-    ECLogChannel* channel = [self.channels objectAtIndex:path.row];
-    channel.enabled = !channel.enabled;
+    ECLogHandler* handler = [self.handlers objectAtIndex:path.row];
+	ECLogManager* lm = [ECLogManager sharedInstance];
+	BOOL isDefault = [lm handlerIsDefault:handler];
+	[lm handler:handler setDefault:!isDefault];
     [self.tableView reloadData];
-}
-
-
-
-// --------------------------------------------------------------------------
-//! Handle a tap on the accessory button.
-// --------------------------------------------------------------------------
-
-- (void) tableView: (UITableView*) table accessoryButtonTappedForRowWithIndexPath: (NSIndexPath*) path
-{
-    ECLogChannel* channel = [self.channels objectAtIndex:path.row];
-    ECDebugChannelViewController* controller = [[ECDebugChannelViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    controller.title = channel.name;
-    controller.channel = channel;
-    [self.debugViewController pushViewController:controller];
-    [controller release];
 }
 
 @end

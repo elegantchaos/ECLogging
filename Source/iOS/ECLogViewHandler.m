@@ -1,10 +1,8 @@
-//
-//  ECLogViewHandler.m
-//  ECLoggingSample
-//
-//  Created by Sam Deane on 02/08/2011.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
+// --------------------------------------------------------------------------
+//  Copyright 2012 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
 
 #import "ECLogViewHandler.h"
 #import "ECLogViewController.h"

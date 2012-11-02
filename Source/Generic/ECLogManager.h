@@ -62,9 +62,12 @@
 - (ECLogContextFlags)contextFlagValueForIndex:(NSUInteger)index;
 - (NSUInteger)contextFlagCount;
 
+- (NSArray*)handlersSortedByName;
 - (NSString*)handlerNameForIndex:(NSUInteger)index;
 - (ECLogHandler*)handlerForIndex:(NSUInteger)index;
 - (NSUInteger)handlerCount;
+- (BOOL)handlerIsDefault:(ECLogHandler*)handler;
+- (void)handler:(ECLogHandler*)handler setDefault:(BOOL)value;
 
 @end
 

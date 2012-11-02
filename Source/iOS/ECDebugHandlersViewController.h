@@ -4,10 +4,11 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <UIKit/UIKit.h>
+@class ECDebugViewController;
 
-@class ECLogViewHandler;
+@interface ECDebugHandlersViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@interface ECLogViewController : UITableViewController
+@property (nonatomic, retain) NSArray* handlers;
+@property (nonatomic, retain) ECDebugViewController* debugViewController;
 
 @end

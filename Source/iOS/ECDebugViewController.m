@@ -1,26 +1,15 @@
 // --------------------------------------------------------------------------
-//! @author Sam Deane
-//! @date 12/04/2011
-//
 //  Copyright 2012 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
-//  liberal license: http://www.elegantchaos.com/license/liberal
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license:http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #import "ECDebugViewController.h"
 #import "ECDebugChannelsViewController.h"
+#import "ECDebugHandlersViewController.h"
 
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
-
-// --------------------------------------------------------------------------
-// Private Methods
-// --------------------------------------------------------------------------
-
-@interface ECDebugViewController()
-- (void) showChannels;
-@end
-
 
 @implementation ECDebugViewController
 
@@ -44,6 +33,7 @@ ECDefineDebugChannel(DebugViewChannel);
 typedef enum 
 {
     kShowChannelsCommand,
+	kShowHandlersCommand,
     kEnableAllChannelsCommand,
     kDisableAllChannelsCommand,
     kResetAllSettingsCommand
@@ -59,6 +49,7 @@ typedef struct
 Item kItems[] = 
 {
     { @"Channels", UITableViewCellAccessoryDisclosureIndicator, kShowChannelsCommand },
+    { @"Handlers", UITableViewCellAccessoryDisclosureIndicator, kShowHandlersCommand },
     { @"Enable All", UITableViewCellAccessoryNone, kEnableAllChannelsCommand },
     { @"Disable All", UITableViewCellAccessoryNone, kDisableAllChannelsCommand },
     { @"Reset All", UITableViewCellAccessoryNone, kResetAllSettingsCommand }
@@ -68,7 +59,7 @@ Item kItems[] =
 
 - (id)initWithFrame:(CGRect)frame
 {
-    if ((self = [super initWithStyle:UITableViewStyleGrouped]) != nil)
+    if ((self = [super initWithStyle:UITableViewStyleGrouped])!= nil)
     {
     }
     
@@ -86,7 +77,7 @@ Item kItems[] =
 //! Finish setting up the view.
 // --------------------------------------------------------------------------
 
-- (void) viewDidLoad
+- (void)viewDidLoad
 {
 	ECDebug(DebugViewChannel, @"setting up view");
     self.title = @"Debug";
@@ -96,10 +87,21 @@ Item kItems[] =
 //! Show the channels sub-view
 // --------------------------------------------------------------------------
 
-- (void) showChannels
+- (void)showChannels
 {
     ECDebugChannelsViewController* controller = [[ECDebugChannelsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    controller.title = @"Log Channels";
+    controller.debugViewController = self;
+    [self pushViewController:controller];
+    [controller release];
+}
+
+// --------------------------------------------------------------------------
+//! Show the handlers sub-view
+// --------------------------------------------------------------------------
+
+- (void)showHandlers
+{
+    ECDebugHandlersViewController* controller = [[ECDebugHandlersViewController alloc] initWithStyle:UITableViewStyleGrouped];
     controller.debugViewController = self;
     [self pushViewController:controller];
     [controller release];
@@ -109,7 +111,7 @@ Item kItems[] =
 //! Push a controller to the right nav controller.
 // --------------------------------------------------------------------------
 
-- (void)pushViewController:(UIViewController *)controller
+- (void)pushViewController:(UIViewController*)controller
 {
     UINavigationController* nav = self.navController;
     if (!nav)
@@ -126,7 +128,7 @@ Item kItems[] =
 //! How many sections are there?
 // --------------------------------------------------------------------------
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
 {
     return 1;
 }
@@ -135,7 +137,7 @@ Item kItems[] =
 //! Return the header title for a section.
 // --------------------------------------------------------------------------
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection: (NSInteger) section
+- (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section
 {
     return @"Logging";
 }
@@ -144,9 +146,9 @@ Item kItems[] =
 //! Return the number of rows in a section.
 // --------------------------------------------------------------------------
 
-- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger) sectionIndex
+- (NSInteger)tableView:(UITableView*)table numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return sizeof(kItems) / sizeof(Item);
+    return sizeof(kItems)/ sizeof(Item);
 }
 
 
@@ -154,9 +156,9 @@ Item kItems[] =
 //! Return the view for a given row.
 // --------------------------------------------------------------------------
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: @"DebugViewCell"];
+	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"DebugViewCell"];
 	if (cell == nil)
 	{
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DebugViewCell"];
@@ -175,15 +177,19 @@ Item kItems[] =
 //! Handle selecting a table row.
 // --------------------------------------------------------------------------
 
-- (void) tableView:(UITableView*) table didSelectRowAtIndexPath:(NSIndexPath*) path
+- (void)tableView:(UITableView*)table didSelectRowAtIndexPath:(NSIndexPath*)path
 {
     Item* item = &kItems[path.row];
-	switch (item->command) 
+	switch (item->command)
     {
         case kShowChannelsCommand:
             [self showChannels];
             break;
-            
+
+		case kShowHandlersCommand:
+			[self showHandlers];
+			break;
+
         case kEnableAllChannelsCommand:
             [[ECLogManager sharedInstance] enableAllChannels];
             break;
@@ -197,7 +203,7 @@ Item kItems[] =
             break;
     }
     
-    [table deselectRowAtIndexPath: path animated: YES];
+    [table deselectRowAtIndexPath:path animated:YES];
 }
 
 @end
