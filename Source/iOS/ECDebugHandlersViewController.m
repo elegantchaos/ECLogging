@@ -87,6 +87,15 @@ ECDefineDebugChannel(DebugHandlersViewChannel);
 }
 
 // --------------------------------------------------------------------------
+//! Return the header title for a section.
+// --------------------------------------------------------------------------
+
+- (NSString*)tableView:(UITableView*)tableView titleForFooterInSection:(NSInteger)section
+{
+    return @"Messages for any channel set to use the default handlers will be sent to all ticked items.";
+}
+
+// --------------------------------------------------------------------------
 //! Return the number of rows in a section.
 // --------------------------------------------------------------------------
 

@@ -48,8 +48,8 @@ typedef struct
 
 Item kItems[] = 
 {
-    { @"Channels", UITableViewCellAccessoryDisclosureIndicator, kShowChannelsCommand },
-    { @"Handlers", UITableViewCellAccessoryDisclosureIndicator, kShowHandlersCommand },
+    { @"Configure Channels", UITableViewCellAccessoryDisclosureIndicator, kShowChannelsCommand },
+    { @"Default Handlers", UITableViewCellAccessoryDisclosureIndicator, kShowHandlersCommand },
     { @"Enable All", UITableViewCellAccessoryNone, kEnableAllChannelsCommand },
     { @"Disable All", UITableViewCellAccessoryNone, kDisableAllChannelsCommand },
     { @"Reset All", UITableViewCellAccessoryNone, kResetAllSettingsCommand }

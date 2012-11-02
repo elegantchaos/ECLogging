@@ -12,13 +12,7 @@
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
 
-// --------------------------------------------------------------------------
-// Private Methods
-// --------------------------------------------------------------------------
-
-@interface ECDebugChannelsViewController()
-@end
-
+static NSString *const DebugChannelsViewCell = @"DebugChannelsViewCell";
 
 @implementation ECDebugChannelsViewController
 
@@ -32,8 +26,8 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 // Properties
 // --------------------------------------------------------------------------
 
-@synthesize channels;
-@synthesize debugViewController;
+@synthesize channels = _channels;
+@synthesize debugViewController = _debugViewController;
 
 // --------------------------------------------------------------------------
 //! Clean up.
@@ -41,8 +35,8 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 
 - (void)dealloc
 {
-    [channels release];
-    [debugViewController release];
+    [_channels release];
+    [_debugViewController release];
     
     [super dealloc];
 }
@@ -106,10 +100,10 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 {
     ECLogChannel* channel = [self.channels objectAtIndex:indexPath.row];
     
-	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: @"DebugViewCell"];
+	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:DebugChannelsViewCell];
 	if (cell == nil)
 	{
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"DebugViewCell"];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:DebugChannelsViewCell];
         [cell autorelease];
 	}
 	

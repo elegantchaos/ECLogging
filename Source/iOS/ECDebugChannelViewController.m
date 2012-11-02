@@ -44,6 +44,7 @@ enum
 };
 
 NSString *const kSections[] = { @"Settings", @"Handlers", @"Context", @"Reset" };
+NSString *const kSectionFooters[] = { @"Enabled channels produce output. Disabled channels are ignored.", @"Messages sent to this channel will be processed by the ticked handlers.", @"Ticked context items will be logged along with each message.", @"Resetting puts a channel back to the default state." };
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -93,6 +94,15 @@ NSString *const kSections[] = { @"Settings", @"Handlers", @"Context", @"Reset" }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection: (NSInteger) section
 {
     return kSections[section];
+}
+
+// --------------------------------------------------------------------------
+//! Return the footer title for a section.
+// --------------------------------------------------------------------------
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection: (NSInteger) section
+{
+    return kSectionFooters[section];
 }
 
 // --------------------------------------------------------------------------
