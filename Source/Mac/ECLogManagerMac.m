@@ -46,9 +46,19 @@ static ECLogManager* gSharedInstance = nil;
 {
 	[super startup];
 
-	[self performSelector:@selector(installDebugMenu) withObject:nil afterDelay:0.0];
+	if ([self.settings[@"InstallMenu"] boolValue])
+	{
+		[self performSelector:@selector(installDebugMenu) withObject:nil afterDelay:0.0];
+	}
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:NSApplicationWillResignActiveNotification object:nil];
+}
+
+- (void)shutdown
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
+	[super shutdown];
 }
 
 - (void)appWillResignActive:(NSNotification*)notification

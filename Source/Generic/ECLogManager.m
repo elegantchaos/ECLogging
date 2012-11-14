@@ -349,7 +349,7 @@ const ContextFlagInfo kContextFlagInfo[] =
 
 	NSDictionary* savedSettings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:LogManagerSettings];
 	NSDictionary* defaultSettings = [self defaultSettings];
-	NSDictionary* combinedSettings;
+	self.settings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
 	
 	NSUInteger savedVersion = [[savedSettings objectForKey:VersionSetting] unsignedIntegerValue];
 	if (savedVersion == kSettingsVersion)
@@ -376,15 +376,9 @@ const ContextFlagInfo kContextFlagInfo[] =
 			}
 		}
 		
-		combinedSettings = @{ ChannelsSetting : channels, HandlersSetting : handlers };
+		self.settings[ChannelsSetting] = channels;
+		self.settings[HandlersSetting] = handlers;
 	}
-	else
-	{
-		combinedSettings = defaultSettings;
-	}
-
-	self.settings = [NSMutableDictionary dictionaryWithDictionary:combinedSettings];
-
 }
 
 // --------------------------------------------------------------------------
