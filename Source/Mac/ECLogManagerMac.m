@@ -86,10 +86,14 @@ static ECLogManager* gSharedInstance = nil;
 
 	if ([self.settings[@"InstallMenu"] boolValue])
 	{
-		[self performSelector:@selector(installLoggingMenu) withObject:nil afterDelay:0.0];
+		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+			[self installLoggingMenu];
+		}];
 	}
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:NSApplicationWillResignActiveNotification object:nil];
+	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+	[nc addObserver:self selector:@selector(saveSettings:) name:NSApplicationWillResignActiveNotification object:nil];
+	[nc addObserver:self selector:@selector(saveSettings:) name:NSApplicationWillTerminateNotification object:nil];
 }
 
 /// --------------------------------------------------------------------------
@@ -108,7 +112,7 @@ static ECLogManager* gSharedInstance = nil;
 /// settings.
 /// --------------------------------------------------------------------------
 
-- (void)appWillResignActive:(NSNotification*)notification
+- (void)saveSettings:(NSNotification*)notification
 {
     [self saveChannelSettings];
 }
