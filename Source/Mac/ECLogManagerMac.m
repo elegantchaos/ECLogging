@@ -1,10 +1,8 @@
-//
-//  ECLogManagerMac.m
-//  ECLogging
-//
-//  Created by Sam Deane on 31/10/2012.
-//  Copyright (c) 2012 Elegant Chaos. All rights reserved.
-//
+// --------------------------------------------------------------------------
+//  Copyright 2012 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
 
 #import "ECLogManagerMac.h"
 
@@ -12,9 +10,9 @@
 
 static ECLogManager* gSharedInstance = nil;
 
-// --------------------------------------------------------------------------
-//! Return the shared instance.
-// --------------------------------------------------------------------------
+/// --------------------------------------------------------------------------
+/// Return the shared instance.
+/// --------------------------------------------------------------------------
 
 + (ECLogManager*)sharedInstance
 {
@@ -30,17 +28,57 @@ static ECLogManager* gSharedInstance = nil;
 
 @implementation ECLogManagerMac
 
-- (void)installDebugMenu
+/// --------------------------------------------------------------------------
+/// Return the top level Debug menu item.
+/// If it doesn't already exist, we add one.
+/// --------------------------------------------------------------------------
+
+- (NSMenuItem*)debugMenuItem
 {
+	NSMenuItem* result;
 
 	NSMenu* menubar = [NSApp mainMenu];
-	ECLoggingMenu* menu = [[ECLoggingMenu alloc] initWithTitle:@"Debug"];
-	NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Debug" action:nil keyEquivalent:@""];
-	item.submenu = menu;
-	[menubar addItem:item];
-	[item release];
-	[menu release];
+	result = [menubar itemWithTitle:@"Debug"];
+	if (!result)
+	{
+		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Debug" action:nil keyEquivalent:@""];
+		result = item;
+
+		ECDebugMenu* menu = [[ECDebugMenu alloc] initWithTitle:@"Debug"];
+		item.submenu = menu;
+		[menu release];
+
+		[menubar addItem:item];
+		[item release];
+	}
+
+	return result;
 }
+
+/// --------------------------------------------------------------------------
+/// Install a Logging menu with log related controls.
+/// --------------------------------------------------------------------------
+
+- (void)installLoggingMenu
+{
+	NSMenuItem* debugItem = [self debugMenuItem];
+	NSMenuItem* loggingItem = [debugItem.submenu itemWithTitle:@"Logging"];
+	if (!loggingItem)
+	{
+		loggingItem = [[NSMenuItem alloc] initWithTitle:@"Logging" action:nil keyEquivalent:@""];
+
+		ECLoggingMenu* menu = [[ECLoggingMenu alloc] initWithTitle:@"Logging"];
+		loggingItem.submenu = menu;
+		[menu release];
+
+		[debugItem.submenu addItem:loggingItem];
+		[loggingItem release];
+	}
+}
+
+/// --------------------------------------------------------------------------
+/// Perform some extra Mac-only startup.
+/// --------------------------------------------------------------------------
 
 - (void)startup
 {
@@ -48,11 +86,15 @@ static ECLogManager* gSharedInstance = nil;
 
 	if ([self.settings[@"InstallMenu"] boolValue])
 	{
-		[self performSelector:@selector(installDebugMenu) withObject:nil afterDelay:0.0];
+		[self performSelector:@selector(installLoggingMenu) withObject:nil afterDelay:0.0];
 	}
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:NSApplicationWillResignActiveNotification object:nil];
 }
+
+/// --------------------------------------------------------------------------
+/// Perform some extra Mac-only cleanup.
+/// --------------------------------------------------------------------------
 
 - (void)shutdown
 {
@@ -60,6 +102,11 @@ static ECLogManager* gSharedInstance = nil;
 
 	[super shutdown];
 }
+
+/// --------------------------------------------------------------------------
+/// When the app is switched to the background, save out channel
+/// settings.
+/// --------------------------------------------------------------------------
 
 - (void)appWillResignActive:(NSNotification*)notification
 {
