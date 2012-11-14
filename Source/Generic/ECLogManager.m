@@ -27,7 +27,6 @@
 // Private Properties
 // --------------------------------------------------------------------------
 
-@property (nonatomic, retain)NSMutableDictionary* settings;
 @property (nonatomic, retain)NSArray* handlersSorted;
 
 // --------------------------------------------------------------------------
@@ -203,31 +202,41 @@ const ContextFlagInfo kContextFlagInfo[] =
 	self.handlers = [NSMutableDictionary dictionary];
 	self.defaultHandlers = [NSMutableArray array];
 	NSDictionary* allHandlers = self.settings[HandlersSetting];
-	for (NSString* handlerName in allHandlers)
+	if ([allHandlers count] == 0)
 	{
-		Class handlerClass = NSClassFromString(handlerName);
-		ECLogHandler* handler = [[handlerClass alloc] init];
-		if (handler)
-		{
-			NSDictionary* handlerSettings = allHandlers[handlerName];
-			[self.handlers setObject:handler forKey:handler.name];
-			LogManagerLog(@"registered handler %@", handler.name);
-
-			if ([handlerSettings[DefaultSetting] boolValue])
-			{
-				LogManagerLog(@"add handler %@ to default handlers", handler.name);
-				[self.defaultHandlers addObject:handler];
-			}
-
-		}
-		else
-		{
-			NSLog(@"unknown log handler class %@", handlerName);
-		}
-
-		self.handlersSorted = [[self.handlers allValues] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-
+		ECLogHandler* handler = [[ECLogHandlerNSLog alloc] init];
+		self.handlers[handler.name] = handler;
+		[self.defaultHandlers addObject:handler];
+		[handler release];
 	}
+	else
+	{
+		for (NSString* handlerName in allHandlers)
+		{
+			Class handlerClass = NSClassFromString(handlerName);
+			ECLogHandler* handler = [[handlerClass alloc] init];
+			if (handler)
+			{
+				NSDictionary* handlerSettings = allHandlers[handlerName];
+				[self.handlers setObject:handler forKey:handler.name];
+				LogManagerLog(@"registered handler %@", handler.name);
+
+				if ([handlerSettings[DefaultSetting] boolValue])
+				{
+					LogManagerLog(@"add handler %@ to default handlers", handler.name);
+					[self.defaultHandlers addObject:handler];
+				}
+
+			}
+			else
+			{
+				NSLog(@"unknown log handler class %@", handlerName);
+			}
+			[handler release];
+		}
+	}
+
+	self.handlersSorted = [[self.handlers allValues] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 
@@ -358,9 +367,13 @@ const ContextFlagInfo kContextFlagInfo[] =
 		NSMutableDictionary* handlers = [NSMutableDictionary dictionary];
 		for (NSString* handlerName in defaultHandlers)
 		{
-			NSMutableDictionary* handlerSettings = [NSMutableDictionary dictionaryWithDictionary:defaultHandlers[handlerName]];
-			[handlerSettings addEntriesFromDictionary:savedHandlers[handlerName]];
-			handlers[handlerName] = handlerSettings;
+			NSDictionary* savedHandlerSettings = defaultHandlers[handlerName];
+			if ([savedHandlerSettings isKindOfClass:[NSDictionary class]])
+			{
+				NSMutableDictionary* handlerSettings = [NSMutableDictionary dictionaryWithDictionary:savedHandlerSettings];
+				[handlerSettings addEntriesFromDictionary:savedHandlers[handlerName]];
+				handlers[handlerName] = handlerSettings;
+			}
 		}
 		
 		combinedSettings = @{ ChannelsSetting : channels, HandlersSetting : handlers };

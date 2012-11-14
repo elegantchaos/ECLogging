@@ -30,4 +30,30 @@ static ECLogManager* gSharedInstance = nil;
 
 @implementation ECLogManagerMac
 
+- (void)installDebugMenu
+{
+
+	NSMenu* menubar = [NSApp mainMenu];
+	ECLoggingMenu* menu = [[ECLoggingMenu alloc] initWithTitle:@"Debug"];
+	NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Debug" action:nil keyEquivalent:@""];
+	item.submenu = menu;
+	[menubar addItem:item];
+	[item release];
+	[menu release];
+}
+
+- (void)startup
+{
+	[super startup];
+
+	[self performSelector:@selector(installDebugMenu) withObject:nil afterDelay:0.0];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:NSApplicationWillResignActiveNotification object:nil];
+}
+
+- (void)appWillResignActive:(NSNotification*)notification
+{
+    [self saveChannelSettings];
+}
+
 @end
