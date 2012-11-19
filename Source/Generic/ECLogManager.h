@@ -1,9 +1,6 @@
 // --------------------------------------------------------------------------
-//! @author Sam Deane
-//! @date 12/04/2011
-//
 //  Copyright 2012 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -40,6 +37,7 @@
 @property (nonatomic, retain) NSMutableDictionary* handlers;
 @property (nonatomic, retain) NSMutableArray* defaultHandlers;
 @property (nonatomic, assign) ECLogContextFlags defaultContextFlags;
+@property (nonatomic, retain)NSMutableDictionary* settings;
 
 // --------------------------------------------------------------------------
 // Public Methods
@@ -48,6 +46,7 @@
 - (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(NSDictionary*)options;
 - (ECLogChannel*)registerChannelWithName:(NSString*)name options:(NSDictionary*)options;
 - (void)registerChannel:(ECLogChannel*)channel;
+- (void)startup;
 - (void)shutdown;
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context;
 - (void)enableAllChannels;

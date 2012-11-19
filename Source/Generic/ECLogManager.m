@@ -1,7 +1,4 @@
 // --------------------------------------------------------------------------
-//! @author Sam Deane
-//! @date 12/04/2011
-//
 //  Copyright 2012 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's 
 //  liberal license: http://www.elegantchaos.com/license/liberal
@@ -14,7 +11,7 @@
 @interface ECLogManager()
 
 // Turn this setting on to output debug message on the log manager itself, using NSLog
-#define LOG_MANAGER_DEBUGGING 1
+#define LOG_MANAGER_DEBUGGING 0
 
 #if LOG_MANAGER_DEBUGGING
 #define LogManagerLog(format, ...)NSLog(@"ECLogManager: %@", [NSString stringWithFormat:format, ## __VA_ARGS__])
@@ -27,14 +24,12 @@
 // Private Properties
 // --------------------------------------------------------------------------
 
-@property (nonatomic, retain)NSMutableDictionary* settings;
 @property (nonatomic, retain)NSArray* handlersSorted;
 
 // --------------------------------------------------------------------------
 // Private Methods
 // --------------------------------------------------------------------------
 
-- (void)loadChannelSettings;
 - (void)saveChannelSettings;
 - (void)postUpdateNotification;
 
@@ -114,7 +109,7 @@ const ContextFlagInfo kContextFlagInfo[] =
 - (ECLogChannel*)registerChannelWithName:(NSString*)name options:(NSDictionary*)options
 {
     LogManagerLog(@"registering channel with name %@", name);
-    ECLogChannel* channel = [self.channels objectForKey:name];
+    ECLogChannel* channel = self.channels[name];
     if (!channel)
     {
         channel = [[[ECLogChannel alloc] initWithName: name] autorelease];
@@ -148,18 +143,18 @@ const ContextFlagInfo kContextFlagInfo[] =
 
 - (void)applySettings:(NSDictionary*)channelSettings toChannel:(ECLogChannel*)channel
 {
-    channel.enabled = [[channelSettings objectForKey: EnabledSetting] boolValue];
-    channel.level = [channelSettings objectForKey:LevelSetting];
-    NSNumber* contextValue = [channelSettings objectForKey: ContextSetting];
+    channel.enabled = [channelSettings[EnabledSetting] boolValue];
+    channel.level = channelSettings[LevelSetting];
+    NSNumber* contextValue = channelSettings[ContextSetting];
     channel.context = contextValue ? ((ECLogContextFlags)[contextValue integerValue]): ECLogContextDefault;
     LogManagerLog(@"loaded channel %@ setting enabled: %d", channel.name, channel.enabled);
     
-    NSArray* handlerNames = [channelSettings objectForKey: HandlersSetting];
+    NSArray* handlerNames = channelSettings[HandlersSetting];
     if (handlerNames)
     {
         for (NSString* handlerName in handlerNames)
         {
-            ECLogHandler* handler = [self.handlers objectForKey:handlerName];
+            ECLogHandler* handler = self.handlers[handlerName];
             if (handler)
             {
                 LogManagerLog(@"added channel %@ handler %@", channel.name, handler.name);
@@ -180,12 +175,12 @@ const ContextFlagInfo kContextFlagInfo[] =
 - (void)registerChannel:(ECLogChannel*)channel
 {
     LogManagerLog(@"adding channel %@", channel.name);
-	[self.channels setObject: channel forKey: channel.name];
+	self.channels[channel.name] = channel;
 	
     if (self.settings)
     {
-        NSDictionary* allChannels = [self.settings objectForKey:ChannelsSetting];
-        NSDictionary* channelSettings = [allChannels objectForKey: channel.name];
+        NSDictionary* allChannels = self.settings[ChannelsSetting];
+        NSDictionary* channelSettings = allChannels[channel.name];
         [self applySettings:channelSettings toChannel:channel];
         
         channel.setup = YES;
@@ -203,31 +198,41 @@ const ContextFlagInfo kContextFlagInfo[] =
 	self.handlers = [NSMutableDictionary dictionary];
 	self.defaultHandlers = [NSMutableArray array];
 	NSDictionary* allHandlers = self.settings[HandlersSetting];
-	for (NSString* handlerName in allHandlers)
+	if ([allHandlers count] == 0)
 	{
-		Class handlerClass = NSClassFromString(handlerName);
-		ECLogHandler* handler = [[handlerClass alloc] init];
-		if (handler)
-		{
-			NSDictionary* handlerSettings = allHandlers[handlerName];
-			[self.handlers setObject:handler forKey:handler.name];
-			LogManagerLog(@"registered handler %@", handler.name);
-
-			if ([handlerSettings[DefaultSetting] boolValue])
-			{
-				LogManagerLog(@"add handler %@ to default handlers", handler.name);
-				[self.defaultHandlers addObject:handler];
-			}
-
-		}
-		else
-		{
-			NSLog(@"unknown log handler class %@", handlerName);
-		}
-
-		self.handlersSorted = [[self.handlers allValues] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-
+		ECLogHandler* handler = [[ECLogHandlerNSLog alloc] init];
+		self.handlers[handler.name] = handler;
+		[self.defaultHandlers addObject:handler];
+		[handler release];
 	}
+	else
+	{
+		for (NSString* handlerName in allHandlers)
+		{
+			Class handlerClass = NSClassFromString(handlerName);
+			ECLogHandler* handler = [[handlerClass alloc] init];
+			if (handler)
+			{
+				NSDictionary* handlerSettings = allHandlers[handlerName];
+				[self.handlers setObject:handler forKey:handler.name];
+				LogManagerLog(@"registered handler %@", handler.name);
+
+				if ([handlerSettings[DefaultSetting] boolValue])
+				{
+					LogManagerLog(@"add handler %@ to default handlers", handler.name);
+					[self.defaultHandlers addObject:handler];
+				}
+
+			}
+			else
+			{
+				NSLog(@"unknown log handler class %@", handlerName);
+			}
+			[handler release];
+		}
+	}
+
+	self.handlersSorted = [[self.handlers allValues] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 
@@ -340,9 +345,9 @@ const ContextFlagInfo kContextFlagInfo[] =
 
 	NSDictionary* savedSettings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:LogManagerSettings];
 	NSDictionary* defaultSettings = [self defaultSettings];
-	NSDictionary* combinedSettings;
+	self.settings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
 	
-	NSUInteger savedVersion = [[savedSettings objectForKey:VersionSetting] unsignedIntegerValue];
+	NSUInteger savedVersion = [savedSettings[VersionSetting] unsignedIntegerValue];
 	if (savedVersion == kSettingsVersion)
 	{
 		// use saved channel settings if we have them, otherwise the defaults
@@ -358,20 +363,20 @@ const ContextFlagInfo kContextFlagInfo[] =
 		NSMutableDictionary* handlers = [NSMutableDictionary dictionary];
 		for (NSString* handlerName in defaultHandlers)
 		{
-			NSMutableDictionary* handlerSettings = [NSMutableDictionary dictionaryWithDictionary:defaultHandlers[handlerName]];
-			[handlerSettings addEntriesFromDictionary:savedHandlers[handlerName]];
-			handlers[handlerName] = handlerSettings;
+			NSDictionary* savedHandlerSettings = defaultHandlers[handlerName];
+			if ([savedHandlerSettings isKindOfClass:[NSDictionary class]])
+			{
+				NSMutableDictionary* handlerSettings = [NSMutableDictionary dictionaryWithDictionary:savedHandlerSettings];
+				[handlerSettings addEntriesFromDictionary:savedHandlers[handlerName]];
+				handlers[handlerName] = handlerSettings;
+			}
 		}
 		
-		combinedSettings = @{ ChannelsSetting : channels, HandlersSetting : handlers };
-	}
-	else
-	{
-		combinedSettings = defaultSettings;
+		self.settings[ChannelsSetting] = channels;
+		self.settings[HandlersSetting] = handlers;
 	}
 
-	self.settings = [NSMutableDictionary dictionaryWithDictionary:combinedSettings];
-
+	[self loadChannelSettings];
 }
 
 // --------------------------------------------------------------------------
@@ -383,7 +388,7 @@ const ContextFlagInfo kContextFlagInfo[] =
 {
     LogManagerLog(@"log manager loading settings");
 
-	NSDictionary* channelSettings = [self.settings objectForKey:ChannelsSetting];
+	NSDictionary* channelSettings = self.settings[ChannelsSetting];
 	for (NSString* channel in [channelSettings allKeys])
 	{
 		LogManagerLog(@"loaded settings for channel %@", channel);
@@ -400,14 +405,14 @@ const ContextFlagInfo kContextFlagInfo[] =
     LogManagerLog(@"log manager saving settings");
     
 	NSDictionary* defaultSettings = [self defaultSettings];
-	NSDictionary* defaultChannelSettings = [defaultSettings objectForKey:ChannelsSetting];
+	NSDictionary* defaultChannelSettings = defaultSettings[ChannelsSetting];
 	NSMutableDictionary* allChannelSettings = [[NSMutableDictionary alloc] init];
 
 	for (ECLogChannel* channel in [self.channels allValues])
 	{
-        NSMutableDictionary* channelSettings = [NSMutableDictionary dictionaryWithDictionary:[defaultChannelSettings objectForKey:channel.name]];
-		[channelSettings setObject:[NSNumber numberWithBool: channel.enabled] forKey:EnabledSetting];
-		[channelSettings setObject:[NSNumber numberWithInteger: channel.context] forKey:ContextSetting];
+        NSMutableDictionary* channelSettings = [NSMutableDictionary dictionaryWithDictionary:defaultChannelSettings[channel.name]];
+		channelSettings[EnabledSetting] = [NSNumber numberWithBool: channel.enabled];
+		channelSettings[ContextSetting] = [NSNumber numberWithInteger: channel.context];
         NSSet* channelHandlers = channel.handlers;
         if (channelHandlers)
         {
@@ -416,12 +421,12 @@ const ContextFlagInfo kContextFlagInfo[] =
             {
                 [handlerNames addObject:handler.name];
             }
-            [channelSettings setObject:handlerNames forKey:HandlersSetting];
+            channelSettings[HandlersSetting] = handlerNames;
         }
         
         LogManagerLog(@"settings for channel %@:%@", channel.name, channelSettings);
 
-		[allChannelSettings setObject: channelSettings forKey: channel.name];
+		allChannelSettings[channel.name] = channelSettings;
 	}
 	
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -512,8 +517,8 @@ const ContextFlagInfo kContextFlagInfo[] =
 {
     LogManagerLog(@"reset channel %@", channel.name);
     NSDictionary* defaultSettings = [self defaultSettings];
-	NSDictionary* allChannelSettings = [defaultSettings objectForKey:ChannelsSetting];
-    [self applySettings:[allChannelSettings objectForKey:channel.name] toChannel:channel];
+	NSDictionary* allChannelSettings = defaultSettings[ChannelsSetting];
+    [self applySettings:allChannelSettings[channel.name] toChannel:channel];
     [self saveChannelSettings];
 }
 
@@ -526,11 +531,11 @@ const ContextFlagInfo kContextFlagInfo[] =
 {
     LogManagerLog(@"reset all channels");
     NSDictionary* defaultSettings = [self defaultSettings];
-	NSDictionary* allChannelSettings = [defaultSettings objectForKey:ChannelsSetting];
+	NSDictionary* allChannelSettings = defaultSettings[ChannelsSetting];
 	for (NSString* name in self.channels)
 	{
-        ECLogChannel* channel = [self.channels objectForKey:name];
-        [self applySettings:[allChannelSettings objectForKey:name] toChannel:channel];
+        ECLogChannel* channel = self.channels[name];
+        [self applySettings:allChannelSettings[name] toChannel:channel];
 	}
     [self saveChannelSettings];
 }

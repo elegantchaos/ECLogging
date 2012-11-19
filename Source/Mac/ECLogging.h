@@ -6,6 +6,7 @@
 
 #import "ECLoggingGeneric.h"
 
+#import "ECDebugMenu.h"
 #import "ECErrorPresenterHandler.h"
 #import "ECLoggingMenu.h"
 #import "NSMenu+ECLogging.h"
