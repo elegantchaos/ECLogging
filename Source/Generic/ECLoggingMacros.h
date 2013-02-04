@@ -40,9 +40,9 @@
 
 #pragma mark - Logging Macros
 
-#define ECLog(channel, ...) do { ECLogChannel* c = getChannel##channel(); if (channelEnabled(c)) { ECMakeContext(); logToChannel(c, &ecLogContext, __VA_ARGS__); } } while (0)
+#define ECLog(channel, ...) do { ECLogChannel* __c = getChannel##channel(); if (channelEnabled(__c)) { ECMakeContext(); logToChannel(__c, &ecLogContext, __VA_ARGS__); } } while (0)
 
-#define ECLogIf(test, channel, ...) do { if (test) { ECLogChannel* c = getChannel##channel(); ECMakeContext(); if (channelEnabled(c)) { logToChannel(c, &ecLogContext, __VA_ARGS__); } } } while (0)
+#define ECLogIf(test, channel, ...) do { if (test) { ECLogChannel* __c = getChannel##channel(); ECMakeContext(); if (channelEnabled(__c)) { logToChannel(__c, &ecLogContext, __VA_ARGS__); } } } while (0)
 
 #define ECGetChannel(channel) getChannel##channel()
 
