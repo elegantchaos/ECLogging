@@ -1,5 +1,4 @@
 // --------------------------------------------------------------------------
-//! @author Sam Deane
 //! @date 10/04/2012
 //
 //  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
