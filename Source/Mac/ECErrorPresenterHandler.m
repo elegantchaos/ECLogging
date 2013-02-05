@@ -46,7 +46,7 @@ const NSInteger ECLoggingUnknownError = -1;
 	else 
 	{
 		NSString* string = [self simpleOutputStringForChannel:channel withObject:object arguments:arguments context:context];
-		error = [NSError errorWithDomain:ECLoggingErrorDomain code:ECLoggingUnknownError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:string, NSLocalizedDescriptionKey, nil]];
+		error = [NSError errorWithDomain:ECLoggingErrorDomain code:ECLoggingUnknownError userInfo:@{NSLocalizedDescriptionKey: string}];
 	}
 
 	[[NSApplication sharedApplication] presentError:error];

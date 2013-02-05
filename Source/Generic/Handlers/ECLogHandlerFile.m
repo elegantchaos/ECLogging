@@ -77,11 +77,11 @@
         self.files = fileCache;
     }
     
-    NSURL* logFile = [fileCache objectForKey:channel.name];
+    NSURL* logFile = fileCache[channel.name];
     if (!logFile)
     {
         logFile = [self.logFolder URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.log", channel.name]];
-        [fileCache setObject:logFile forKey:channel.name];
+        fileCache[channel.name] = logFile;
     }
 
     return logFile;

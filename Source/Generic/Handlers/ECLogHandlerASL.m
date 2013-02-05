@@ -58,13 +58,13 @@
 
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext *)context
 {
-    aslmsg aslMsg = [[self.aslMsgs objectForKey:channel.name] pointerValue];
+    aslmsg aslMsg = [(self.aslMsgs)[channel.name] pointerValue];
     if (!aslMsg)
     {
         aslMsg = asl_new(ASL_TYPE_MSG);
         NSString* name = [NSString stringWithFormat:@"%@.%@", [[NSBundle mainBundle] bundleIdentifier], channel.name];
         asl_set(aslMsg, ASL_KEY_FACILITY, [name UTF8String]);
-        [self.aslMsgs setObject:[NSValue valueWithPointer:aslMsg] forKey:channel.name];
+        (self.aslMsgs)[channel.name] = [NSValue valueWithPointer:aslMsg];
     }
     
     int level = channel.level ? (int) [channel.level integerValue] : ASL_LEVEL_INFO;

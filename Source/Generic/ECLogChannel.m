@@ -147,7 +147,7 @@ static NSString *const kSuffixToStrip = @"Channel";
 
 + (NSString*) cleanName:(const char *) name
 {
-	NSString* temp = [NSString stringWithUTF8String: name];
+	NSString* temp = @(name);
 
 	if ([temp hasSuffix: kSuffixToStrip])
 	{
@@ -188,7 +188,7 @@ static NSString *const kSuffixToStrip = @"Channel";
 
 - (NSString*) fileFromContext:(ECLogContext*)contextIn
 {
-    NSString* file = [NSString stringWithCString:contextIn->file encoding:NSUTF8StringEncoding];
+    NSString* file = @(contextIn->file);
     if (![self showContext:ECLogContextFullPath])
     {
         file = [file lastPathComponent];

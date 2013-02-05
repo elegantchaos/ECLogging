@@ -226,7 +226,7 @@ const ContextFlagInfo kContextFlagInfo[] =
 			if (handler)
 			{
 				NSDictionary* handlerSettings = allHandlers[handlerName];
-				[self.handlers setObject:handler forKey:handler.name];
+				(self.handlers)[handler.name] = handler;
 				LogManagerLog(@"registered handler %@", handler.name);
 
 				if ([handlerSettings[DefaultSetting] boolValue])
@@ -423,8 +423,8 @@ const ContextFlagInfo kContextFlagInfo[] =
 	for (ECLogChannel* channel in [self.channels allValues])
 	{
         NSMutableDictionary* channelSettings = [NSMutableDictionary dictionaryWithDictionary:defaultChannelSettings[channel.name]];
-		channelSettings[EnabledSetting] = [NSNumber numberWithBool: channel.enabled];
-		channelSettings[ContextSetting] = [NSNumber numberWithInteger: channel.context];
+		channelSettings[EnabledSetting] = @(channel.enabled);
+		channelSettings[ContextSetting] = @(channel.context);
         NSSet* channelHandlers = channel.handlers;
         if (channelHandlers)
         {
@@ -618,7 +618,7 @@ const ContextFlagInfo kContextFlagInfo[] =
     }
     else
     {
-        result = [self.handlersSorted objectAtIndex:index - 1];
+        result = (self.handlersSorted)[index - 1];
     }
     
     return result;
@@ -639,7 +639,7 @@ const ContextFlagInfo kContextFlagInfo[] =
     }
     else
     {
-        ECLogHandler* handler = [self.handlersSorted objectAtIndex:index - 1];
+        ECLogHandler* handler = (self.handlersSorted)[index - 1];
         result = handler.name;
     }
     
