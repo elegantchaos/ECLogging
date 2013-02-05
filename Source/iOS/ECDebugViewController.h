@@ -6,7 +6,7 @@
 
 @interface ECDebugViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate> 
 
-@property (nonatomic, retain) UINavigationController* navController;
+@property (strong, nonatomic) UINavigationController* navController;
 
 - (void)pushViewController:(UIViewController *)controller;
 

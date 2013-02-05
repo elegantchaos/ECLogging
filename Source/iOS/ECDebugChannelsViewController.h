@@ -8,7 +8,7 @@
 
 @interface ECDebugChannelsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate> 
 
-@property (nonatomic, retain) NSArray* channels;
-@property (nonatomic, retain) ECDebugViewController* debugViewController;
+@property (strong, nonatomic) NSArray* channels;
+@property (strong, nonatomic) ECDebugViewController* debugViewController;
 
 @end

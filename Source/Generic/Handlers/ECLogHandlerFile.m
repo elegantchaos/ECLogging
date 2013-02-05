@@ -16,8 +16,8 @@
 
 #pragma mark - Private Properties
 
-@property (nonatomic, retain) NSMutableDictionary* files;
-@property (nonatomic, retain) NSURL* logFolder;
+@property (strong, nonatomic) NSMutableDictionary* files;
+@property (strong, nonatomic) NSURL* logFolder;
 
 @end
 

@@ -8,7 +8,7 @@
 
 @interface ECDebugHandlersViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, retain) NSArray* handlers;
-@property (nonatomic, retain) ECDebugViewController* debugViewController;
+@property (strong, nonatomic) NSArray* handlers;
+@property (strong, nonatomic) ECDebugViewController* debugViewController;
 
 @end

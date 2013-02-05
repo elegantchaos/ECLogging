@@ -17,7 +17,7 @@
 
 @interface ECDebugChannelViewController()
 
-@property (nonatomic, assign) ECLogManager* logManager;
+@property (assign, nonatomic) ECLogManager* logManager;
 
 @end
 

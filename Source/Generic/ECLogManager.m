@@ -24,7 +24,7 @@
 // Private Properties
 // --------------------------------------------------------------------------
 
-@property (nonatomic, retain)NSArray* handlersSorted;
+@property (strong, nonatomic)NSArray* handlersSorted;
 
 // --------------------------------------------------------------------------
 // Private Methods

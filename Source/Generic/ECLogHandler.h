@@ -22,7 +22,7 @@
 	NSString* name;
 }
 
-@property (nonatomic, retain) NSString* name;
+@property (strong, nonatomic) NSString* name;
 
 /**
  * Called by the log manager for each message/object sent to a channel.

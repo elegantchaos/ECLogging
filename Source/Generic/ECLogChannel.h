@@ -25,12 +25,12 @@
 // Public Properties
 // --------------------------------------------------------------------------
 
-@property (nonatomic, assign) ECLogContextFlags context;
-@property (nonatomic, assign) BOOL enabled;
-@property (nonatomic, assign) BOOL setup;
-@property (nonatomic, retain) NSNumber* level;
-@property (nonatomic, retain) NSString* name;
-@property (nonatomic, retain) NSMutableSet* handlers;
+@property (assign, nonatomic) ECLogContextFlags context;
+@property (assign, nonatomic) BOOL enabled;
+@property (assign, nonatomic) BOOL setup;
+@property (strong, nonatomic) NSNumber* level;
+@property (strong, nonatomic) NSString* name;
+@property (strong, nonatomic) NSMutableSet* handlers;
 
 // --------------------------------------------------------------------------
 // Public Methods

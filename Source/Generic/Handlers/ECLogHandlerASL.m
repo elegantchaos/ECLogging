@@ -14,8 +14,8 @@
 
 @interface ECLogHandlerASL()
 
-@property (nonatomic, assign) aslclient aslClient;
-@property (nonatomic, retain) NSMutableDictionary*  aslMsgs;
+@property (assign, nonatomic) aslclient aslClient;
+@property (strong, nonatomic) NSMutableDictionary*  aslMsgs;
 
 @end
 

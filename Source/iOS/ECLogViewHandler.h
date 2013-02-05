@@ -22,7 +22,7 @@
 
 @interface ECLogViewHandler : ECLogHandler
 
-@property (nonatomic, retain) NSMutableArray* items;
+@property (strong, nonatomic) NSMutableArray* items;
 
 @end
 

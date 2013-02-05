@@ -16,8 +16,8 @@ static ECASLClient* gSharedInstance = nil;
 
 #pragma mark - Private Properties
 
-@property (nonatomic, assign) aslclient client;
-@property (nonatomic, assign) aslmsg msg;
+@property (assign, nonatomic) aslclient client;
+@property (assign, nonatomic) aslmsg msg;
 
 - (void)logAtLevel:(int)level withFormat:(NSString*)format args:(va_list)args;
 

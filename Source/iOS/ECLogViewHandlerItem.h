@@ -8,7 +8,7 @@
 
 @interface ECLogViewHandlerItem : NSObject
 
-@property (nonatomic, retain) NSString* message;
-@property (nonatomic, retain) NSString* context;
+@property (strong, nonatomic) NSString* message;
+@property (strong, nonatomic) NSString* context;
 
 @end

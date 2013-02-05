@@ -12,8 +12,8 @@
 @interface ECLogViewController()
 
 @property (nonatomic, strong) NSArray* items;
-@property (nonatomic, retain) UIFont* messageFont;
-@property (nonatomic, retain) UIFont* contextFont;
+@property (strong, nonatomic) UIFont* messageFont;
+@property (strong, nonatomic) UIFont* contextFont;
 
 @end
 

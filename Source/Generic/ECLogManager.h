@@ -33,11 +33,11 @@
 // Public Properties
 // --------------------------------------------------------------------------
 
-@property (nonatomic, retain) NSMutableDictionary* channels;
-@property (nonatomic, retain) NSMutableDictionary* handlers;
-@property (nonatomic, retain) NSMutableArray* defaultHandlers;
-@property (nonatomic, assign) ECLogContextFlags defaultContextFlags;
-@property (nonatomic, retain)NSMutableDictionary* settings;
+@property (strong, nonatomic) NSMutableDictionary* channels;
+@property (strong, nonatomic) NSMutableDictionary* handlers;
+@property (strong, nonatomic) NSMutableArray* defaultHandlers;
+@property (assign, nonatomic) ECLogContextFlags defaultContextFlags;
+@property (strong, nonatomic)NSMutableDictionary* settings;
 
 // --------------------------------------------------------------------------
 // Public Methods
