@@ -1,5 +1,4 @@
 // --------------------------------------------------------------------------
-//! @date 10/04/2012
 //
 //  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's 
