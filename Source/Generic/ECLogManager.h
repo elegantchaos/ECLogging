@@ -45,7 +45,7 @@
 
 - (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(NSDictionary*)options;
 - (ECLogChannel*)registerChannelWithName:(NSString*)name options:(NSDictionary*)options;
-- (void)registerChannel:(ECLogChannel*)channel;
+- (ECLogChannel*)registerChannel:(ECLogChannel*)channel;
 - (void)startup;
 - (void)shutdown;
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context;

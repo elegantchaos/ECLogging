@@ -118,7 +118,7 @@ const ContextFlagInfo kContextFlagInfo[] =
 
     if (!channel.setup)
     {
-        [self registerChannel:channel];
+        channel = [self registerChannel:channel];
     }
     
     return channel;
@@ -172,21 +172,33 @@ const ContextFlagInfo kContextFlagInfo[] =
 //! Register a channel with the log manager.
 // --------------------------------------------------------------------------
 
-- (void)registerChannel:(ECLogChannel*)channel
+- (ECLogChannel*)registerChannel:(ECLogChannel*)channel
 {
-    LogManagerLog(@"adding channel %@", channel.name);
-	self.channels[channel.name] = channel;
-	
-    if (self.settings)
-    {
-        NSDictionary* allChannels = self.settings[ChannelsSetting];
-        NSDictionary* channelSettings = allChannels[channel.name];
-        [self applySettings:channelSettings toChannel:channel];
-        
-        channel.setup = YES;
-    }
-    
-    [self postUpdateNotification];    
+	ECLogChannel* result = self.channels[channel.name];
+	if (result)
+	{
+		LogManagerLog(@"channel %@ already exists", channel.name);
+	}
+	else
+	{
+		LogManagerLog(@"adding channel %@", channel.name);
+
+		result = channel;
+		self.channels[channel.name] = channel;
+
+		if (self.settings)
+		{
+			NSDictionary* allChannels = self.settings[ChannelsSetting];
+			NSDictionary* channelSettings = allChannels[channel.name];
+			[self applySettings:channelSettings toChannel:channel];
+
+			channel.setup = YES;
+		}
+
+		[self postUpdateNotification];
+	}
+
+	return result;
 }
 
 // --------------------------------------------------------------------------
