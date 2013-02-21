@@ -4,10 +4,46 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#define EC_LOGGING 1
+
+/**
+ * Standard definitions for all libraries.
+ */
 
 #ifdef __OBJC__
 
-#include <ECConfig/ECConfig.h>
+// --------------------------------------------------------------------------
+// Shared Settings
+// --------------------------------------------------------------------------
+
+#import <CoreFoundation/CoreFoundation.h>
+
+#define EC_FOUNDATION 1
+#define EC_LOGGING 1
+
+// --------------------------------------------------------------------------
+// iOS Settings
+// --------------------------------------------------------------------------
+
+#if TARGET_OS_IPHONE
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#define EC_PLATFORM_IOS 1
+
+
+// --------------------------------------------------------------------------
+// Mac Settings
+// --------------------------------------------------------------------------
+
+#elif TARGET_OS_MAC
+
+#import <Cocoa/Cocoa.h>
+
+#define EC_PLATFORM_MAC 1
 
 #endif
+
+
+#endif
+

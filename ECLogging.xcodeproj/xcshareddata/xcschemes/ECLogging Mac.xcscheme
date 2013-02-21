@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "22BEA1BE15DA55920036A04F"
-               BuildableName = "ECUnitTests.framework"
-               BlueprintName = "ECUnitTestsMac"
-               ReferencedContainer = "container:../ECUnitTests/ECUnitTests.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "2251B9FE15DBCC3E00F2FE40"
                BuildableName = "ECLogging.framework"
                BlueprintName = "ECLoggingMac"

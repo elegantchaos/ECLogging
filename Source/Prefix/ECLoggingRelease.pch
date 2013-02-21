@@ -4,6 +4,12 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <ECConfig/ECConfigRelease.pch>
+/**
+ * Standard release definitions.
+ */
+
+#define EC_RELEASE 1
+#define EC_CONFIGURATION_STRING @"Release"
+#define EC_CONFIGURATION_STRING_SHORT @"R"
 
 #import "ECLoggingShared.pch"

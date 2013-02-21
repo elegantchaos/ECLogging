@@ -4,6 +4,12 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <ECConfig/ECConfigDebug.pch>
+/**
+ * Standard debug definitions.
+ */
+
+#define EC_DEBUG 1
+#define EC_CONFIGURATION_STRING @"Debug"
+#define EC_CONFIGURATION_STRING_SHORT @"D"
 
 #import "ECLoggingShared.pch"
