@@ -5,7 +5,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <ECUnitTests/ECUnitTests.h>
+#import "ECTestCase.h"
 
 @interface BasicTests : ECTestCase
 {

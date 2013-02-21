@@ -65,3 +65,13 @@ GCC_TREAT_WARNINGS_AS_ERRORS = YES
 
 ECCONFIG_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts // Legacy - use ECLOGGING_SCRIPTS_PATH
 ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
+
+// --------------------------------------------------------------------------
+// Unit Testing
+// --------------------------------------------------------------------------
+
+/// Since all of the targets link against SenTestKit, we need to be able to find it.
+/// It's in a different location on the Mac and iOS, but luckily our standard xcconfig
+/// files define a setting UNIT_TEST_FRAMEWORK_PATH with its location:
+
+FRAMEWORK_SEARCH_PATHS = $(UNIT_TEST_FRAMEWORK_PATH)

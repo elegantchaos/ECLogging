@@ -4,8 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-// Contains standard definitions needed to link a unit test target
+#import <ECConfig/ECConfigRelease.pch>
 
-RUN_CLANG_STATIC_ANALYZER = YES
-WRAPPER_EXTENSION = octest
-PRODUCT_NAME = $(TARGET_NAME)
+#import "ECUnitTestsShared.pch"
+
