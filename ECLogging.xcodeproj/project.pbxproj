@@ -108,6 +108,8 @@
 		2274B38E14F56896003B8A0B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3CD14F52E93009142F7 /* SenTestingKit.framework */; };
 		2274B39014F56896003B8A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274B38F14F56896003B8A0B /* UIKit.framework */; };
 		2274B39114F56896003B8A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237ECE314F5644C00085BF5 /* Foundation.framework */; };
+		2277CE3D16D6AFC600835964 /* Scripts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277CE3916D6AFA000835964 /* Scripts */; };
+		2277CE3F16D6B01800835964 /* Scripts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277CE3916D6AFA000835964 /* Scripts */; };
 		229EDCEB16442DB00087B26E /* ECDebugHandlersViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */; };
 		229EDCEC16442DB00087B26E /* ECDebugHandlersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */; };
 		22F2FEF01641418600CD3C7C /* ECLogManagerMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEEE1641418600CD3C7C /* ECLogManagerMac.h */; };
@@ -126,6 +128,26 @@
 				220D699D15DC510900CCC17C /* ECLogging.framework in CopyFiles */,
 				220D699915DC248300CCC17C /* ECConfig.framework in CopyFiles */,
 				220D699A15DC248300CCC17C /* ECUnitTests.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2277CE3C16D6AFAE00835964 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(VERSION_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				2277CE3D16D6AFC600835964 /* Scripts in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2277CE3E16D6B00700835964 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "Versions/$(FRAMEWORK_VERSION)";
+			dstSubfolderSpec = 1;
+			files = (
+				2277CE3F16D6B01800835964 /* Scripts in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +213,8 @@
 		2277CE2616D6AB9500835964 /* ECRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECRelease.xcconfig; sourceTree = "<group>"; };
 		2277CE2716D6AB9500835964 /* ECShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECShared.xcconfig; sourceTree = "<group>"; };
 		2277CE2816D6AB9500835964 /* ECUnitTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTests.xcconfig; sourceTree = "<group>"; };
+		2277CE3816D6AFA000835964 /* Examples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Examples; path = Extras/Examples; sourceTree = "<group>"; };
+		2277CE3916D6AFA000835964 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Scripts; path = Extras/Scripts; sourceTree = "<group>"; };
 		2283A3BB14F52E93009142F7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2283A3BE14F52E93009142F7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2283A3BF14F52E93009142F7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -322,7 +346,7 @@
 				2274B37714F56679003B8A0B /* Resources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
-				22F2FEEC164140E700CD3C7C /* Documentation */,
+				22F2FEEC164140E700CD3C7C /* Extras */,
 			);
 			name = ECFoundation;
 			sourceTree = "<group>";
@@ -604,15 +628,17 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
-		22F2FEEC164140E700CD3C7C /* Documentation */ = {
+		22F2FEEC164140E700CD3C7C /* Extras */ = {
 			isa = PBXGroup;
 			children = (
+				2277CE3816D6AFA000835964 /* Examples */,
+				2277CE3916D6AFA000835964 /* Scripts */,
 				22F2FEEB164140D800CD3C7C /* .appledoc.plist */,
 				225C51511642DC3600794DD2 /* LICENSE.md */,
 				225C51521642DC3600794DD2 /* README.md */,
 				22F2FEED164140F700CD3C7C /* Documentation */,
 			);
-			name = Documentation;
+			name = Extras;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -692,6 +718,8 @@
 				2251B9FB15DBCC3E00F2FE40 /* Frameworks */,
 				2251B9FC15DBCC3E00F2FE40 /* Headers */,
 				2251B9FD15DBCC3E00F2FE40 /* Resources */,
+				2277CE3E16D6B00700835964 /* CopyFiles */,
+				2277CE4016D6B02F00835964 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -711,6 +739,8 @@
 				2251BA0F15DBCC4A00F2FE40 /* Frameworks */,
 				2251BA1015DBCC4A00F2FE40 /* Resources */,
 				2251BA7815DBDBE300F2FE40 /* ShellScript */,
+				2277CE3C16D6AFAE00835964 /* CopyFiles */,
+				2277CE4116D6B05200835964 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -835,7 +865,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${ECCONFIG_SCRIPTS_PATH}/package-pseudo-framework.sh\"";
+			shellScript = "\"Extras/Scripts/package-pseudo-framework.sh\"";
 			showEnvVarsInLog = 0;
 		};
 		225EC67011EBAA4800A97AEA /* ShellScript */ = {
@@ -865,6 +895,32 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 			showEnvVarsInLog = 0;
+		};
+		2277CE4016D6B02F00835964 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ln -sfh \"Versions/${FRAMEWORK_VERSION}/Scripts\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Scripts\"";
+		};
+		2277CE4116D6B05200835964 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ln -sfh \"Versions/${FRAMEWORK_VERSION}/Scripts\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Scripts\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
