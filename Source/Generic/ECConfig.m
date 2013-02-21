@@ -4,7 +4,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
+#import "ECConfig.h"
 
-#include "ECIOSRelease.xcconfig"
-#include "ECUnitTests.xcconfig"
+@implementation ECConfig
+
+@end

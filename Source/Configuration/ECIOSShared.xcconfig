@@ -4,7 +4,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
+SDKROOT = iphoneos
 
-#include "ECIOSRelease.xcconfig"
-#include "ECUnitTests.xcconfig"
+UNIT_TEST_FRAMEWORK_PATH = "$(SDKROOT)/Developer/Library/Frameworks"

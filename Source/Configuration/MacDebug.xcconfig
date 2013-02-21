@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------
 
 /// Standard xcconfig files.
-/// The use of a relative path here relies on ECConfig being in a known location. See <ImportNote> in the documentation for more details.
 
-#include "../ECConfig/Source/Configuration/ECMacDebug.xcconfig"
-#include "../ECConfig/Source/Configuration/ECFramework.xcconfig"
+#include "ECMacDebug.xcconfig"
+#include "ECFramework.xcconfig"

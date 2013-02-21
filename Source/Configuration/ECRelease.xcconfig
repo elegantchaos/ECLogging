@@ -1,0 +1,20 @@
+// --------------------------------------------------------------------------
+//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
+
+#include "ECShared.xcconfig"
+
+// --------------------------------------------------------------------------
+// Code Generation
+// --------------------------------------------------------------------------
+
+GCC_OPTIMIZATION_LEVEL = s
+
+// --------------------------------------------------------------------------
+// Deployment
+// --------------------------------------------------------------------------
+
+COPY_PHASE_STRIP = YES
+GCC_WARN_UNINITIALIZED_AUTOS = YES

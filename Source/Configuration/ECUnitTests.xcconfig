@@ -4,7 +4,9 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
+// Contains standard definitions needed to link a unit test target
 
-#include "ECIOSRelease.xcconfig"
-#include "ECUnitTests.xcconfig"
+FRAMEWORK_SEARCH_PATHS = "$(UNIT_TEST_FRAMEWORK_PATH)"
+RUN_CLANG_STATIC_ANALYZER = YES
+WRAPPER_EXTENSION = octest
+PRODUCT_NAME = $(TARGET_NAME)

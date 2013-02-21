@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "227A47B915DA5FA000281601"
-               BuildableName = "ECUnitTests.framework"
+               BuildableName = ".bundle"
                BlueprintName = "ECUnitTestsIOS"
                ReferencedContainer = "container:../ECUnitTests/ECUnitTests.xcodeproj">
             </BuildableReference>

@@ -177,6 +177,20 @@
 		2274B37814F56679003B8A0B /* ECLoggingTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ECLoggingTests.plist; sourceTree = "<group>"; };
 		2274B38D14F56896003B8A0B /* ECLoggingIOSTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingIOSTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2274B38F14F56896003B8A0B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		2277CE1B16D6AB9500835964 /* ECDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECDebug.xcconfig; sourceTree = "<group>"; };
+		2277CE1C16D6AB9500835964 /* ECFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECFramework.xcconfig; sourceTree = "<group>"; };
+		2277CE1D16D6AB9500835964 /* ECIOSApplication.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECIOSApplication.xcconfig; sourceTree = "<group>"; };
+		2277CE1E16D6AB9500835964 /* ECIOSDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECIOSDebug.xcconfig; sourceTree = "<group>"; };
+		2277CE1F16D6AB9500835964 /* ECIOSRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECIOSRelease.xcconfig; sourceTree = "<group>"; };
+		2277CE2016D6AB9500835964 /* ECIOSShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECIOSShared.xcconfig; sourceTree = "<group>"; };
+		2277CE2116D6AB9500835964 /* ECMacApplication.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECMacApplication.xcconfig; sourceTree = "<group>"; };
+		2277CE2216D6AB9500835964 /* ECMacDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECMacDebug.xcconfig; sourceTree = "<group>"; };
+		2277CE2316D6AB9500835964 /* ECMacRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECMacRelease.xcconfig; sourceTree = "<group>"; };
+		2277CE2416D6AB9500835964 /* ECMacShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECMacShared.xcconfig; sourceTree = "<group>"; };
+		2277CE2516D6AB9500835964 /* ECPseudoFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECPseudoFramework.xcconfig; sourceTree = "<group>"; };
+		2277CE2616D6AB9500835964 /* ECRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECRelease.xcconfig; sourceTree = "<group>"; };
+		2277CE2716D6AB9500835964 /* ECShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECShared.xcconfig; sourceTree = "<group>"; };
+		2277CE2816D6AB9500835964 /* ECUnitTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTests.xcconfig; sourceTree = "<group>"; };
 		2283A3BB14F52E93009142F7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2283A3BE14F52E93009142F7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2283A3BF14F52E93009142F7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -375,14 +389,8 @@
 		2251BA4215DBCD3900F2FE40 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */,
-				2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */,
-				2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */,
-				2251BA4615DBCD3900F2FE40 /* MacRelease.xcconfig */,
-				2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */,
-				2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */,
-				2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */,
-				2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */,
+				2277CE2916D6ABE900835964 /* ECLogging */,
+				2277CE2A16D6ABFB00835964 /* Root */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -402,6 +410,74 @@
 				2274B37814F56679003B8A0B /* ECLoggingTests.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		2277CE2916D6ABE900835964 /* ECLogging */ = {
+			isa = PBXGroup;
+			children = (
+				2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */,
+				2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */,
+				2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */,
+				2251BA4615DBCD3900F2FE40 /* MacRelease.xcconfig */,
+				2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */,
+				2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */,
+				2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */,
+				2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */,
+			);
+			name = ECLogging;
+			sourceTree = "<group>";
+		};
+		2277CE2A16D6ABFB00835964 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				2277CE2E16D6AC4200835964 /* Generic */,
+				2277CE2B16D6AC0B00835964 /* iOS */,
+				2277CE2C16D6AC1600835964 /* Mac */,
+				2277CE2D16D6AC2000835964 /* Add Ins */,
+			);
+			name = Root;
+			sourceTree = "<group>";
+		};
+		2277CE2B16D6AC0B00835964 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				2277CE1D16D6AB9500835964 /* ECIOSApplication.xcconfig */,
+				2277CE1E16D6AB9500835964 /* ECIOSDebug.xcconfig */,
+				2277CE1F16D6AB9500835964 /* ECIOSRelease.xcconfig */,
+				2277CE2016D6AB9500835964 /* ECIOSShared.xcconfig */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		2277CE2C16D6AC1600835964 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				2277CE2116D6AB9500835964 /* ECMacApplication.xcconfig */,
+				2277CE2216D6AB9500835964 /* ECMacDebug.xcconfig */,
+				2277CE2316D6AB9500835964 /* ECMacRelease.xcconfig */,
+				2277CE2416D6AB9500835964 /* ECMacShared.xcconfig */,
+			);
+			name = Mac;
+			sourceTree = "<group>";
+		};
+		2277CE2D16D6AC2000835964 /* Add Ins */ = {
+			isa = PBXGroup;
+			children = (
+				2277CE1C16D6AB9500835964 /* ECFramework.xcconfig */,
+				2277CE2516D6AB9500835964 /* ECPseudoFramework.xcconfig */,
+				2277CE2816D6AB9500835964 /* ECUnitTests.xcconfig */,
+			);
+			name = "Add Ins";
+			sourceTree = "<group>";
+		};
+		2277CE2E16D6AC4200835964 /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				2277CE1B16D6AB9500835964 /* ECDebug.xcconfig */,
+				2277CE2616D6AB9500835964 /* ECRelease.xcconfig */,
+				2277CE2716D6AB9500835964 /* ECShared.xcconfig */,
+			);
+			name = Generic;
 			sourceTree = "<group>";
 		};
 		2283A3BD14F52E93009142F7 /* Other Frameworks */ = {

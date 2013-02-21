@@ -1,0 +1,66 @@
+// --------------------------------------------------------------------------
+//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------
+// Compiler Version
+// --------------------------------------------------------------------------
+
+GCC_VERSION = com.apple.compilers.llvm.clang.1_0
+GCC_C_LANGUAGE_STANDARD = gnu99
+
+// --------------------------------------------------------------------------
+// Objective C stuff
+// --------------------------------------------------------------------------
+
+GCC_ENABLE_OBJC_EXCEPTIONS = YES
+
+// --------------------------------------------------------------------------
+// Resources
+// --------------------------------------------------------------------------
+
+COMBINE_HIDPI_IMAGES = YES
+INFOPLIST_FILE = Resources/Info.plist
+
+// --------------------------------------------------------------------------
+// Symbol Exports
+// --------------------------------------------------------------------------
+
+KEEP_PRIVATE_EXTERNS = NO
+GCC_SYMBOLS_PRIVATE_EXTERN = NO
+
+// --------------------------------------------------------------------------
+// Deployment
+// --------------------------------------------------------------------------
+
+SKIP_INSTALL = YES
+PRODUCT_NAME = $(TARGET_NAME)
+
+// --------------------------------------------------------------------------
+// Search Paths
+// --------------------------------------------------------------------------
+
+ALWAYS_SEARCH_USER_PATHS = NO
+
+// --------------------------------------------------------------------------
+// By default, use standard pattern for prefix
+// --------------------------------------------------------------------------
+
+GCC_PREFIX_HEADER = Source/Prefix/$(PROJECT_NAME)$(CONFIGURATION).pch
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES
+
+// --------------------------------------------------------------------------
+// Standard Warnings
+// --------------------------------------------------------------------------
+
+WARNING_CFLAGS = -Wall -Wextra -Wno-unused-macros -Wno-unused-parameter
+GCC_TREAT_WARNINGS_AS_ERRORS = YES
+
+// --------------------------------------------------------------------------
+// Custom settings
+// --------------------------------------------------------------------------
+
+ECCONFIG_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECConfig.framework/Scripts

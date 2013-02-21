@@ -9,3 +9,20 @@ What all my various implementations of a logging system share is the ability to 
 You can direct logging output to a particular channel. All channels are off by default, so you can add detailed logging support to any file or module without spamming the log. If I make a channel, you won't see it in your log unless you choose to turn it on. When you need to, you can turn a particular channel or group of channels on. For release versions, you can compile away all logging completely, for top performance. Or you can choose to leave some log channels in the release build.
 
 The output of log channels is directed through one or more log handlers. What log handlers give you is the ability to globally direct log output into alternative destinations. The console is one option, but you can also write a handler to log to the disk, or a remote machine, or a custom ui, or wherever.
+
+# Other Files
+
+ECLogging also contains some common files used by all the other Elegant Chaos libraries.
+
+This includes:
+
+- Standard Configs
+- Standard Macros and Definitions
+- Standard Prefixes
+- Standard Scripts
+
+All of these are arranged on the assumption that client projects have a standard organisation. 
+
+Arranging your own project to use this pattern isn't essential, but if you use a different one you may have to modify some examples accordingly.
+
+See the programming guides in the documentation for more information.

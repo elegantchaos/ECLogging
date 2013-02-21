@@ -4,7 +4,11 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
+#include "ECRelease.xcconfig"
+#include "ECMacShared.xcconfig"
 
-#include "ECIOSRelease.xcconfig"
-#include "ECUnitTests.xcconfig"
+// --------------------------------------------------------------------------
+// Build Options
+// --------------------------------------------------------------------------
+
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym

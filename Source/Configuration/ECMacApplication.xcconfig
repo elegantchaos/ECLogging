@@ -4,7 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
+// Defaults for standard definitions needed to link an application on the Mac
 
-#include "ECIOSRelease.xcconfig"
-#include "ECUnitTests.xcconfig"
+WRAPPER_EXTENSION = app
+INSTALL_PATH = $(HOME)/Applications

@@ -4,7 +4,16 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
+#import <Foundation/Foundation.h>
 
-#include "ECIOSRelease.xcconfig"
-#include "ECUnitTests.xcconfig"
+#import "ECMacros.h"
+
+/** 
+ * Currently a placeholder.
+ *
+ * This framework is simply used to store xcconfigs, pch files, macros, and scripts.
+ */
+
+@interface ECConfig : NSObject
+
+@end
