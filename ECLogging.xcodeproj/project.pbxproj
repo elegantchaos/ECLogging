@@ -105,17 +105,27 @@
 		2274B39114F56896003B8A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237ECE314F5644C00085BF5 /* Foundation.framework */; };
 		2277CE3D16D6AFC600835964 /* Scripts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277CE3916D6AFA000835964 /* Scripts */; };
 		2277CE3F16D6B01800835964 /* Scripts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277CE3916D6AFA000835964 /* Scripts */; };
-		2277CE4916D6B2B900835964 /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; };
-		2277CE4A16D6B2B900835964 /* ECParameterisedTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4416D6B2B900835964 /* ECParameterisedTestCase.h */; };
+		2277CE4916D6B2B900835964 /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE4A16D6B2B900835964 /* ECParameterisedTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4416D6B2B900835964 /* ECParameterisedTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2277CE4B16D6B2B900835964 /* ECParameterisedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4516D6B2B900835964 /* ECParameterisedTestCase.m */; };
-		2277CE4C16D6B2B900835964 /* ECTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4616D6B2B900835964 /* ECTestCase.h */; };
+		2277CE4C16D6B2B900835964 /* ECTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4616D6B2B900835964 /* ECTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2277CE4D16D6B2B900835964 /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4716D6B2B900835964 /* ECTestCase.m */; };
-		2277CE4E16D6B2B900835964 /* ECUnitTests.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4816D6B2B900835964 /* ECUnitTests.h */; };
+		2277CE4E16D6B2B900835964 /* ECUnitTests.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4816D6B2B900835964 /* ECUnitTests.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2277CE5016D6B58300835964 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3CD14F52E93009142F7 /* SenTestingKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2277CE5116D6B58900835964 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3CD14F52E93009142F7 /* SenTestingKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2277CE5216D6B68E00835964 /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4716D6B2B900835964 /* ECTestCase.m */; };
 		2277CE5316D6B69200835964 /* ECParameterisedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4516D6B2B900835964 /* ECParameterisedTestCase.m */; };
 		2277CE5416D6B6E700835964 /* ECLogging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
+		2277CE5516D6B99600835964 /* ECLoggingDebug.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3C14F5AA80007B254B /* ECLoggingDebug.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE5616D6B99700835964 /* ECLoggingDebug.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3C14F5AA80007B254B /* ECLoggingDebug.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE5716D6B99D00835964 /* ECLoggingRelease.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3D14F5AA80007B254B /* ECLoggingRelease.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE5816D6B99E00835964 /* ECLoggingRelease.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3D14F5AA80007B254B /* ECLoggingRelease.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE5916D6B9A400835964 /* ECLoggingShared.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingShared.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE5A16D6B9A500835964 /* ECLoggingShared.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingShared.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE5B16D6B9BB00835964 /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE5C16D6B9C700835964 /* ECParameterisedTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4416D6B2B900835964 /* ECParameterisedTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE5D16D6B9C700835964 /* ECTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4616D6B2B900835964 /* ECTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2277CE5E16D6B9C700835964 /* ECUnitTests.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4816D6B2B900835964 /* ECUnitTests.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		229EDCEB16442DB00087B26E /* ECDebugHandlersViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */; };
 		229EDCEC16442DB00087B26E /* ECDebugHandlersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */; };
 		22F2FEF01641418600CD3C7C /* ECLogManagerMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEEE1641418600CD3C7C /* ECLogManagerMac.h */; };
@@ -624,6 +634,9 @@
 				2277CE4A16D6B2B900835964 /* ECParameterisedTestCase.h in Headers */,
 				2277CE4C16D6B2B900835964 /* ECTestCase.h in Headers */,
 				2277CE4E16D6B2B900835964 /* ECUnitTests.h in Headers */,
+				2277CE5516D6B99600835964 /* ECLoggingDebug.pch in Headers */,
+				2277CE5716D6B99D00835964 /* ECLoggingRelease.pch in Headers */,
+				2277CE5916D6B9A400835964 /* ECLoggingShared.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +671,13 @@
 				2204C6BC15E160DA00F71E15 /* ECLogging.h in Headers */,
 				22F2FEF4164142A600CD3C7C /* ECLogManagerIOS.h in Headers */,
 				229EDCEB16442DB00087B26E /* ECDebugHandlersViewController.h in Headers */,
+				2277CE5616D6B99700835964 /* ECLoggingDebug.pch in Headers */,
+				2277CE5816D6B99E00835964 /* ECLoggingRelease.pch in Headers */,
+				2277CE5A16D6B9A500835964 /* ECLoggingShared.pch in Headers */,
+				2277CE5B16D6B9BB00835964 /* ECMacros.h in Headers */,
+				2277CE5C16D6B9C700835964 /* ECParameterisedTestCase.h in Headers */,
+				2277CE5D16D6B9C700835964 /* ECTestCase.h in Headers */,
+				2277CE5E16D6B9C700835964 /* ECUnitTests.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
