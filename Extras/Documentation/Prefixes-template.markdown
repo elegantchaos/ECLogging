@@ -3,11 +3,11 @@ Prefix Files
 
 The ECFrameworks all use a pattern of having two main configurations - Debug and Release - and having a different prefix (pch) file for each configuration.
 
-The intention is that you set up your own project to have prefixe files using the same pattern, and then #import either <ECConfig/ECConfigDebug.pch> or <ECConfig/ECConfigRelease.pch> from each one as appropriate.
+The intention is that you set up your own project to have prefixe files using the same pattern, and then #import either <ECLogging/ECLoggingDebug.pch> or <ECLogging/ECLoggingRelease.pch> from each one as appropriate.
 
-If you have more than two configurations, that's fine - just choose to #import either the ECConfigDebug or ECConfigRelease pch from each one.
+If you have more than two configurations, that's fine - just choose to #import either the ECLoggingDebug or ECLoggingRelease pch from each one.
 
-Typically you'll want to also have a shared prefix file that all your other prefix files #import, in which you put all definitions that are shared between all configurations (ECConfig does this itself internally, with both ECConfigDebug and ECConfigRelease importing ECConfigShared).
+Typically you'll want to also have a shared prefix file that all your other prefix files #import, in which you put all definitions that are shared between all configurations (ECLogging does this itself internally, with both ECLoggingDebug and ECLoggingRelease importing ECLoggingShared).
 
 An easy way to set this sort of thing up in your project is to have a use a build setting like this:
 
@@ -19,7 +19,7 @@ You can then create these files and set them up like this:
 
 BlahDebug.pch:
 
-    #import <ECConfig/ECConfigDebug.pch>
+    #import <ECLogging/ECLoggingDebug.pch>
     #import "BlahShared.pch"
     
     #define SOME_DEBUG_SETTING_HERE
@@ -27,7 +27,7 @@ BlahDebug.pch:
 
 BlahRelease.pch:
 
-    #import <ECConfig/ECConfigRelease.pch>
+    #import <ECLogging/ECLoggingRelease.pch>
     #import "BlahShared.pch"
 
     #define SOME_RELEASE_SETTING_HERE
@@ -35,7 +35,7 @@ BlahRelease.pch:
 
 BlahAppStore.pch:
 
-    #import <ECConfig/ECConfigRelease.pch>
+    #import <ECLogging/ECLoggingRelease.pch>
     #import "BlahShared.pch"
     
     #define SOME_APP_STORE_SETTING_HERE

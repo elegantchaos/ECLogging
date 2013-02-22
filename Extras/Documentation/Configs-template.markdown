@@ -1,7 +1,7 @@
 Configuration Files
 ===================
 
-ECConfig contains some standard Xcode configuration files.
+ECLogging contains some standard Xcode configuration files.
 
 These help to ensure that all of the EC frameworks are built with the same settings. 
 
@@ -65,7 +65,7 @@ Annoyingly, Xcode doesn't look in the build products folder when searching for f
 
 This means that we can't include things from the XCConfig framework in a totally portable way, by doing
 
-    #include <ECConfig/ECMacDebug.xcconfig>
+    #include <ECLogging/ECMacDebug.xcconfig>
 
 Instead, we have to assume that the framework's source folder is actually at a known relative location.
 

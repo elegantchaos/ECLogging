@@ -5,7 +5,7 @@
 ## The script also adds a ECVersionCommit key to the Info.plist with the full SHA1 hash of the current commit.
 ##
 ## To use this script, add a Run Script phase to a target, and include this line
-##     "${ECCONFIG_SCRIPTS_PATH}/update-version.sh"
+##     "${ECLOGGING_SCRIPTS_PATH}/update-version.sh"
 ##
 
 PLIST="$1"

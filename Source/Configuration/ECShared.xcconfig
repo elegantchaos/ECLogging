@@ -63,7 +63,6 @@ GCC_TREAT_WARNINGS_AS_ERRORS = YES
 // Custom settings
 // --------------------------------------------------------------------------
 
-ECCONFIG_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts // Legacy - use ECLOGGING_SCRIPTS_PATH
 ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
 
 // --------------------------------------------------------------------------
