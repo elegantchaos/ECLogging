@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>ECLogHandlerASL Class Reference</title>
+		<title>ECLogViewHandler Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">ECLogHandlerASL Class Reference</h1>
+				<h1 class="hideInXcode">ECLogViewHandler Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -32,19 +32,12 @@
 	
 	
 	
-	<option value="tasks">Tasks</option>
 	
 	
 	
 	
 	
 	
-	
-	
-	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/logFromChannel:withObject:arguments:context:">&nbsp;&nbsp;&nbsp;&nbsp;- logFromChannel:withObject:arguments:context:</option>
 	
 	
 	
@@ -60,9 +53,6 @@
 
 
 
-<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
-	
-</ul></li>
 
 
 
@@ -70,20 +60,13 @@
 
 
 
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/logFromChannel:withObject:arguments:context:">logFromChannel:withObject:arguments:context:</a></span></li>
-	
-</ul></li>
 
 
 			</ul>
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="ECLogHandlerASL Class Reference" name="top"></a>
+				<a title="ECLogViewHandler Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -92,7 +75,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">ECLogHandlerASL Class Reference</h1>
+						<h1 class="title title-header">ECLogViewHandler Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -103,7 +86,7 @@
 	<td class="specification-value"><a href="../Classes/ECLogHandler.html">ECLogHandler</a> : NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">ECLogHandlerASL.h</td>
+	<td class="specification-value">ECLogViewHandler.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -113,32 +96,14 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Handler which logs via ASL.</p>
-					</div>
-					
-					
-					
-					
-					
-					<div class="section section-tasks">
-						<a title="Tasks" name="tasks"></a>
-						<h2 class="subtitle subtitle-tasks">Tasks</h2>
-						
-						
-						
-						
+						<p>Handler which stores up log items for display by an ECLogView.</p>
 
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/logFromChannel:withObject:arguments:context:">&ndash;&nbsp;logFromChannel:withObject:arguments:context:</a></code>
-		<span class="tooltip"><p>Called by the log manager for each message/object sent to a channel.</p></span>
-	</span>
-	
-	
-</li>
-						</ul>
-						
+<p>Each time a message is logged to the handler, it adds it to its
+stored items, and posts a notification so that any visible log views
+can update themselves.</p>
+
+<p>By default this handler keeps a copy of every log message sent to it,
+so it has potential memory implications.</p>
 					</div>
 					
 					
@@ -149,47 +114,9 @@
 					
 					
 					
-					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/logFromChannel:withObject:arguments:context:" title="logFromChannel:withObject:arguments:context:"></a>
-	<h3 class="subsubtitle method-title">logFromChannel:withObject:arguments:context:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Called by the log manager for each message/object sent to a channel.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)logFromChannel:(ECLogChannel *)<em>channel</em> withObject:(id)<em>object</em> arguments:(va_list)<em>arguments</em> context:(ECLogContext *)<em>context</em></code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">ECLogHandler.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
+					
+					
+					
 					
 					
 				</div>
