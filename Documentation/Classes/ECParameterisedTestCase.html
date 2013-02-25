@@ -100,8 +100,6 @@
 
 <p>This is handy when you&rsquo;ve got a test or tests that you want to run multiple times with different parameters.</p>
 
-<h1>About ECParameterisedTest</h1>
-
 <p>The normal tests work great if you want to run each test once, but what if you have a set of test data and you want to run each test multiple times, applying each item of test data to it in turn?</p>
 
 <p>The naive approach is to define lots of test methods that just call onto another helper method supplying a different argument each time. Something like this:</p>
@@ -127,7 +125,7 @@
 
 <p>This is what ECParameterisedTest gives you.</p>
 
-<h2>How To Use It</h2>
+<h1>How To Use It</h1>
 
 <ul>
 <li>inherit from ECParameterisedTest instead of SenTestCase</li>
@@ -142,7 +140,7 @@
 
 <p>To simplify the amount of modification to SenTest, the test methods still take no parameters. Instead, to obtain the test data, each test method uses the <strong>parameterisedTestDataItem</strong> property.</p>
 
-<h2>How It Works</h2>
+<h1>How It Works</h1>
 
 <p>To make its test suites, SenTestKit calls a class method called defaultTestSuite on each SenTestCase subclass that it finds.</p>
 
@@ -155,7 +153,7 @@ Finally we make a master suite, add the other suites to it, and return that.</p>
 
 <p>To make things simple, we use the existing SenTestKit mechanism to invoke the test methods. Since SenTestKit expects test methods not to have any parameters, we need another way of passing the test data to each method. Each test invocation creates an instance of a our class, and we do this creation at the point we build the test suite, so the simple answer is just to add a property to the test class. We can set this property value when we make the test instance, and the test method can extract the data from the instance when it runs.</p>
 
-<h2>Obtaining Test Data</h2>
+<h1>Obtaining Test Data</h1>
 
 <p>To obtain the test data, we&rsquo;ve added a method <strong>parameterisedTestData</strong> that we expect the test class to implement.</p>
 
@@ -169,7 +167,7 @@ Finally we make a master suite, add the other suites to it, and return that.</p>
 
 <p>Since we need a default implementation of the method anyway, we cater for these simple case automatically. We look for a plist with the same name as the test class, or a folder with the name of the test class and the file extension &ldquo;testsuite&rdquo;.</p>
 
-<h2>Test Data From A Plist</h2>
+<h1>Test Data From A Plist</h1>
 
 <p>The plist can have one of two formats.</p>
 
@@ -179,7 +177,7 @@ Finally we make a master suite, add the other suites to it, and return that.</p>
 
 <p>Using this complex case it&rsquo;s possible to create hierarchies of test suites, to group the results more clearly.</p>
 
-<h2>Test Data From A Directory</h2>
+<h1>Test Data From A Directory</h1>
 
 <p>Instead of a plist, you can store your test data in a recursive directory structure.</p>
 
