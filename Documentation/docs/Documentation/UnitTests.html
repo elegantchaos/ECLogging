@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>UnitTests Document</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../../css/stylesPrint.css" />	
+		<meta name="generator" content="appledoc 2.1 (build 858)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">ECLogging </a></h1>
+				<a id="developerHome" href="../index.html">Elegant Chaos</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode" id="pageTitleHeader">UnitTests Document</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar"></ul>
+		</header>
+		<article>
+			<a title="UnitTests Document" name="top"></a>
+			<div id="overview_contents" role="main">
+				<div id="container">	
+					<h1>Unit Testing</h1>
+
+<p>In addition to it&rsquo;s logging capabilities, ECLogging includes some assorted unit-testing related utilities.</p>
+
+<p>(these were formerly part of the ECUnitTests framework, but for the sake of simplicity they&rsquo;re now rolled in to this framework)</p>
+
+<h2>Macros</h2>
+
+<p>The ECTest macros are much like the STTest ones, except that they don&rsquo;t take a description parameter. Instead, they generate a suitable description from the context.</p>
+
+<p>In practise I find that most of the time, the description is redundant, and ends up repeating the logic of the test itself. The knowledge that an assertion has failed is usually enough, and the descriptions just add clutter to the code.</p>
+
+<h2>ECTestCase</h2>
+
+<p>This class contains a few utility methods which:</p>
+
+<ul>
+<li>support the macros</li>
+<li>support using classes that need run loops from unit tests</li>
+</ul>
+
+
+<p>See <a href="http://www.bornsleepy.com/bornsleepy/run-loop-cocoa-unit-tests">this blog post</a> for more details of the run loop support.</p>
+
+<h2>ECParameterisedTestCase</h2>
+
+<p>This class allows you to define unit tests that have a series of test data items applied in turn.</p>
+
+<h1>About ECParameterisedTest</h1>
+
+<p>The normal tests work great if you want to run each test once, but what if you have a set of test data and you want to run each test multiple times, applying each item of test data to it in turn?</p>
+
+<p>The naive approach is to define lots of test methods that just call onto another helper method supplying a different argument each time. Something like this:</p>
+
+<pre><code>- (void)testXWithDataA { [self helperX:@"A"]; } 
+- (void)testXWithDataB { [self helperX:@"B"]; } 
+</code></pre>
+
+<p>That gets tired quickly, and it doesn&rsquo;t allow for a dynamic amount of test data determined at runtime.</p>
+
+<p>What you really want in this case is to add the following abilities to SenTest:</p>
+
+<ul>
+<li>the ability to define parameterised test methods using a similar naming convention to the normal ones</li>
+<li>the ability to define a class method which returns a dictionary of test data</li>
+<li>have SenTest make a sub-suite for each parameterised method we found</li>
+<li>have the sub-suite contain a test for each data item</li>
+<li>iterate the suites and tests as usual, applying the relevant data item to each test in turn</li>
+</ul>
+
+
+<p>This is what ECParameterisedTest gives you.</p>
+
+<h2>How To Use It</h2>
+
+<ul>
+<li>inherit from ECParameterisedTest instead of SenTestCase</li>
+<li>define test methods which are named parameterisedTestXYZ instead of testXYZ (they still take no parameters)</li>
+<li>either: define a class method called parameterizedTestData which returns a dictionary containing data</li>
+<li>or: create a plist with the name of your test class, which will contain the data</li>
+<li>or: create a directory with the extension .testsuite, containing your test data (see below)</li>
+</ul>
+
+
+<p>At runtime the data method will be called to obtain the data. The names of each key should be single words which describe the data. The values can be anything you like &ndash; whatever the test methods are expecting.</p>
+
+<p>To simplify the amount of modification to SenTest, the test methods still take no parameters. Instead, to obtain the test data, each test method uses the <strong>parameterisedTestDataItem</strong> property.</p>
+
+<h2>How It Works</h2>
+
+<p>To make its test suites, SenTestKit calls a class method called defaultTestSuite on each SenTestCase subclass that it finds.</p>
+
+<p>The default version of this makes a suite based on finding methods called testXYZ, but it&rsquo;s easy enough to do something else.</p>
+
+<p>Our version calls <strong>parameterisedTestData</strong>, which is a class method which returns a dictionary containing the data
+For each parameterised test method we find, we make a suite.
+For each item in the dictionary, we add a test to this suite.
+Finally we make a master suite, add the other suites to it, and return that.</p>
+
+<p>To make things simple, we use the existing SenTestKit mechanism to invoke the test methods. Since SenTestKit expects test methods not to have any parameters, we need another way of passing the test data to each method. Each test invocation creates an instance of a our class, and we do this creation at the point we build the test suite, so the simple answer is just to add a property to the test class. We can set this property value when we make the test instance, and the test method can extract the data from the instance when it runs.</p>
+
+<h2>Obtaining Test Data</h2>
+
+<p>To obtain the test data, we&rsquo;ve added a method <strong>parameterisedTestData</strong> that we expect the test class to implement.</p>
+
+<p>This method returns a dictionary rather than an array, so that we can use the keys as test names, and the values as the actual data. Having names for the data is useful because of the way SenTestKit reports the results.</p>
+
+<p>Typically it reports each test as [SuiteName testName], taking these names from the class and method. Since we&rsquo;re going to use the name of the test method for each of our suites, we really need another name to use for each test. This is where the dictionary key comes in.</p>
+
+<p>Where the test data comes from is of course up to you and the kind of tests you are trying to perform.</p>
+
+<p>There is are a couple of simple scenarios though, which are that we want to load it from a plist that we provide along with the test class, or that we want to load it from a directory of files.</p>
+
+<p>Since we need a default implementation of the method anyway, we cater for these simple case automatically. We look for a plist with the same name as the test class, or a folder with the name of the test class and the file extension &ldquo;testsuite&rdquo;.</p>
+
+<h2>Test Data From A Plist</h2>
+
+<p>The plist can have one of two formats.</p>
+
+<p>In the simple case, it&rsquo;s just a dictionary, where each entry is a test data item.</p>
+
+<p>In the slightly more complex case, it contains two keys: ECTestItems and ECTestSuites. The items key contains the data items for this suite. The suites item contains data for any sub-suites (using the same data layout recursively for these sub-suites).</p>
+
+<p>Using this complex case it&rsquo;s possible to create hierarchies of test suites, to group the results more clearly.</p>
+
+<h2>Test Data From A Directory</h2>
+
+<p>Instead of a plist, you can store your test data in a recursive directory structure.</p>
+
+<p>If you provide a directory with the name of the test class, and the extension &ldquo;testsuite&rdquo;, it will get parsed into a dictionary of test data in the following way:</p>
+
+<p>Any .testsuite folders inside it will be added as sub-suites</p>
+
+<p>Any other folders in it will be treated as test data items</p>
+
+<p>The contents of any files inside each test data item folder will be added to the dictionary for that test as text, if possible. If not, the URL will be added instead.</p>
+
+<p>A file called testdata.plist in any item will be read as a dictionary, and the keys in it added to the dictionary for the item.</p>
+
+<p>A file called testdata.plist in any suite folder will be read and added to the data properties for that suite. This can be used to define some items on disk, and others from plists.</p>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Elegant Chaos. All rights reserved. (Last updated: 2013-02-25)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
+						
+					
+					</div>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
