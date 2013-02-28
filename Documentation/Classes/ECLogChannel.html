@@ -32,12 +32,46 @@
 	
 	
 	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/context">&nbsp;&nbsp;&nbsp;&nbsp;context</option>
+	
+	<option value="//api/name/enabled">&nbsp;&nbsp;&nbsp;&nbsp;enabled</option>
+	
+	<option value="//api/name/handlers">&nbsp;&nbsp;&nbsp;&nbsp;handlers</option>
+	
+	<option value="//api/name/level">&nbsp;&nbsp;&nbsp;&nbsp;level</option>
+	
+	<option value="//api/name/name">&nbsp;&nbsp;&nbsp;&nbsp;name</option>
+	
+	<option value="//api/name/setup">&nbsp;&nbsp;&nbsp;&nbsp;setup</option>
 	
 	
 	
 	
 	
 	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/caseInsensitiveCompare:">&nbsp;&nbsp;&nbsp;&nbsp;- caseInsensitiveCompare:</option>
+	
+	<option value="//api/name/disable">&nbsp;&nbsp;&nbsp;&nbsp;- disable</option>
+	
+	<option value="//api/name/disableHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- disableHandler:</option>
+	
+	<option value="//api/name/enable">&nbsp;&nbsp;&nbsp;&nbsp;- enable</option>
+	
+	<option value="//api/name/enableHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- enableHandler:</option>
+	
+	<option value="//api/name/initWithName:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithName:</option>
+	
+	<option value="//api/name/isHandlerEnabled:">&nbsp;&nbsp;&nbsp;&nbsp;- isHandlerEnabled:</option>
 	
 	
 	
@@ -53,13 +87,51 @@
 
 
 
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
 
 
 
 
 
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/context">context</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enabled">enabled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handlers">handlers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/level">level</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/name">name</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setup">setup</a></span></li>
+	
+</ul></li>
 
 
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/caseInsensitiveCompare:">caseInsensitiveCompare:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/disable">disable</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/disableHandler:">disableHandler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enable">enable</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enableHandler:">enableHandler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithName:">initWithName:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isHandlerEnabled:">isHandlerEnabled:</a></span></li>
+	
+</ul></li>
 
 
 			</ul>
@@ -114,7 +186,7 @@
 
 <p>Debug channels are only available in debug targets (ones where EC_DEBUG is defined). In non-debug builds, debug channels don&rsquo;t exist. Anything inside ECDebug() messages won&rsquo;t get compiled or executed at all. This allows you to put potentially time-consuming logging code into these calls, safe in the knowledge that it won&rsquo;t affect the final performance of your app.</p>
 
-<h2>Defining Channels</h2>
+<h3>Defining Channels</h3>
 
 <p>Channels must be defined before use. This is done once for each channel, in a .m file. For example:</p>
 
@@ -126,7 +198,7 @@ ECDefineDebugChannel(MyDebugChannel);</p>
 <p>ECDeclareLogChannel(MyLogChannel);
 ECDeclareDebugChannel(MyDebugChannel);</p>
 
-<h2>Usage</h2>
+<h3>Usage</h3>
 
 <p>To use a channel, you send stuff to it with ECLog or ECDebug:</p>
 
@@ -138,7 +210,7 @@ ECDeclareDebugChannel(MyDebugChannel);</p>
 
 <p>You can use ECDebug with channels that were defined with either ECDefineLogChannel or ECDefineDebugChannel. Any ECDebug statements will be compiled in debug builds, but not in release builds.</p>
 
-<h2>Logging Objects</h2>
+<h3>Logging Objects</h3>
 
 <p>As well as the more usual text logging, you can also send arbitrary objects to a log channel.</p>
 
@@ -154,13 +226,658 @@ ECDebug(MyLogChannel, image);</p>
 					
 					
 					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/context">&nbsp;&nbsp;context</a></code>
+		<span class="tooltip"><p>Context flags that apply to any message sent to the channel.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/enabled">&nbsp;&nbsp;enabled</a></code>
+		<span class="tooltip"><p>Is the channel enabled?</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setup">&nbsp;&nbsp;setup</a></code>
+		<span class="tooltip"><p>Has the channel been set up?</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/level">&nbsp;&nbsp;level</a></code>
+		<span class="tooltip"><p>Log level of the channel.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/name">&nbsp;&nbsp;name</a></code>
+		<span class="tooltip"><p>Name of the channel.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/handlers">&nbsp;&nbsp;handlers</a></code>
+		<span class="tooltip"><p>Handlers that the channel&rsquo;s output will be sent to.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/enable">&ndash;&nbsp;enable</a></code>
+		<span class="tooltip"><p>Enable the channel.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/disable">&ndash;&nbsp;disable</a></code>
+		<span class="tooltip"><p>Disable the channel. Any output sent to the channel will be ignored whilst it is disabled.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithName:">&ndash;&nbsp;initWithName:</a></code>
+		<span class="tooltip"><p>Set up a channel with a given name.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/caseInsensitiveCompare:">&ndash;&nbsp;caseInsensitiveCompare:</a></code>
+		<span class="tooltip"><p>Comparison function to sort channels by name.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/enableHandler:">&ndash;&nbsp;enableHandler:</a></code>
+		<span class="tooltip"><p>Enable a handler for this channel.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/disableHandler:">&ndash;&nbsp;disableHandler:</a></code>
+		<span class="tooltip"><p>Disable a handler for this channel.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isHandlerEnabled:">&ndash;&nbsp;isHandlerEnabled:</a></code>
+		<span class="tooltip"><p>Will this channel pass output to a given handler?</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
 					
 					
 					
 					
 					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/context" title="context"></a>
+	<h3 class="subsubtitle method-title">context</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Context flags that apply to any message sent to the channel.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (assign, nonatomic) ECLogContextFlags context</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/enabled" title="enabled"></a>
+	<h3 class="subsubtitle method-title">enabled</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Is the channel enabled?</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (assign, nonatomic) BOOL enabled</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/handlers" title="handlers"></a>
+	<h3 class="subsubtitle method-title">handlers</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Handlers that the channel&rsquo;s output will be sent to.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (strong, nonatomic) NSMutableSet *handlers</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/level" title="level"></a>
+	<h3 class="subsubtitle method-title">level</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Log level of the channel.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (strong, nonatomic) NSNumber *level</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/name" title="name"></a>
+	<h3 class="subsubtitle method-title">name</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Name of the channel.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (strong, nonatomic) NSString *name</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setup" title="setup"></a>
+	<h3 class="subsubtitle method-title">setup</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Has the channel been set up?</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (assign, nonatomic) BOOL setup</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
 					
 					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/caseInsensitiveCompare:" title="caseInsensitiveCompare:"></a>
+	<h3 class="subsubtitle method-title">caseInsensitiveCompare:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Comparison function to sort channels by name.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSComparisonResult)caseInsensitiveCompare:(ECLogChannel *)<em>other</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>other</em></dt>
+			<dd><p>The other channel to compare against.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Comparison result.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/disable" title="disable"></a>
+	<h3 class="subsubtitle method-title">disable</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Disable the channel. Any output sent to the channel will be ignored whilst it is disabled.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)disable</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/disableHandler:" title="disableHandler:"></a>
+	<h3 class="subsubtitle method-title">disableHandler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Disable a handler for this channel.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)disableHandler:(ECLogHandler *)<em>handler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>The handler to disable. Any output sent to this channel will no longer get passed to the disabled handler.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/enable" title="enable"></a>
+	<h3 class="subsubtitle method-title">enable</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Enable the channel.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)enable</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/enableHandler:" title="enableHandler:"></a>
+	<h3 class="subsubtitle method-title">enableHandler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Enable a handler for this channel.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)enableHandler:(ECLogHandler *)<em>handler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>The handler to enable. Any output sent to this channel will get passed to the enabled handler.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithName:" title="initWithName:"></a>
+	<h3 class="subsubtitle method-title">initWithName:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Set up a channel with a given name.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithName:(NSString *)<em>name</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>The name of the channel.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isHandlerEnabled:" title="isHandlerEnabled:"></a>
+	<h3 class="subsubtitle method-title">isHandlerEnabled:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Will this channel pass output to a given handler?</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)isHandlerEnabled:(ECLogHandler *)<em>handler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>handler</em></dt>
+			<dd><p>The handler to check for.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the handler is enabled for this channel.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
 					
 					
 				</div>
