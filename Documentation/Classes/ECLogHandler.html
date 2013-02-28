@@ -130,6 +130,43 @@
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
 						<p>Base class for all log handlers.</p>
+
+<p>Log handlers are responsible for taking the text and objects that you log, and, well, logging them&hellip;</p>
+
+<p>How they do this depends on the handler in question. ECLogging comes with built in handlers to:</p>
+
+<ul>
+<li>log to NSLog</li>
+<li>log to stdout (with printf)</li>
+<li>log to stderr (with fprintf)</li>
+<li>log to the Apple System Log (ASL)</li>
+<li>log to a file</li>
+</ul>
+
+
+<p>You can easily write your own handlers. Some ideas (that might one day make it into the core of ECLogging) include:</p>
+
+<ul>
+<li>log to Log4J</li>
+<li>log to a window in the app itself</li>
+<li>draw logged image objects</li>
+<li>play logged sound objects or movies</li>
+<li>log to an sql database</li>
+<li>log over a port or socket for viewing on a viewer application</li>
+</ul>
+
+
+<p>Using Handlers</p>
+
+<p>Any handler that you want to use need to be registered with ECLogging when the application starts up.</p>
+
+<p>You do this by adding an entry to the Handlers dictionary in the ECLogging.plist file.</p>
+
+<p>Initially, all channels will use the default handler set &ndash; which by default is all registered handlers.</p>
+
+<p>However, you can configure a log channel to tell it to just use certain handlers. You can also configure the default handler set to narrow it down.</p>
+
+<p>This configuration is done using the provided user interface support classes, or with an accompanying plist file that you add to your project.</p>
 					</div>
 					
 					
