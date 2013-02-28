@@ -48,6 +48,8 @@
 	
 	<option value="//api/name/logFromChannel:withObject:arguments:context:">&nbsp;&nbsp;&nbsp;&nbsp;- logFromChannel:withObject:arguments:context:</option>
 	
+	<option value="//api/name/simpleOutputStringForChannel:withObject:arguments:context:">&nbsp;&nbsp;&nbsp;&nbsp;- simpleOutputStringForChannel:withObject:arguments:context:</option>
+	
 	<option value="//api/name/wasDisabledForChannel:">&nbsp;&nbsp;&nbsp;&nbsp;- wasDisabledForChannel:</option>
 	
 	<option value="//api/name/wasEnabledForChannel:">&nbsp;&nbsp;&nbsp;&nbsp;- wasEnabledForChannel:</option>
@@ -83,6 +85,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/caseInsensitiveCompare:">caseInsensitiveCompare:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/logFromChannel:withObject:arguments:context:">logFromChannel:withObject:arguments:context:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/simpleOutputStringForChannel:withObject:arguments:context:">simpleOutputStringForChannel:withObject:arguments:context:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/wasDisabledForChannel:">wasDisabledForChannel:</a></span></li>
 	
@@ -157,6 +161,13 @@
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/simpleOutputStringForChannel:withObject:arguments:context:">&ndash;&nbsp;simpleOutputStringForChannel:withObject:arguments:context:</a></code>
+		<span class="tooltip"><p>Returns a simple composed string with output a logged object, using the given context and channel settings.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/wasEnabledForChannel:">&ndash;&nbsp;wasEnabledForChannel:</a></code>
 		<span class="tooltip"><p>Called by the log manager to indicate that the handler was enabled for a channel.</p></span>
 	</span>
@@ -202,6 +213,16 @@
 
     
 	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>other</em></dt>
+			<dd><p>The other handler to compare against.</p></dd>
+		</dl>
+		
+	</div>
+	
 	
 	
 	
@@ -243,6 +264,72 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogHandler.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/simpleOutputStringForChannel:withObject:arguments:context:" title="simpleOutputStringForChannel:withObject:arguments:context:"></a>
+	<h3 class="subsubtitle method-title">simpleOutputStringForChannel:withObject:arguments:context:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns a simple composed string with output a logged object, using the given context and channel settings.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)simpleOutputStringForChannel:(ECLogChannel *)<em>channel</em> withObject:(id)<em>object</em> arguments:(va_list)<em>arguments</em> context:(ECLogContext *)<em>context</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>channel</em></dt>
+			<dd><p>The channel being logged to.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>object</em></dt>
+			<dd><p>The object being logged.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>arguments</em></dt>
+			<dd><p>Additional arguments to the logging command.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>context</em></dt>
+			<dd><p>The context in which the object is being logged.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Can be used by text-based log handlers which simply want to output text.</p>
+	</div>
 	
 	
 	
