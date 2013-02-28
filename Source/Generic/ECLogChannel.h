@@ -33,21 +33,21 @@
 
  Channels must be defined before use. This is done once for each channel, in a .m file. For example:
 
- ECDefineLogChannel(MyLogChannel);
- ECDefineDebugChannel(MyDebugChannel);
+	ECDefineLogChannel(MyLogChannel);
+	ECDefineDebugChannel(MyDebugChannel);
 
  If you want to share a channel between multiple files, you can also declare it in a .h file:
 
- ECDeclareLogChannel(MyLogChannel);
- ECDeclareDebugChannel(MyDebugChannel);
+	ECDeclareLogChannel(MyLogChannel);
+	ECDeclareDebugChannel(MyDebugChannel);
 
  ### Usage
 
  To use a channel, you send stuff to it with ECLog or ECDebug:
 
- ECLog(MyLogChannel, @"this is a test %@ %d", @"blah", 123);
+	 ECLog(MyLogChannel, @"this is a test %@ %d", @"blah", 123);
 
- ECDebug(MyDebugChannel, @"doodah");
+	 ECDebug(MyDebugChannel, @"doodah");
 
  As mentioned above, ECLog statements will always be compiled, so you need to use them with channels defined by ECDefineLogChannel.
 
@@ -57,8 +57,8 @@
 
  As well as the more usual text logging, you can also send arbitrary objects to a log channel.
 
- NSImage* image = [NSImage imageNamed:@"blah.png"];
- ECDebug(MyLogChannel, image);
+	 NSImage* image = [NSImage imageNamed:@"blah.png"];
+	 ECDebug(MyLogChannel, image);
 
  What the log handlers do with objects that you log is up to them. The default behaviour for simple text-based log handlers is just to call [object description] on the object and log that.
 
@@ -183,13 +183,94 @@
  */
 
 - (BOOL) isHandlerEnabled:( ECLogHandler*) handler;
+
+
+/**
+ Should any log output for this channel include context information for the given context flags?
+ @param flags Flags we're checking.
+ @return YES if context information should be shown.
+ */
+
 - (BOOL) showContext:(ECLogContextFlags)flags;
+
+
+
+/**
+ Return a formatted string giving the file name and line number from a
+ context structure.
+ @param context The context information
+ @return String with the file name and line number.
+ */
+
 - (NSString*) fileFromContext:(ECLogContext*)context;
+
+
+
+/**
+ Return a formatted string describing a context structure, based on our
+ context flags.
+ 
+ @param context The context.
+ @return String describing the context.
+ */
+
+
 - (NSString*) stringFromContext:(ECLogContext*)context;
+
+
+/**
+ UI helper - should we tick a menu item for a given flag index?
+ 
+ @param index The index of the flag.
+ @return YES if it should be ticked.
+ */
+
+
 - (BOOL)tickFlagWithIndex:(NSUInteger)index;
+
+
+/**
+ UI helper - respond to a context flag being selected.
+ 
+ We respond by toggling the flag on/off.
+
+ @param index The index of the flag.
+*/
+
 - (void)selectFlagWithIndex:(NSUInteger)index;
+
+
+
+/**
+ UI helper - should we tick a menu item for a given handler index?
+
+ @param index The index of the handler.
+ @return YES if it should be ticked.
+ */
+
 - (BOOL)tickHandlerWithIndex:(NSUInteger)index;
+
+
+/**
+ UI helper - respond to a handler being selected.
+
+ We respond by enabling/disabling the handler for this channel.
+
+ @param index The index of the handler.
+ */
+
 - (void)selectHandlerWithIndex:(NSUInteger)index;
+
+
+/**
+ Return a cleaned up version of a raw channel name.
+ 
+ Removes "Channel" from the end, and splits up MixedCaps words by inserting spaces.
+ 
+ @param name Raw c-style name string.
+ @return Cleaned up name.
+ */
+
 + (NSString*) cleanName:(const char *) name;
 
 @end
