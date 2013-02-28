@@ -11,9 +11,3 @@ Log handlers can then read the channel's level and use it to determine the level
 Currently the only way to set the level for a channel is using the ECLogging.plist (or directly, in code). At some point I hope to add a UI for this too.
 
 Currently the only log handler that uses the level is the ASL handler.
-
-##To Do List######
-
-There's lot of stuff that I plan to add to ECLogging, but it generally gets done on an ad-hoc basis as and when I need it.
-
-As an experiment, I've created a Trello board to track [ECLogging To Do tasks](https://trello.com/board/eclogging/4ec67791b475c76d723cad97).
