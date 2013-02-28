@@ -14,7 +14,7 @@ The output of log channels is directed through one or more log handlers. What lo
 
 ## Logging Documentation
 
-If you don't like reading documentation, jump into the [30 Second User Guide](30-second-user-guide.html), which should get you started quickly. 
+If you don't like reading documentation, jump into the [30 Second User Guide](<30-second-user-guide>), which should get you started quickly. 
 
 Or look at the [Sample Projects](https://github.com/elegantchaos/ECLoggingExamples).
 
