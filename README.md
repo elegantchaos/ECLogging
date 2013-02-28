@@ -10,17 +10,20 @@ You can direct logging output to a particular channel. All channels are off by d
 
 The output of log channels is directed through one or more log handlers. What log handlers give you is the ability to globally direct log output into alternative destinations. The console is one option, but you can also write a handler to log to the disk, or a remote machine, or a custom ui, or wherever.
 
-# Other Files
+## Contents
 
-ECLogging also contains some common files used by all the other Elegant Chaos libraries.
+As well as the logging functionality, ECLogging also contains some common files used by all the other Elegant Chaos libraries.
 
-This includes:
+These were formerly part of the ECConfig and ECUnitTests frameworks, but for the sake of simplicity they're now rolled in to this framework.
 
-- Unit Testing Utilities
-- Standard Configs
+For more information, see the associated documentation pages:
+
+- Logging: <Logging>
+- Unit Testing Utilities: <ECTestCase>, <ECParameterisedTestCase>
+- Standard Configs: <Configs>
 - Standard Macros and Definitions
-- Standard Prefixes
-- Standard Scripts
+- Standard Prefixes: <Prefixes>
+- Standard Scripts: <Scripts>
 
 Some of these work on the assumption that client projects have a standard organisation. 
 

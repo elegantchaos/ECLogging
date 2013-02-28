@@ -16,16 +16,16 @@ The output of log channels is directed through one or more log handlers. What lo
 
 # Documentation
 
-If you don't read documentation, read the [[30 Second User Guide]], which should get you started. Or look at the [[Sample Projects|https://github.com/elegantchaos/ECLogging/tree/master/Extras/Examples]].
+If you don't read documentation, read the <30-Second-User-Guide>, which should get you started. Or look at the <Sample Projects|https://github.com/elegantchaos/ECLogging/tree/master/Extras/Examples>.
 
 If you do read documentation:
 
-- [[Initialisation]]
-- [[Channels]]
-- [[Handlers]]
-- [[User Interface]]
-- [[Configuration]]
-- [[Miscellaneous]]
-- [[Installation]]
+- <Initialisation>
+- <Channels>
+- <Handlers>
+- <UserInterface>
+- <Configuration>
+- <Miscellaneous>
+- <Installation>
 
-Take a look at the [[Trello board|https://trello.com/board/eclogging/4ec67791b475c76d723cad97]] to see what's planned.
+Take a look at the [[Trello board|https://trello.com/board/eclogging/4ec67791b475c76d723cad97> to see what's planned.

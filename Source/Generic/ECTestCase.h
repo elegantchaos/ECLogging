@@ -81,11 +81,6 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 * See [this blog post](http://www.bornsleepy.com/bornsleepy/run-loop-cocoa-unit-tests) for more details of the run loop support.
 */
 
-// --------------------------------------------------------------------------
-/// This test case base class contains a few utilities  to help
-/// with the assertion macros above.
-// --------------------------------------------------------------------------
-
 @interface ECTestCase : SenTestCase
 {
 @private
