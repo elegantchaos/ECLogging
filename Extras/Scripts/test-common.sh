@@ -12,7 +12,7 @@ echo "Setting up tests for $project"
 
 pushd "$base/.." > /dev/null
 build="$PWD/test-build"
-ocunit2junit="$PWD/ECUnitTests/Resources/Scripts/ocunit2junit/ocunit2junit.rb"
+ocunit2junit="$PWD/ECLogging/Extras/Scripts/ocunit2junit/ocunit2junit.rb"
 popd > /dev/null
 
 sym="$build/sym"
