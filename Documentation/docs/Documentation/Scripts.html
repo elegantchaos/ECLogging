@@ -33,6 +33,10 @@
 
 <h2>backup-submodules.sh:</h2>
 
+<p> Pushes all branches of all submodules in the current project to a remote called &ldquo;backup&rdquo;.</p>
+
+<p> Used internally.</p>
+
 <pre><code>#!/usr/bin/env bash
 
 ## Pushes all branches of all submodules in the current project to a remote called "backup".
@@ -42,11 +46,10 @@
 git submodule foreach 'git push backup --all'
 </code></pre>
 
-<p> Pushes all branches of all submodules in the current project to a remote called &ldquo;backup&rdquo;.</p>
-
-<p> Used internally.</p>
-
 <h2>extract-script-docs.sh:</h2>
+
+<p> Extract any comments prefixed with &ldquo;&rdquo; (like this one) in a file, and write them out to
+ a -template.md for inclusion in an appledoc documentation bundle.</p>
 
 <pre><code>#!/usr/bin/env bash
 
@@ -76,7 +79,7 @@ while :; do
     base=`basename "$file"`
     name=${base%.*}
 
-    index=`echo "$index"; echo "## $base:"; echo ""; awk '{print "    "$0}' $file; echo "${comments//##/}"; echo ""; echo ""`
+    index=`echo "$index"; echo "## $base:"; echo "${comments//##/}"; echo ""; echo ""; awk '{print "    "$0}' $file; echo ""`
 #    echo "" &gt;&gt; "$output/$base-template.markdown"
 #   awk '{print "    "$0}' $file &gt;&gt; "$output/$base-template.markdown"
 #    echo "${comments//##/}" &gt;&gt; "$output/$base-template.markdown"
@@ -89,10 +92,11 @@ done
 echo "$index" &gt; "$output/Scripts-template.markdown"
 </code></pre>
 
-<p> Extract any comments prefixed with &ldquo;&rdquo; (like this one) in a file, and write them out to
- a -template.md for inclusion in an appledoc documentation bundle.</p>
-
 <h2>merge-latest-submodules.sh:</h2>
+
+<p> Runs the merge-latest.sh script for each submodule in the current project.</p>
+
+<p> Used internally.</p>
 
 <pre><code>#!/usr/bin/env bash
 
@@ -108,76 +112,7 @@ popd &gt; /dev/null
 git submodule foreach "\"$full\"/merge-latest.sh"
 </code></pre>
 
-<p> Runs the merge-latest.sh script for each submodule in the current project.</p>
-
-<p> Used internally.</p>
-
 <h2>merge-latest.sh:</h2>
-
-<pre><code>#!/usr/bin/env bash
-
-## This script is an attempt to automate picking up the latest version of the "develop" branch for a module, given that it might be on a detatch HEAD at the time.
-##
-## It performs the following steps:
-##
-## - rebase on the local develop branch
-## - save this to a temporary branch
-## - switch to the local develop branch
-## - merge in the temporary branch - this should be a fast forward
-## - remove the temporary branch
-## - rebase on the remote "develop" from origin
-## - push the resulting changed branch back to origin
-
-check() {
-    if [[ $1 != 0 ]]; then
-      echo "failed: $2"
-      exit $1
-    fi
-}
-
-status=`git status --porcelain`
-
-if [[ "$status" != "" ]]; then
-    echo "You have local changes. Commit them first."
-    exit 1
-fi
-
-# we may start on something that isn't the develop branch
-# possibly a detached HEAD
-
-# try to apply any changes on top of our local develop
-
-git rebase develop
-check $? "rebasing on develop"
-
-# now fast forward develop to the merged place
-
-git checkout -b develop-temp
-check $? "making temp branch"
-
-git checkout develop
-check $? "switching back to develop"
-
-git merge develop-temp
-check $? "merging local changes"
-
-git branch -d develop-temp
-check $? "removing temp branch"
-
-# we should now be on a local develop branch incorporating any local changes
-echo fetching latest revisions
-git fetch
-
-# try to rebase again on top of any remote changes
-
-git rebase
-check $? "rebasing on origin/develop"
-
-# if that worked, push back the merged version
-
-git push
-check $? "pushing"
-</code></pre>
 
 <p> This script is an attempt to automate picking up the latest version of the &ldquo;develop&rdquo; branch for a module, given that it might be on a detatch HEAD at the time.</p>
 
@@ -190,30 +125,77 @@ check $? "pushing"
 <li>merge in the temporary branch &ndash; this should be a fast forward</li>
 <li>remove the temporary branch</li>
 <li>rebase on the remote &ldquo;develop&rdquo; from origin</li>
-<li>push the resulting changed branch back to origin
+<li><p>push the resulting changed branch back to origin</p>
+
+<p> #!/usr/bin/env bash</p>
+
+<p> ## This script is an attempt to automate picking up the latest version of the &ldquo;develop&rdquo; branch for a module, given that it might be on a detatch HEAD at the time.
+ ##
+ ## It performs the following steps:
+ ##
+ ## &ndash; rebase on the local develop branch
+ ## &ndash; save this to a temporary branch
+ ## &ndash; switch to the local develop branch
+ ## &ndash; merge in the temporary branch &ndash; this should be a fast forward
+ ## &ndash; remove the temporary branch
+ ## &ndash; rebase on the remote &ldquo;develop&rdquo; from origin
+ ## &ndash; push the resulting changed branch back to origin</p>
+
+<p> check() {
+     if [[ $1 != 0 ]]; then
+       echo &ldquo;failed: $2&rdquo;
+       exit $1
+     fi
+ }</p>
+
+<p> status=<code>git status --porcelain</code></p>
+
+<p> if [[ &ldquo;$status&rdquo; != &ldquo;&rdquo; ]]; then
+     echo &ldquo;You have local changes. Commit them first.&rdquo;
+     exit 1
+ fi</p>
+
+<p> # we may start on something that isn&rsquo;t the develop branch
+ # possibly a detached HEAD</p>
+
+<p> # try to apply any changes on top of our local develop</p>
+
+<p> git rebase develop
+ check $? &ldquo;rebasing on develop&rdquo;</p>
+
+<p> # now fast forward develop to the merged place</p>
+
+<p> git checkout -b develop-temp
+ check $? &ldquo;making temp branch&rdquo;</p>
+
+<p> git checkout develop
+ check $? &ldquo;switching back to develop&rdquo;</p>
+
+<p> git merge develop-temp
+ check $? &ldquo;merging local changes&rdquo;</p>
+
+<p> git branch -d develop-temp
+ check $? &ldquo;removing temp branch&rdquo;</p>
+
+<p> # we should now be on a local develop branch incorporating any local changes
+ echo fetching latest revisions
+ git fetch</p>
+
+<p> # try to rebase again on top of any remote changes</p>
+
+<p> git rebase
+ check $? &ldquo;rebasing on origin/develop&rdquo;</p>
+
+<p> # if that worked, push back the merged version</p>
+
+<p> git push
+ check $? &ldquo;pushing&rdquo;</p></li>
+</ul>
+
 
 <h2>package-pseudo-framework.sh:</h2>
 
-<p>  #!/usr/bin/env bash</p>
-
-<p>  ## This script is used in iOS targets that are packaged up as &ldquo;pseudo&rdquo; frameworks.
-  ##
-  ## The script is called from a Run Script phase, like this:
-  ##
-  ## &ldquo;${ECLOGGING_SCRIPTS_PATH}/package-pseudo-framework.sh&rdquo;
-  ##
-  ## It performs various linking and copying operations to lay out the framework bundle correctly.</p>
-
-<p>  FRAMEWORK_ROOT=&ldquo;${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}&rdquo;</p>
-
-<p>  mkdir -p &ldquo;${FRAMEWORK_ROOT}/Versions&rdquo;
-  /bin/ln -sfh A &ldquo;${FRAMEWORK_ROOT}/Versions/Current&rdquo;
-  /bin/ln -sfh Versions/Current/Headers &ldquo;${FRAMEWORK_ROOT}/Headers&rdquo;
-  /bin/ln -sfh Versions/Current/Resources &ldquo;${FRAMEWORK_ROOT}/Resources&rdquo;
-  /bin/ln -sfh &ldquo;Versions/Current/${PRODUCT_NAME}&rdquo; &ldquo;${FRAMEWORK_ROOT}/${PRODUCT_NAME}&rdquo;
-This script is used in iOS targets that are packaged up as &ldquo;pseudo&rdquo; frameworks.</p></li>
-</ul>
-
+<p> This script is used in iOS targets that are packaged up as &ldquo;pseudo&rdquo; frameworks.</p>
 
 <p> The script is called from a Run Script phase, like this:</p>
 
@@ -221,7 +203,30 @@ This script is used in iOS targets that are packaged up as &ldquo;pseudo&rdquo; 
 
 <p> It performs various linking and copying operations to lay out the framework bundle correctly.</p>
 
+<pre><code>#!/usr/bin/env bash
+
+## This script is used in iOS targets that are packaged up as "pseudo" frameworks.
+##
+## The script is called from a Run Script phase, like this:
+##
+## "${ECLOGGING_SCRIPTS_PATH}/package-pseudo-framework.sh"
+##
+## It performs various linking and copying operations to lay out the framework bundle correctly.
+
+FRAMEWORK_ROOT="${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}"
+
+mkdir -p "${FRAMEWORK_ROOT}/Versions"
+/bin/ln -sfh A "${FRAMEWORK_ROOT}/Versions/Current"
+/bin/ln -sfh Versions/Current/Headers "${FRAMEWORK_ROOT}/Headers"
+/bin/ln -sfh Versions/Current/Resources "${FRAMEWORK_ROOT}/Resources"
+/bin/ln -sfh "Versions/Current/${PRODUCT_NAME}" "${FRAMEWORK_ROOT}/${PRODUCT_NAME}"
+</code></pre>
+
 <h2>pull-latest-submodules.sh:</h2>
+
+<p> Runs the merge-latest.sh script for each submodule in the current project.</p>
+
+<p> Used internally.</p>
 
 <pre><code>#!/usr/bin/env bash
 
@@ -237,11 +242,11 @@ popd &gt; /dev/null
 git submodule foreach "git pull --ff-only"
 </code></pre>
 
-<p> Runs the merge-latest.sh script for each submodule in the current project.</p>
-
-<p> Used internally.</p>
-
 <h2>sign-bundled.sh:</h2>
+
+<p> Re-sign every plugin and framework using the bundle id and code signing identity of the target</p>
+
+<p> You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.</p>
 
 <pre><code>BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" ${INFOPLIST_FILE}`
 
@@ -263,10 +268,6 @@ do
     codesign -f -i ${BUNDLEID} -vv -s "${CODE_SIGN_IDENTITY}" "$f"
 done
 </code></pre>
-
-<p> Re-sign every plugin and framework using the bundle id and code signing identity of the target</p>
-
-<p> You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.</p>
 
 <h2>test-common.sh:</h2>
 
@@ -419,6 +420,8 @@ iostestproject()
 
 <h2>testflight-extract-url.py:</h2>
 
+<p> Python script to extract the URL from the json results returned by TestFlight</p>
+
 <pre><code>#!/usr/bin/env python
 
 ## Python script to extract the URL from the json results returned by TestFlight
@@ -432,9 +435,19 @@ url = result['config_url']
 print url
 </code></pre>
 
-<p> Python script to extract the URL from the json results returned by TestFlight</p>
-
 <h2>testflight-upload.sh:</h2>
+
+<p> Script which uploads the target to Testflight.
+ Use this script as a Post-Action script in the Archive phase of a Scheme.</p>
+
+<p> The API token to use is read from the defaults system. To set it use</p>
+
+<pre><code> defaults write com.elegantchaos.testflight-upload API_TOKEN &lt;token&gt;
+</code></pre>
+
+<p> The Team Token is passed in to the script as a first parameter, since it varies with each project.
+ The second parameter should be the name of a TestFlight distribution list. All users in the list will be notified
+ when the target has been uploaded.</p>
 
 <pre><code>#!/bin/bash
 
@@ -564,21 +577,19 @@ else
 fi
 </code></pre>
 
-<p> Script which uploads the target to Testflight.
- Use this script as a Post-Action script in the Archive phase of a Scheme.</p>
-
-<p> The API token to use is read from the defaults system. To set it use</p>
-
-<pre><code> defaults write com.elegantchaos.testflight-upload API_TOKEN &lt;token&gt;
-</code></pre>
-
-<p> The Team Token is passed in to the script as a first parameter, since it varies with each project.
- The second parameter should be the name of a TestFlight distribution list. All users in the list will be notified
- when the target has been uploaded.</p>
-
 <h2>update-version.sh:</h2>
 
-<pre><code>#!/bin/bash
+<p> Script which takes the line count of the git log and sets it as the CFBundleVersion number in the target&rsquo;s Info.plist</p>
+
+<p> The script also adds a ECVersionCommit key to the Info.plist with the full SHA1 hash of the current commit.</p>
+
+<p> To use this script, add a Run Script phase to a target, and include this line</p>
+
+<pre><code> "${ECLOGGING_SCRIPTS_PATH}/update-version.sh"
+
+
+
+#!/bin/bash
 
 ## Script which takes the line count of the git log and sets it as the CFBundleVersion number in the target's Info.plist
 ##
@@ -602,15 +613,6 @@ COMMIT=`git rev-parse HEAD`
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$PLIST"
 
 echo "Bumped build number to $VERSION ($COMMIT) in $PLIST"
-</code></pre>
-
-<p> Script which takes the line count of the git log and sets it as the CFBundleVersion number in the target&rsquo;s Info.plist</p>
-
-<p> The script also adds a ECVersionCommit key to the Info.plist with the full SHA1 hash of the current commit.</p>
-
-<p> To use this script, add a Run Script phase to a target, and include this line</p>
-
-<pre><code> "${ECLOGGING_SCRIPTS_PATH}/update-version.sh"
 </code></pre>
 				</div>
 				<div id="footer">
