@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>ECLoggingMenu Class Reference</title>
+		<title>ECDebugViewController Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">ECLoggingMenu Class Reference</h1>
+				<h1 class="hideInXcode">ECDebugViewController Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -66,7 +66,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="ECLoggingMenu Class Reference" name="top"></a>
+				<a title="ECDebugViewController Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -75,7 +75,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">ECLoggingMenu Class Reference</h1>
+						<h1 class="title title-header">ECDebugViewController Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -83,10 +83,13 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Inherits from</td>
-	<td class="specification-value"><a href="../Classes/ECDebugMenu.html">ECDebugMenu</a> : NSMenu</td>
+	<td class="specification-value">UITableViewController</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">UITableViewDataSource<br />UITableViewDelegate</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">ECLoggingMenu.h</td>
+	<td class="specification-value">ECDebugViewController.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -96,13 +99,13 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>A utility menu containing various items for configuration of the logging system.</p>
+						<p>This class provides support for configuring ECLogging from within your application.</p>
 
-<p>If you place one of these in your menu in MainMenu.xib, it will automatically populate a Debug menu with lots of options that let you control your channels.</p>
+<p>If you push one of these onto a navigation controller, or show one modally, it will show an interface that lets you control your channels.</p>
 
-<p>Note that the menu is only intended for use with debug builds &ndash; in fact it automatically removes itself from release builds.</p>
-
-<p>!<a href="Screenshots/mac%20debug%20menu.png">Mac debug ui</a></p>
+<p>!<a href="Screenshots/ios%20debug%20view.png">iOS debug view</a>
+&ndash; !<a href="Screenshots/ios%20channels%20view.png">iOS channels list view</a>
+&ndash; !<a href="Screenshots/ios%20channel%20view.png">iOS channel configuration view</a></p>
 
 <p>The <a href="https://github.com/elegantchaos/ECLoggingExamples">sample application</a> illustrates how to use this class.</p>
 					</div>
