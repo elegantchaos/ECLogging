@@ -20,9 +20,9 @@ For more information, see the associated documentation pages:
 
 - Logging: <Logging>
 - Unit Testing Utilities: <ECTestCase>, <ECParameterisedTestCase>
-- Standard Configs: <Configs>
+- Standard Configs: <StandardConfigFiles>
 - Standard Macros and Definitions
-- Standard Prefixes: <Prefixes>
+- Standard Prefixes: <StandardPrefixFiles>
 - Standard Scripts: <Scripts>
 
 Some of these work on the assumption that client projects have a standard organisation. 

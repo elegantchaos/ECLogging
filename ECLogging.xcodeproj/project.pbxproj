@@ -211,7 +211,6 @@
 		2277CE2616D6AB9500835964 /* ECRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECRelease.xcconfig; sourceTree = "<group>"; };
 		2277CE2716D6AB9500835964 /* ECShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECShared.xcconfig; sourceTree = "<group>"; };
 		2277CE2816D6AB9500835964 /* ECUnitTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTests.xcconfig; sourceTree = "<group>"; };
-		2277CE3816D6AFA000835964 /* Examples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Examples; path = Extras/Examples; sourceTree = "<group>"; };
 		2277CE3916D6AFA000835964 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Scripts; path = Extras/Scripts; sourceTree = "<group>"; };
 		2277CE4316D6B2B900835964 /* ECMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECMacros.h; sourceTree = "<group>"; };
 		2277CE4416D6B2B900835964 /* ECParameterisedTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECParameterisedTestCase.h; sourceTree = "<group>"; };
@@ -593,7 +592,6 @@
 		22F2FEEC164140E700CD3C7C /* Extras */ = {
 			isa = PBXGroup;
 			children = (
-				2277CE3816D6AFA000835964 /* Examples */,
 				2277CE3916D6AFA000835964 /* Scripts */,
 				22F2FEEB164140D800CD3C7C /* .appledoc.plist */,
 				225C51511642DC3600794DD2 /* LICENSE.md */,

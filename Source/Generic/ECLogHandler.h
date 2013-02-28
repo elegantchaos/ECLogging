@@ -14,8 +14,7 @@
  
  This isn't a class you typically interact with directly. The methods in the class are generally used by the logging system itself, or subclasses of ECLogChannel.
  
- About Handlers
- ------------------
+ ## About Handlers
  
  Log handlers are responsible for taking the text and objects that you log, and, well, logging them...
 
@@ -36,8 +35,7 @@
  - log to an sql database
  - log over a port or socket for viewing on a viewer application
 
- Using Handlers
- --------------
+ ## Using Handlers
 
  Any handler that you want to use need to be registered with ECLogging when the application starts up.
 

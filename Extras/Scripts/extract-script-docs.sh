@@ -5,9 +5,11 @@
 
 output=$1
 mkdir -p "$output"
+echo "Output directory: $output"
 
 shift
 prefix=$1
+echo "Prefix file: $prefix"
 
 index=`cat "$prefix"`
 
@@ -24,11 +26,14 @@ while :; do
 	base=`basename "$file"`
 	name=${base%.*}
 
-	echo "${comments//##/}" > "$output/$base-template.markdown"
-	echo "" >> "$output/$base-template.markdown"
-	echo "### $base:" >> "$output/$base-template.markdown"
-	awk '{print "    "$0}' $file >> "$output/$base-template.markdown"
-	index=`echo "$index"; echo "- [$base]($base.html)"`
+	index=`echo "$index"; echo "## $base:"; echo ""; awk '{print "    "$0}' $file; echo "${comments//##/}"; echo ""; echo ""`
+#    echo "" >> "$output/$base-template.markdown"
+#	awk '{print "    "$0}' $file >> "$output/$base-template.markdown"
+#    echo "${comments//##/}" >> "$output/$base-template.markdown"
+#    echo "" >> "$output/$base-template.markdown"
+#    echo "" >> "$output/$base-template.markdown"
+#	index=`echo "$index"; echo "- [$base]($base.html)"`
+#    index=`echo "$index"; cat "$output/$base-template.markdown"`
 done
 
 echo "$index" > "$output/Scripts-template.markdown"
