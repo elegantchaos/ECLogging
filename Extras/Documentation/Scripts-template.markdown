@@ -5,6 +5,10 @@ ECLogging contains a number of scripts used by ECLogging itself or by other EC F
 
 Some of these aren't really intended for public use, but they're all documented here just in case.
 ## backup-submodules.sh:
+ Pushes all branches of all submodules in the current project to a remote called "backup".
+
+ Used internally.
+
 
     #!/usr/bin/env bash
     
@@ -13,10 +17,10 @@ Some of these aren't really intended for public use, but they're all documented 
     ## Used internally.
     
     git submodule foreach 'git push backup --all'
- Pushes all branches of all submodules in the current project to a remote called "backup".
-
- Used internally.
 ## extract-script-docs.sh:
+ Extract any comments prefixed with "" (like this one) in a file, and write them out to
+ a -template.md for inclusion in an appledoc documentation bundle.
+
 
     #!/usr/bin/env bash
     
@@ -46,7 +50,7 @@ Some of these aren't really intended for public use, but they're all documented 
     	base=`basename "$file"`
     	name=${base%.*}
     
-    	index=`echo "$index"; echo "## $base:"; echo ""; awk '{print "    "$0}' $file; echo "${comments//##/}"; echo ""; echo ""`
+    	index=`echo "$index"; echo "## $base:"; echo "${comments//##/}"; echo ""; echo ""; awk '{print "    "$0}' $file; echo ""`
     #    echo "" >> "$output/$base-template.markdown"
     #	awk '{print "    "$0}' $file >> "$output/$base-template.markdown"
     #    echo "${comments//##/}" >> "$output/$base-template.markdown"
@@ -57,9 +61,11 @@ Some of these aren't really intended for public use, but they're all documented 
     done
     
     echo "$index" > "$output/Scripts-template.markdown"
- Extract any comments prefixed with "" (like this one) in a file, and write them out to
- a -template.md for inclusion in an appledoc documentation bundle.
 ## merge-latest-submodules.sh:
+ Runs the merge-latest.sh script for each submodule in the current project.
+
+ Used internally.
+
 
     #!/usr/bin/env bash
     
@@ -73,10 +79,19 @@ Some of these aren't really intended for public use, but they're all documented 
     popd > /dev/null
     
     git submodule foreach "\"$full\"/merge-latest.sh"
- Runs the merge-latest.sh script for each submodule in the current project.
-
- Used internally.
 ## merge-latest.sh:
+ This script is an attempt to automate picking up the latest version of the "develop" branch for a module, given that it might be on a detatch HEAD at the time.
+
+ It performs the following steps:
+
+ - rebase on the local develop branch
+ - save this to a temporary branch
+ - switch to the local develop branch
+ - merge in the temporary branch - this should be a fast forward
+ - remove the temporary branch
+ - rebase on the remote "develop" from origin
+ - push the resulting changed branch back to origin
+
 
     #!/usr/bin/env bash
     
@@ -143,18 +158,15 @@ Some of these aren't really intended for public use, but they're all documented 
     check $? "pushing"
     
     
- This script is an attempt to automate picking up the latest version of the "develop" branch for a module, given that it might be on a detatch HEAD at the time.
-
- It performs the following steps:
-
- - rebase on the local develop branch
- - save this to a temporary branch
- - switch to the local develop branch
- - merge in the temporary branch - this should be a fast forward
- - remove the temporary branch
- - rebase on the remote "develop" from origin
- - push the resulting changed branch back to origin
 ## package-pseudo-framework.sh:
+ This script is used in iOS targets that are packaged up as "pseudo" frameworks.
+
+ The script is called from a Run Script phase, like this:
+
+ "${ECLOGGING_SCRIPTS_PATH}/package-pseudo-framework.sh"
+
+ It performs various linking and copying operations to lay out the framework bundle correctly.
+
 
     #!/usr/bin/env bash
     
@@ -173,14 +185,11 @@ Some of these aren't really intended for public use, but they're all documented 
     /bin/ln -sfh Versions/Current/Headers "${FRAMEWORK_ROOT}/Headers"
     /bin/ln -sfh Versions/Current/Resources "${FRAMEWORK_ROOT}/Resources"
     /bin/ln -sfh "Versions/Current/${PRODUCT_NAME}" "${FRAMEWORK_ROOT}/${PRODUCT_NAME}"
- This script is used in iOS targets that are packaged up as "pseudo" frameworks.
-
- The script is called from a Run Script phase, like this:
-
- "${ECLOGGING_SCRIPTS_PATH}/package-pseudo-framework.sh"
-
- It performs various linking and copying operations to lay out the framework bundle correctly.
 ## pull-latest-submodules.sh:
+ Runs the merge-latest.sh script for each submodule in the current project.
+
+ Used internally.
+
 
     #!/usr/bin/env bash
     
@@ -194,10 +203,11 @@ Some of these aren't really intended for public use, but they're all documented 
     popd > /dev/null
     
     git submodule foreach "git pull --ff-only"
- Runs the merge-latest.sh script for each submodule in the current project.
-
- Used internally.
 ## sign-bundled.sh:
+ Re-sign every plugin and framework using the bundle id and code signing identity of the target
+
+ You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.
+
 
     BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" ${INFOPLIST_FILE}`
     
@@ -218,10 +228,9 @@ Some of these aren't really intended for public use, but they're all documented 
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Resources/Info.plist"`
         codesign -f -i ${BUNDLEID} -vv -s "${CODE_SIGN_IDENTITY}" "$f"
     done
- Re-sign every plugin and framework using the bundle id and code signing identity of the target
-
- You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.
 ## test-common.sh:
+
+
 
     #!/usr/bin/env bash
     
@@ -369,6 +378,8 @@ Some of these aren't really intended for public use, but they're all documented 
     
     }
 ## testflight-extract-url.py:
+ Python script to extract the URL from the json results returned by TestFlight
+
 
     #!/usr/bin/env python
     
@@ -381,8 +392,17 @@ Some of these aren't really intended for public use, but they're all documented 
     url = result['config_url']
     
     print url
- Python script to extract the URL from the json results returned by TestFlight
 ## testflight-upload.sh:
+ Script which uploads the target to Testflight.
+ Use this script as a Post-Action script in the Archive phase of a Scheme.
+
+ The API token to use is read from the defaults system. To set it use
+     defaults write com.elegantchaos.testflight-upload API_TOKEN <token>
+
+ The Team Token is passed in to the script as a first parameter, since it varies with each project.
+ The second parameter should be the name of a TestFlight distribution list. All users in the list will be notified
+ when the target has been uploaded.
+
 
     #!/bin/bash
     
@@ -512,16 +532,15 @@ Some of these aren't really intended for public use, but they're all documented 
     fi
     
     
- Script which uploads the target to Testflight.
- Use this script as a Post-Action script in the Archive phase of a Scheme.
-
- The API token to use is read from the defaults system. To set it use
-     defaults write com.elegantchaos.testflight-upload API_TOKEN <token>
-
- The Team Token is passed in to the script as a first parameter, since it varies with each project.
- The second parameter should be the name of a TestFlight distribution list. All users in the list will be notified
- when the target has been uploaded.
 ## update-version.sh:
+ Script which takes the line count of the git log and sets it as the CFBundleVersion number in the target's Info.plist
+
+ The script also adds a ECVersionCommit key to the Info.plist with the full SHA1 hash of the current commit.
+
+ To use this script, add a Run Script phase to a target, and include this line
+     "${ECLOGGING_SCRIPTS_PATH}/update-version.sh"
+
+
 
     #!/bin/bash
     
@@ -547,9 +566,3 @@ Some of these aren't really intended for public use, but they're all documented 
     /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$PLIST"
     
     echo "Bumped build number to $VERSION ($COMMIT) in $PLIST"
- Script which takes the line count of the git log and sets it as the CFBundleVersion number in the target's Info.plist
-
- The script also adds a ECVersionCommit key to the Info.plist with the full SHA1 hash of the current commit.
-
- To use this script, add a Run Script phase to a target, and include this line
-     "${ECLOGGING_SCRIPTS_PATH}/update-version.sh"
