@@ -55,6 +55,11 @@
 	
 	
 	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/cleanName:">&nbsp;&nbsp;&nbsp;&nbsp;+ cleanName:</option>
+	
+	
 	
 	
 	<option value="instance_methods">Instance Methods</option>
@@ -69,9 +74,23 @@
 	
 	<option value="//api/name/enableHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- enableHandler:</option>
 	
+	<option value="//api/name/fileFromContext:">&nbsp;&nbsp;&nbsp;&nbsp;- fileFromContext:</option>
+	
 	<option value="//api/name/initWithName:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithName:</option>
 	
 	<option value="//api/name/isHandlerEnabled:">&nbsp;&nbsp;&nbsp;&nbsp;- isHandlerEnabled:</option>
+	
+	<option value="//api/name/selectFlagWithIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- selectFlagWithIndex:</option>
+	
+	<option value="//api/name/selectHandlerWithIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- selectHandlerWithIndex:</option>
+	
+	<option value="//api/name/showContext:">&nbsp;&nbsp;&nbsp;&nbsp;- showContext:</option>
+	
+	<option value="//api/name/stringFromContext:">&nbsp;&nbsp;&nbsp;&nbsp;- stringFromContext:</option>
+	
+	<option value="//api/name/tickFlagWithIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- tickFlagWithIndex:</option>
+	
+	<option value="//api/name/tickHandlerWithIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- tickHandlerWithIndex:</option>
 	
 	
 	
@@ -113,6 +132,12 @@
 
 
 
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cleanName:">cleanName:</a></span></li>
+	
+</ul></li>
+
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
@@ -127,9 +152,23 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enableHandler:">enableHandler:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fileFromContext:">fileFromContext:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithName:">initWithName:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isHandlerEnabled:">isHandlerEnabled:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectFlagWithIndex:">selectFlagWithIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/selectHandlerWithIndex:">selectHandlerWithIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showContext:">showContext:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stringFromContext:">stringFromContext:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/tickFlagWithIndex:">tickFlagWithIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/tickHandlerWithIndex:">tickHandlerWithIndex:</a></span></li>
 	
 </ul></li>
 
@@ -327,6 +366,64 @@ ECDeclareDebugChannel(MyDebugChannel);
 	<span class="tooltip">
 		<code><a href="#//api/name/isHandlerEnabled:">&ndash;&nbsp;isHandlerEnabled:</a></code>
 		<span class="tooltip"><p>Will this channel pass output to a given handler?</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showContext:">&ndash;&nbsp;showContext:</a></code>
+		<span class="tooltip"><p>Should any log output for this channel include context information?</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/fileFromContext:">&ndash;&nbsp;fileFromContext:</a></code>
+		<span class="tooltip"><p>Return a formatted string giving the file name and line number from a
+context structure.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/stringFromContext:">&ndash;&nbsp;stringFromContext:</a></code>
+		<span class="tooltip"><p>Return a formatted string describing a context structure, based on our
+context flags.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/tickFlagWithIndex:">&ndash;&nbsp;tickFlagWithIndex:</a></code>
+		<span class="tooltip"><p>UI helper &ndash; should we tick a menu item for a given flag index?</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectFlagWithIndex:">&ndash;&nbsp;selectFlagWithIndex:</a></code>
+		<span class="tooltip"><p>UI helper &ndash; respond to a context flag being selected.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/tickHandlerWithIndex:">&ndash;&nbsp;tickHandlerWithIndex:</a></code>
+		<span class="tooltip"><p>UI helper &ndash; should we tick a menu item for a given handler index?</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/selectHandlerWithIndex:">&ndash;&nbsp;selectHandlerWithIndex:</a></code>
+		<span class="tooltip"><p>UI helper &ndash; respond to a handler being selected.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/cleanName:">+&nbsp;cleanName:</a></code>
+		<span class="tooltip"><p>Return a cleaned up version of a raw channel name.</p></span>
 	</span>
 	
 	
@@ -563,6 +660,68 @@ ECDeclareDebugChannel(MyDebugChannel);
 					
 					
 					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/cleanName:" title="cleanName:"></a>
+	<h3 class="subsubtitle method-title">cleanName:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return a cleaned up version of a raw channel name.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (NSString *)cleanName:(const char *)<em>name</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>Raw c-style name string.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Cleaned up name.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Removes &ldquo;Channel&rdquo; from the end, and splits up MixedCaps words by inserting spaces.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
 					
 					
 					<div class="section section-methods">
@@ -785,6 +944,58 @@ ECDeclareDebugChannel(MyDebugChannel);
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/fileFromContext:" title="fileFromContext:"></a>
+	<h3 class="subsubtitle method-title">fileFromContext:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return a formatted string giving the file name and line number from a
+context structure.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)fileFromContext:(ECLogContext *)<em>context</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>context</em></dt>
+			<dd><p>The context information</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>String with the file name and line number.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/initWithName:" title="initWithName:"></a>
 	<h3 class="subsubtitle method-title">initWithName:</h3>
 	
@@ -861,6 +1072,303 @@ ECDeclareDebugChannel(MyDebugChannel);
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
 		<p>YES if the handler is enabled for this channel.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectFlagWithIndex:" title="selectFlagWithIndex:"></a>
+	<h3 class="subsubtitle method-title">selectFlagWithIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>UI helper &ndash; respond to a context flag being selected.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)selectFlagWithIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>The index of the flag.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>We respond by toggling the flag on/off.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/selectHandlerWithIndex:" title="selectHandlerWithIndex:"></a>
+	<h3 class="subsubtitle method-title">selectHandlerWithIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>UI helper &ndash; respond to a handler being selected.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)selectHandlerWithIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>The index of the handler.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>We respond by enabling/disabling the handler for this channel.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showContext:" title="showContext:"></a>
+	<h3 class="subsubtitle method-title">showContext:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Should any log output for this channel include context information?</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)showContext:(ECLogContextFlags)<em>flags</em></code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if context information should be shown.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/stringFromContext:" title="stringFromContext:"></a>
+	<h3 class="subsubtitle method-title">stringFromContext:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Return a formatted string describing a context structure, based on our
+context flags.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)stringFromContext:(ECLogContext *)<em>context</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>context</em></dt>
+			<dd><p>The context.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>String describing the context.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/tickFlagWithIndex:" title="tickFlagWithIndex:"></a>
+	<h3 class="subsubtitle method-title">tickFlagWithIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>UI helper &ndash; should we tick a menu item for a given flag index?</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)tickFlagWithIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>The index of the flag.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if it should be ticked.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">ECLogChannel.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/tickHandlerWithIndex:" title="tickHandlerWithIndex:"></a>
+	<h3 class="subsubtitle method-title">tickHandlerWithIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>UI helper &ndash; should we tick a menu item for a given handler index?</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)tickHandlerWithIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>The index of the handler.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if it should be ticked.</p>
 	</div>
 	
 	
