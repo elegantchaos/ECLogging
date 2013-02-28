@@ -592,10 +592,10 @@
 		22F2FEEC164140E700CD3C7C /* Extras */ = {
 			isa = PBXGroup;
 			children = (
-				2277CE3916D6AFA000835964 /* Scripts */,
 				22F2FEEB164140D800CD3C7C /* .appledoc.plist */,
 				225C51511642DC3600794DD2 /* LICENSE.md */,
 				225C51521642DC3600794DD2 /* README.md */,
+				2277CE3916D6AFA000835964 /* Scripts */,
 				22F2FEED164140F700CD3C7C /* Documentation */,
 			);
 			name = Extras;

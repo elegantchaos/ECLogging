@@ -45,10 +45,16 @@ report()
 #    popd > /dev/null
 }
 
+makeoutput()
+{
+    echo "" > "$testout"
+    echo "" > "$testerr"
+}
+
 commonbuild()
 {
-    echo "Building $1 for $3"
-    xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 -config "$config" $2 OBJROOT="$obj" SYMROOT="$sym" > "$testout" 2> "$testerr"
+    echo "Building $1 for $3 $5"
+    xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 -config "$5" $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
     result=$?
     if [[ $result != 0 ]]; then
         cat "$testerr"
@@ -75,7 +81,9 @@ macbuild()
 {
     if $testMac ; then
 
-        commonbuild "$1" "$2" "macosx"
+        makeoutput
+        commonbuild "$1" "$2" "macosx" "" "Debug"
+        commonbuild "$1" "$2" "macosx" "" "Release"
 
     fi
 }
@@ -91,7 +99,9 @@ iosbuild()
             action=$2
         fi
 
-        commonbuild "$1" "$action" "iphonesimulator" "-arch i386"
+        makeoutput
+        commonbuild "$1" "$action" "iphonesimulator" "-arch i386" "Debug"
+        commonbuild "$1" "$action" "iphonesimulator" "-arch i386" "Release"
 
     fi
 }
@@ -101,10 +111,14 @@ iosbuildproject()
 
     if $testIOS; then
 
-        echo Building target $2 of project $1
+
+        makeoutput
 
         cd "$1"
-        xcodebuild -project "$1.xcodeproj" -config "$config" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" > "$testout" 2> "$testerr"
+        echo Building debug target $2 of project $1
+        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
+        echo Building release target $2 of project $1
+        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
         result=$?
         cd ..
         if [[ $result != 0 ]]; then
@@ -124,10 +138,14 @@ iostestproject()
 
     if $testIOS; then
 
-        echo Testing target $2 of project $1
+
+        makeoutput
 
         cd "$1"
-        xcodebuild -project "$1.xcodeproj" -config "$config" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" TEST_AFTER_BUILD=YES > "$testout" 2> "$testerr"
+        echo Testing debug target $2 of project $1
+        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
+        echo Testing release target $2 of project $1
+        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
         result=$?
         cd ..
         if [[ $result != 0 ]]; then
