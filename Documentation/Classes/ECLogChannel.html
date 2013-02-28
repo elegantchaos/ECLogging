@@ -372,7 +372,7 @@ ECDeclareDebugChannel(MyDebugChannel);
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/showContext:">&ndash;&nbsp;showContext:</a></code>
-		<span class="tooltip"><p>Should any log output for this channel include context information?</p></span>
+		<span class="tooltip"><p>Should any log output for this channel include context information for the given context flags?</p></span>
 	</span>
 	
 	
@@ -1201,7 +1201,7 @@ context structure.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Should any log output for this channel include context information?</p>
+		<p>Should any log output for this channel include context information for the given context flags?</p>
 	</div>		
 	
     
@@ -1209,6 +1209,16 @@ context structure.</p>
 	<div class="method-subsection method-declaration"><code>- (BOOL)showContext:(ECLogContextFlags)<em>flags</em></code></div>
 
     
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>flags</em></dt>
+			<dd><p>Flags we&rsquo;re checking.</p></dd>
+		</dl>
+		
+	</div>
 	
 	
 	
