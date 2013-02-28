@@ -26,6 +26,58 @@
 			<div id="overview_contents" role="main">
 				<div id="container">	
 					<p>ECLogging defines some standard macros and compiler variables which can be used by other code.</p>
+
+<p>Two macros EC_DEBUG and EC_RELEASE control the definition of many of the other macros and much of the logging code.</p>
+
+<p>One of these two must be defined.</p>
+
+<p>If you use the <a href="../../docs/Documentation/StandardConfigFiles.html">StandardConfigFiles</a>, EC_DEBUG will be defined for Debug configurations, and EC_RELEASE for Release configurations.</p>
+
+<p>If you don&rsquo;t use the standard config files, you need to ensure that you #define one or other of these in your prefix file, before including &lt;ECLogging/ECLogging.h>.</p>
+
+<h1>Macros</h1>
+
+<h2>EC_DEPRECATED</h2>
+
+<p>This is used internally to indicate deprecated methods.</p>
+
+<h2>ECUnused()</h2>
+
+<p>This is used to mark unused variables or return values.</p>
+
+<h2>EC_HINT_UNUSED</h2>
+
+<p>This is used to hint to the compiler that a variable or argument is unused.</p>
+
+<h2>EC_EXPORTED</h2>
+
+<p>This is used to indicate that a method or class should be exported.</p>
+
+<h2>ECUnusedInDebug()</h2>
+
+<p>This is used to mark variables or return values that are unused in debug builds.</p>
+
+<h2>ECUnusedInRelease()</h2>
+
+<p>This is used to mark variables or return values that are unused in release builds.</p>
+
+<h2>ECDebugOnly()</h2>
+
+<p>This is used to wrap code that should only be defined in debug builds.</p>
+
+<pre><code>ECDebugOnly(my_func(1);)
+</code></pre>
+
+<p>is a quick way of doing</p>
+
+<pre><code>#ifdef EC_DEBUG
+    my_func(1);
+#endif
+</code></pre>
+
+<h2>ECReleaseOnly()</h2>
+
+<p>This is used to wrap code that should only be defined in release builds.</p>
 				</div>
 				<div id="footer">
 					<hr />
