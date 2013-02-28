@@ -23,8 +23,8 @@ Or look at the [Sample Projects](https://github.com/elegantchaos/ECLoggingExampl
 If you do read documentation:
 
 - <Initialisation>
-- <Channels>
-- <Handlers>
+- [Log Channels](<ECLogChannel>)
+- [Log Handlers](<ECLogHandler>)
 - [User Interface](UserInterface.html)
 - <Configuration>
 - <Miscellaneous>
