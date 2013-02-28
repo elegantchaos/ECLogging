@@ -19,12 +19,11 @@ In the other EC frameworks, we assume that they are all in the same folder in th
       source/
       frameworks/
         ECLogging/
-        ECUnitTest/
-        ECLogging/
+        ECCore/
         ... and so on
         
         
-By making this assumption, the other frameworks know the relative path of the ECLogging xcconfig files, and thus can include them like this:
+By making this assumption, the other frameworks know the relative path of the ECLogging xcconfig files, and thus can include them from their own xcconfig files, like this:
 
     #include "../ECLogging/Source/Configuration/ECIOSDebug.xcconfig"
     #include "../ECLogging/Source/Configuration/ECPseudoFramework.xcconfig"
@@ -34,8 +33,10 @@ If you don't set things up this way, you'll probably get a build warning like th
 
     ECMacDebug.xcconfig line 8: Unable to find included file...
 
+This may well then confuse Xcode further, if you're using things that are defined in the standard configs.
 
-If you don't want to actually put them all in the same place, you can fake it by adding a symbolic link called ECLogging that points to the right place.
 
-Of course, in your own project, if you want to include ECLogging xcconfig files, you can simply use a relative link to wherever you located them.
+If you're using more than one EC framework in a project and you don't want to actually them in the same place, you can fake it by adding a symbolic link called ECLogging that points to the right place. This will allow the other EC frameworks to find ECLogging.
+
+Of course, in your own project, if you want to include ECLogging xcconfig files from your xcconfig files, you will know where you've put ECLogging, so you don't need to worry about this - you can simply use a relative link to them in your #include statement.
 

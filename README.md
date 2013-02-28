@@ -47,10 +47,15 @@ For more information, see the associated documentation pages:
 
 Some of the scripts, config files and prefixes work on the assumption that client projects have a standard organisation.
 
-The <ImportNote> has more information about why this can be a problem, particularly when locating the standard xcconfig files from a project that's using the ECLogging framework.
+Generally this shouldn't be an issue, and if you don't encounter any problems, don't worry about it.
 
-Arranging your own project to use this organisation isn't essential, but if you use a different one you may have to modify some examples accordingly.
+If you're trying to make use of the standard scripts or config files and are having issues, this may be relevant.
 
+The [Finding The Standard Config Files](<ImportNote>) note has more information about why this can be a problem, particularly when you are using ECLogging in your project along with another EC framework.
+
+Arranging your own project to use our standard organisation isn't essential, but if you use a different one you may have to modify some examples accordingly.
+
+If you encounter problems with this, or have suggestions for improvements, please file an issue.
 
 ## Future
 

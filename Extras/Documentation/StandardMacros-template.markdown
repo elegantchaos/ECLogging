@@ -11,33 +11,33 @@ If you don't use the standard config files, you need to ensure that you #define 
 
 # Macros
 
-## EC_DEPRECATED
+### EC_DEPRECATED
 
 This is used internally to indicate deprecated methods.
 
-## ECUnused()
+### ECUnused()
 
 This is used to mark unused variables or return values.
 
-## EC_HINT_UNUSED
+### EC_HINT_UNUSED
 
 This is used to hint to the compiler that a variable or argument is unused.
 
 
-## EC_EXPORTED
+### EC_EXPORTED
 
 This is used to indicate that a method or class should be exported.
 
 
-## ECUnusedInDebug()
+### ECUnusedInDebug()
 
 This is used to mark variables or return values that are unused in debug builds.
 
-## ECUnusedInRelease()
+### ECUnusedInRelease()
 
 This is used to mark variables or return values that are unused in release builds.
 
-## ECDebugOnly()
+### ECDebugOnly()
 
 This is used to wrap code that should only be defined in debug builds.
 
@@ -49,6 +49,6 @@ is a quick way of doing
         my_func(1);
     #endif
 
-## ECReleaseOnly()
+### ECReleaseOnly()
 
 This is used to wrap code that should only be defined in release builds.
