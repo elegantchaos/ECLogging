@@ -1,0 +1,629 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>Scripts Document</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../../css/stylesPrint.css" />	
+		<meta name="generator" content="appledoc 2.1 (build 858)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">ECLogging </a></h1>
+				<a id="developerHome" href="../index.html">Elegant Chaos</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode" id="pageTitleHeader">Scripts Document</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar"></ul>
+		</header>
+		<article>
+			<a title="Scripts Document" name="top"></a>
+			<div id="overview_contents" role="main">
+				<div id="container">	
+					<h2>Scripts</h2>
+
+<p>ECLogging contains a number of scripts used by ECLogging itself or by other EC Frameworks.</p>
+
+<p>Some of these aren&rsquo;t really intended for public use, but they&rsquo;re all documented here just in case.</p>
+
+<h2>backup-submodules.sh:</h2>
+
+<pre><code>#!/usr/bin/env bash
+
+## Pushes all branches of all submodules in the current project to a remote called "backup".
+##
+## Used internally.
+
+git submodule foreach 'git push backup --all'
+</code></pre>
+
+<p> Pushes all branches of all submodules in the current project to a remote called &ldquo;backup&rdquo;.</p>
+
+<p> Used internally.</p>
+
+<h2>extract-script-docs.sh:</h2>
+
+<pre><code>#!/usr/bin/env bash
+
+## Extract any comments prefixed with "##" (like this one) in a file, and write them out to
+## a -template.md for inclusion in an appledoc documentation bundle.
+
+output=$1
+mkdir -p "$output"
+echo "Output directory: $output"
+
+shift
+prefix=$1
+echo "Prefix file: $prefix"
+
+index=`cat "$prefix"`
+
+while :; do
+    shift
+    file=$1
+    if [[ "$file" == "" ]]; then
+        break
+    fi
+
+
+    comments=`grep "^##" "$file"`
+
+    base=`basename "$file"`
+    name=${base%.*}
+
+    index=`echo "$index"; echo "## $base:"; echo ""; awk '{print "    "$0}' $file; echo "${comments//##/}"; echo ""; echo ""`
+#    echo "" &gt;&gt; "$output/$base-template.markdown"
+#   awk '{print "    "$0}' $file &gt;&gt; "$output/$base-template.markdown"
+#    echo "${comments//##/}" &gt;&gt; "$output/$base-template.markdown"
+#    echo "" &gt;&gt; "$output/$base-template.markdown"
+#    echo "" &gt;&gt; "$output/$base-template.markdown"
+#   index=`echo "$index"; echo "- $base"`
+#    index=`echo "$index"; cat "$output/$base-template.markdown"`
+done
+
+echo "$index" &gt; "$output/Scripts-template.markdown"
+</code></pre>
+
+<p> Extract any comments prefixed with &ldquo;&rdquo; (like this one) in a file, and write them out to
+ a -template.md for inclusion in an appledoc documentation bundle.</p>
+
+<h2>merge-latest-submodules.sh:</h2>
+
+<pre><code>#!/usr/bin/env bash
+
+## Runs the merge-latest.sh script for each submodule in the current project.
+##
+## Used internally.
+
+base=`dirname $0`
+pushd "$base" &gt; /dev/null
+full="$PWD"
+popd &gt; /dev/null
+
+git submodule foreach "\"$full\"/merge-latest.sh"
+</code></pre>
+
+<p> Runs the merge-latest.sh script for each submodule in the current project.</p>
+
+<p> Used internally.</p>
+
+<h2>merge-latest.sh:</h2>
+
+<pre><code>#!/usr/bin/env bash
+
+## This script is an attempt to automate picking up the latest version of the "develop" branch for a module, given that it might be on a detatch HEAD at the time.
+##
+## It performs the following steps:
+##
+## - rebase on the local develop branch
+## - save this to a temporary branch
+## - switch to the local develop branch
+## - merge in the temporary branch - this should be a fast forward
+## - remove the temporary branch
+## - rebase on the remote "develop" from origin
+## - push the resulting changed branch back to origin
+
+check() {
+    if [[ $1 != 0 ]]; then
+      echo "failed: $2"
+      exit $1
+    fi
+}
+
+status=`git status --porcelain`
+
+if [[ "$status" != "" ]]; then
+    echo "You have local changes. Commit them first."
+    exit 1
+fi
+
+# we may start on something that isn't the develop branch
+# possibly a detached HEAD
+
+# try to apply any changes on top of our local develop
+
+git rebase develop
+check $? "rebasing on develop"
+
+# now fast forward develop to the merged place
+
+git checkout -b develop-temp
+check $? "making temp branch"
+
+git checkout develop
+check $? "switching back to develop"
+
+git merge develop-temp
+check $? "merging local changes"
+
+git branch -d develop-temp
+check $? "removing temp branch"
+
+# we should now be on a local develop branch incorporating any local changes
+echo fetching latest revisions
+git fetch
+
+# try to rebase again on top of any remote changes
+
+git rebase
+check $? "rebasing on origin/develop"
+
+# if that worked, push back the merged version
+
+git push
+check $? "pushing"
+</code></pre>
+
+<p> This script is an attempt to automate picking up the latest version of the &ldquo;develop&rdquo; branch for a module, given that it might be on a detatch HEAD at the time.</p>
+
+<p> It performs the following steps:</p>
+
+<ul>
+<li>rebase on the local develop branch</li>
+<li>save this to a temporary branch</li>
+<li>switch to the local develop branch</li>
+<li>merge in the temporary branch &ndash; this should be a fast forward</li>
+<li>remove the temporary branch</li>
+<li>rebase on the remote &ldquo;develop&rdquo; from origin</li>
+<li>push the resulting changed branch back to origin
+
+<h2>package-pseudo-framework.sh:</h2>
+
+<p>  #!/usr/bin/env bash</p>
+
+<p>  ## This script is used in iOS targets that are packaged up as &ldquo;pseudo&rdquo; frameworks.
+  ##
+  ## The script is called from a Run Script phase, like this:
+  ##
+  ## &ldquo;${ECLOGGING_SCRIPTS_PATH}/package-pseudo-framework.sh&rdquo;
+  ##
+  ## It performs various linking and copying operations to lay out the framework bundle correctly.</p>
+
+<p>  FRAMEWORK_ROOT=&ldquo;${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}&rdquo;</p>
+
+<p>  mkdir -p &ldquo;${FRAMEWORK_ROOT}/Versions&rdquo;
+  /bin/ln -sfh A &ldquo;${FRAMEWORK_ROOT}/Versions/Current&rdquo;
+  /bin/ln -sfh Versions/Current/Headers &ldquo;${FRAMEWORK_ROOT}/Headers&rdquo;
+  /bin/ln -sfh Versions/Current/Resources &ldquo;${FRAMEWORK_ROOT}/Resources&rdquo;
+  /bin/ln -sfh &ldquo;Versions/Current/${PRODUCT_NAME}&rdquo; &ldquo;${FRAMEWORK_ROOT}/${PRODUCT_NAME}&rdquo;
+This script is used in iOS targets that are packaged up as &ldquo;pseudo&rdquo; frameworks.</p></li>
+</ul>
+
+
+<p> The script is called from a Run Script phase, like this:</p>
+
+<p> &ldquo;${ECLOGGING_SCRIPTS_PATH}/package-pseudo-framework.sh&rdquo;</p>
+
+<p> It performs various linking and copying operations to lay out the framework bundle correctly.</p>
+
+<h2>pull-latest-submodules.sh:</h2>
+
+<pre><code>#!/usr/bin/env bash
+
+## Runs the merge-latest.sh script for each submodule in the current project.
+##
+## Used internally.
+
+base=`dirname $0`
+pushd "$base" &gt; /dev/null
+full="$PWD"
+popd &gt; /dev/null
+
+git submodule foreach "git pull --ff-only"
+</code></pre>
+
+<p> Runs the merge-latest.sh script for each submodule in the current project.</p>
+
+<p> Used internally.</p>
+
+<h2>sign-bundled.sh:</h2>
+
+<pre><code>BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" ${INFOPLIST_FILE}`
+
+## Re-sign every plugin and framework using the bundle id and code signing identity of the target
+##
+## You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.
+
+echo "Signing PlugIns"
+for f in "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns/"*
+do
+    BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Contents/Info.plist"`
+    codesign -f -i ${BUNDLEID} -vv -s "${CODE_SIGN_IDENTITY}" "$f"
+done
+
+echo "Signing Frameworks"
+for f in "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks/"*
+do
+    BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Resources/Info.plist"`
+    codesign -f -i ${BUNDLEID} -vv -s "${CODE_SIGN_IDENTITY}" "$f"
+done
+</code></pre>
+
+<p> Re-sign every plugin and framework using the bundle id and code signing identity of the target</p>
+
+<p> You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.</p>
+
+<h2>test-common.sh:</h2>
+
+<pre><code>#!/usr/bin/env bash
+
+# Common code for test scripts
+
+if [[ $project == "" ]];
+then
+    echo "Need to define project variable."
+    exit 1
+fi
+
+echo "Setting up tests for $project"
+
+pushd "$base/.." &gt; /dev/null
+build="$PWD/test-build"
+ocunit2junit="$PWD/ECUnitTests/Resources/Scripts/ocunit2junit/ocunit2junit.rb"
+popd &gt; /dev/null
+
+sym="$build/sym"
+obj="$build/obj"
+
+rm -rf "$build"
+mkdir -p "$build"
+
+testout="$build/out.log"
+testerr="$build/err.log"
+
+#if [[ "$testMac" == "" ]]; then
+#    testMac=true
+#fi
+
+#if [[ "$testIOS" == "" ]]; then
+#    testIOS=true
+#if
+
+config="Debug"
+
+report()
+{
+#    pushd "$build" &gt; /dev/null
+    "$ocunit2junit" &lt; "$testout" &gt; /dev/null
+    reportdir="$build/reports/$2/$1"
+    mkdir -p "$reportdir"
+    mv test-reports/* "$reportdir" 2&gt; /dev/null
+    rmdir test-reports
+#    popd &gt; /dev/null
+}
+
+commonbuild()
+{
+    echo "Building $1 for $3"
+    xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 -config "$config" $2 OBJROOT="$obj" SYMROOT="$sym" &gt; "$testout" 2&gt; "$testerr"
+    result=$?
+    if [[ $result != 0 ]]; then
+        cat "$testerr"
+        echo
+        echo "** BUILD FAILURES **"
+        echo "Build failed for scheme $1"
+        exit $result
+    fi
+
+    report "$1" "$3"
+
+    failures=`grep failed "$testout"`
+    if [[ $failures != "" ]]; then
+        echo $failures
+        echo
+        echo "** UNIT TEST FAILURES **"
+        echo "Tests failed for scheme $1"
+        exit $result
+    fi
+
+}
+
+macbuild()
+{
+    if $testMac ; then
+
+        commonbuild "$1" "$2" "macosx"
+
+    fi
+}
+
+iosbuild()
+{
+    if $testIOS; then
+
+        if [[ $2 == "test" ]];
+        then
+            action="build TEST_AFTER_BUILD=YES"
+        else
+            action=$2
+        fi
+
+        commonbuild "$1" "$action" "iphonesimulator" "-arch i386"
+
+    fi
+}
+
+iosbuildproject()
+{
+
+    if $testIOS; then
+
+        echo Building target $2 of project $1
+
+        cd "$1"
+        xcodebuild -project "$1.xcodeproj" -config "$config" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" &gt; "$testout" 2&gt; "$testerr"
+        result=$?
+        cd ..
+        if [[ $result != 0 ]]; then
+            cat "$testerr"
+            echo
+            echo "** BUILD FAILURES **"
+            echo "Build failed for scheme $1"
+        exit $result
+        fi
+
+    fi
+
+}
+
+iostestproject()
+{
+
+    if $testIOS; then
+
+        echo Testing target $2 of project $1
+
+        cd "$1"
+        xcodebuild -project "$1.xcodeproj" -config "$config" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" TEST_AFTER_BUILD=YES &gt; "$testout" 2&gt; "$testerr"
+        result=$?
+        cd ..
+        if [[ $result != 0 ]]; then
+            cat "$testerr"
+            echo
+            echo "** BUILD FAILURES **"
+            echo "Build failed for scheme $1"
+            exit $result
+        fi
+
+        report "$1" "iphonesimulator"
+
+    fi
+
+}
+</code></pre>
+
+<h2>testflight-extract-url.py:</h2>
+
+<pre><code>#!/usr/bin/env python
+
+## Python script to extract the URL from the json results returned by TestFlight
+
+import json
+import sys
+
+result = json.load(sys.stdin)
+url = result['config_url']
+
+print url
+</code></pre>
+
+<p> Python script to extract the URL from the json results returned by TestFlight</p>
+
+<h2>testflight-upload.sh:</h2>
+
+<pre><code>#!/bin/bash
+
+## Script which uploads the target to Testflight.
+## Use this script as a Post-Action script in the Archive phase of a Scheme.
+##
+## The API token to use is read from the defaults system. To set it use
+##     defaults write com.elegantchaos.testflight-upload API_TOKEN &lt;token&gt;
+##
+## The Team Token is passed in to the script as a first parameter, since it varies with each project.
+## The second parameter should be the name of a TestFlight distribution list. All users in the list will be notified
+## when the target has been uploaded.
+
+rm /tmp/upload.log
+
+TMP=/tmp/testflight-upload
+LOG="${TMP}/upload.log"
+ERROR_LOG="${TMP}/error.log"
+
+rm "${LLOG}"
+rm "${ERROR_LOG}"
+
+mkdir -p "$TMP"
+echo "Uploading..." &gt; "${LOG}"
+echo "" &gt; "${ERROR_LOG}"
+
+GIT=/usr/bin/git
+
+APITOKEN=`defaults read com.elegantchaos.testflight-upload API_TOKEN`
+if [[ "${APITOKEN}" == "" ]]; then
+    echo "Need to set the TestFlight API token using 'defaults write com.elegantchaos.testflight-upload API_TOKEN &lt;token&gt;'" &gt;&gt; "${ERROR_LOG}"
+    open "${ERROR_LOG}"
+    exit 1
+fi
+
+
+# team token and distribution list are per-project settings, so should be passed in
+TEAMTOKEN="$1"
+DISTRIBUTION="$2"
+
+# set this to true to show a confirmation dialog before doing the upload
+CONFIRM_MESSAGE=false
+
+# set this to true to use the git log as the default upload message
+DEFAULT_MESSAGE_IS_GIT_LOG=true
+
+MESSAGE=""
+
+if $DEFAULT_MESSAGE_IS_GIT_LOG; then
+    # use the git log since the last upload as the upload message
+    MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline testflight-upload..HEAD`
+    if [[ $? != 0 ]]; then
+        MESSAGE="first upload"
+    fi
+
+else
+    # default to the last saved message
+    if [ -e "${TMP}/upload.txt" ]; then
+        MESSAGE=`cat ${TMP}/upload.txt`
+    fi
+fi
+
+if $CONFIRM_MESSAGE; then
+    # use applescript to ask about the upload
+    MESSAGE=`osascript -e "tell application id \"com.apple.dt.Xcode\" to text returned of (display dialog \"Upload archive?\" default answer \"$MESSAGE\")"`
+    if [[ $? != 0 ]] ; then
+        echo "Upload cancelled" &gt;&gt; "${LOG}"
+        exit 1
+    fi
+fi
+
+# archive the last commit message, just in case we want it
+echo "$MESSAGE" &gt; "${TMP}/upload.txt"
+
+SCRIPT_DIR=`dirname $0`
+
+# make the ipa
+echo "Making $EXECUTABLE_NAME.ipa as ${CODE_SIGN_IDENTITY}" &gt;&gt; "${LOG}"
+APP="$ARCHIVE_PRODUCTS_PATH/Applications/$EXECUTABLE_NAME.app"
+DSYM="$ARCHIVE_DSYMS_PATH/$EXECUTABLE_NAME.app.dSYM"
+IPA="$TMPDIR/$EXECUTABLE_NAME.ipa"
+XCROOT=`/usr/bin/xcode-select -print-path`
+XCRUN="$XCROOT/usr/bin/xcrun"
+
+echo "$XCRUN" -sdk iphoneos PackageApplication "$APP" -o "$IPA" --sign "${CODE_SIGN_IDENTITY}" --embed "${APP}/${EMBEDDED_PROFILE_NAME}" &amp;&gt; "${TMP}/xcrun.txt"
+
+"$XCRUN" -sdk iphoneos PackageApplication "$APP" -o "$IPA" --sign "${CODE_SIGN_IDENTITY}" --embed "${APP}/${EMBEDDED_PROFILE_NAME}" &amp;&gt; "${TMP}/xcrun.log"
+
+if [[ $? == 0 ]] ; then
+
+        CURLLOG="${TMP}/curl.log"
+
+        echo "Uploading to Test Flight with notes:" &gt;&gt; "${LOG}"
+        echo "\"${MESSAGE}\"" &gt;&gt; "${LOG}"
+        echo "" &gt;&gt; "${LOG}"
+        echo "Distribution list ${DISTRIBUTION} will be mailed." &gt;&gt; "${LOG}"
+        echo "" &gt;&gt; "${LOG}"
+
+        zip -q -r "${DSYM}.zip" "${DSYM}"
+        rm "$CURLLOG"
+        curl http://testflightapp.com/api/builds.json --form file="@${IPA}" --form dsym="@${DSYM}.zip" --form api_token="${APITOKEN}" --form team_token="${TEAMTOKEN}" --form notes="${MESSAGE}" --form notify=True --form distribution_lists="${DISTRIBUTION}" -o "${CURLLOG}"
+        CONFIG_URL=`"${SCRIPT_DIR}/testflight-extract-url.py" &lt; "${CURLLOG}"`
+
+        if [[ $? == 0 ]] ; then
+            echo "Upload done." &gt;&gt; "${LOG}"
+            open "${CONFIG_URL}"
+
+            # update the git tag
+            cd "$PROJECT_DIR";
+            $GIT tag -f testflight-upload
+
+            # clean up if the upload worked
+            rm "${DSYM}.zip"
+            rm "${IPA}"
+
+        else
+            echo "Test Flight returned error:" &gt; "${ERROR_LOG}"
+            cat "${CURLLOG}" &gt;&gt; "${ERROR_LOG}"
+            open "${ERROR_LOG}"
+
+        fi
+else
+
+    echo "Failed to build IPA"  &gt;&gt; "${ERROR_LOG}"
+    open "${TMP}/xcrun.log"
+    exit 1
+fi
+</code></pre>
+
+<p> Script which uploads the target to Testflight.
+ Use this script as a Post-Action script in the Archive phase of a Scheme.</p>
+
+<p> The API token to use is read from the defaults system. To set it use</p>
+
+<pre><code> defaults write com.elegantchaos.testflight-upload API_TOKEN &lt;token&gt;
+</code></pre>
+
+<p> The Team Token is passed in to the script as a first parameter, since it varies with each project.
+ The second parameter should be the name of a TestFlight distribution list. All users in the list will be notified
+ when the target has been uploaded.</p>
+
+<h2>update-version.sh:</h2>
+
+<pre><code>#!/bin/bash
+
+## Script which takes the line count of the git log and sets it as the CFBundleVersion number in the target's Info.plist
+##
+## The script also adds a ECVersionCommit key to the Info.plist with the full SHA1 hash of the current commit.
+##
+## To use this script, add a Run Script phase to a target, and include this line
+##     "${ECLOGGING_SCRIPTS_PATH}/update-version.sh"
+##
+
+PLIST="$1"
+if [ "$PLIST" == "" ]; then
+    PLIST="${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+fi
+
+VERSION=`git log --oneline | wc -l`
+COMMIT=`git rev-parse HEAD`
+
+# update the plist in the built app
+/usr/libexec/PlistBuddy -c "Add :ECVersionCommit string commit" "$PLIST"
+/usr/libexec/PlistBuddy -c "Set :ECVersionCommit $COMMIT" "$PLIST"
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$PLIST"
+
+echo "Bumped build number to $VERSION ($COMMIT) in $PLIST"
+</code></pre>
+
+<p> Script which takes the line count of the git log and sets it as the CFBundleVersion number in the target&rsquo;s Info.plist</p>
+
+<p> The script also adds a ECVersionCommit key to the Info.plist with the full SHA1 hash of the current commit.</p>
+
+<p> To use this script, add a Run Script phase to a target, and include this line</p>
+
+<pre><code> "${ECLOGGING_SCRIPTS_PATH}/update-version.sh"
+</code></pre>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Elegant Chaos. All rights reserved. (Last updated: 2013-02-28)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
+						
+					
+					</div>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
