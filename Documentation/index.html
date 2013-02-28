@@ -36,6 +36,8 @@
 						
 						<p>ECLogging provides a flexible logging system for iOS and MacOS X software to use.</p>
 
+<p>This is a meme that I&rsquo;ve implemented repeatedly in a number of projects over the last 15 or so years, stretching right back to my first big C++ library. I also did an open source C++ implementation in about 2000 I think, although I can&rsquo;t for the life of me work out where it is now!</p>
+
 <p>Essentially, it&rsquo;s a smarter replacement for &ldquo;printf&rdquo; or &ldquo;NSLog&rdquo; style debug output.</p>
 
 <p>The problem with simply using something like NSLog is that you either end up with reams of debug output, in which case you can&rsquo;t see the wood for the trees, or you end up with messy source code where you&rsquo;re endlessly commenting logging statements in/out. This is especially bad if you work on a big project and/or with lots of developers.</p>
@@ -46,7 +48,26 @@
 
 <p>The output of log channels is directed through one or more log handlers. What log handlers give you is the ability to globally direct log output into alternative destinations. The console is one option, but you can also write a handler to log to the disk, or a remote machine, or a custom ui, or wherever.</p>
 
-<h2>Contents</h2>
+<h2>Logging Documentation</h2>
+
+<p>If you don&rsquo;t like reading documentation, jump into the <a href="30-second-user-guide.html">30 Second User Guide</a>, which should get you started quickly.</p>
+
+<p>Or look at the <a href="https://github.com/elegantchaos/ECLoggingExamples">Sample Projects</a>.</p>
+
+<p>If you do read documentation:</p>
+
+<ul>
+<li><a href="docs/Documentation/Initialisation.html">Initialisation</a></li>
+<li><a href="Classes/ECLogChannel.html">Log Channels</a></li>
+<li><a href="Classes/ECLogHandler.html">Log Handlers</a></li>
+<li><a href="UserInterface.html">User Interface</a></li>
+<li><a href="docs/Documentation/Configuration.html">Configuration</a></li>
+<li><a href="docs/Documentation/Miscellaneous.html">Miscellaneous</a></li>
+<li><a href="docs/Documentation/Installation.html">Installation</a></li>
+</ul>
+
+
+<h2>Other Documentation</h2>
 
 <p>As well as the logging functionality, ECLogging also contains some common files used by all the other Elegant Chaos libraries.</p>
 
@@ -55,7 +76,6 @@
 <p>For more information, see the associated documentation pages:</p>
 
 <ul>
-<li>Logging: <a href="docs/Documentation/Logging.html">Logging</a></li>
 <li>Unit Testing Utilities: <a href="Classes/ECTestCase.html">ECTestCase</a>, <a href="Classes/ECParameterisedTestCase.html">ECParameterisedTestCase</a></li>
 <li>Standard Configs: <a href="docs/Documentation/StandardConfigFiles.html">StandardConfigFiles</a></li>
 <li>Standard Macros and Definitions</li>
@@ -64,11 +84,17 @@
 </ul>
 
 
-<p>Some of these work on the assumption that client projects have a standard organisation.</p>
+<h2>Standard Project Layout</h2>
+
+<p>Some of the scripts, config files and prefixes work on the assumption that client projects have a standard organisation.</p>
+
+<p>The <a href="docs/Documentation/ImportNote.html">ImportNote</a> has more information about why this can be a problem, particularly when locating the standard xcconfig files from a project that&rsquo;s using the ECLogging framework.</p>
 
 <p>Arranging your own project to use this organisation isn&rsquo;t essential, but if you use a different one you may have to modify some examples accordingly.</p>
 
-<p>See the programming guides in the documentation for more information.</p>
+<h2>Future</h2>
+
+<p>Take a look at the <a href="http://github.com/elegantchaos/ECLogging/issues">Issues Page</a> to see what&rsquo;s planned.</p>
 						
 						
 					</div>
@@ -88,8 +114,6 @@
                         <li><a href="docs/Documentation/Initialisation.html">Initialisation</a></li>
                         
                         <li><a href="docs/Documentation/Installation.html">Installation</a></li>
-                        
-                        <li><a href="docs/Documentation/Logging.html">Logging</a></li>
                         
                         <li><a href="docs/Documentation/Miscellaneous.html">Miscellaneous</a></li>
                         
