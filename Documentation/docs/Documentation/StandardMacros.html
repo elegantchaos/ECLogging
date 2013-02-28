@@ -31,41 +31,41 @@
 
 <p>One of these two must be defined.</p>
 
-<p>If you use the <a href="../../docs/Documentation/StandardConfigFiles.html">StandardConfigFiles</a>, EC_DEBUG will be defined for Debug configurations, and EC_RELEASE for Release configurations.</p>
+<p>If you use the <a href="../../docs/Documentation/StandardConfigFiles.html">StandardConfigFiles</a>, <code>EC_DEBUG</code> will be defined for Debug configurations, and <code>EC_RELEASE</code> for Release configurations.</p>
 
 <p>If you don&rsquo;t use the standard config files, you need to ensure that you #define one or other of these in your prefix file, before including &lt;ECLogging/ECLogging.h>.</p>
 
 <h1>Macros</h1>
 
-<h2>EC_DEPRECATED</h2>
+<h3>EC_DEPRECATED</h3>
 
 <p>This is used internally to indicate deprecated methods.</p>
 
-<h2>ECUnused()</h2>
+<h3>ECUnused()</h3>
 
 <p>This is used to mark unused variables or return values.</p>
 
-<h2>EC_HINT_UNUSED</h2>
+<h3>EC_HINT_UNUSED</h3>
 
 <p>This is used to hint to the compiler that a variable or argument is unused.</p>
 
-<h2>EC_EXPORTED</h2>
+<h3>EC_EXPORTED</h3>
 
 <p>This is used to indicate that a method or class should be exported.</p>
 
-<h2>ECUnusedInDebug()</h2>
+<h3>ECUnusedInDebug()</h3>
 
 <p>This is used to mark variables or return values that are unused in debug builds.</p>
 
-<h2>ECUnusedInRelease()</h2>
+<h3>ECUnusedInRelease()</h3>
 
 <p>This is used to mark variables or return values that are unused in release builds.</p>
 
-<h2>ECDebugOnly()</h2>
+<h3>ECDebugOnly()</h3>
 
 <p>This is used to wrap code that should only be defined in debug builds.</p>
 
-<pre><code>ECDebugOnly(my_func(1);)
+<pre><code>ECDebugOnly(my_func(1));
 </code></pre>
 
 <p>is a quick way of doing</p>
@@ -75,7 +75,7 @@
 #endif
 </code></pre>
 
-<h2>ECReleaseOnly()</h2>
+<h3>ECReleaseOnly()</h3>
 
 <p>This is used to wrap code that should only be defined in release builds.</p>
 				</div>
