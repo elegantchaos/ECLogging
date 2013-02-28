@@ -96,13 +96,17 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>A <strong>channel</strong> is a place to send log messages to.</p>
+						<p>This isn&rsquo;t a class you typically interact with directly. The methods in the class are generally used by the logging system itself.</p>
+
+<h1>About</h1>
+
+<p>A <strong>channel</strong> is a place to send log messages to.</p>
 
 <p>You get to define as many channels as you like, organised in whatever way makes sense.</p>
 
 <p>This allows you to turn most logging off most of the time, and just enable the bits that you happen to be interested in right now.</p>
 
-<p>Log and Debug</p>
+<h2>Log and Debug</h2>
 
 <p>Channels come in two flavours, log and debug.</p>
 
@@ -110,7 +114,7 @@
 
 <p>Debug channels are only available in debug targets (ones where EC_DEBUG is defined). In non-debug builds, debug channels don&rsquo;t exist. Anything inside ECDebug() messages won&rsquo;t get compiled or executed at all. This allows you to put potentially time-consuming logging code into these calls, safe in the knowledge that it won&rsquo;t affect the final performance of your app.</p>
 
-<p>Defining Channels</p>
+<h2>Defining Channels</h2>
 
 <p>Channels must be defined before use. This is done once for each channel, in a .m file. For example:</p>
 
@@ -122,7 +126,7 @@ ECDefineDebugChannel(MyDebugChannel);</p>
 <p>ECDeclareLogChannel(MyLogChannel);
 ECDeclareDebugChannel(MyDebugChannel);</p>
 
-<p>Using Channels</p>
+<h2>Usage</h2>
 
 <p>To use a channel, you send stuff to it with ECLog or ECDebug:</p>
 
@@ -134,7 +138,7 @@ ECDeclareDebugChannel(MyDebugChannel);</p>
 
 <p>You can use ECDebug with channels that were defined with either ECDefineLogChannel or ECDefineDebugChannel. Any ECDebug statements will be compiled in debug builds, but not in release builds.</p>
 
-<p>Logging Objects</p>
+<h2>Logging Objects</h2>
 
 <p>As well as the more usual text logging, you can also send arbitrary objects to a log channel.</p>
 
