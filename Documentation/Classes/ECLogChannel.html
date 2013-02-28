@@ -190,21 +190,24 @@
 
 <p>Channels must be defined before use. This is done once for each channel, in a .m file. For example:</p>
 
-<p>ECDefineLogChannel(MyLogChannel);
-ECDefineDebugChannel(MyDebugChannel);</p>
+<pre><code>ECDefineLogChannel(MyLogChannel);
+ECDefineDebugChannel(MyDebugChannel);
+</code></pre>
 
 <p>If you want to share a channel between multiple files, you can also declare it in a .h file:</p>
 
-<p>ECDeclareLogChannel(MyLogChannel);
-ECDeclareDebugChannel(MyDebugChannel);</p>
+<pre><code>ECDeclareLogChannel(MyLogChannel);
+ECDeclareDebugChannel(MyDebugChannel);
+</code></pre>
 
 <h3>Usage</h3>
 
 <p>To use a channel, you send stuff to it with ECLog or ECDebug:</p>
 
-<p>ECLog(MyLogChannel, @&ldquo;this is a test %@ %d&rdquo;, @&ldquo;blah&rdquo;, 123);</p>
+<pre><code> ECLog(MyLogChannel, @"this is a test %@ %d", @"blah", 123);
 
-<p>ECDebug(MyDebugChannel, @&ldquo;doodah&rdquo;);</p>
+ ECDebug(MyDebugChannel, @"doodah");
+</code></pre>
 
 <p>As mentioned above, ECLog statements will always be compiled, so you need to use them with channels defined by ECDefineLogChannel.</p>
 
@@ -214,8 +217,9 @@ ECDeclareDebugChannel(MyDebugChannel);</p>
 
 <p>As well as the more usual text logging, you can also send arbitrary objects to a log channel.</p>
 
-<p>NSImage* image = [NSImage imageNamed:@&ldquo;blah.png&rdquo;];
-ECDebug(MyLogChannel, image);</p>
+<pre><code> NSImage* image = [NSImage imageNamed:@"blah.png"];
+ ECDebug(MyLogChannel, image);
+</code></pre>
 
 <p>What the log handlers do with objects that you log is up to them. The default behaviour for simple text-based log handlers is just to call [object description] on the object and log that.</p>
 
