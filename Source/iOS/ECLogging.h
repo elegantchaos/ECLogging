@@ -13,3 +13,4 @@
 #import "ECDebugViewPopoverController.h"
 #import "ECLogViewHandler.h"
 #import "ECLogViewHandlerItem.h"
+#import "ECLoggingViewController.h"
