@@ -101,11 +101,11 @@
     NSUInteger count = [mLogManager handlerCount];
     for (NSUInteger n = 0; n < count; ++n)
 	{
-        NSMenuItem* item = [[NSMenuItem alloc] initWithTitle: [mLogManager handlerNameForIndex:n] action: @selector(handlerSelected:) keyEquivalent: @""];
-        item.target = self;
-        item.tag = n;
-        [menu addItem: item];
-        [item release];
+        NSMenuItem* handlerItem = [[NSMenuItem alloc] initWithTitle: [mLogManager handlerNameForIndex:n] action: @selector(handlerSelected:) keyEquivalent: @""];
+        handlerItem.target = self;
+        handlerItem.tag = n;
+        [menu addItem: handlerItem];
+        [handlerItem release];
     }
     
     [menu addItem: [NSMenuItem separatorItem]];
@@ -114,11 +114,11 @@
     for (NSUInteger n = 0; n < count; ++n)
     {
         NSString* name = [mLogManager contextFlagNameForIndex:n];
-		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:name action: @selector(contextMenuSelected:) keyEquivalent: @""];
-		item.target = self;
-        item.tag = n;
-		[menu addItem: item];
-		[item release];
+		NSMenuItem* flagItem = [[NSMenuItem alloc] initWithTitle:name action: @selector(contextMenuSelected:) keyEquivalent: @""];
+		flagItem.target = self;
+        flagItem.tag = n;
+		[menu addItem: flagItem];
+		[flagItem release];
     }
     
     [menu addItem: [NSMenuItem separatorItem]];
@@ -196,12 +196,12 @@
 
 	for (ECLogChannel* channel in mLogManager.channelsSortedByName)
 	{
-		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle: channel.name action: @selector(channelMenuSelected:) keyEquivalent: @""];
-        item.submenu = [self buildMenuForChannel:channel];
-		item.target = self;
-		item.representedObject = channel;
-		[self addItem: item];
-		[item release];
+		NSMenuItem* channelItem = [[NSMenuItem alloc] initWithTitle: channel.name action: @selector(channelMenuSelected:) keyEquivalent: @""];
+        channelItem.submenu = [self buildMenuForChannel:channel];
+		channelItem.target = self;
+		channelItem.representedObject = channel;
+		[self addItem: channelItem];
+		[channelItem release];
 	}
 #endif
 }
