@@ -118,6 +118,7 @@
 		2277CE5916D6B9A400835964 /* ECLoggingShared.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingShared.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		2277CE5A16D6B9A500835964 /* ECLoggingShared.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingShared.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		2277CE5B16D6B9BB00835964 /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		229C9E0A16F9085B00FD7AAE /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */; };
 		229EDCEB16442DB00087B26E /* ECDebugHandlersViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */; };
 		229EDCEC16442DB00087B26E /* ECDebugHandlersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */; };
 		22ECE86E16DC009E00F9C782 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22ECE86D16DC009E00F9C782 /* Test.bundle */; };
@@ -359,6 +360,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				229C9E0A16F9085B00FD7AAE /* ECUnitTests.framework in Frameworks */,
 				2251BA6415DBD9A600F2FE40 /* ECLogging.framework in Frameworks */,
 				2268499F14F5722300B8691A /* Cocoa.framework in Frameworks */,
 				2268499E14F5720600B8691A /* SenTestingKit.framework in Frameworks */,
@@ -466,7 +468,6 @@
 		2274B37714F56679003B8A0B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2258586A16E7670500E2DDD4 /* ECLoggingViewController.xib */,
 				22ECE86D16DC009E00F9C782 /* Test.bundle */,
 				2251BA6C15DBDA5100F2FE40 /* Info.plist */,
 				2274B37814F56679003B8A0B /* ECLoggingTests.plist */,
@@ -614,6 +615,7 @@
 			children = (
 				2258586616E765DD00E2DDD4 /* ECLoggingViewController.h */,
 				2258586716E765DD00E2DDD4 /* ECLoggingViewController.m */,
+				2258586A16E7670500E2DDD4 /* ECLoggingViewController.xib */,
 				22F2FEF2164142A600CD3C7C /* ECLogManagerIOS.h */,
 				22F2FEF3164142A600CD3C7C /* ECLogManagerIOS.m */,
 				2204C6BB15E160DA00F71E15 /* ECLogging.h */,
@@ -763,9 +765,6 @@
 				2277CE5816D6B99E00835964 /* ECLoggingRelease.pch in Headers */,
 				2277CE5A16D6B9A500835964 /* ECLoggingShared.pch in Headers */,
 				2277CE5B16D6B9BB00835964 /* ECMacros.h in Headers */,
-				2277CE5C16D6B9C700835964 /* ECParameterisedTestCase.h in Headers */,
-				2277CE5D16D6B9C700835964 /* ECTestCase.h in Headers */,
-				2277CE5E16D6B9C700835964 /* ECUnitTests.h in Headers */,
 				2258586816E765DD00E2DDD4 /* ECLoggingViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1170,8 +1169,6 @@
 				2204C6B715E15E4000F71E15 /* ECErrorPresenterHandler.m in Sources */,
 				22F2FEF5164142A600CD3C7C /* ECLogManagerIOS.m in Sources */,
 				229EDCEC16442DB00087B26E /* ECDebugHandlersViewController.m in Sources */,
-				2277CE5216D6B68E00835964 /* ECTestCase.m in Sources */,
-				2277CE5316D6B69200835964 /* ECParameterisedTestCase.m in Sources */,
 				2258586916E765DD00E2DDD4 /* ECLoggingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1237,6 +1234,7 @@
 				2258586B16E7670500E2DDD4 /* en */,
 			);
 			name = ECLoggingViewController.xib;
+			path = ../../Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1419,6 +1417,7 @@
 				221E215916E7864900B65B1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		2251BA0B15DBCC3E00F2FE40 /* Build configuration list for PBXNativeTarget "ECLoggingMac" */ = {
 			isa = XCConfigurationList;
