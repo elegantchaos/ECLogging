@@ -21,7 +21,6 @@ GCC_ENABLE_OBJC_EXCEPTIONS = YES
 // Resources
 // --------------------------------------------------------------------------
 
-COMBINE_HIDPI_IMAGES = YES
 INFOPLIST_FILE = Resources/Info.plist
 
 // --------------------------------------------------------------------------
