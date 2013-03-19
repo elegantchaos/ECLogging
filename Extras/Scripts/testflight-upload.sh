@@ -81,8 +81,6 @@ IPA="$TMPDIR/$EXECUTABLE_NAME.ipa"
 XCROOT=`/usr/bin/xcode-select -print-path`
 XCRUN="$XCROOT/usr/bin/xcrun"
 
-echo "$XCRUN" -sdk iphoneos PackageApplication "$APP" -o "$IPA" --sign "${CODE_SIGN_IDENTITY}" --embed "${APP}/${EMBEDDED_PROFILE_NAME}" &> "${TMP}/xcrun.txt"
-
 "$XCRUN" -sdk iphoneos PackageApplication "$APP" -o "$IPA" --sign "${CODE_SIGN_IDENTITY}" --embed "${APP}/${EMBEDDED_PROFILE_NAME}" &> "${TMP}/xcrun.log"
 
 if [[ $? == 0 ]] ; then
@@ -121,6 +119,8 @@ if [[ $? == 0 ]] ; then
 else
 
     echo "Failed to build IPA"  >> "${ERROR_LOG}"
+    echo "Profile was: ${PROVISIONING_PROFILE}" >> "${TMP}/xcrun.log"
+    echo "Identity was: ${CODE_SIGN_IDENTITY}" >> "${TMP}/xcrun.log"
     open "${TMP}/xcrun.log"
     exit 1
 fi
