@@ -40,7 +40,30 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+	self.commandsController.navController = self.navigationController;
     [[ECLogManager sharedInstance] saveChannelSettings];
+}
+
+- (void)showModallyWithController:(UIViewController*)controller
+{
+	CGRect frame = self.view.frame;
+    const CGFloat kInset = 10.0;
+    frame.origin.x += kInset;
+    frame.origin.y += kInset;
+    frame.size.width -= kInset * 2.0;
+    frame.size.height -= kInset * 2.0;
+
+	UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:self];
+	navigation.view.frame = frame;
+	self.title = @"Test";
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(doneModal)];
+	[controller presentModalViewController:navigation animated:YES];
+	[navigation release];
+}
+
+- (void)doneModal
+{
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 @end

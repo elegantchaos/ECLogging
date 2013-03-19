@@ -14,4 +14,6 @@
 @property (strong, nonatomic) IBOutlet ECDebugViewController* commandsController;
 @property (strong, nonatomic) IBOutlet ECLogViewController* logController;
 
+- (void)showModallyWithController:(UIViewController*)controller;
+
 @end
