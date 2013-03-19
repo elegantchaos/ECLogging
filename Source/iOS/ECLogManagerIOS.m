@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECLogManagerIOS.h"
+#import "ECLoggingViewController.h"
 
 @implementation ECLogManager(PlatformSpecific)
 
@@ -26,6 +27,28 @@ static ECLogManager* gSharedInstance = nil;
 
 @end
 
+@interface ECLogManagerIOS()
+
+@property (strong, nonatomic) ECLoggingViewController* viewController;
+
+@end
+
+
 @implementation ECLogManagerIOS
+
+- (void)showUI
+{
+	if (!self.viewController)
+	{
+		NSURL* url = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"bundle"];
+		NSBundle* bundle = [NSBundle bundleWithURL:url];
+		ECLoggingViewController* controller = [[ECLoggingViewController alloc] initWithNibName:@"ECLoggingViewController" bundle:bundle];
+		self.viewController = controller;
+		[controller release];
+	}
+
+	UIWindow* window = [UIApplication sharedApplication].windows[0];
+	[self.viewController showModallyWithController:window.rootViewController];
+}
 
 @end

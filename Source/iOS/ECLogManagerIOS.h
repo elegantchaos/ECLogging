@@ -9,3 +9,9 @@
 @interface ECLogManagerIOS : ECLogManager
 
 @end
+
+@interface ECLogManager(IOSOnly)
+
+- (void)showUI;
+
+@end
