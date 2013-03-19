@@ -11,8 +11,6 @@
 
 @interface ECLoggingViewController()
 
-@property (strong, nonatomic) ECDebugViewController* debugController;
-
 @end
 
 @implementation ECLoggingViewController
@@ -23,19 +21,12 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 
 #pragma mark - Properties
 
-@synthesize debugController;
-@synthesize logView;
-
 - (void)dealloc 
 {
-    [debugController release];
-    
-    [super dealloc];
-}
+	[_commandsController release];
+	[_logController release];
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+    [super dealloc];
 }
 
 #pragma mark - View lifecycle
@@ -44,31 +35,12 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 {
     [super viewDidLoad];
     
-    self.debugController = [[[ECDebugViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-}
-
-- (void)viewDidUnload
-{
-    self.debugController = nil;
-    
-    [super viewDidUnload];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [[ECLogManager sharedInstance] saveChannelSettings];
-}
-
-- (IBAction)tappedShowDebugView:(id)sender
-{
-    [self.navigationController pushViewController:self.debugController animated:YES];
-}
-
-- (IBAction)tappedTestOutput:(id)sender
-{
-    ECDebug(ECLoggingViewControllerChannel, @"some test output");
-    ECDebug(ECLoggingViewControllerChannel, @"some more output this should spill over many lines hopefully at least it will if I really keep wittering on and on for a really long time");
 }
 
 @end

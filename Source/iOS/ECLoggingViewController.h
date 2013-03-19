@@ -7,12 +7,11 @@
 #import <UIKit/UIKit.h>
 
 @class ECLogViewController;
+@class ECDebugViewController;
 
 @interface ECLoggingViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet ECLogViewController* logView;
-
-- (IBAction)tappedShowDebugView:(id)sender;
-- (IBAction)tappedTestOutput:(id)sender;
+@property (strong, nonatomic) IBOutlet ECDebugViewController* commandsController;
+@property (strong, nonatomic) IBOutlet ECLogViewController* logController;
 
 @end
