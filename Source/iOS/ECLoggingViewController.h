@@ -7,12 +7,12 @@
 #import <UIKit/UIKit.h>
 
 @class ECLogViewController;
-@class ECDebugViewController;
+@class ECLoggingSettingsViewController;
 
 @interface ECLoggingViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet ECDebugViewController* commandsController;
-@property (strong, nonatomic) IBOutlet ECLogViewController* logController;
+@property (strong, nonatomic) IBOutlet ECLoggingSettingsViewController* oSettingsController;
+@property (strong, nonatomic) IBOutlet ECLogViewController* oLogController;
 
 - (void)showModallyWithController:(UIViewController*)controller;
 

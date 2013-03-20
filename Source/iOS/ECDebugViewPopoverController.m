@@ -6,7 +6,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECDebugViewPopoverController.h"
-#import "ECDebugViewController.h"
+#import "ECLoggingSettingsViewController.h"
 
 @interface ECDebugViewPopoverController ()
 
@@ -31,7 +31,7 @@
     UIView* root = [[UIView alloc] initWithFrame:frame];
     
     // Implement loadView to create a view hierarchy programmatically, without using a nib.
-    ECDebugViewController* dc = [[ECDebugViewController alloc] init];
+    ECLoggingSettingsViewController* dc = [[ECLoggingSettingsViewController alloc] init];
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:dc];
     self.navController = nc;
     dc.view.frame = frame;

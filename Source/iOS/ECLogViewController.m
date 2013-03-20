@@ -19,10 +19,6 @@
 
 @implementation ECLogViewController
 
-@synthesize messageFont = _messageFont;
-@synthesize contextFont = _contextFont;
-@synthesize items = _items;
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     if ((self = [super initWithStyle:style]) != nil)
@@ -64,6 +60,11 @@
 }
 
 #pragma mark - Table view data source
+
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return @"Log";
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

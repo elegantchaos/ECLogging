@@ -85,8 +85,8 @@
 		2251BA9915DBDC3F00F2FE40 /* ECDebugChannelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45714F53BCC009142F7 /* ECDebugChannelsViewController.m */; };
 		2251BA9A15DBDC3F00F2FE40 /* ECDebugChannelViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45814F53BCC009142F7 /* ECDebugChannelViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2251BA9B15DBDC3F00F2FE40 /* ECDebugChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45914F53BCC009142F7 /* ECDebugChannelViewController.m */; };
-		2251BA9C15DBDC3F00F2FE40 /* ECDebugViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45A14F53BCC009142F7 /* ECDebugViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2251BA9D15DBDC3F00F2FE40 /* ECDebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45B14F53BCC009142F7 /* ECDebugViewController.m */; };
+		2251BA9C15DBDC3F00F2FE40 /* ECLoggingSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45A14F53BCC009142F7 /* ECLoggingSettingsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2251BA9D15DBDC3F00F2FE40 /* ECLoggingSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45B14F53BCC009142F7 /* ECLoggingSettingsViewController.m */; };
 		2251BA9E15DBDC3F00F2FE40 /* ECDebugViewPopoverController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45C14F53BCC009142F7 /* ECDebugViewPopoverController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2251BA9F15DBDC3F00F2FE40 /* ECDebugViewPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45D14F53BCC009142F7 /* ECDebugViewPopoverController.m */; };
 		2251BAA015DBDC3F00F2FE40 /* ECLogViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45E14F53BCC009142F7 /* ECLogViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -299,8 +299,8 @@
 		2283A45714F53BCC009142F7 /* ECDebugChannelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugChannelsViewController.m; sourceTree = "<group>"; };
 		2283A45814F53BCC009142F7 /* ECDebugChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugChannelViewController.h; sourceTree = "<group>"; };
 		2283A45914F53BCC009142F7 /* ECDebugChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugChannelViewController.m; sourceTree = "<group>"; };
-		2283A45A14F53BCC009142F7 /* ECDebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugViewController.h; sourceTree = "<group>"; };
-		2283A45B14F53BCC009142F7 /* ECDebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugViewController.m; sourceTree = "<group>"; };
+		2283A45A14F53BCC009142F7 /* ECLoggingSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingSettingsViewController.h; sourceTree = "<group>"; };
+		2283A45B14F53BCC009142F7 /* ECLoggingSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLoggingSettingsViewController.m; sourceTree = "<group>"; };
 		2283A45C14F53BCC009142F7 /* ECDebugViewPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugViewPopoverController.h; sourceTree = "<group>"; };
 		2283A45D14F53BCC009142F7 /* ECDebugViewPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugViewPopoverController.m; sourceTree = "<group>"; };
 		2283A45E14F53BCC009142F7 /* ECLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogViewController.h; sourceTree = "<group>"; };
@@ -627,8 +627,8 @@
 				2283A45914F53BCC009142F7 /* ECDebugChannelViewController.m */,
 				229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */,
 				229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */,
-				2283A45A14F53BCC009142F7 /* ECDebugViewController.h */,
-				2283A45B14F53BCC009142F7 /* ECDebugViewController.m */,
+				2283A45A14F53BCC009142F7 /* ECLoggingSettingsViewController.h */,
+				2283A45B14F53BCC009142F7 /* ECLoggingSettingsViewController.m */,
 				2283A45C14F53BCC009142F7 /* ECDebugViewPopoverController.h */,
 				2283A45D14F53BCC009142F7 /* ECDebugViewPopoverController.m */,
 				2283A45E14F53BCC009142F7 /* ECLogViewController.h */,
@@ -751,7 +751,7 @@
 				2251BA9615DBDC3600F2FE40 /* ECLogHandlerStdout.h in Headers */,
 				2251BA9815DBDC3F00F2FE40 /* ECDebugChannelsViewController.h in Headers */,
 				2251BA9A15DBDC3F00F2FE40 /* ECDebugChannelViewController.h in Headers */,
-				2251BA9C15DBDC3F00F2FE40 /* ECDebugViewController.h in Headers */,
+				2251BA9C15DBDC3F00F2FE40 /* ECLoggingSettingsViewController.h in Headers */,
 				2251BA9E15DBDC3F00F2FE40 /* ECDebugViewPopoverController.h in Headers */,
 				2251BAA015DBDC3F00F2FE40 /* ECLogViewController.h in Headers */,
 				2251BAA215DBDC3F00F2FE40 /* ECLogViewHandler.h in Headers */,
@@ -1161,7 +1161,7 @@
 				2251BA9715DBDC3600F2FE40 /* ECLogHandlerStdout.m in Sources */,
 				2251BA9915DBDC3F00F2FE40 /* ECDebugChannelsViewController.m in Sources */,
 				2251BA9B15DBDC3F00F2FE40 /* ECDebugChannelViewController.m in Sources */,
-				2251BA9D15DBDC3F00F2FE40 /* ECDebugViewController.m in Sources */,
+				2251BA9D15DBDC3F00F2FE40 /* ECLoggingSettingsViewController.m in Sources */,
 				2251BA9F15DBDC3F00F2FE40 /* ECDebugViewPopoverController.m in Sources */,
 				2251BAA115DBDC3F00F2FE40 /* ECLogViewController.m in Sources */,
 				2251BAA315DBDC3F00F2FE40 /* ECLogViewHandler.m in Sources */,

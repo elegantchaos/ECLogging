@@ -5,9 +5,10 @@
 // --------------------------------------------------------------------------
 
 #import "ECLoggingViewController.h"
-#import "ECDebugViewController.h"
+#import "ECLoggingSettingsViewController.h"
 #import "ECLoggingMacros.h"
 #import "ECLogManager.h"
+#import "ECLogViewController.h"
 
 @interface ECLoggingViewController()
 
@@ -23,8 +24,8 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 
 - (void)dealloc 
 {
-	[_commandsController release];
-	[_logController release];
+	[_oLogController release];
+	[_oSettingsController release];
 
     [super dealloc];
 }
@@ -34,13 +35,13 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	self.commandsController.navController = self.navigationController;
+	self.oSettingsController.navController = self.navigationController;
     [[ECLogManager sharedInstance] saveChannelSettings];
 }
 
@@ -55,8 +56,8 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 
 	UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:self];
 	navigation.view.frame = frame;
-	self.title = @"Test";
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(doneModal)];
+	self.title = @"ECLogging";
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneModal)];
 	[controller presentModalViewController:navigation animated:YES];
 	[navigation release];
 }
@@ -64,6 +65,13 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 - (void)doneModal
 {
 	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)viewWillLayoutSubviews
+{
+	CGRect logFrame = self.oLogController.view.frame;
+	logFrame.size.height = self.view.frame.size.height - logFrame.origin.y;
+	self.oLogController.view.frame = logFrame;
 }
 
 @end

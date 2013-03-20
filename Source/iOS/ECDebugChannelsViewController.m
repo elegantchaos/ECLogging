@@ -7,13 +7,18 @@
 #import "ECDebugChannelsViewController.h"
 
 #import "ECDebugChannelViewController.h"
-#import "ECDebugViewController.h"
+#import "ECLoggingSettingsViewController.h"
 
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
 
 static NSString *const DebugChannelsViewCell = @"DebugChannelsViewCell";
 
+@interface ECDebugChannelsViewController()
+
+@property (strong, nonatomic) UIFont* font;
+
+@end
 @implementation ECDebugChannelsViewController
 
 // --------------------------------------------------------------------------
@@ -26,9 +31,6 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 // Properties
 // --------------------------------------------------------------------------
 
-@synthesize channels = _channels;
-@synthesize debugViewController = _debugViewController;
-
 // --------------------------------------------------------------------------
 //! Clean up.
 // --------------------------------------------------------------------------
@@ -37,6 +39,7 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 {
     [_channels release];
     [_debugViewController release];
+	[_font release];
     
     [super dealloc];
 }
@@ -50,6 +53,9 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 	ECDebug(DebugChannelsViewChannel, @"setting up view");
 
     self.channels = [[ECLogManager sharedInstance] channelsSortedByName];
+	self.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+	self.tableView.rowHeight = 32.0;
+	
     [super viewDidLoad];
 }
 
@@ -118,7 +124,9 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 	}
 	
     cell.textLabel.text = channel.name;
+	cell.textLabel.font = self.font;
     cell.detailTextLabel.text = channel.enabled ? @"enabled" : @"disabled";
+	cell.detailTextLabel.font = self.font;
 	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     
 	return cell;

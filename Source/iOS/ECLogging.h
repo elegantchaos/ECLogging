@@ -10,7 +10,7 @@
 #import "ECErrorPresenterHandler.h"
 #import "ECDebugChannelsViewController.h"
 #import "ECDebugChannelViewController.h"
-#import "ECDebugViewController.h"
+#import "ECLoggingSettingsViewController.h"
 #import "ECDebugViewPopoverController.h"
 #import "ECLogViewHandler.h"
 #import "ECLogViewHandlerItem.h"

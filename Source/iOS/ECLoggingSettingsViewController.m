@@ -4,14 +4,20 @@
 //  liberal license:http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECDebugViewController.h"
+#import "ECLoggingSettingsViewController.h"
 #import "ECDebugChannelsViewController.h"
 #import "ECDebugHandlersViewController.h"
 
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
 
-@implementation ECDebugViewController
+@interface ECLoggingSettingsViewController()
+
+@property (strong, nonatomic) UIFont* settingsFont;
+
+@end
+
+@implementation ECLoggingSettingsViewController
 
 @synthesize navController;
 
@@ -81,6 +87,7 @@ Item kItems[] =
 {
 	ECDebug(DebugViewChannel, @"setting up view");
     self.title = @"Debug";
+	self.settingsFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
 }
 
 // --------------------------------------------------------------------------
@@ -139,7 +146,7 @@ Item kItems[] =
 
 - (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Logging";
+    return @"Settings";
 }
 
 // --------------------------------------------------------------------------
@@ -167,6 +174,7 @@ Item kItems[] =
 	
     Item* item = &kItems[indexPath.row];
     cell.textLabel.text = item->name;
+	cell.textLabel.font = self.settingsFont;
 	cell.accessoryType = item->accessory;
     
 	return cell;
