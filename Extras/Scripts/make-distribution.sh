@@ -26,11 +26,22 @@ mkdir -p "$build"
 
 buildios () {
     config="$1"
-    build "ECLogging.xcworkspace" "ECLogging iOS" "iphoneos" "build" "$config" "armv7 armv7s i386" "$build" "$build"
+    build "ECLogging.xcworkspace" "ECLogging iOS" "iphoneos" "build" "$config" "armv7" "$build" "$build"
+    build "ECLogging.xcworkspace" "ECLogging iOS" "iphonesimulator" "build" "$config" "i386" "$build" "$build"
 
     mkdir -p "$dist/iOS/$config"
     cp -Rf "$build/sym/$config-iphoneos/ECLogging.bundle" "$dist/iOS/$config"
     cp -Rf "$build/sym/$config-iphoneos/ECLogging.framework" "$dist/iOS/$config"
+
+    device="$build/sym/$config-iphoneos/ECLogging.framework/Versions/A/ECLogging"
+    sim="$build/sym/$config-iphonesimulator/ECLogging.framework/Versions/A/ECLogging"
+    fat="$dist/iOS/$config/ECLogging.framework/Versions/A/ECLogging"
+
+    outlog="${build}/out.log"
+    errlog="${build}/error.log"
+
+    lipo -create -output "$fat" "$device" "$sim" >> "$outlog" 2>> "$errlog"
+    checkerror $? "lipo failed" "$errlog"
 
 }
 
@@ -48,11 +59,12 @@ cd "$root"
 cp -Rf "$root/Source/Configuration" "$dist"
 cp -Rf "$root/Extras/Scripts" "$dist"
 
+buildios "Debug"
+buildios "Release"
+
 buildmac "Debug"
 buildmac "Release"
 
-buildios "Debug"
-buildios "Release"
 
 rm -rf "$build"
 

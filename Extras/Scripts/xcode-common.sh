@@ -2,6 +2,20 @@
 
 # Common code for scripts that use xcode
 
+checkerror()
+{
+result="$1"
+message="$2"
+log="$3"
+
+if [[ $result != 0 ]]; then
+cat "$log"
+echo
+echo "ERROR: $message"
+exit $result
+fi
+}
+
 build()
 {
 echo "Building $1 for $3 $5"
@@ -27,15 +41,7 @@ outlog="${log}/out.log"
 errlog="${log}/error.log"
 
 xcodebuild -workspace "$workspace" -scheme "$scheme" -sdk "$sdk" $actions -config "$config" -arch "$arch" OBJROOT="$dest/obj/" SYMROOT="$dest/sym" >> "$outlog" 2>> "$errlog"
-
-result=$?
-if [[ $result != 0 ]]; then
-cat "$errlog"
-echo
-echo "** BUILD FAILURES **"
-echo "Build failed for scheme $scheme"
-exit $result
-fi
+checkerror $? "Build failed for scheme $scheme" "$errlog"
 
 failures=`grep failed "$outlog"`
 if [[ $failures != "" ]]; then
