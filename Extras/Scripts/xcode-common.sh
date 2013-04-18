@@ -18,7 +18,6 @@ fi
 
 build()
 {
-echo "Building $1 for $3 $5"
 workspace="$1"
 scheme="$2"
 sdk="$3"
@@ -27,15 +26,16 @@ config="$5"
 arch="$6"
 dest="$7"
 log="$8"
+echo "Building $workspace for $sdk $config $arch"
 
-echo "Workspace:$workspace"
-echo "Scheme:$scheme"
-echo "SDK:$sdk"
-echo "Actions:$actions"
-echo "Config:$config"
-echo "Arch:$arch"
-echo "Build to:$dest"
-echo "Log to:$dest"
+#echo "Workspace:$workspace"
+#echo "Scheme:$scheme"
+#echo "SDK:$sdk"
+#echo "Actions:$actions"
+#echo "Config:$config"
+#echo "Arch:$arch"
+#echo "Build to:$dest"
+#echo "Log to:$dest"
 
 outlog="${log}/out.log"
 errlog="${log}/error.log"
