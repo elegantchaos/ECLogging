@@ -6,6 +6,19 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		22A204F2172006AA00A6045D /* Package Release */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 22A204F5172006AA00A6045D /* Build configuration list for PBXAggregateTarget "Package Release" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = "Package Release";
+			productName = "Package Release";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		2204C6B615E15E4000F71E15 /* ECErrorPresenterHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2204C6B715E15E4000F71E15 /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */; };
@@ -963,6 +976,7 @@
 				22FF8E3616F1E418008FC10D /* ECUnitTestsIOS */,
 				2274B38C14F56896003B8A0B /* ECLoggingIOSTests */,
 				221E214A16E7864900B65B1F /* ECLoggingIOSResources */,
+				22A204F2172006AA00A6045D /* Package Release */,
 			);
 		};
 /* End PBXProject section */
@@ -1352,6 +1366,20 @@
 			};
 			name = Release;
 		};
+		22A204F3172006AA00A6045D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		22A204F4172006AA00A6045D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		22FF8E7C16F1E418008FC10D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */;
@@ -1454,6 +1482,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
+		};
+		22A204F5172006AA00A6045D /* Build configuration list for PBXAggregateTarget "Package Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22A204F3172006AA00A6045D /* Debug */,
+				22A204F4172006AA00A6045D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		22FF8E7B16F1E418008FC10D /* Build configuration list for PBXNativeTarget "ECUnitTestsIOS" */ = {
 			isa = XCConfigurationList;

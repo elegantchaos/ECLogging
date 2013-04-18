@@ -25,7 +25,7 @@ mkdir -p "$build"
 
 buildios () {
     config="$1"
-    build "ECIntegration.xcworkspace" "ECLogging iOS" "iphoneos" "build" "$config" "armv7 armv7s i386" "$build" "$build"
+    build "ECLogging.xcworkspace" "ECLogging iOS" "iphoneos" "build" "$config" "armv7 armv7s i386" "$build" "$build"
 
     mkdir -p "$dist/iOS/$config"
     cp -Rf "$build/sym/$config-iphoneos/ECLogging.bundle" "$dist/iOS/$config"
@@ -35,12 +35,14 @@ buildios () {
 
 buildmac () {
     config="$1"
-    build "ECIntegration.xcworkspace" "ECLogging Mac" "macosx" "build" "$config" "i386 x86_64" "$build" "$build"
+    build "ECLogging.xcworkspace" "ECLogging Mac" "macosx" "build" "$config" "i386 x86_64" "$build" "$build"
 
     mkdir -p "$dist/Mac/$config"
     cp -Rf "$build/sym/$config/ECLogging.framework" "$dist/Mac/$config"
 
 }
+
+cd "$root"
 
 cp -Rf "$root/Source/Configuration" "$dist"
 cp -Rf "$root/Extras/Scripts" "$dist"
