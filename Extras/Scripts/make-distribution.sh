@@ -21,6 +21,7 @@ obj="$build/obj"
 
 source "$base/xcode-common.sh"
 
+rm -rf "$dist"
 mkdir -p "$build"
 
 buildios () {
@@ -35,7 +36,7 @@ buildios () {
 
 buildmac () {
     config="$1"
-    build "ECLogging.xcworkspace" "ECLogging Mac" "macosx" "build" "$config" "i386 x86_64" "$build" "$build"
+    build "ECLogging.xcworkspace" "ECLogging Mac" "macosx" "build" "$config" "x86_64" "$build" "$build"
 
     mkdir -p "$dist/Mac/$config"
     cp -Rf "$build/sym/$config/ECLogging.framework" "$dist/Mac/$config"
@@ -55,4 +56,4 @@ buildios "Release"
 
 rm -rf "$build"
 
-open "$build"
+open "$dist"
