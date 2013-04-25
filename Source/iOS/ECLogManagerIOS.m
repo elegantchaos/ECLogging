@@ -48,7 +48,18 @@ static ECLogManager* gSharedInstance = nil;
 	}
 
 	UIWindow* window = [UIApplication sharedApplication].windows[0];
-	[self.viewController showModallyWithController:window.rootViewController];
+	UIViewController* root = window.rootViewController;
+	UIViewController* modal = [root presentedViewController];
+	UIViewController* viewToDoPresenting = modal ? modal : root;
+	UINavigationController* nav = [viewToDoPresenting navigationController];
+	if (nav)
+	{
+		[nav pushViewController:self.viewController animated:YES];
+	}
+	else
+	{
+		[self.viewController showModallyWithController:viewToDoPresenting];
+	}
 }
 
 @end
