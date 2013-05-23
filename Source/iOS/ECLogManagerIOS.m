@@ -30,25 +30,71 @@ static ECLogManager* gSharedInstance = nil;
 @interface ECLogManagerIOS()
 
 @property (strong, nonatomic) ECLoggingViewController* viewController;
+@property (assign, nonatomic) BOOL uiShowing;
 
 @end
 
 
 @implementation ECLogManagerIOS
 
-- (void)showUI
+- (UIViewController*)rootViewController
 {
-	if (!self.viewController)
+	UIWindow* window = [UIApplication sharedApplication].windows[0];
+	UIViewController* root = window.rootViewController;
+
+	return root;
+}
+
+- (id)init
+{
+	if ((self = [super init]) != nil)
 	{
-		NSURL* url = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"bundle"];
-		NSBundle* bundle = [NSBundle bundleWithURL:url];
-		ECLoggingViewController* controller = [[ECLoggingViewController alloc] initWithNibName:@"ECLoggingViewController" bundle:bundle];
-		self.viewController = controller;
-		[controller release];
+		NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver:self selector:@selector(installGestureRecognizer) name:UIApplicationDidFinishLaunchingNotification object:nil];
 	}
 
+	return self;
+}
+
+- (void)installGestureRecognizer
+{
 	UIWindow* window = [UIApplication sharedApplication].windows[0];
-	[self.viewController showModallyWithController:window.rootViewController];
+	//	UISwipeGestureRecognizer* recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showUI)];
+	//	recognizer.numberOfTouchesRequired = 4;
+	UILongPressGestureRecognizer* recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showUI)];
+	recognizer.numberOfTouchesRequired = 2;
+	[window addGestureRecognizer:recognizer];
+	[recognizer release];
+}
+
+- (void)showUI
+{
+		if (!self.viewController)
+		{
+			NSURL* url = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"bundle"];
+			NSBundle* bundle = [NSBundle bundleWithURL:url];
+			ECLoggingViewController* controller = [[ECLoggingViewController alloc] initWithNibName:@"ECLoggingViewController" bundle:bundle];
+			self.viewController = controller;
+			[controller release];
+		}
+
+	if (!self.viewController.parentViewController)
+	{
+
+		UIViewController* root = [self rootViewController];
+		UIViewController* modal = [root presentedViewController];
+		UIViewController* viewToDoPresenting = modal ? modal : root;
+		UINavigationController* nav = [viewToDoPresenting navigationController];
+		if (nav)
+		{
+			[nav pushViewController:self.viewController animated:YES];
+		}
+		else
+		{
+			[self.viewController showModallyWithController:viewToDoPresenting];
+			[self installGestureRecognizer];
+		}
+	}
 }
 
 @end
