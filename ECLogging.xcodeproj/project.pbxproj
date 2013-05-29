@@ -174,6 +174,9 @@
 		228CF21B1756252E003E1D25 /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */; };
 		228CF21C1756252E003E1D25 /* ECLoggingMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46614F53BCC009142F7 /* ECLoggingMenu.m */; };
 		228CF21D1756252E003E1D25 /* NSMenu+ECLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2237ECDA14F563D200085BF5 /* NSMenu+ECLogging.m */; };
+		228CF25717563F3F003E1D25 /* ECLoggingDebug.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3C14F5AA80007B254B /* ECLoggingDebug.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		228CF25817563F3F003E1D25 /* ECLoggingRelease.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22970D3D14F5AA80007B254B /* ECLoggingRelease.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		228CF25917563F3F003E1D25 /* ECLoggingShared.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingShared.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		229C9E0A16F9085B00FD7AAE /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */; };
 		229EDCEB16442DB00087B26E /* ECDebugHandlersViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */; };
 		229EDCEC16442DB00087B26E /* ECDebugHandlersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */; };
@@ -868,6 +871,9 @@
 				228CF21617562526003E1D25 /* ECErrorPresenterHandler.h in Headers */,
 				228CF21717562526003E1D25 /* ECLoggingMenu.h in Headers */,
 				228CF21817562526003E1D25 /* NSMenu+ECLogging.h in Headers */,
+				228CF25717563F3F003E1D25 /* ECLoggingDebug.pch in Headers */,
+				228CF25817563F3F003E1D25 /* ECLoggingRelease.pch in Headers */,
+				228CF25917563F3F003E1D25 /* ECLoggingShared.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1641,6 +1647,7 @@
 				228CF1F317562479003E1D25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		22A204F5172006AA00A6045D /* Build configuration list for PBXAggregateTarget "Package Release" */ = {
 			isa = XCConfigurationList;
