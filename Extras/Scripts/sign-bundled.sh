@@ -15,7 +15,7 @@ sign()
     [[ "$CURRENT" =~ $PATTERN ]]
     CURRENT_IDENTIFIER=${BASH_REMATCH[1]}
 
-    # get first authority
+    # get first authority - should match the code signing identity that we're using
     PATTERN="Authority=([a-zA-Z0-9: ]*)"
     [[ "$CURRENT" =~ $PATTERN ]]
     CURRENT_AUTHORITY=${BASH_REMATCH[1]}
