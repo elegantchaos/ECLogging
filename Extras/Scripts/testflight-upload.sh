@@ -33,9 +33,13 @@ if [[ "${APITOKEN}" == "" ]]; then
 fi
 
 
+SCRIPT_DIR=`dirname $0`
+
 # team token and distribution list are per-project settings, so should be passed in
 TEAMTOKEN="$1"
-DISTRIBUTION="$2"
+shift
+DISTRIBUTION="$1"
+shift
 
 # set this to true to show a confirmation dialog before doing the upload
 CONFIRM_MESSAGE=false
@@ -47,7 +51,8 @@ MESSAGE=""
 
 if $DEFAULT_MESSAGE_IS_GIT_LOG; then
     # use the git log since the last upload as the upload message
-    MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline testflight-upload..HEAD`
+    # any unused shell arguments are passed to git to allow us to filter the log to certain directories (ie to avoid commit messages for unrelated targets)
+    MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline testflight-upload..HEAD $@`
     if [[ $? != 0 ]]; then
         MESSAGE="first upload"
     fi
@@ -71,7 +76,6 @@ fi
 # archive the last commit message, just in case we want it
 echo "$MESSAGE" > "${TMP}/upload.txt"
 
-SCRIPT_DIR=`dirname $0`
 
 # make the ipa
 echo "Making $EXECUTABLE_NAME.ipa as ${CODE_SIGN_IDENTITY}" >> "${LOG}"
