@@ -969,8 +969,8 @@
 				225EC66D11EBAA4800A97AEA /* Resources */,
 				225EC66E11EBAA4800A97AEA /* Sources */,
 				225EC66F11EBAA4800A97AEA /* Frameworks */,
-				225EC67011EBAA4800A97AEA /* ShellScript */,
 				2251BBA015DC183000F2FE40 /* CopyFiles */,
+				225EC67011EBAA4800A97AEA /* ShellScript */,
 			);
 			buildRules = (
 			);
