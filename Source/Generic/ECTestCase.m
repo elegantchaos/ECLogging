@@ -46,29 +46,33 @@
 
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2
 {
-    if (![string1 isEqualToString:string2])
+	NSUInteger divergence;
+	UniChar divergentChar;
+	UniChar expectedChar;
+	NSString* prefix;
+    if (![string1 matchesString:string2 divergingAfter:&prefix atIndex:&divergence divergentChar:&divergentChar expectedChar:&expectedChar])
     {
-        NSString* prefix = [string1 commonPrefixWithString:string2 options:NSLiteralSearch];
-        NSUInteger divergence = [prefix length];
-        UniChar divergentChar = [string1 characterAtIndex:divergence];
-        UniChar expectedChar = [string2 characterAtIndex:divergence];
-        STFail(@"strings diverge at character %d ('%lc' instead of '%lc')\n\nwe expected:\n%@\n\nwe got:\n%@\n\nthe bit that matched:\n%@\n\nthe bit that didn't:\n%@", divergence, divergentChar, expectedChar, string2, string1, prefix, [string1 substringFromIndex:divergence]); 
+        STFail(@"strings diverge at character %d ('%lc' instead of '%lc')\n\nwe expected:\n%@\n\nwe got:\n%@\n\nthe bit that matched:\n%@\n\nthe bit that didn't:\n%@", divergence, divergentChar, expectedChar, string2, string1, prefix, [string1 substringFromIndex:divergence]);
     }
 }
 
 - (void)assertLinesOfString:(NSString *)string1 matchesString:(NSString *)string2
 {
-    if (![string1 isEqualToString:string2])
+	NSString* after, *diverged, *expected;
+	NSUInteger line;
+    if (![string1 matchesString:string2 divergingAtLine:&line after:&after diverged:&diverged expected:&expected])
 	{
-		NSString* common = [string1 commonPrefixWithString:string2 options:0];
-		NSString* string1Diverged = [[string1 substringFromIndex:[common length]] firstLines:2];
-		NSString* string2Diverged = [[string2 substringFromIndex:[common length]] firstLines:2];
-		STFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", [[common componentsSeparatedByString:@"\n"] count], [common lastLines:2], string2Diverged, string1Diverged, string1);
+		STFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", line, after, expected, diverged, string1);
 	}
 }
 
 - (void)assertLinesIgnoringWhitespaceOfString:(NSString *)string1 matchesString:(NSString *)string2
 {
+	NSString* diverged;
+	NSString* expected;
+	NSUInteger line1, line2;
+    if (![string1 matchesString:string2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected])
+
     if (![string1 isEqualToString:string2])
 	{
 		NSCharacterSet* ws = [NSCharacterSet whitespaceAndNewlineCharacterSet];

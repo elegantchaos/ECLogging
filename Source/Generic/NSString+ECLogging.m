@@ -79,4 +79,78 @@
     return [linesToReturn componentsJoinedByString:@"\n"];
 }
 
+- (BOOL)matchesString:(NSString*)string divergingAfter:(NSString**)prefix atIndex:(NSUInteger*)index divergentChar:(UniChar*)divergentChar expectedChar:(UniChar*)expectedChar
+{
+	BOOL result = [self isEqualToString:string];
+    if (!result)
+    {
+		*prefix = [self commonPrefixWithString:string options:0];
+        *index = [*prefix length];
+        *divergentChar = [self characterAtIndex:*index];
+        *expectedChar = [string characterAtIndex:*index];
+    }
+
+	return result;
+}
+
+- (BOOL)matchesString:(NSString *)string divergingAtLine:(NSUInteger*)divergingLine after:(NSString**)after diverged:(NSString**)diverged expected:(NSString**)expected
+{
+	BOOL result = [self isEqualToString:string];
+    if (!result)
+	{
+		NSString* common = [self commonPrefixWithString:string options:0];
+		*divergingLine = [[common componentsSeparatedByString:@"\n"] count];
+		*after = [common lastLines:2];
+		*diverged = [[self substringFromIndex:[common length]] firstLines:2];
+		*expected = [[string substringFromIndex:[common length]] firstLines:2];
+	}
+
+	return result;
+}
+
+- (BOOL)matchesString:(NSString *)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString**)diverged expected:(NSString**)expected
+{
+	BOOL result = [self isEqualToString:string];
+    if (!result)
+	{
+		*line1 = *line2 = 0;
+		*diverged = *expected = @"";
+		NSCharacterSet* ws = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+		NSArray* lines1 = [self componentsSeparatedByString:@"\n"];
+		NSArray* lines2 = [string componentsSeparatedByString:@"\n"];
+		NSUInteger count1 = [lines1 count];
+		NSUInteger count2 = [lines2 count];
+		NSUInteger n1 = 0;
+		NSUInteger n2 = 0;
+		while ((n1 < count1) && (n2 < count2))
+		{
+			NSString* trimmed1 = [lines1[n1] stringByTrimmingCharactersInSet:ws];
+			NSString* trimmed2 = [lines2[n2] stringByTrimmingCharactersInSet:ws];
+			if ([trimmed1 isEqualToString:trimmed2])
+			{
+				++n1;
+				++n2;
+			}
+			else if ([trimmed1 length] == 0)
+			{
+				++n1;
+			}
+			else if ([trimmed2 length] == 0)
+			{
+				++n2;
+			}
+			else
+			{
+				*line1 = n1;
+				*line2 = n2;
+				*expected = trimmed2;
+				*diverged = trimmed1;
+				break;
+			}
+		}
+	}
+
+	return result;
+}
+
 @end
