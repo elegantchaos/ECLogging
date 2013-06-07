@@ -18,3 +18,5 @@
 #import "ECLogHandlerASL.h"
 #import "ECErrorReporter.h"
 #import "ECErrorAndMessage.h"
+
+#import "NSString+ECLogging.h"

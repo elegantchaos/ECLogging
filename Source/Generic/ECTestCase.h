@@ -6,6 +6,13 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+typedef NS_ENUM(NSUInteger, ECAssertStringTestMode)
+{
+	ECAssertStringTestShowChars,
+	ECAssertStringTestShowLines,
+	ECAssertStringTestShowLinesIgnoreWhitespace,
+};
+
 #define ECAssertTest(expr, isTrueVal, expString, description, ...) \
 do { \
 BOOL _evaluatedExpression = (expr);\
@@ -88,6 +95,7 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 }
 
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2;
+- (void)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode;
 
 + (NSUInteger)genericCount:(id)item;
 + (BOOL)string:(NSString*)string1 beginsWithString:(NSString *)string2;

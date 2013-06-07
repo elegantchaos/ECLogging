@@ -6,6 +6,7 @@
 
 #import "ECTestCase.h"
 #import "ECParameterisedTestCase.h"
+#import "NSString+ECLogging.h"
 
 @interface ECTestCase()
 
@@ -53,6 +54,36 @@
         UniChar expectedChar = [string2 characterAtIndex:divergence];
         STFail(@"strings diverge at character %d ('%lc' instead of '%lc')\n\nwe expected:\n%@\n\nwe got:\n%@\n\nthe bit that matched:\n%@\n\nthe bit that didn't:\n%@", divergence, divergentChar, expectedChar, string2, string1, prefix, [string1 substringFromIndex:divergence]); 
     }
+}
+
+- (void)assertLinesOfString:(NSString *)string1 matchesString:(NSString *)string2
+{
+    if (![string1 isEqualToString:string2])
+	{
+		NSString* common = [string1 commonPrefixWithString:string2 options:0];
+		NSString* string1Diverged = [[string1 substringFromIndex:[common length]] firstLines:2];
+		NSString* string2Diverged = [[string2 substringFromIndex:[common length]] firstLines:2];
+		STFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", [[common componentsSeparatedByString:@"\n"] count], [common lastLines:2], string2Diverged, string1Diverged, string1);
+	}
+}
+
+- (void)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode
+{
+	switch (mode)
+	{
+		case ECAssertStringTestShowChars:
+			[self assertString:string1 matchesString:string2];
+			break;
+
+		case ECAssertStringTestShowLines:
+			[self assertLinesOfString:string1 matchesString:string2];
+			break;
+
+		case ECAssertStringTestShowLinesIgnoreWhitespace:
+		default:
+			[self assertLinesOfString:string1 matchesString:string2];
+			break;
+	}
 }
 
 // --------------------------------------------------------------------------

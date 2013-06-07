@@ -12,5 +12,7 @@
 @interface NSString(ECLogging)
 
 - (NSString*)stringBySplittingMixedCaps;
+- (NSString*)lastLines:(NSUInteger)count;
+- (NSString*)firstLines:(NSUInteger)count;
 
 @end

@@ -59,4 +59,24 @@
 	return [result autorelease];
 }
 
+- (NSString*)lastLines:(NSUInteger)count
+{
+    NSArray* lines = [self componentsSeparatedByString:@"\n"];
+    NSUInteger lineCount = [lines count];
+    NSUInteger n = MIN(lineCount, count);
+
+    NSArray* linesToReturn = [lines subarrayWithRange:NSMakeRange(lineCount - n, n)];
+    return [linesToReturn componentsJoinedByString:@"\n"];
+}
+
+- (NSString*)firstLines:(NSUInteger)count
+{
+    NSArray* lines = [self componentsSeparatedByString:@"\n"];
+    NSUInteger lineCount = [lines count];
+    NSUInteger n = MIN(lineCount, count);
+
+    NSArray* linesToReturn = [lines subarrayWithRange:NSMakeRange(0, n)];
+    return [linesToReturn componentsJoinedByString:@"\n"];
+}
+
 @end
