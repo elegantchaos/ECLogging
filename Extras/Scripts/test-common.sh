@@ -54,6 +54,8 @@ makeoutput()
 commonbuild()
 {
     echo "Building $1 for $3 $5"
+    rm -rf "$obj"
+    rm -rf "$sym"
     xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 -config "$5" $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
     result=$?
     if [[ $result != 0 ]]; then
@@ -111,7 +113,8 @@ iosbuildproject()
 
     if $testIOS; then
 
-
+        rm -rf "$obj"
+        rm -rf "$sym"
         makeoutput
 
         cd "$1"
