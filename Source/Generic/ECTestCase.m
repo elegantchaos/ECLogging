@@ -81,8 +81,13 @@
 		while ((n1 < count1) && (n2 < count2))
 		{
 			NSString* trimmed1 = [lines1[n1] stringByTrimmingCharactersInSet:ws];
-			NSString* trimmed2 = [lines1[n1] stringByTrimmingCharactersInSet:ws];
-			if ([trimmed1 length] == 0)
+			NSString* trimmed2 = [lines2[n2] stringByTrimmingCharactersInSet:ws];
+			if ([trimmed1 isEqualToString:trimmed2])
+			{
+				++n1;
+				++n2;
+			}
+			else if ([trimmed1 length] == 0)
 			{
 				++n1;
 			}
@@ -90,14 +95,10 @@
 			{
 				++n2;
 			}
-			else if ([trimmed1 isEqualToString:trimmed2])
-			{
-				++n1;
-				++n2;
-			}
 			else
 			{
 				STFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", n1, n2, trimmed2, trimmed1, string1);
+				break;
 			}
 		}
 	}
