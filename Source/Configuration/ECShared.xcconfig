@@ -100,7 +100,7 @@ GCC_WARN_UNDECLARED_SELECTOR = YES
 // Custom settings
 // --------------------------------------------------------------------------
 
-ECLOGGING_SCRIPTS_PATH="$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts"
+ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
 
 // --------------------------------------------------------------------------
 // Unit Testing
