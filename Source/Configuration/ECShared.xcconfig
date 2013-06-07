@@ -100,7 +100,7 @@ GCC_WARN_UNDECLARED_SELECTOR = YES
 // Custom settings
 // --------------------------------------------------------------------------
 
-ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
+ECLOGGING_SCRIPTS_PATH="$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts"
 
 // --------------------------------------------------------------------------
 // Unit Testing
@@ -110,4 +110,4 @@ ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
 /// It's in a different location on the Mac and iOS, but luckily our standard xcconfig
 /// files define a setting UNIT_TEST_FRAMEWORK_PATH with its location:
 
-FRAMEWORK_SEARCH_PATHS = $(UNIT_TEST_FRAMEWORK_PATH)
+FRAMEWORK_SEARCH_PATHS = "$(UNIT_TEST_FRAMEWORK_PATH)"
