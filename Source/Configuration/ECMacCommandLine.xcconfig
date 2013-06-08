@@ -1,0 +1,10 @@
+// --------------------------------------------------------------------------
+//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
+
+// Defaults for standard definitions needed to link a command line application on the Mac
+
+OTHER_LDFLAGS = -ObjC -all_load -sectcreate __TEXT __info_plist Resources/Info.plist
+
