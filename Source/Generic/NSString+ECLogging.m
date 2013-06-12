@@ -106,11 +106,18 @@
 	BOOL result = [self isEqualToString:string];
     if (!result)
 	{
-		NSString* common = [self commonPrefixWithString:string options:0];
-		*divergingLine = [[common componentsSeparatedByString:@"\n"] count];
-		*after = [common lastLines:2];
-		*diverged = [[self substringFromIndex:[common length]] firstLines:2];
-		*expected = [[string substringFromIndex:[common length]] firstLines:2];
+		if ([self length] && [string length])
+		{
+			NSString* common = [self commonPrefixWithString:string options:0];
+			*divergingLine = [[common componentsSeparatedByString:@"\n"] count] - 1;
+			*after = [common lastLines:2];
+			*diverged = [[self substringFromIndex:[common length]] firstLines:2];
+			*expected = [[string substringFromIndex:[common length]] firstLines:2];
+		}
+		else
+		{
+			*divergingLine = 0;
+		}
 	}
 
 	return result;

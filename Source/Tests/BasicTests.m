@@ -81,6 +81,12 @@
 	result = [@"" matchesString:nil divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
 	ECTestAssertFalse(result);
 	ECTestAssertIntegerIsEqual(index, 0);
+
+	result = [@"AAA" matchesString:@"BBB" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(index, 0);
+	ECTestAssertIntegerIsEqual(divergent, 'A');
+	ECTestAssertIntegerIsEqual(expected, 'B');
 }
 
 - (void)testMatchesString2
@@ -117,12 +123,50 @@
 	ECTestAssertFalse(result);
 	ECTestAssertIntegerIsEqual(line1, 0);
 	ECTestAssertIntegerIsEqual(line2, 0);
+
+	result = [@"AAA" matchesString:@"BBB" divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(line1, 0);
+	ECTestAssertIntegerIsEqual(line2, 0);
+	ECTestAssertStringIsEqual(diverged, @"AAA");
+	ECTestAssertStringIsEqual(expected, @"BBB");
 }
 
+- (void)testMatchesString3
+{
+	NSString* test1 = @"This is a\ntest string";
+	NSString* test2 = @"This is a\ndifferent string";
 
-#if 0
-- (BOOL)matchesString:(NSString *)string divergingAtLine:(NSUInteger*)divergingLine after:(NSString**)after diverged:(NSString**)diverged expected:(NSString**)expected;
-- (BOOL)matchesString:(NSString *)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString**)diverged expected:(NSString**)expected;
-#endif
+	NSString *after, *diverged, *expected;
+	NSUInteger line;
+	BOOL result = [test1 matchesString:test2 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(line, 1);
+	ECTestAssertStringIsEqual(after, @"This is a\n");
+	ECTestAssertStringIsEqual(diverged, @"test string");
+	ECTestAssertStringIsEqual(expected, @"different string");
+
+	result = [test1 matchesString:test1 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
+	ECTestAssertTrue(result);
+
+	result = [@"" matchesString:@"" divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
+	ECTestAssertTrue(result);
+
+	result = [test1 matchesString:@"" divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(line, 0);
+
+	result = [@"" matchesString:test1 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(line, 0);
+
+	result = [@"" matchesString:nil divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(line, 0);
+
+	result = [@"AAA" matchesString:@"BBB" divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(line, 0);
+}
 
 @end
