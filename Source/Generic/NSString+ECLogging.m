@@ -84,10 +84,18 @@
 	BOOL result = [self isEqualToString:string];
     if (!result)
     {
-		*prefix = [self commonPrefixWithString:string options:0];
-        *index = [*prefix length];
-        *divergentChar = [self characterAtIndex:*index];
-        *expectedChar = [string characterAtIndex:*index];
+		if ([self length] && [string length])
+		{
+			*prefix = [self commonPrefixWithString:string options:0];
+			*index = [*prefix length];
+			*divergentChar = [self characterAtIndex:*index];
+			*expectedChar = [string characterAtIndex:*index];
+		}
+		else
+		{
+			*prefix = @"";
+			*index = 0;
+		}
     }
 
 	return result;

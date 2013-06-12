@@ -63,6 +63,24 @@
 	ECTestAssertIntegerIsEqual(index, 10);
 	ECTestAssertIntegerIsEqual(divergent, 't');
 	ECTestAssertIntegerIsEqual(expected, 'd');
+
+	result = [test1 matchesString:test1 divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
+	ECTestAssertTrue(result);
+
+	result = [@"" matchesString:@"" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
+	ECTestAssertTrue(result);
+
+	result = [test1 matchesString:@"" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(index, 0);
+
+	result = [@"" matchesString:test1 divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(index, 0);
+
+	result = [@"" matchesString:nil divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(index, 0);
 }
 
 
