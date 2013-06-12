@@ -22,8 +22,8 @@
 {
 	ECTestAssertStringIsEqual([@"mixedCapTest" stringBySplittingMixedCaps], @"mixed Cap Test");
 	ECTestAssertStringIsEqual([@"alllowercaseoneword" stringBySplittingMixedCaps], @"alllowercaseoneword");
-	ECTestAssertStringIsEqual([@"all lower case multiple words" stringBySplittingMixedCaps], @"all lower case multiple words");
 	ECTestAssertStringIsEqual([@"" stringBySplittingMixedCaps], @"");
+	ECTestAssertStringIsEqual([@"all lower case multiple words" stringBySplittingMixedCaps], @"all lower case multiple words");
 }
 
 - (void)testLastLines

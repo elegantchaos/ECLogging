@@ -48,7 +48,7 @@
 	{
 		UniChar c = [self characterAtIndex: n];
 		BOOL isLower = islower(c) != 0;
-		if (wasLower && !isLower)
+		if (wasLower && !isLower && isupper(c))
 		{
 			[result appendString: @" "];
 		}
