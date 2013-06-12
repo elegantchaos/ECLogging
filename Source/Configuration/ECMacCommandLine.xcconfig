@@ -6,5 +6,6 @@
 
 // Defaults for standard definitions needed to link a command line application on the Mac
 
-OTHER_LDFLAGS = -ObjC -all_load -sectcreate __TEXT __info_plist Resources/Info.plist
+
+OTHER_LDFLAGS = -ObjC -all_load -sectcreate __TEXT __info_plist $(INFOPLIST_FILE)
 
