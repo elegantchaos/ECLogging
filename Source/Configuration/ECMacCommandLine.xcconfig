@@ -4,7 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-SDKROOT = iphoneos
-IPHONEOS_DEPLOYMENT_TARGET = 5.0
+// Defaults for standard definitions needed to link a command line application on the Mac
 
-UNIT_TEST_FRAMEWORK_PATH = $(SDKROOT)/Developer/Library/Frameworks
+OTHER_LDFLAGS = -ObjC -all_load -sectcreate __TEXT __info_plist Resources/Info.plist
+

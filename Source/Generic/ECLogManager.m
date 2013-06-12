@@ -315,9 +315,10 @@ const ContextFlagInfo kContextFlagInfo[] =
 
 - (NSDictionary*)defaultSettings
 {
+	NSBundle* mainBundle = [NSBundle mainBundle];
 	NSURL* defaultSettingsFile;
 #if EC_DEBUG
-	defaultSettingsFile = [[NSBundle mainBundle] URLForResource:DebugLogSettingsFile withExtension:@"plist"];
+	defaultSettingsFile = [mainBundle URLForResource:DebugLogSettingsFile withExtension:@"plist"];
 	if (defaultSettingsFile)
 	{
 		LogManagerLog(@"loaded defaults from %@.plist", DebugLogSettingsFile);
@@ -325,7 +326,7 @@ const ContextFlagInfo kContextFlagInfo[] =
 	else
 #endif
 	{
-		defaultSettingsFile = [[NSBundle mainBundle] URLForResource:LogSettingsFile withExtension:@"plist"];
+		defaultSettingsFile = [mainBundle URLForResource:LogSettingsFile withExtension:@"plist"];
 		if (defaultSettingsFile)
 		{
 			LogManagerLog(@"loaded defaults from %@.plist", LogSettingsFile);
@@ -337,6 +338,16 @@ const ContextFlagInfo kContextFlagInfo[] =
 	}
 
 	NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
+	if (![defaultSettings count])
+	{
+		#if EC_DEBUG
+			defaultSettings = mainBundle.infoDictionary[DebugLogSettingsFile];
+		#endif
+		if (![defaultSettings count])
+		{
+			defaultSettings = mainBundle.infoDictionary[LogSettingsFile];
+		}
+	}
 
 	if (![defaultSettings count])
 	{
