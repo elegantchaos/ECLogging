@@ -72,39 +72,8 @@
 	NSString* expected;
 	NSUInteger line1, line2;
     if (![string1 matchesString:string2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected])
-
-    if (![string1 isEqualToString:string2])
 	{
-		NSCharacterSet* ws = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-		NSArray* lines1 = [string1 componentsSeparatedByString:@"\n"];
-		NSArray* lines2 = [string2 componentsSeparatedByString:@"\n"];
-		NSUInteger count1 = [lines1 count];
-		NSUInteger count2 = [lines2 count];
-		NSUInteger n1 = 0;
-		NSUInteger n2 = 0;
-		while ((n1 < count1) && (n2 < count2))
-		{
-			NSString* trimmed1 = [lines1[n1] stringByTrimmingCharactersInSet:ws];
-			NSString* trimmed2 = [lines2[n2] stringByTrimmingCharactersInSet:ws];
-			if ([trimmed1 isEqualToString:trimmed2])
-			{
-				++n1;
-				++n2;
-			}
-			else if ([trimmed1 length] == 0)
-			{
-				++n1;
-			}
-			else if ([trimmed2 length] == 0)
-			{
-				++n2;
-			}
-			else
-			{
-				STFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", n1, n2, trimmed2, trimmed1, string1);
-				break;
-			}
-		}
+		STFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", line1, line2, expected, diverged, string1);
 	}
 }
 
