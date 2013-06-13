@@ -139,6 +139,7 @@
 			NSUInteger count2 = [lines2 count];
 			NSUInteger n1 = 0;
 			NSUInteger n2 = 0;
+			BOOL whiteSpaceOnly = YES;
 			while ((n1 < count1) && (n2 < count2))
 			{
 				NSString* trimmed1 = [lines1[n1] stringByTrimmingCharactersInSet:ws];
@@ -162,9 +163,12 @@
 					*line2 = n2;
 					*expected = trimmed2;
 					*diverged = trimmed1;
+					whiteSpaceOnly = NO;
 					break;
 				}
 			}
+
+			result = whiteSpaceOnly;
 		}
 		else
 		{
