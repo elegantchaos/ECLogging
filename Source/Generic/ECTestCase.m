@@ -169,6 +169,18 @@
 	return range.location != NSNotFound;
 }
 
+- (NSURL *)URLForTestResource:(NSString *)name withExtension:(NSString *)ext
+{
+	NSBundle* bundle = [NSBundle bundleForClass:[self class]];
+	return [bundle URLForResource:name withExtension:ext];
+}
+
+- (NSURL *)URLForTestResource:(NSString *)name withExtension:(NSString *)ext subdirectory:(NSString *)subpath
+{
+	NSBundle* bundle = [NSBundle bundleForClass:[self class]];
+	return [bundle URLForResource:name withExtension:ext subdirectory:subpath];
+}
+
 // --------------------------------------------------------------------------
 /// Return file path for a bundle which can be used for file tests.
 // --------------------------------------------------------------------------
