@@ -1409,6 +1409,7 @@
 		};
 		221E215816E7864900B65B1F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
@@ -1420,6 +1421,7 @@
 		};
 		221E215916E7864900B65B1F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2277CE1F16D6AB9500835964 /* ECIOSRelease.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
