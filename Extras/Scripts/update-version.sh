@@ -22,3 +22,18 @@ COMMIT=`git rev-parse HEAD`
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$PLIST"
 
 echo "Bumped build number to $VERSION ($COMMIT) in $PLIST"
+
+DSYM_PLIST="${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist"
+
+echo "*${DSYM_PLIST}*"
+
+if [[ -e "${DSYM_PLIST}" ]] ; then
+
+    # update the plist in the dSYM file too so that the build numbers match
+    /usr/libexec/PlistBuddy -c "Add :ECVersionCommit string commit" "$DSYM_PLIST"
+    /usr/libexec/PlistBuddy -c "Set :ECVersionCommit $COMMIT" "$DSYM_PLIST"
+    /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$DSYM_PLIST"
+
+    echo "Also updated dSYM build number"
+
+fi
