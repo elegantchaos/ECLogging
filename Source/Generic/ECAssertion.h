@@ -17,6 +17,10 @@
 
 ECDeclareDebugChannel(AssertionChannel);
 
+#endif
+
+#if EC_DEBUG && !defined(__clang_analyzer__) // don't evaluate assertions whilst we're being analyzed as it can confuse clang into thinking that some code paths are normal when actually they aren't
+
 #define ECAssert(expression) do { if (!(expression)) { ECDebug(AssertionChannel, @"Expression %s was false", #expression); [ECAssertion failAssertion:#expression]; } } while(0)
 #define ECAssertC(expression) assert(expression)
 
