@@ -949,9 +949,9 @@
 				2251BA7A15DBDC2100F2FE40 /* Headers */,
 				2251BA0F15DBCC4A00F2FE40 /* Frameworks */,
 				2251BA1015DBCC4A00F2FE40 /* Resources */,
-				2251BA7815DBDBE300F2FE40 /* ShellScript */,
+				2251BA7815DBDBE300F2FE40 /* Package Pseudo-Framework */,
 				2277CE3C16D6AFAE00835964 /* CopyFiles */,
-				2277CE4116D6B05200835964 /* ShellScript */,
+				2277CE4116D6B05200835964 /* Link in Scripts Folder */,
 				2258586F16E76DC500E2DDD4 /* CopyFiles */,
 			);
 			buildRules = (
@@ -1152,13 +1152,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2251BA7815DBDBE300F2FE40 /* ShellScript */ = {
+		2251BA7815DBDBE300F2FE40 /* Package Pseudo-Framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Package Pseudo-Framework";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1207,18 +1208,20 @@
 			shellPath = /bin/sh;
 			shellScript = "ln -sfh \"Versions/${FRAMEWORK_VERSION}/Scripts\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Scripts\"";
 		};
-		2277CE4116D6B05200835964 /* ShellScript */ = {
+		2277CE4116D6B05200835964 /* Link in Scripts Folder */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Link in Scripts Folder";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "ln -sfh \"Versions/${FRAMEWORK_VERSION}/Scripts\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Scripts\"";
+			showEnvVarsInLog = 0;
 		};
 		22FF8E7716F1E418008FC10D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
