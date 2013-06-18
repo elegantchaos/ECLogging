@@ -59,6 +59,7 @@ commonbuild()
     xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 -config "$5" $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
     result=$?
     if [[ $result != 0 ]]; then
+        cat "$testout"
         cat "$testerr"
         echo
         echo "** BUILD FAILURES **"
@@ -102,7 +103,7 @@ iosbuild()
         fi
 
         makeoutput
-        commonbuild "$1" "$action" "iphonesimulator" "-arch i386" "Debug"
+        commonbuild "$1" "$action" "iphonesimulator" "-arch i386 ONLY_ACTIVE_ARCH=NO" "Debug"
         commonbuild "$1" "$action" "iphonesimulator" "-arch i386" "Release"
 
     fi
