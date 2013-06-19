@@ -52,7 +52,7 @@ MESSAGE=""
 if $DEFAULT_MESSAGE_IS_GIT_LOG; then
     # use the git log since the last upload as the upload message
     # any unused shell arguments are passed to git to allow us to filter the log to certain directories (ie to avoid commit messages for unrelated targets)
-    MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline testflight-upload..HEAD $@`
+    MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline origin/testflight/latest..HEAD $@`
     if [[ $? != 0 ]]; then
         MESSAGE="first upload"
     fi
@@ -106,9 +106,9 @@ if [[ $? == 0 ]] ; then
             echo "Upload done." >> "${LOG}"
             open "${CONFIG_URL}"
 
-            # update the git tag
+            # update the git branch
             cd "$PROJECT_DIR";
-            $GIT tag -f testflight-upload
+            $GIT branch testflight/latest HEAD --force
 
             # clean up if the upload worked
             rm "${DSYM}.zip"
