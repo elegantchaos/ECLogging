@@ -109,6 +109,7 @@ if [[ $? == 0 ]] ; then
             # update the git branch
             cd "$PROJECT_DIR";
             $GIT branch testflight/latest HEAD --force
+            $GIT push origin testflight/latest
 
             # clean up if the upload worked
             rm "${DSYM}.zip"
