@@ -8,11 +8,21 @@ then
     exit 1
 fi
 
+if [[ $ecbase == "" ]];
+then
+echo "Need to set ecbase variable - assuming it's at $base/.. (which is probably wrong)."
+ecbase="$base/.."
+fi
+
 echo "Setting up tests for $project"
+
+pushd "$ecbase" > /dev/null
+wd=`pwd`
+ocunit2junit="$wd/ocunit2junit/bin/ocunit2junit"
+popd > /dev/null
 
 pushd "$base/.." > /dev/null
 build="$PWD/test-build"
-ocunit2junit="$PWD/ECLogging/Extras/Scripts/ocunit2junit/bin/ocunit2junit"
 popd > /dev/null
 
 sym="$build/sym"
