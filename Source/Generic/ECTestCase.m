@@ -37,8 +37,12 @@
     return result;
 }
 
-
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2
+{
+	[self assertString:string1 matchesString:string2 mode:ECAssertStringTestShowLinesIgnoreWhitespace];
+}
+
+- (void)assertCharactersOfString:(NSString*)string1 matchesString:(NSString*)string2
 {
 	NSUInteger divergence;
 	UniChar divergentChar;
@@ -52,7 +56,7 @@
 
 - (void)assertCollection:(id)collection1 matchesCollection:(id)collection2
 {
-	[self assertString:[collection1 description] matchesString:[collection2 description]];
+	[self assertString:[collection1 description] matchesString:[collection2 description] mode:ECAssertStringTestShowLinesIgnoreWhitespace];
 }
 
 - (void)assertLinesOfString:(NSString *)string1 matchesString:(NSString *)string2
@@ -86,7 +90,7 @@
 	switch (mode)
 	{
 		case ECAssertStringTestShowChars:
-			[self assertString:string1 matchesString:string2];
+			[self assertCharactersOfString:string1 matchesString:string2];
 			break;
 
 		case ECAssertStringTestShowLines:
