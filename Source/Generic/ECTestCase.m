@@ -37,12 +37,6 @@
     return result;
 }
 
-// --------------------------------------------------------------------------
-/// Perform some more detailed checking of two bits of text.
-/// If they don't match, we report the differing lengths, and
-/// the characters where they diverge, as well as the full
-/// text of both strings.
-// --------------------------------------------------------------------------
 
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2
 {
@@ -56,6 +50,11 @@
     }
 }
 
+- (void)assertCollection:(id)collection1 matchesCollection:(id)collection2
+{
+	[self assertString:[collection1 description] matchesString:[collection2 description]];
+}
+
 - (void)assertLinesOfString:(NSString *)string1 matchesString:(NSString *)string2
 {
 	NSString* after, *diverged, *expected;
@@ -64,6 +63,11 @@
 	{
 		STFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", line, after, expected, diverged, string1);
 	}
+}
+
+- (void)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode
+{
+	[self assertString:[collection1 description] matchesString:[collection2 description] mode:mode];
 }
 
 - (void)assertLinesIgnoringWhitespaceOfString:(NSString *)string1 matchesString:(NSString *)string2

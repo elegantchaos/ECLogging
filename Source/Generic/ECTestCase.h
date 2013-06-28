@@ -94,8 +94,53 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
     BOOL _exitRunLoop;
 }
 
+/**
+ Perform some more detailed checking of two bits of text.
+ If they don't match, we call STFail reporting the point where they differed.
+ @param string1 First string to compare.
+ @param string2 Second string to compare.
+ */
+
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2;
+
+/**
+ Perform some more detailed checking of two bits of text.
+ If they don't match, we call STFail reporting the point where they differed.
+
+ The comparison modes determine exactly how differences are reported.
+ - ECAssertStringTestShowChars:  we report the differing lengths, and the characters where they diverge
+ - ECAssertStringTestShowLines: we report the lines where they diverge
+ - ECAssertStringTestShowLinesIgnoreWhitespace: we report the lines where they diverge, ignoring blank lines
+
+ @param string1 First string to compare.
+ @param string2 Second string to compare.
+ @param mode Comparison mode to use.
+ */
+
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode;
+
+/**
+ Check that two collections match.
+ If they don't match, we call STFail reporting the point where they differed.
+
+ This is implemented by calling description on them both, then calling assertString:matchesString.
+ @param collection1 first collection
+ @param collection2 second collection
+ */
+
+- (void)assertCollection:(id)collection1 matchesCollection:(id)collection2;
+
+/**
+ Check that two collections match.
+ If they don't match, we call STFail reporting the point where they differed.
+
+ This is implemented by calling description on them both, then calling assertString:matchesString.
+ @param collection1 First collection.
+ @param collection2 Second collection.
+ @param mode String comparison mode to use.
+ */
+
+- (void)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode;
 
 + (NSUInteger)genericCount:(id)item;
 + (BOOL)string:(NSString*)string1 beginsWithString:(NSString *)string2;
