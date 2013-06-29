@@ -87,20 +87,25 @@
 
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode
 {
-	switch (mode)
+	STAssertNotNil(string1, @"string 1 was nil");
+	STAssertNotNil(string2, @"string 2 was nil");
+	if (string1 && string2)
 	{
-		case ECAssertStringTestShowChars:
-			[self assertCharactersOfString:string1 matchesString:string2];
-			break;
+		switch (mode)
+		{
+			case ECAssertStringTestShowChars:
+				[self assertCharactersOfString:string1 matchesString:string2];
+				break;
 
-		case ECAssertStringTestShowLines:
-			[self assertLinesOfString:string1 matchesString:string2];
-			break;
+			case ECAssertStringTestShowLines:
+				[self assertLinesOfString:string1 matchesString:string2];
+				break;
 
-		case ECAssertStringTestShowLinesIgnoreWhitespace:
-		default:
-			[self assertLinesIgnoringWhitespaceOfString:string1 matchesString:string2];
-			break;
+			case ECAssertStringTestShowLinesIgnoreWhitespace:
+			default:
+				[self assertLinesIgnoringWhitespaceOfString:string1 matchesString:string2];
+				break;
+		}
 	}
 }
 
