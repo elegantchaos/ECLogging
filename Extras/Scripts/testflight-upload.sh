@@ -10,13 +10,11 @@
 ## The second parameter should be the name of a TestFlight distribution list. All users in the list will be notified
 ## when the target has been uploaded.
 
-rm /tmp/upload.log
-
 TMP=/tmp/testflight-upload
 LOG="${TMP}/upload.log"
 ERROR_LOG="${TMP}/error.log"
 
-rm "${LLOG}"
+rm "${LOG}"
 rm "${ERROR_LOG}"
 
 mkdir -p "$TMP"
@@ -55,6 +53,11 @@ if $DEFAULT_MESSAGE_IS_GIT_LOG; then
     MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline origin/testflight/latest..HEAD $@`
     if [[ $? != 0 ]]; then
         MESSAGE="first upload"
+    fi
+
+    if [[ "$MESSAGE" == "" ]]; then
+        echo "Empty message! Something is wrong..."
+        exit 1
     fi
 
 else
