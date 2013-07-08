@@ -23,16 +23,16 @@
 #if EC_DEBUG
 
 #define ECUnusedInDebug(v) ECUnused(v)
-#define ECUnusedInRelease(v)
+#define ECUnusedInRelease(v) do {} while(0)
 #define ECDebugOnly(x) x
-#define ECReleaseOnly(x)
+#define ECReleaseOnly(x) do {} while(0)
 
 
 #else
 
-#define ECUnusedInDebug(v)
+#define ECUnusedInDebug(v) do {} while(0)
 #define ECUnusedInRelease(v) ECUnused(v)
-#define ECDebugOnly(x)
+#define ECDebugOnly(x) do {} while(0)
 #define ECReleaseOnly(x) x
 
 #endif
