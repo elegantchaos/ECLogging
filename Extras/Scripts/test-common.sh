@@ -46,7 +46,7 @@ report()
 {
     pushd "$build" > /dev/null
     "$ocunit2junit" < "$testout" > /dev/null 2>&1
-    reportdir="$build/reports/$2/$1"
+    reportdir="$build/reports/$2-$1"
     mkdir -p "$reportdir"
     mv test-reports/* "$reportdir" 2> /dev/null
     rmdir test-reports
