@@ -37,6 +37,35 @@
     return result;
 }
 
+- (NSURL*)URLForTemporaryFolder
+{
+	NSURL* url = nil;
+	NSError* error;
+	NSUInteger length = [self.name length];
+	if (length > 2)
+	{
+		NSString* name = [self.name substringWithRange:NSMakeRange(2, length - 3)];
+		url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:name];
+		[[NSFileManager defaultManager] createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+	}
+	
+	return url;
+}
+
+- (NSURL*)URLForTemporaryFileNamed:(NSString *)name
+{
+	NSURL* url = [[self URLForTemporaryFolder] URLByAppendingPathComponent:name];
+
+	return url;
+}
+
+- (NSURL*)URLForTemporaryFileNamed:(NSString *)name withExtension:(NSString *)ext
+{
+	NSURL* url = [[[self URLForTemporaryFolder] URLByAppendingPathComponent:name] URLByAppendingPathExtension:ext];
+
+	return url;
+}
+
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2
 {
 	[self assertString:string1 matchesString:string2 mode:ECAssertStringTestShowLinesIgnoreWhitespace];
@@ -107,6 +136,54 @@
 				break;
 		}
 	}
+}
+
+- (void)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode
+{
+	NSError* error;
+	NSString* kind = [url pathExtension];
+	if ([kind isEqualToString:@"json"])
+	{
+		NSData* data = [NSJSONSerialization dataWithJSONObject:collection options:NSJSONWritingPrettyPrinted error:&error];
+		NSString* string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		ECTestAssertNotNil(string);
+		[self assertString:string matchesContentsOfURL:url mode:mode];
+	}
+	else if ([kind isEqualToString:@"plist"])
+	{
+		NSData* data = [NSData dataWithContentsOfURL:url];
+		id expected = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:&error];
+		[self assertCollection:collection matchesCollection:expected];
+	}
+}
+
+- (void)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode
+{
+	NSError* error;
+	NSString* expected = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+	if (expected)
+	{
+		if (mode == ECAssertStringDiff)
+		{
+			if (![string isEqualToString:expected])
+			{
+				NSString* name = [url lastPathComponent];
+				NSURL* temp = [self URLForTemporaryFileNamed:[@"Actual-" stringByAppendingString:name]];
+				STAssertTrue([string writeToURL:temp atomically:YES encoding:NSUTF8StringEncoding error:&error], @"failed to write temporary text file %@", error);
+				[self diffURL:temp againstURL:url];
+				STFail(@"String failed to match contents of %@", name);
+			}
+		}
+		else
+		{
+			[self assertString:string matchesString:expected mode:mode];
+		}
+	}
+	else
+	{
+		STFail(@"Couldn't load string from %@", url);
+	}
+
 }
 
 // --------------------------------------------------------------------------

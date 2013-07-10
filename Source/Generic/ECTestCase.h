@@ -11,6 +11,7 @@ typedef NS_ENUM(NSUInteger, ECAssertStringTestMode)
 	ECAssertStringTestShowChars,
 	ECAssertStringTestShowLines,
 	ECAssertStringTestShowLinesIgnoreWhitespace,
+	ECAssertStringDiff,
 };
 
 #define ECAssertTest(expr, isTrueVal, expString, description, ...) \
@@ -120,6 +121,19 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode;
 
 /**
+ Check some text against a file.
+ If they don't match, we call STFail reporting the point where they differed.
+
+ The comparison modes determine exactly how differences are reported.
+
+ @param string The string to compare.
+ @param url The file containing text to compare against.
+ @param mode Comparison mode to use.
+ */
+
+- (void)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode;
+
+/**
  Check that two collections match.
  If they don't match, we call STFail reporting the point where they differed.
 
@@ -129,6 +143,18 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  */
 
 - (void)assertCollection:(id)collection1 matchesCollection:(id)collection2;
+
+/**
+ Check that a collection matches the contents of a file.
+ If they don't match, we call STFail reporting the point where they differed.
+
+ This is implemented by calling description on them both, then calling assertString:matchesString.
+ @param collection Collection to test.
+ @param url The file to test against
+ @param mode The testing mode.
+ */
+
+- (void)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode;
 
 /**
  Check that two collections match.
@@ -146,6 +172,28 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 + (BOOL)string:(NSString*)string1 beginsWithString:(NSString *)string2;
 + (BOOL)string:(NSString*)string1 endsWithString:(NSString *)string2;
 + (BOOL)string:(NSString*)string1 containsString:(NSString *)string2;
+
+/**
+ Return a URL to a temporary folder.
+ This will be named using the test name, so should be unique to the test.
+ */
+
+- (NSURL*)URLForTemporaryFolder;
+
+/**
+ Return a URL to a file within the temporary folder.
+ @param name The name (and extension) to use for the temporary file.
+ */
+
+- (NSURL*)URLForTemporaryFileNamed:(NSString*)name;
+
+/**
+ Return a URL to a file within the temporary folder.
+ @param name The name to use for the temporary file.
+ @param ext The extension to use for the temporary file.
+ */
+
+- (NSURL*)URLForTemporaryFileNamed:(NSString *)name withExtension:(NSString *)ext;
 
 - (NSURL *)URLForTestResource:(NSString *)name withExtension:(NSString *)ext;
 - (NSURL *)URLForTestResource:(NSString *)name withExtension:(NSString *)ext subdirectory:(NSString *)subpath;
