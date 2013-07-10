@@ -62,29 +62,40 @@ makeoutput()
 commonbuild()
 {
     echo "Building $1 for $3 $5"
+
+    # ensure a clean build every time
     rm -rf "$obj"
     rm -rf "$sym"
+
+    # build it
     xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 -config "$5" $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
+
+    # we don't entirely trust the return code from xcodebuild, so we also scan the output for "failed"
     result=$?
-    if [[ $result != 0 ]]; then
+    buildfailures=`grep failed "$testerr"`
+    if [[ $result != 0 ]] || [[ $buildfailures != "" ]]; then
+        # if it looks like the build failed, output everything to stdout
         echo "Build Failed"
         cat "$testout"
-        cat "$testerr"
+        cat "$testerr" > /dev/stderr
         echo
         echo "** BUILD FAILURES **"
         echo "Build failed for scheme $1"
+        if [[ $result == 0 ]]; then
+            result=1
+        fi
         exit $result
     fi
 
     report "$1" "$3"
 
-    failures=`grep failed "$testout"`
-    if [[ $failures != "" ]]; then
-        echo $failures
+    testfailures=`grep failed "$testout"`
+    if [[ $testfailures != "" ]]; then
+        echo $testfailures
         echo
         echo "** UNIT TEST FAILURES **"
         echo "Tests failed for scheme $1"
-        exit $result
+        exit 1
     fi
 
 }
@@ -95,7 +106,7 @@ macbuild()
 
         makeoutput
         commonbuild "$1" "$2" "macosx" "" "Debug"
-        commonbuild "$1" "$2" "macosx" "" "Release"
+#        commonbuild "$1" "$2" "macosx" "" "Release"
 
     fi
 }
