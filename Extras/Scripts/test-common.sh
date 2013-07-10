@@ -61,11 +61,11 @@ echo "" > "$testerr"
 
 commonbuild()
 {
-    echo "Building $1 for $3 $5"
+    echo "Building $1 for $3 $2"
     cleanoutput
 
     # build it
-    xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 -config "$5" $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
+    xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
 
     # we don't entirely trust the return code from xcodebuild, so we also scan the output for "failed"
     result=$?
@@ -102,8 +102,7 @@ macbuild()
     if $testMac ; then
 
         cleanbuild
-        commonbuild "$1" "$2" "macosx" "" "Debug"
-        commonbuild "$1" "$2" "macosx" "" "Release"
+        commonbuild "$1" "$2" "macosx" ""
 
     fi
 }
@@ -120,8 +119,7 @@ iosbuild()
         fi
 
         cleanbuild
-        commonbuild "$1" "$action" "iphonesimulator" "-arch i386 ONLY_ACTIVE_ARCH=NO" "Debug"
-        commonbuild "$1" "$action" "iphonesimulator" "-arch i386" "Release"
+        commonbuild "$1" "$action" "iphonesimulator" "-arch i386 ONLY_ACTIVE_ARCH=NO"
 
     fi
 }
