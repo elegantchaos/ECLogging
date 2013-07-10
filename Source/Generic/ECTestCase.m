@@ -250,5 +250,22 @@
     self.exitRunLoop = YES;
 }
 
+- (void)diffURL:(NSURL*)url1 againstURL:(NSURL*)url2
+{
+	// To use a different diff tool, do, eg:
+    //         defaults write otest DiffTool "/usr/local/bin/ksdiff"
+
+	NSString* diff = [[NSUserDefaults standardUserDefaults] stringForKey:@"DiffTool"];
+    if (!diff)
+        diff = @"/usr/bin/diff";
+
+	NSTask *task;
+	task = [[NSTask alloc] init];
+	[task setLaunchPath: diff];
+	[task setArguments: @[[url1 path], [url2 path]]];
+	[task launch];
+	[task release];
+}
+
 @end
 

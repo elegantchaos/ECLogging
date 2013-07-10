@@ -157,4 +157,15 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 - (void)runUntilTimeToExit;
 - (void)timeToExitRunLoop;
 
+/**
+ Compare two files and output a diff.
+ The diff program is /usr/bin/diff by default, but can be changed with defaults, e.g:
+     defaults write otest DiffTool "/usr/local/bin/ksdiff"
+
+ @param url1 Location of first file to diff.
+ @param url2 Location of second file to diff.
+ */
+
+- (void)diffURL:(NSURL*)url1 againstURL:(NSURL*)url2;
+
 @end
