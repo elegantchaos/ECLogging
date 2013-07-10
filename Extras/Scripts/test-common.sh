@@ -16,13 +16,11 @@ fi
 
 echo "Setting up tests for $project"
 
+build="$PWD/test-build"
+
 pushd "$ecbase" > /dev/null
 wd=`pwd`
 ocunit2junit="$wd/ocunit2junit/bin/ocunit2junit"
-popd > /dev/null
-
-pushd "$base/.." > /dev/null
-build="$PWD/test-build"
 popd > /dev/null
 
 sym="$build/sym"
@@ -46,13 +44,13 @@ config="Debug"
 
 report()
 {
-#    pushd "$build" > /dev/null
-    "$ocunit2junit" < "$testout" > /dev/null
+    pushd "$build" > /dev/null
+    "$ocunit2junit" < "$testout" > /dev/null 2>&1
     reportdir="$build/reports/$2/$1"
     mkdir -p "$reportdir"
     mv test-reports/* "$reportdir" 2> /dev/null
     rmdir test-reports
-#    popd > /dev/null
+    popd > /dev/null
 }
 
 makeoutput()
@@ -69,6 +67,7 @@ commonbuild()
     xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 -config "$5" $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
     result=$?
     if [[ $result != 0 ]]; then
+        echo "Build Failed"
         cat "$testout"
         cat "$testerr"
         echo
