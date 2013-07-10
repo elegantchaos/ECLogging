@@ -4,32 +4,37 @@ sign()
     BUNDLEID="$1"
     CODE_SIGN_IDENTITY="$2"
     FILE="$3"
+    NAME=`basename "$FILE"`
 
     # get current signing details
     CURRENT=`codesign --verbose=2 -d "${FILE}" 2>&1`
+    if [ $? == 0 ]; then
 
-#   echo "current:$CURRENT"
+        #echo "current:$CURRENT"
 
-    # get current id
-    PATTERN="Identifier=([a-zA-Z0-9.]*)"
-    [[ "$CURRENT" =~ $PATTERN ]]
-    CURRENT_IDENTIFIER=${BASH_REMATCH[1]}
+        # get current id
+        PATTERN="Identifier=([a-zA-Z0-9.]*)"
+        [[ "$CURRENT" =~ $PATTERN ]]
+        CURRENT_IDENTIFIER=${BASH_REMATCH[1]}
 
-    # get first authority - should match the code signing identity that we're using
-    PATTERN="Authority=([a-zA-Z0-9: ]*)"
-    [[ "$CURRENT" =~ $PATTERN ]]
-    CURRENT_AUTHORITY=${BASH_REMATCH[1]}
+        # get first authority - should match the code signing identity that we're using
+        PATTERN="Authority=([a-zA-Z0-9: ]*)"
+        [[ "$CURRENT" =~ $PATTERN ]]
+        CURRENT_AUTHORITY=${BASH_REMATCH[1]}
 
-#    echo "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
-#    echo "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
+        #    echo "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
+        #    echo "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
 
-    NAME=`basename "$FILE"`
-    echo
+    else
+
+        echo "$NAME wasn't signed at all"
+
+    fi
 
     # check if we need to resign (resigning can be slow, so we check first)
     if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
         echo "Resigning $NAME with id $BUNDLEID"
-        codesign -f -i ${BUNDLEID} -vv -s "${CODE_SIGN_IDENTITY}" "${FILE}"
+        codesign --deep -f -i ${BUNDLEID} -vv -s "${CODE_SIGN_IDENTITY}" "${FILE}"
     else
         echo "Didn't need to sign $NAME - already signed correctly"
     fi
