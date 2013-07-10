@@ -54,6 +54,8 @@ if [[ "$CODE_SIGN_IDENTITY" == "Mac Developer" ]] ; then
 	CODE_SIGN_IDENTITY="Mac Developer:"
 fi
 
+echo "Using identity $CODE_SIGN_IDENTITY"
+
 if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns/" ]; then
 	echo "Signing PlugIns as: ${CODE_SIGN_IDENTITY}"
 	for f in "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns/"*
