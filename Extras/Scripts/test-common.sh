@@ -32,14 +32,6 @@ mkdir -p "$build"
 testout="$build/out.log"
 testerr="$build/err.log"
 
-#if [[ "$testMac" == "" ]]; then
-#    testMac=true
-#fi
-
-#if [[ "$testIOS" == "" ]]; then
-#    testIOS=true
-#if
-
 config="Debug"
 
 report()
@@ -53,19 +45,24 @@ report()
     popd > /dev/null
 }
 
-makeoutput()
+cleanbuild()
 {
-    echo "" > "$testout"
-    echo "" > "$testerr"
+    # ensure a clean build every time
+    rm -rf "$obj"
+    rm -rf "$sym"
+}
+
+cleanoutput()
+{
+# make empty output files
+echo "" > "$testout"
+echo "" > "$testerr"
 }
 
 commonbuild()
 {
     echo "Building $1 for $3 $5"
-
-    # ensure a clean build every time
-    rm -rf "$obj"
-    rm -rf "$sym"
+    cleanoutput
 
     # build it
     xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 -config "$5" $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
@@ -104,9 +101,9 @@ macbuild()
 {
     if $testMac ; then
 
-        makeoutput
+        cleanbuild
         commonbuild "$1" "$2" "macosx" "" "Debug"
-#        commonbuild "$1" "$2" "macosx" "" "Release"
+        commonbuild "$1" "$2" "macosx" "" "Release"
 
     fi
 }
@@ -122,7 +119,7 @@ iosbuild()
             action=$2
         fi
 
-        makeoutput
+        cleanbuild
         commonbuild "$1" "$action" "iphonesimulator" "-arch i386 ONLY_ACTIVE_ARCH=NO" "Debug"
         commonbuild "$1" "$action" "iphonesimulator" "-arch i386" "Release"
 
@@ -134,9 +131,8 @@ iosbuildproject()
 
     if $testIOS; then
 
-        rm -rf "$obj"
-        rm -rf "$sym"
-        makeoutput
+        cleanbuild
+        cleanoutput
 
         cd "$1"
         echo Building debug target $2 of project $1
@@ -162,8 +158,8 @@ iostestproject()
 
     if $testIOS; then
 
-
-        makeoutput
+        cleanoutput
+        cleanbuild
 
         cd "$1"
         echo Testing debug target $2 of project $1
