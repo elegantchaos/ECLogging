@@ -163,6 +163,7 @@
 	NSString* expected = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
 	if (expected)
 	{
+		#if !TARGET_OS_IPHONE
 		if (mode == ECAssertStringDiff)
 		{
 			if (![string isEqualToString:expected])
@@ -175,6 +176,7 @@
 			}
 		}
 		else
+		#endif
 		{
 			[self assertString:string matchesString:expected mode:mode];
 		}
@@ -329,6 +331,7 @@
 
 - (void)diffURL:(NSURL*)url1 againstURL:(NSURL*)url2
 {
+#if !TARGET_OS_IPHONE // this doesn't make a lot of sense on iOS
 	// To use a different diff tool, do, eg:
     //         defaults write otest DiffTool "/usr/local/bin/ksdiff"
 
@@ -342,6 +345,7 @@
 	[task setArguments: @[[url1 path], [url2 path]]];
 	[task launch];
 	[task release];
+#endif
 }
 
 @end
