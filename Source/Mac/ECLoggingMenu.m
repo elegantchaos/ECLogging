@@ -310,6 +310,8 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem*)item
 {
+	BOOL enabled = YES;
+	
     if ((item.action == @selector(channelSelected:))|| (item.action == @selector(channelMenuSelected:)))
     {
         ECLogChannel* channel = item.representedObject;
@@ -339,14 +341,18 @@
         BOOL currentlyEnabled = [mLogManager.defaultHandlers containsObject:handler];
         item.state = currentlyEnabled ? NSOnState : NSOffState;
     }
-    
-    return YES;
+
+	else if (item.action == @selector(revealLogFiles))
+	{
+		NSURL* url = [self logFolder];
+		NSFileManager* fm = [NSFileManager defaultManager];
+		enabled = [fm fileExistsAtPath:[url path]];
+	}
+	
+    return enabled;
 }
 
-// --------------------------------------------------------------------------
-// --------------------------------------------------------------------------
-
-- (void)revealLogFiles
+- (NSURL*)logFolder
 {
 	NSError* error = nil;
     NSFileManager* fm = [NSFileManager defaultManager];
@@ -354,7 +360,15 @@
     NSURL* logsFolder = [libraryFolder URLByAppendingPathComponent:@"Logs"];
     NSURL* logFolder = [logsFolder URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
 
-    [[NSWorkspace sharedWorkspace] selectFile:[logFolder path] inFileViewerRootedAtPath:nil];
+	return logFolder;
+}
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+
+- (void)revealLogFiles
+{
+    [[NSWorkspace sharedWorkspace] selectFile:[[self logFolder] path] inFileViewerRootedAtPath:nil];
 }
 
 - (void)revealSettings
