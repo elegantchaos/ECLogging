@@ -10,7 +10,7 @@ sign()
     CURRENT=`codesign --verbose=2 -d "${FILE}" 2>&1`
     if [ $? == 0 ]; then
 
-        #echo "current:$CURRENT"
+        echo "current:$CURRENT"
 
         # get current id
         PATTERN="Identifier=([a-zA-Z0-9.]*)"
@@ -83,6 +83,18 @@ if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks/" ]; then
 		fi
         sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
 	done
+fi
+
+if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices/" ]; then
+    echo "Signing XPCServices as: ${CODE_SIGN_IDENTITY}"
+    for f in "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices/"*
+    do
+        BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Resources/Info.plist" 2> /dev/null`
+        if [[ $? != 0 ]]; then
+            BUNDLEID="$APPID"
+        fi
+        sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
+    done
 fi
 
 echo ""
