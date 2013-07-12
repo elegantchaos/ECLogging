@@ -145,7 +145,7 @@ static NSString *const kSuffixToStrip = @"Channel";
 //! Return a cleaned up version of a raw channel name.
 // --------------------------------------------------------------------------
 
-+ (NSString*) cleanName:(const char *) name
++ (NSString*)cleanName:(const char *)name
 {
 	NSString* temp = @(name);
 
@@ -153,8 +153,9 @@ static NSString *const kSuffixToStrip = @"Channel";
 	{
 		temp = [temp substringToIndex: [temp length] - [kSuffixToStrip length]];
 	}
-	
-	return [temp stringBySplittingMixedCaps];
+
+	NSString* result = [temp stringBySplittingMixedCaps];
+	return result;
 }
 
 // --------------------------------------------------------------------------

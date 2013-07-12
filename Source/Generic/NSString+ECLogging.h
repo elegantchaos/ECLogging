@@ -12,6 +12,7 @@
 @interface NSString(ECLogging)
 
 - (NSString*)stringBySplittingMixedCaps;
+- (NSArray*)componentsSeparatedByMixedCaps;
 - (NSString*)lastLines:(NSUInteger)count;
 - (NSString*)firstLines:(NSUInteger)count;
 - (BOOL)matchesString:(NSString*)string divergingAfter:(NSString**)prefix atIndex:(NSUInteger*)index divergentChar:(UniChar*)divergentChar expectedChar:(UniChar*)expectedChar;

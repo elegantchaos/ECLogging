@@ -60,7 +60,7 @@ NSString *const ChannelsSetting = @"Channels";
 NSString *const DefaultSetting = @"Default";
 NSString *const VersionSetting = @"Version";
 
-static NSUInteger kSettingsVersion = 1;
+static NSUInteger kSettingsVersion = 2;
 
 typedef struct 
 {

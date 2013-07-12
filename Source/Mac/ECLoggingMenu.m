@@ -184,6 +184,11 @@
     [self addItem: revealLogFilesItem];
     [revealLogFilesItem release];
 
+	NSMenuItem* revealSettingsItem = [[NSMenuItem alloc] initWithTitle: @"Reveal Settings" action: @selector(revealSettings) keyEquivalent: @""];
+    revealSettingsItem.target = self;
+    [self addItem: revealSettingsItem];
+    [revealSettingsItem release];
+
     [self addItem:[NSMenuItem separatorItem]];
 
     NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Default Handlers" action:nil keyEquivalent: @""];
@@ -350,6 +355,17 @@
     NSURL* logFolder = [logsFolder URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
 
     [[NSWorkspace sharedWorkspace] selectFile:[logFolder path] inFileViewerRootedAtPath:nil];
+}
+
+- (void)revealSettings
+{
+	NSError* error = nil;
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSURL* libraryFolder = [fm URLForDirectory:NSLibraryDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
+    NSURL* preferencesFolder = [libraryFolder URLByAppendingPathComponent:@"Preferences"];
+    NSURL* preferencesFile = [[preferencesFolder URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] URLByAppendingPathExtension:@"plist"];
+
+    [[NSWorkspace sharedWorkspace] selectFile:[preferencesFile path] inFileViewerRootedAtPath:nil];
 }
 
 @end
