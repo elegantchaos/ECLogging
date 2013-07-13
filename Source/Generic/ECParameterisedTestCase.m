@@ -346,7 +346,7 @@ NSString *const SuiteExtension = @"testsuite";
     }
 	else
 	{
-		NSLog(@"couldn't build test data");
+		NSLog(@"couldn't build test data for %@", NSStringFromClass(self));
 	}
 
     return [result autorelease];
