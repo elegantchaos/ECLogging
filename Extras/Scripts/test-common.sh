@@ -29,9 +29,6 @@ obj="$build/obj"
 rm -rf "$build"
 mkdir -p "$build"
 
-testout="$build/out.log"
-testerr="$build/err.log"
-
 config="Debug"
 
 report()
@@ -54,15 +51,20 @@ cleanbuild()
 
 cleanoutput()
 {
-# make empty output files
-echo "" > "$testout"
-echo "" > "$testerr"
+    logdir="$build/logs/$2-$1"
+    mkdir -p "$logdir"
+    testout="$logdir/out.log"
+    testerr="$logdir/err.log"
+
+    # make empty output files
+    echo "" > "$testout"
+    echo "" > "$testerr"
 }
 
 commonbuild()
 {
     echo "Building $1 for $3 $2"
-    cleanoutput
+    cleanoutput "$1" "$3"
 
     # build it
     xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
@@ -130,7 +132,7 @@ iosbuildproject()
     if $testIOS; then
 
         cleanbuild
-        cleanoutput
+        cleanoutput "$1" "$2"
 
         cd "$1"
         echo Building debug target $2 of project $1
@@ -156,7 +158,7 @@ iostestproject()
 
     if $testIOS; then
 
-        cleanoutput
+        cleanoutput "$1" "$2"
         cleanbuild
 
         cd "$1"
