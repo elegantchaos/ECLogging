@@ -326,30 +326,38 @@ NSString *const SuiteExtension = @"testsuite";
 
 + (id) defaultTestSuite
 {
-    SenTestSuite* result = nil;
-    NSDictionary* data = [self parameterisedTestData];
-    if (data)
-    {
-        result = [[SenTestSuite alloc] initWithName:NSStringFromClass(self)];
-        unsigned int methodCount;
-        Method* methods = class_copyMethodList([self class], &methodCount);
-        for (NSUInteger n = 0; n < methodCount; ++n)
-        {
-            SEL selector = method_getName(methods[n]);
-            NSString* name = NSStringFromSelector(selector);
-            if ([name rangeOfString:@"parameterisedTest"].location == 0)
-            {
-                SenTestSuite* subSuite = [self suiteForSelector:selector name:name data:data];
-                [result addTest:subSuite];
-            }
-        }
-    }
-	else
+	SenTestSuite* result = nil;
+	if (self != [ECParameterisedTestCase class])
 	{
-		NSLog(@"couldn't build test data for %@", NSStringFromClass(self));
+		NSDictionary* data = [self parameterisedTestData];
+		if (data)
+		{
+			result = [[[SenTestSuite alloc] initWithName:NSStringFromClass(self)] autorelease];
+			unsigned int methodCount;
+			Method* methods = class_copyMethodList([self class], &methodCount);
+			for (NSUInteger n = 0; n < methodCount; ++n)
+			{
+				SEL selector = method_getName(methods[n]);
+				NSString* name = NSStringFromSelector(selector);
+				if ([name rangeOfString:@"parameterisedTest"].location == 0)
+				{
+					SenTestSuite* subSuite = [self suiteForSelector:selector name:name data:data];
+					[result addTest:subSuite];
+				}
+			}
+		}
+		else
+		{
+			NSLog(@"couldn't build test data for %@", NSStringFromClass(self));
+		}
 	}
 
-    return [result autorelease];
+	if (!result)
+	{
+		result = [super defaultTestSuite];
+	}
+
+    return result;
 }
 
 @end
