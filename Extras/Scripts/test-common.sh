@@ -76,7 +76,7 @@ commonbuild()
         # if it looks like the build failed, output everything to stdout
         echo "Build Failed"
         cat "$testout"
-        cat "$testerr" > /dev/stderr
+        cat "$testerr" >&2
         echo
         echo "** BUILD FAILURES **"
         echo "Build failed for scheme $1"
