@@ -93,6 +93,7 @@ XCRUN="$XCROOT/usr/bin/xcrun"
 if [[ $? == 0 ]] ; then
 
         CURLLOG="${TMP}/curl.log"
+        CURLERR="${TMP}/curlerr.log"
 
         echo "Uploading to Test Flight with notes:" >> "${LOG}"
         echo "\"${MESSAGE}\"" >> "${LOG}"
@@ -102,7 +103,7 @@ if [[ $? == 0 ]] ; then
 
         zip -q -r "${DSYM}.zip" "${DSYM}"
         rm "$CURLLOG"
-        curl http://testflightapp.com/api/builds.json --form file="@${IPA}" --form dsym="@${DSYM}.zip" --form api_token="${APITOKEN}" --form team_token="${TEAMTOKEN}" --form notes="${MESSAGE}" --form notify=True --form distribution_lists="${DISTRIBUTION}" -o "${CURLLOG}"
+        curl http://testflightapp.com/api/builds.json --form file="@${IPA}" --form dsym="@${DSYM}.zip" --form api_token="${APITOKEN}" --form team_token="${TEAMTOKEN}" --form notes="${MESSAGE}" --form notify=True --form distribution_lists="${DISTRIBUTION}" -o "${CURLLOG}" &> "${CURLERR}"
         CONFIG_URL=`"${SCRIPT_DIR}/testflight-extract-url.py" < "${CURLLOG}"`
 
         if [[ $? == 0 ]] ; then
@@ -121,6 +122,9 @@ if [[ $? == 0 ]] ; then
         else
             echo "Test Flight returned error:" > "${ERROR_LOG}"
             cat "${CURLLOG}" >> "${ERROR_LOG}"
+            echo "Curl errors:" >> "${ERROR_LOG}"
+            cat "${CURLERR}" >> "${ERROR_LOG}"
+
             open "${ERROR_LOG}"
 
         fi
