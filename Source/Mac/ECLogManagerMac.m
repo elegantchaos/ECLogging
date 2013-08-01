@@ -77,6 +77,27 @@ static ECLogManager* gSharedInstance = nil;
 }
 
 /// --------------------------------------------------------------------------
+/// Install a options menu for controlling debug options.
+/// --------------------------------------------------------------------------
+
+- (void)installOptionsMenu
+{
+	NSMenuItem* debugItem = [self debugMenuItem];
+	NSMenuItem* optionsItem = [debugItem.submenu itemWithTitle:@"Options"];
+	if (!optionsItem)
+	{
+		optionsItem = [[NSMenuItem alloc] initWithTitle:@"Options" action:nil keyEquivalent:@""];
+
+		ECOptionsMenu* menu = [[ECOptionsMenu alloc] initWithTitle:@"Options"];
+		optionsItem.submenu = menu;
+		[menu release];
+
+		[debugItem.submenu addItem:optionsItem];
+		[optionsItem release];
+	}
+}
+
+/// --------------------------------------------------------------------------
 /// Perform some extra Mac-only startup.
 /// --------------------------------------------------------------------------
 
@@ -88,6 +109,7 @@ static ECLogManager* gSharedInstance = nil;
 	{
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 			[self installLoggingMenu];
+			[self installOptionsMenu];
 		}];
 	}
 

@@ -54,6 +54,7 @@ static NSString *const LogSettingsFile = @"ECLogging";
 NSString *const ContextSetting = @"Context";
 NSString *const EnabledSetting = @"Enabled";
 NSString *const HandlersSetting = @"Handlers";
+NSString *const OptionsSetting = @"Options";
 NSString *const LevelSetting = @"Level";
 NSString *const LogManagerSettings = @"ECLogging";
 NSString *const ChannelsSetting = @"Channels";
@@ -481,6 +482,11 @@ const ContextFlagInfo kContextFlagInfo[] =
 
 	[allChannelSettings release];
 
+}
+
+- (NSDictionary*)optionsSettings
+{
+	return self.settings[OptionsSetting];
 }
 
 // --------------------------------------------------------------------------
