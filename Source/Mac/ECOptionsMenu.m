@@ -97,6 +97,7 @@
 			title = option;
 
 		NSMenuItem* item = [self addItemWithTitle:title action:@selector(optionSelected:) keyEquivalent:@""];
+		item.target = self;
 		item.representedObject = option;
 	};
 
@@ -113,12 +114,8 @@
 {
 	NSString* option = item.representedObject;
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	NSValue* value = [defaults valueForKey:option];
-	if (strncmp([value objCType], @encode(BOOL), sizeof(@encode(BOOL))) == 0) {
-		[defaults setBool:![(NSNumber*)value boolValue] forKey:option];
-	}
+	[defaults setBool:![defaults boolForKey:option] forKey:option];
 }
-
 
 // --------------------------------------------------------------------------
 //! Update the state of the menu items to reflect the current state of the
@@ -132,14 +129,12 @@
     {
 		NSString* option = item.representedObject;
 		NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-		NSValue* value = [defaults valueForKey:option];
-		if (strncmp([value objCType], @encode(BOOL), sizeof(@encode(BOOL))) == 0) {
-			item.state = [(NSNumber*)value boolValue] ? NSOnState : NSOffState;
-		}
+		item.state = [defaults boolForKey:option] ? NSOnState : NSOffState;
     }
 
 	return enabled;
 }
 
+// 		if (strncmp([value objCType], @encode(BOOL), sizeof(@encode(BOOL))) == 0) {
 
 @end
