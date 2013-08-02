@@ -28,6 +28,8 @@
 // Public Methods
 // --------------------------------------------------------------------------
 
+- (void)setupAsRootMenu;
+
 - (IBAction) optionSelected: (id) sender;
 
 @end

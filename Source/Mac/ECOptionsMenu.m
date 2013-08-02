@@ -28,31 +28,21 @@
 
 #pragma mark - Lifecycle
 
-// --------------------------------------------------------------------------
-//! Set up after creation from a nib.
-// --------------------------------------------------------------------------
+/**
+	Set up after creation from a nib.
+	Only the top menu wants to be set up - if we're a submenu, don't bother.
+ */
 
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
 
 #if EC_DEBUG
-	[self setup];
-#endif
-}
-
-// --------------------------------------------------------------------------
-//! Setup after creation from code.
-// --------------------------------------------------------------------------
-
-- (id)initWithTitle:(NSString*)title
-{
-	if ((self = [super initWithTitle: title]) != nil)
+	if (![self.supermenu isKindOfClass:[self class]])
 	{
-		[self setup];
+		[self setupAsRootMenu];
 	}
-
-	return self;
+#endif
 }
 
 // --------------------------------------------------------------------------
@@ -71,7 +61,7 @@
 //! Create the menu items.
 // --------------------------------------------------------------------------
 
-- (void)setup
+- (void)setupAsRootMenu
 {
 	ECLogManager* logManager = [ECLogManager sharedInstance];
 	self.options = [logManager optionsSettings];
@@ -88,10 +78,15 @@
 {
 #if EC_DEBUG
 	[self removeAllItemsEC];
+	[self buildMenuWithOptions:self.options];
+#endif
+}
 
-	for (NSString* option in self.options)
+- (void)buildMenuWithOptions:(NSDictionary*)options
+{
+	for (NSString* option in options)
 	{
-		NSDictionary* optionData = self.options[option];
+		NSDictionary* optionData = options[option];
 		NSString* title = optionData[@"title"];
 		if (!title)
 			title = option;
@@ -99,9 +94,17 @@
 		NSMenuItem* item = [self addItemWithTitle:title action:@selector(optionSelected:) keyEquivalent:@""];
 		item.target = self;
 		item.representedObject = option;
-	};
 
-#endif
+		NSDictionary* suboptions = optionData[@"suboptions"];
+		if (suboptions)
+		{
+			item.action = nil;
+			ECOptionsMenu* submenu = [[ECOptionsMenu alloc] initWithTitle:option];
+			[submenu buildMenuWithOptions:suboptions];
+			item.submenu = submenu;
+			[submenu release];
+		}
+	}
 }
 
 #pragma mark - Actions

@@ -89,6 +89,7 @@ static ECLogManager* gSharedInstance = nil;
 		optionsItem = [[NSMenuItem alloc] initWithTitle:@"Options" action:nil keyEquivalent:@""];
 
 		ECOptionsMenu* menu = [[ECOptionsMenu alloc] initWithTitle:@"Options"];
+		[menu setupAsRootMenu];
 		optionsItem.submenu = menu;
 		[menu release];
 
