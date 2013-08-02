@@ -59,6 +59,7 @@
 #define ECDefineDebugChannel ECDefineLogChannel
 #define ECDeclareDebugChannel ECDeclareLogChannel
 #define ECDebugChannelEnabled ECChannelEnabled
+#define ECDebugOption(key) ([[NSUserDefaults standardUserDefaults] boolForKey:key])
 
 #else
 
@@ -67,5 +68,6 @@
 #define ECDefineDebugChannel(...)
 #define ECDeclareDebugChannel(...)
 #define ECDebugChannelEnabled(channel) (false)
+#define ECDebugOption(key) NO
 
 #endif
