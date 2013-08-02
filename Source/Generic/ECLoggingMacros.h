@@ -50,6 +50,8 @@
 
 #define ECChannelEnabled(channel) channelEnabled(getChannel##channel())
 
+#define ECOptionEnabled(key) ([[NSUserDefaults standardUserDefaults] boolForKey:key])
+
 #pragma mark - Debug Only Macros
 
 #if EC_DEBUG
@@ -59,7 +61,7 @@
 #define ECDefineDebugChannel ECDefineLogChannel
 #define ECDeclareDebugChannel ECDeclareLogChannel
 #define ECDebugChannelEnabled ECChannelEnabled
-#define ECDebugOption(key) ([[NSUserDefaults standardUserDefaults] boolForKey:key])
+#define ECDebugOptionEnabled(key) ECOptionEnabled(key)
 
 #else
 
@@ -68,6 +70,6 @@
 #define ECDefineDebugChannel(...)
 #define ECDeclareDebugChannel(...)
 #define ECDebugChannelEnabled(channel) (false)
-#define ECDebugOption(key) NO
+#define ECDebugOptionEnabled(key) NO
 
 #endif
