@@ -107,33 +107,26 @@
 			NSError* error = nil;
 			NSURL* temp1 = [self URLForTemporaryFileNamed:@"collection1"];
 			NSURL* temp2 = [self URLForTemporaryFileNamed:@"collection2"];
-			NSData* data1 = nil;
-			NSData* data2 = nil;
 
 			@try {
 				// try to write as JSON - might not work but it'll produce nicer output
-				data1 = [NSJSONSerialization dataWithJSONObject:collection1 options:NSJSONWritingPrettyPrinted error:&error];
-				data2 = [NSJSONSerialization dataWithJSONObject:collection2 options:NSJSONWritingPrettyPrinted error:&error];
+				NSData* data1 = [NSJSONSerialization dataWithJSONObject:collection1 options:NSJSONWritingPrettyPrinted error:&error];
+				NSData* data2 = [NSJSONSerialization dataWithJSONObject:collection2 options:NSJSONWritingPrettyPrinted error:&error];
+				[data1 writeToURL:temp1 atomically:YES];
+				[data2 writeToURL:temp2 atomically:YES];
+				[self diffURL:temp1 againstURL:temp2];
 			}
 
 			@catch (NSException *exception) {
-				// if that fails, try as a plist
-				data1 = [NSMutableData data];
-				NSKeyedArchiver* archiver1 = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:(NSMutableData*)data1] autorelease];
-				[archiver1 setOutputFormat:NSPropertyListXMLFormat_v1_0];
-				[archiver1 encodeObject:collection1 forKey:@"root"];
-				[archiver1 finishEncoding];
-
-				data2 = [NSMutableData data];
-				NSKeyedArchiver* archiver2 = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:(NSMutableData*)data2] autorelease];
-				[archiver2 setOutputFormat:NSPropertyListXMLFormat_v1_0];
-				[archiver2 encodeObject:collection2 forKey:@"root"];
-				[archiver2 finishEncoding];
+				// if that fails, try as text
+				NSString* string1 = [collection1 description];
+				NSString* string2 = [collection2 description];
+				[string1 writeToURL:temp1 atomically:YES encoding:NSUTF8StringEncoding error:&error];
+				[string2 writeToURL:temp2 atomically:YES encoding:NSUTF8StringEncoding error:&error];
+				[self diffURL:temp1 againstURL:temp2];
 			}
 
-			[data1 writeToURL:temp1 atomically:YES];
-			[data2 writeToURL:temp2 atomically:YES];
-			[self diffURL:temp1 againstURL:temp2];
+			STFail(@"collections failed to match");
 		}
 	}
 	else
@@ -368,6 +361,28 @@
     self.exitRunLoop = YES;
 }
 
+- (void)diffAsPlistObject:(id)object1 againstObject:(id)object2
+{
+	NSURL* temp1 = [self URLForTemporaryFileNamed:@"object1"];
+	NSURL* temp2 = [self URLForTemporaryFileNamed:@"object2"];
+
+	NSMutableData* data1 = [NSMutableData data];
+	NSKeyedArchiver* archiver1 = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:data1] autorelease];
+	[archiver1 setOutputFormat:NSPropertyListXMLFormat_v1_0];
+	[archiver1 encodeObject:object1 forKey:@"root"];
+	[archiver1 finishEncoding];
+
+	NSMutableData* data2 = [NSMutableData data];
+	NSKeyedArchiver* archiver2 = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:data2] autorelease];
+	[archiver2 setOutputFormat:NSPropertyListXMLFormat_v1_0];
+	[archiver2 encodeObject:object2 forKey:@"root"];
+	[archiver2 finishEncoding];
+
+	[data1 writeToURL:temp1 atomically:YES];
+	[data2 writeToURL:temp2 atomically:YES];
+	[self diffURL:temp1 againstURL:temp2];
+
+}
 - (void)diffURL:(NSURL*)url1 againstURL:(NSURL*)url2
 {
 #if !TARGET_OS_IPHONE // this doesn't make a lot of sense on iOS
