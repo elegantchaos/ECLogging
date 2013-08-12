@@ -115,7 +115,7 @@
 				data1 = [NSJSONSerialization dataWithJSONObject:collection1 options:NSJSONWritingPrettyPrinted error:&error];
 				data2 = [NSJSONSerialization dataWithJSONObject:collection2 options:NSJSONWritingPrettyPrinted error:&error];
 			}
-			
+
 			@catch (NSException *exception) {
 				// if that fails, try as a plist
 				data1 = [NSMutableData data];
