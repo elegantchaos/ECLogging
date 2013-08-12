@@ -100,9 +100,13 @@
 
 - (void)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode
 {
+	// NB we actually convert the collections to strings and compare them - so [collection1 isEqual:collection2] may
+	//       return NO, but as long as the string descriptions match, we don't assert
+	NSString* string1 = [collection1 description];
+	NSString* string2 = [collection2 description];
 	if (mode == ECAssertStringDiff)
 	{
-		if (![collection1 isEqual:collection2])
+		if (![string1 isEqual:string2])
 		{
 			NSError* error = nil;
 			NSURL* temp1 = [self URLForTemporaryFileNamed:@"collection1"];
@@ -119,8 +123,6 @@
 
 			@catch (NSException *exception) {
 				// if that fails, try as text
-				NSString* string1 = [collection1 description];
-				NSString* string2 = [collection2 description];
 				[string1 writeToURL:temp1 atomically:YES encoding:NSUTF8StringEncoding error:&error];
 				[string2 writeToURL:temp2 atomically:YES encoding:NSUTF8StringEncoding error:&error];
 				[self diffURL:temp1 againstURL:temp2];
@@ -131,7 +133,7 @@
 	}
 	else
 	{
-		[self assertString:[collection1 description] matchesString:[collection2 description] mode:mode];
+		[self assertString:string1 matchesString:string2 mode:mode];
 	}
 }
 
