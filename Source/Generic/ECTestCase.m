@@ -100,7 +100,46 @@
 
 - (void)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode
 {
-	[self assertString:[collection1 description] matchesString:[collection2 description] mode:mode];
+	if (mode == ECAssertStringDiff)
+	{
+		if (![collection1 isEqual:collection2])
+		{
+			NSError* error = nil;
+			NSURL* temp1 = [self URLForTemporaryFileNamed:@"collection1"];
+			NSURL* temp2 = [self URLForTemporaryFileNamed:@"collection2"];
+			NSData* data1 = nil;
+			NSData* data2 = nil;
+
+			@try {
+				// try to write as JSON - might not work but it'll produce nicer output
+				data1 = [NSJSONSerialization dataWithJSONObject:collection1 options:NSJSONWritingPrettyPrinted error:&error];
+				data2 = [NSJSONSerialization dataWithJSONObject:collection2 options:NSJSONWritingPrettyPrinted error:&error];
+			}
+			
+			@catch (NSException *exception) {
+				// if that fails, try as a plist
+				data1 = [NSMutableData data];
+				NSKeyedArchiver* archiver1 = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:(NSMutableData*)data1] autorelease];
+				[archiver1 setOutputFormat:NSPropertyListXMLFormat_v1_0];
+				[archiver1 encodeObject:collection1 forKey:@"root"];
+				[archiver1 finishEncoding];
+
+				data2 = [NSMutableData data];
+				NSKeyedArchiver* archiver2 = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:(NSMutableData*)data2] autorelease];
+				[archiver2 setOutputFormat:NSPropertyListXMLFormat_v1_0];
+				[archiver2 encodeObject:collection2 forKey:@"root"];
+				[archiver2 finishEncoding];
+			}
+
+			[data1 writeToURL:temp1 atomically:YES];
+			[data2 writeToURL:temp2 atomically:YES];
+			[self diffURL:temp1 againstURL:temp2];
+		}
+	}
+	else
+	{
+		[self assertString:[collection1 description] matchesString:[collection2 description] mode:mode];
+	}
 }
 
 - (void)assertLinesIgnoringWhitespaceOfString:(NSString *)string1 matchesString:(NSString *)string2
