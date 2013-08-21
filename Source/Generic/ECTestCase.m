@@ -178,10 +178,15 @@
 	NSString* kind = [url pathExtension];
 	if ([kind isEqualToString:@"json"])
 	{
-		NSData* data = [NSJSONSerialization dataWithJSONObject:collection options:NSJSONWritingPrettyPrinted error:&error];
-		NSString* string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-		ECTestAssertNotNil(string);
-		[self assertString:string matchesContentsOfURL:url mode:mode];
+		id expected = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:url] options:0 error:&error];
+		if (![collection isEqualTo:expected])
+		{
+			NSData* data = [NSJSONSerialization dataWithJSONObject:collection options:NSJSONWritingPrettyPrinted error:&error];
+
+			NSString* string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+			ECTestAssertNotNil(string);
+			[self assertString:string matchesContentsOfURL:url mode:mode];
+		}
 	}
 	else if ([kind isEqualToString:@"plist"])
 	{
