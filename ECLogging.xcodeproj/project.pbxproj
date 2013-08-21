@@ -135,6 +135,12 @@
 		2277CE5916D6B9A400835964 /* ECLoggingShared.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingShared.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		2277CE5A16D6B9A500835964 /* ECLoggingShared.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLoggingShared.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		2277CE5B16D6B9BB00835964 /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		227C029E17C4D3340011ABB5 /* ECDescriptionDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 227C029C17C4D3340011ABB5 /* ECDescriptionDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		227C029F17C4D3340011ABB5 /* ECDescriptionDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 227C029C17C4D3340011ABB5 /* ECDescriptionDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		227C02A017C4D3340011ABB5 /* ECDescriptionDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 227C029C17C4D3340011ABB5 /* ECDescriptionDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		227C02A117C4D3340011ABB5 /* ECDescriptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */; };
+		227C02A217C4D3340011ABB5 /* ECDescriptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */; };
+		227C02A317C4D3340011ABB5 /* ECDescriptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */; };
 		228CF1EA17562478003E1D25 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3BB14F52E93009142F7 /* Cocoa.framework */; };
 		228CF1F4175624F2003E1D25 /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		228CF1F5175624FB003E1D25 /* ECASLClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43B14F53BCC009142F7 /* ECASLClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -334,6 +340,8 @@
 		2277CE4616D6B2B900835964 /* ECTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTestCase.h; sourceTree = "<group>"; };
 		2277CE4716D6B2B900835964 /* ECTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTestCase.m; sourceTree = "<group>"; };
 		2277CE4816D6B2B900835964 /* ECUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECUnitTests.h; sourceTree = "<group>"; };
+		227C029C17C4D3340011ABB5 /* ECDescriptionDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDescriptionDictionary.h; sourceTree = "<group>"; };
+		227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDescriptionDictionary.m; sourceTree = "<group>"; };
 		2283A3BB14F52E93009142F7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2283A3CD14F52E93009142F7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		2283A43B14F53BCC009142F7 /* ECASLClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECASLClient.h; sourceTree = "<group>"; };
@@ -659,6 +667,8 @@
 		2277CE4F16D6B2C000835964 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				227C029C17C4D3340011ABB5 /* ECDescriptionDictionary.h */,
+				227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */,
 				2277CE4416D6B2B900835964 /* ECParameterisedTestCase.h */,
 				2277CE4516D6B2B900835964 /* ECParameterisedTestCase.m */,
 				2277CE4616D6B2B900835964 /* ECTestCase.h */,
@@ -797,6 +807,7 @@
 				2251BA2A15DBCC6C00F2FE40 /* ECLoggingGeneric.h in Headers */,
 				2251BA2C15DBCC6C00F2FE40 /* ECLogHandler.h in Headers */,
 				2251BA2E15DBCC6C00F2FE40 /* ECLogManager.h in Headers */,
+				227C029E17C4D3340011ABB5 /* ECDescriptionDictionary.h in Headers */,
 				2251BA3015DBCC6C00F2FE40 /* NSString+ECLogging.h in Headers */,
 				2251BA3215DBCC7300F2FE40 /* ECLogHandlerASL.h in Headers */,
 				2251BA3415DBCC7300F2FE40 /* ECLogHandlerFile.h in Headers */,
@@ -849,6 +860,7 @@
 				2204C6BC15E160DA00F71E15 /* ECLogging.h in Headers */,
 				22F2FEF4164142A600CD3C7C /* ECLogManagerIOS.h in Headers */,
 				229EDCEB16442DB00087B26E /* ECDebugHandlersViewController.h in Headers */,
+				227C02A017C4D3340011ABB5 /* ECDescriptionDictionary.h in Headers */,
 				2277CE5616D6B99700835964 /* ECLoggingDebug.pch in Headers */,
 				2277CE5816D6B99E00835964 /* ECLoggingRelease.pch in Headers */,
 				2277CE5A16D6B9A500835964 /* ECLoggingShared.pch in Headers */,
@@ -870,6 +882,7 @@
 				228CF1FF175624FB003E1D25 /* ECLogContext.h in Headers */,
 				228CF200175624FB003E1D25 /* ECLoggingGeneric.h in Headers */,
 				224E84D917AAC824002EB661 /* ECOptionsMenu.h in Headers */,
+				227C029F17C4D3340011ABB5 /* ECDescriptionDictionary.h in Headers */,
 				228CF202175624FB003E1D25 /* ECLoggingMacros.h in Headers */,
 				228CF203175624FB003E1D25 /* ECLogHandler.h in Headers */,
 				228CF205175624FB003E1D25 /* ECLogManager.h in Headers */,
@@ -1266,6 +1279,7 @@
 				2251BA2015DBCC6C00F2FE40 /* ECASLClient.m in Sources */,
 				2251BA2215DBCC6C00F2FE40 /* ECAssertion.m in Sources */,
 				2251BA2415DBCC6C00F2FE40 /* ECErrorAndMessage.m in Sources */,
+				227C02A117C4D3340011ABB5 /* ECDescriptionDictionary.m in Sources */,
 				2251BA2615DBCC6C00F2FE40 /* ECErrorReporter.m in Sources */,
 				2251BA2815DBCC6C00F2FE40 /* ECLogChannel.m in Sources */,
 				2251BA2B15DBCC6C00F2FE40 /* ECLogging.m in Sources */,
@@ -1306,6 +1320,7 @@
 				2251BA9715DBDC3600F2FE40 /* ECLogHandlerStdout.m in Sources */,
 				2251BA9915DBDC3F00F2FE40 /* ECDebugChannelsViewController.m in Sources */,
 				2251BA9B15DBDC3F00F2FE40 /* ECDebugChannelViewController.m in Sources */,
+				227C02A317C4D3340011ABB5 /* ECDescriptionDictionary.m in Sources */,
 				2251BA9D15DBDC3F00F2FE40 /* ECLoggingSettingsViewController.m in Sources */,
 				2251BA9F15DBDC3F00F2FE40 /* ECDebugViewPopoverController.m in Sources */,
 				2251BAA115DBDC3F00F2FE40 /* ECLogViewController.m in Sources */,
@@ -1341,6 +1356,7 @@
 				228CF1F6175624FB003E1D25 /* ECASLClient.m in Sources */,
 				228CF1F8175624FB003E1D25 /* ECAssertion.m in Sources */,
 				228CF1FA175624FB003E1D25 /* ECErrorAndMessage.m in Sources */,
+				227C02A217C4D3340011ABB5 /* ECDescriptionDictionary.m in Sources */,
 				228CF1FC175624FB003E1D25 /* ECErrorReporter.m in Sources */,
 				228CF1FE175624FB003E1D25 /* ECLogChannel.m in Sources */,
 				228CF201175624FB003E1D25 /* ECLogging.m in Sources */,

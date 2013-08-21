@@ -187,7 +187,7 @@
 	{
 		NSData* data = [NSData dataWithContentsOfURL:url];
 		id expected = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:&error];
-		[self assertCollection:collection matchesCollection:expected];
+		[self assertCollection:collection matchesCollection:expected mode:mode];
 	}
 }
 
