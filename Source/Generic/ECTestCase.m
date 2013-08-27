@@ -102,11 +102,15 @@
 {
 	// NB we actually convert the collections to strings and compare them - so [collection1 isEqual:collection2] may
 	//       return NO, but as long as the string descriptions match, we don't assert
+	BOOL collectionsMatch = [collection1 isEqualTo:collection2];
 	NSString* string1 = [collection1 description];
 	NSString* string2 = [collection2 description];
-	if (mode == ECAssertStringDiff)
+	if (!collectionsMatch)
+		collectionsMatch = [string1 isEqualToString:string2];
+
+	if (!collectionsMatch)
 	{
-		if (![string1 isEqual:string2])
+		if (mode == ECAssertStringDiff)
 		{
 			NSError* error = nil;
 			NSURL* temp1 = [self URLForTemporaryFileNamed:@"collection1"];
@@ -130,10 +134,10 @@
 
 			STFail(@"collections failed to match");
 		}
-	}
-	else
-	{
-		[self assertString:string1 matchesString:string2 mode:mode];
+		else
+		{
+			[self assertString:string1 matchesString:string2 mode:mode];
+		}
 	}
 }
 
@@ -144,7 +148,9 @@
 	NSUInteger line1, line2;
     if (![string1 matchesString:string2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected])
 	{
-		STFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", line1, line2, expected, diverged, string1);
+		STFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\n", line1, line2, expected, diverged);
+		if ([string1 length] < 1000)
+			NSLog(@"full string was %@", string1);
 	}
 }
 
