@@ -100,13 +100,18 @@
 
 - (void)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode
 {
-	// NB we actually convert the collections to strings and compare them - so [collection1 isEqual:collection2] may
+	// NB if the collections dont match, we convert them to strings and try again - so [collection1 isEqual:collection2] may
 	//       return NO, but as long as the string descriptions match, we don't assert
 	BOOL collectionsMatch = [collection1 isEqualTo:collection2];
-	NSString* string1 = [collection1 description];
-	NSString* string2 = [collection2 description];
+	NSString* string1;
+	NSString* string2;
 	if (!collectionsMatch)
+	{
+		string1 = [collection1 description];
+		string2 = [collection2 description];
 		collectionsMatch = [string1 isEqualToString:string2];
+	}
+
 
 	if (!collectionsMatch)
 	{
