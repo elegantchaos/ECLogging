@@ -9,4 +9,5 @@
 #import "ECDebugMenu.h"
 #import "ECErrorPresenterHandler.h"
 #import "ECLoggingMenu.h"
+#import "ECOptionsMenu.h"
 #import "NSMenu+ECLogging.h"

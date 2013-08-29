@@ -68,6 +68,8 @@
 - (BOOL)handlerIsDefault:(ECLogHandler*)handler;
 - (void)handler:(ECLogHandler*)handler setDefault:(BOOL)value;
 
+- (NSDictionary*)optionsSettings;
+
 @end
 
 @interface ECLogManager(PlatformSpecific)

@@ -514,7 +514,7 @@ Some of these aren't really intended for public use, but they're all documented 
                 cd "$PROJECT_DIR";
                 $GIT tag -f testflight-upload
     
-                # clean up if the upload worked
+                # clean up if the upload worked
                 rm "${DSYM}.zip"
                 rm "${IPA}"
     
