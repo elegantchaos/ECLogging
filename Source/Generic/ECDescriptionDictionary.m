@@ -36,7 +36,7 @@
 {
 	NSMutableDictionary* result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
 	for (NSString* key in self)
-		[result setObject:[self[key] descriptionDictionary] forKey:key];
+		result[key] = [self[key] descriptionDictionary];
 
 	return result;
 }
