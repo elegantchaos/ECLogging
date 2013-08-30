@@ -57,17 +57,6 @@ NSString *const kSectionFooters[] = { @"Enabled channels produce output. Disable
 }
 
 // --------------------------------------------------------------------------
-//! Clean up.
-// --------------------------------------------------------------------------
-
-- (void)dealloc
-{
-    [channel release];
-    
-    [super dealloc];
-}
-
-// --------------------------------------------------------------------------
 //! Support any orientation.
 // --------------------------------------------------------------------------
 
@@ -140,7 +129,6 @@ NSString *const kSectionFooters[] = { @"Enabled channels produce output. Disable
 	if (cell == nil)
 	{
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ChannelViewCell"];
-        [cell autorelease];
 	}
 
 	NSString* label;

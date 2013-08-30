@@ -28,23 +28,6 @@ static NSString *const DebugChannelsViewCell = @"DebugChannelsViewCell";
 ECDefineDebugChannel(DebugChannelsViewChannel);
 
 // --------------------------------------------------------------------------
-// Properties
-// --------------------------------------------------------------------------
-
-// --------------------------------------------------------------------------
-//! Clean up.
-// --------------------------------------------------------------------------
-
-- (void)dealloc
-{
-    [_channels release];
-    [_debugViewController release];
-	[_font release];
-    
-    [super dealloc];
-}
-
-// --------------------------------------------------------------------------
 //! Finish setting up the view.
 // --------------------------------------------------------------------------
 
@@ -120,7 +103,6 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 	if (cell == nil)
 	{
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:DebugChannelsViewCell];
-        [cell autorelease];
 	}
 	
     cell.textLabel.text = channel.name;
@@ -157,7 +139,6 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
     controller.title = channel.name;
     controller.channel = channel;
     [self.debugViewController pushViewController:controller];
-    [controller release];
 }
 
 @end

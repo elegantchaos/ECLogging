@@ -34,18 +34,6 @@ ECDefineDebugChannel(DebugHandlersViewChannel);
 @synthesize debugViewController = _debugViewController;
 
 // --------------------------------------------------------------------------
-//! Clean up.
-// --------------------------------------------------------------------------
-
-- (void)dealloc
-{
-    [_handlers release];
-    [_debugViewController release];
-    
-    [super dealloc];
-}
-
-// --------------------------------------------------------------------------
 //! Finish setting up the view.
 // --------------------------------------------------------------------------
 
@@ -116,7 +104,7 @@ ECDefineDebugChannel(DebugHandlersViewChannel);
 	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:DebugHandlersViewCell];
 	if (cell == nil)
 	{
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:DebugHandlersViewCell] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:DebugHandlersViewCell];
 	}
 	
     cell.textLabel.text = handler.name;

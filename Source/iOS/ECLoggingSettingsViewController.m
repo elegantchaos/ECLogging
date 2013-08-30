@@ -47,7 +47,7 @@ typedef enum
 
 typedef struct 
 {
-    NSString *const                 name;
+    NSString *const __unsafe_unretained name;
     UITableViewCellAccessoryType    accessory;
     Command                         command;
 } Item;
@@ -72,13 +72,6 @@ Item kItems[] =
     return self;
 }
 
-- (void)dealloc 
-{
-    [navController release];
-    
-    [super dealloc];
-}
-
 // --------------------------------------------------------------------------
 //! Finish setting up the view.
 // --------------------------------------------------------------------------
@@ -99,7 +92,6 @@ Item kItems[] =
     ECDebugChannelsViewController* controller = [[ECDebugChannelsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     controller.debugViewController = self;
     [self pushViewController:controller];
-    [controller release];
 }
 
 // --------------------------------------------------------------------------
@@ -111,7 +103,6 @@ Item kItems[] =
     ECDebugHandlersViewController* controller = [[ECDebugHandlersViewController alloc] initWithStyle:UITableViewStyleGrouped];
     controller.debugViewController = self;
     [self pushViewController:controller];
-    [controller release];
 }
 
 // --------------------------------------------------------------------------
@@ -169,7 +160,6 @@ Item kItems[] =
 	if (cell == nil)
 	{
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DebugViewCell"];
-        [cell autorelease];
 	}
 	
     Item* item = &kItems[indexPath.row];

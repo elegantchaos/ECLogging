@@ -48,7 +48,6 @@ const NSInteger ECLoggingUnknownError = -1;
 	NSString* title = @"Error";
 	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
-	[alert release];
 }
 
 // --------------------------------------------------------------------------

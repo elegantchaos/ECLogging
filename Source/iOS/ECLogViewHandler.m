@@ -30,13 +30,6 @@ NSString *const LogItemsUpdated = @"LogItemsUpdated";
     return self;
 }
 
-- (void)dealloc 
-{
-    [_items release];
-    
-    [super dealloc];
-}
-
 // --------------------------------------------------------------------------
 //! Log.
 // --------------------------------------------------------------------------
@@ -53,7 +46,7 @@ NSString *const LogItemsUpdated = @"LogItemsUpdated";
     ECLogViewHandlerItem* item = [[ECLogViewHandlerItem alloc] init];
 	if ([object isKindOfClass:[NSString class]])
 	{
-		item.message = [[[NSString alloc] initWithFormat:object arguments:arguments] autorelease];
+		item.message = [[NSString alloc] initWithFormat:object arguments:arguments];
 	}
 	else
 	{
@@ -63,7 +56,6 @@ NSString *const LogItemsUpdated = @"LogItemsUpdated";
     item.context = [channel stringFromContext:context];
     
     [itemList addObject:item];
-    [item release];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:LogItemsUpdated object:self.items];
 }

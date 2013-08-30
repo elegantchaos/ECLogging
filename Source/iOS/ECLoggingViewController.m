@@ -20,16 +20,6 @@
 
 ECDefineDebugChannel(ECLoggingViewControllerChannel);
 
-#pragma mark - Properties
-
-- (void)dealloc 
-{
-	[_oLogController release];
-	[_oSettingsController release];
-
-    [super dealloc];
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -59,7 +49,6 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 	self.title = @"ECLogging";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneModal)];
 	[controller presentModalViewController:navigation animated:YES];
-	[navigation release];
 }
 
 - (void)doneModal

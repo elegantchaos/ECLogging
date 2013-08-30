@@ -64,7 +64,6 @@ static ECLogManager* gSharedInstance = nil;
 	UILongPressGestureRecognizer* recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showUI)];
 	recognizer.numberOfTouchesRequired = 2;
 	[window addGestureRecognizer:recognizer];
-	[recognizer release];
 }
 
 - (void)showUI
@@ -75,7 +74,6 @@ static ECLogManager* gSharedInstance = nil;
 			NSBundle* bundle = [NSBundle bundleWithURL:url];
 			ECLoggingViewController* controller = [[ECLoggingViewController alloc] initWithNibName:@"ECLoggingViewController" bundle:bundle];
 			self.viewController = controller;
-			[controller release];
 		}
 
 	if (!self.viewController.parentViewController)

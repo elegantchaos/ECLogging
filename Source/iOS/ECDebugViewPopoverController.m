@@ -18,13 +18,6 @@
 
 @synthesize navController;
 
-- (void)dealloc
-{
-    [navController release];
-    
-    [super dealloc];
-}
-
 - (void)loadView
 {
     CGRect frame = CGRectMake(0, 0, 600, 800);
@@ -37,11 +30,8 @@
     dc.view.frame = frame;
     nc.view.frame = frame;
     [root addSubview:nc.view];
-    [nc release];
-    [dc release];
-    
+
     self.view = root;
-    [root release];
 }
 
 @end
