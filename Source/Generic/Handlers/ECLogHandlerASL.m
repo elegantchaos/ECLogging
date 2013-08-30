@@ -48,10 +48,7 @@
     {
         asl_free([msg pointerValue]);
     }
-    [aslMsgs release];
     asl_close(self.aslClient);
-    
-    [super dealloc];
 }
 
 #pragma mark - Logging

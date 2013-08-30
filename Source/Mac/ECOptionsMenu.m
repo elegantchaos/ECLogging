@@ -52,8 +52,6 @@
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
-	[super dealloc];
 }
 
 
@@ -102,7 +100,6 @@
 			ECOptionsMenu* submenu = [[ECOptionsMenu alloc] initWithTitle:option];
 			[submenu buildMenuWithOptions:suboptions];
 			item.submenu = submenu;
-			[submenu release];
 		}
 	}
 }

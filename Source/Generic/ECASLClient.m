@@ -71,8 +71,6 @@ static ECASLClient* gSharedInstance = nil;
     {
         gSharedInstance = nil;
     }
-    
-    [super dealloc];
 }
 
 // --------------------------------------------------------------------------
@@ -83,7 +81,6 @@ static ECASLClient* gSharedInstance = nil;
 {
     NSString* text = [[NSString alloc] initWithFormat:format arguments:args];
     asl_log(self.client, self.msg, level, "%s", [text UTF8String]);
-    [text release];
 }
 
 

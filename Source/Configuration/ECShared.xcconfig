@@ -15,6 +15,7 @@ GCC_C_LANGUAGE_STANDARD = gnu99
 // Objective C stuff
 // --------------------------------------------------------------------------
 
+CLANG_ENABLE_OBJC_ARC = YES
 GCC_ENABLE_OBJC_EXCEPTIONS = YES
 
 // --------------------------------------------------------------------------

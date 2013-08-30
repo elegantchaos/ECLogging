@@ -66,7 +66,7 @@ static NSUInteger kSettingsVersion = 2;
 typedef struct 
 {
     ECLogContextFlags flag;
-    NSString* name;
+    NSString* __unsafe_unretained name;
 } ContextFlagInfo;
 
 const ContextFlagInfo kContextFlagInfo[] = 
@@ -113,7 +113,7 @@ const ContextFlagInfo kContextFlagInfo[] =
     ECLogChannel* channel = self.channels[name];
     if (!channel)
     {
-        channel = [[[ECLogChannel alloc] initWithName: name] autorelease];
+        channel = [[ECLogChannel alloc] initWithName: name];
         channel.enabled = NO;
     }
 
@@ -216,7 +216,6 @@ const ContextFlagInfo kContextFlagInfo[] =
 		ECLogHandler* handler = [[ECLogHandlerNSLog alloc] init];
 		self.handlers[handler.name] = handler;
 		[self.defaultHandlers addObject:handler];
-		[handler release];
 	}
 	else
 	{
@@ -241,7 +240,6 @@ const ContextFlagInfo kContextFlagInfo[] =
 			{
 				NSLog(@"unknown log handler class %@", handlerName);
 			}
-			[handler release];
 		}
 	}
 
@@ -268,16 +266,6 @@ const ContextFlagInfo kContextFlagInfo[] =
 //! Cleanup and release retained objects.
 // --------------------------------------------------------------------------
 
-- (void)dealloc
-{
-	[_channels release];
-	[_defaultHandlers release];
-	[_handlers release];
-	[_handlersSorted release];
-	[_settings release];
-
-	[super dealloc];
-}
 
 // --------------------------------------------------------------------------
 //! Start up the log manager, read settings, etc.
@@ -289,7 +277,6 @@ const ContextFlagInfo kContextFlagInfo[] =
 
 	NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
 	self.channels = dictionary;
-	[dictionary release];
 	self.defaultContextFlags = ECLogContextName | ECLogContextMessage;
 
 	[self loadSettings];
@@ -480,7 +467,6 @@ const ContextFlagInfo kContextFlagInfo[] =
     [defaults setObject:allSettings forKey:LogManagerSettings];
     [defaults synchronize];
 
-	[allChannelSettings release];
 
 }
 

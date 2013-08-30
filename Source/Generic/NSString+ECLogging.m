@@ -33,8 +33,7 @@
 	{
 		[result addObject:word];
 	}
-	[word release];
-	
+
 	return result;
 }
 
@@ -56,7 +55,7 @@
 		wasLower = isLower;
 	}
 	
-	return [result autorelease];
+	return result;
 }
 
 - (NSString*)lastLines:(NSUInteger)count

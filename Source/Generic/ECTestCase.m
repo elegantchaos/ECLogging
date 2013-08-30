@@ -386,13 +386,13 @@
 	NSURL* temp2 = [self URLForTemporaryFileNamed:@"object2"];
 
 	NSMutableData* data1 = [NSMutableData data];
-	NSKeyedArchiver* archiver1 = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:data1] autorelease];
+	NSKeyedArchiver* archiver1 = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data1];
 	[archiver1 setOutputFormat:NSPropertyListXMLFormat_v1_0];
 	[archiver1 encodeObject:object1 forKey:@"root"];
 	[archiver1 finishEncoding];
 
 	NSMutableData* data2 = [NSMutableData data];
-	NSKeyedArchiver* archiver2 = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:data2] autorelease];
+	NSKeyedArchiver* archiver2 = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data2];
 	[archiver2 setOutputFormat:NSPropertyListXMLFormat_v1_0];
 	[archiver2 encodeObject:object2 forKey:@"root"];
 	[archiver2 finishEncoding];
@@ -417,7 +417,6 @@
 	[task setLaunchPath: diff];
 	[task setArguments: @[[url1 path], [url2 path]]];
 	[task launch];
-	[task release];
 #endif
 }
 

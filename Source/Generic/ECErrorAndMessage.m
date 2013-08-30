@@ -11,14 +11,6 @@
 @synthesize message = _message;
 @synthesize error = _error;
 
-- (void)dealloc
-{
-	[_error release];
-	[_message release];
-	
-	[super dealloc];
-}
-
 - (NSString*)description
 {
 	NSString* result;

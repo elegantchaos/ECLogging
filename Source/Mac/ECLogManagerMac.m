@@ -46,10 +46,8 @@ static ECLogManager* gSharedInstance = nil;
 
 		ECDebugMenu* menu = [[ECDebugMenu alloc] initWithTitle:@"Debug"];
 		item.submenu = menu;
-		[menu release];
 
 		[menubar addItem:item];
-		[item release];
 	}
 
 	return result;
@@ -69,10 +67,8 @@ static ECLogManager* gSharedInstance = nil;
 
 		ECLoggingMenu* menu = [[ECLoggingMenu alloc] initWithTitle:@"Logging"];
 		loggingItem.submenu = menu;
-		[menu release];
 
 		[debugItem.submenu addItem:loggingItem];
-		[loggingItem release];
 	}
 }
 
@@ -91,10 +87,8 @@ static ECLogManager* gSharedInstance = nil;
 		ECOptionsMenu* menu = [[ECOptionsMenu alloc] initWithTitle:@"Options"];
 		[menu setupAsRootMenu];
 		optionsItem.submenu = menu;
-		[menu release];
 
 		[debugItem.submenu addItem:optionsItem];
-		[optionsItem release];
 	}
 }
 

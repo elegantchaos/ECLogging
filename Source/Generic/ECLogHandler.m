@@ -16,19 +16,6 @@
 
 @synthesize name;
 
-#pragma mark - Lifecycle
-
-// --------------------------------------------------------------------------
-//! Clean up.
-// --------------------------------------------------------------------------
-
-- (void)dealloc 
-{
-    [name release];
-    
-    [super dealloc];
-}
-
 #pragma mark - Logging
 
 // --------------------------------------------------------------------------
@@ -72,7 +59,7 @@
         if ([object isKindOfClass:[NSString class]])
         {
             NSString* format = object;
-            result = [[[NSString alloc] initWithFormat:format arguments: arguments] autorelease];
+            result = [[NSString alloc] initWithFormat:format arguments: arguments];
         }
         else
         {

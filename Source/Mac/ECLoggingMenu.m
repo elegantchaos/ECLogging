@@ -64,8 +64,6 @@
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	[super dealloc];
 }
 
 
@@ -94,8 +92,7 @@
     item.state = channel.enabled ? NSOnState : NSOffState;
     item.representedObject = channel;
     [menu addItem: item];
-    [item release];
-    
+
     [menu addItem: [NSMenuItem separatorItem]];
 	
     NSUInteger count = [mLogManager handlerCount];
@@ -105,7 +102,6 @@
         handlerItem.target = self;
         handlerItem.tag = n;
         [menu addItem: handlerItem];
-        [handlerItem release];
     }
     
     [menu addItem: [NSMenuItem separatorItem]];
@@ -118,7 +114,6 @@
 		flagItem.target = self;
         flagItem.tag = n;
 		[menu addItem: flagItem];
-		[flagItem release];
     }
     
     [menu addItem: [NSMenuItem separatorItem]];
@@ -126,9 +121,8 @@
     item.target = self;
     item.representedObject = channel;
     [menu addItem: item];
-    [item release];
 
-    return [menu autorelease];
+    return menu;
 }
 
 // --------------------------------------------------------------------------
@@ -147,11 +141,10 @@
         item.target = self;
         item.representedObject = handler;
         [menu addItem:item];
-        [item release];
-        
+
     }
 
-    return [menu autorelease];
+    return menu;
 }
 
 // --------------------------------------------------------------------------
@@ -167,27 +160,22 @@
     NSMenuItem* enableAllItem = [[NSMenuItem alloc] initWithTitle: @"Enable All Channels" action: @selector(enableAllChannels) keyEquivalent: @""];
     enableAllItem.target = mLogManager;
     [self addItem: enableAllItem];
-    [enableAllItem release];
-    
+
     NSMenuItem* disableAllItem = [[NSMenuItem alloc] initWithTitle: @"Disable All Channels" action: @selector(disableAllChannels) keyEquivalent: @""];
     disableAllItem.target = mLogManager;
     [self addItem: disableAllItem];
-    [disableAllItem release];
 
     NSMenuItem* resetAllItem = [[NSMenuItem alloc] initWithTitle: @"Reset All Settings" action: @selector(resetAllSettings) keyEquivalent: @""];
     resetAllItem.target = mLogManager;
     [self addItem: resetAllItem];
-    [resetAllItem release];
 
 	NSMenuItem* revealLogFilesItem = [[NSMenuItem alloc] initWithTitle: @"Reveal Log Files" action: @selector(revealLogFiles) keyEquivalent: @""];
     revealLogFilesItem.target = self;
     [self addItem: revealLogFilesItem];
-    [revealLogFilesItem release];
 
 	NSMenuItem* revealSettingsItem = [[NSMenuItem alloc] initWithTitle: @"Reveal Settings" action: @selector(revealSettings) keyEquivalent: @""];
     revealSettingsItem.target = self;
     [self addItem: revealSettingsItem];
-    [revealSettingsItem release];
 
     [self addItem:[NSMenuItem separatorItem]];
 
@@ -195,8 +183,7 @@
     item.submenu = [self buildDefaultHandlersMenu];
     item.target = self;
     [self addItem: item];
-    [item release];
-    
+
     [self addItem:[NSMenuItem separatorItem]];
 
 	for (ECLogChannel* channel in mLogManager.channelsSortedByName)
@@ -206,7 +193,6 @@
 		channelItem.target = self;
 		channelItem.representedObject = channel;
 		[self addItem: channelItem];
-		[channelItem release];
 	}
 #endif
 }

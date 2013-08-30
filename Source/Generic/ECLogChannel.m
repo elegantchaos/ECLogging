@@ -47,19 +47,6 @@ static NSString *const kSuffixToStrip = @"Channel";
 	return self;
 }
 
-// --------------------------------------------------------------------------
-//! Clean up and release retained objects.
-// --------------------------------------------------------------------------
-
-- (void) dealloc
-{
-    [level release];
-	[name release];
-	[handlers release];
-    
-	[super dealloc];
-}
-
 #pragma mark - Enable/Disable
 
 // --------------------------------------------------------------------------
@@ -208,7 +195,7 @@ static NSString *const kSuffixToStrip = @"Channel";
     NSString* result;
     if (self.context)
     {
-        NSMutableString* string = [[[NSMutableString alloc] init] autorelease];
+        NSMutableString* string = [[NSMutableString alloc] init];
         
         if ([self showContext:ECLogContextName])
         {

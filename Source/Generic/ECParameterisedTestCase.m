@@ -311,7 +311,7 @@ NSString *const SuiteExtension = @"testsuite";
         [result addTest:suite];
     }
     
-    return [result autorelease];
+    return result;
 }
 
 // --------------------------------------------------------------------------
@@ -330,7 +330,7 @@ NSString *const SuiteExtension = @"testsuite";
 		NSDictionary* data = [self parameterisedTestData];
 		if (data)
 		{
-			result = [[[SenTestSuite alloc] initWithName:NSStringFromClass(self)] autorelease];
+			result = [[SenTestSuite alloc] initWithName:NSStringFromClass(self)];
 			unsigned int methodCount;
 			Method* methods = class_copyMethodList([self class], &methodCount);
 			for (NSUInteger n = 0; n < methodCount; ++n)
