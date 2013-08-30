@@ -102,7 +102,7 @@
 {
 	// NB if the collections dont match, we convert them to strings and try again - so [collection1 isEqual:collection2] may
 	//       return NO, but as long as the string descriptions match, we don't assert
-	BOOL collectionsMatch = [collection1 isEqualTo:collection2];
+	BOOL collectionsMatch = [collection1 isEqual:collection2];
 	NSString* string1;
 	NSString* string2;
 	if (!collectionsMatch)
@@ -190,7 +190,7 @@
 	if ([kind isEqualToString:@"json"])
 	{
 		id expected = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:url] options:0 error:&error];
-		if (![collection isEqualTo:expected])
+		if (![collection isEqual:expected])
 		{
 			NSData* data = [NSJSONSerialization dataWithJSONObject:collection options:NSJSONWritingPrettyPrinted error:&error];
 
