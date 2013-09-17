@@ -142,6 +142,8 @@
 
 - (BOOL)matchesString:(NSString *)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString**)diverged expected:(NSString**)expected
 {
+	const NSInteger window = 5;
+
 	BOOL result = [self isEqualToString:string];
     if (!result)
 	{
@@ -178,8 +180,8 @@
 				{
 					*line1 = n1;
 					*line2 = n2;
-					*expected = [self linesFrom:n2-5 to:n2+5 lines:lines2];
-					*diverged = [self linesFrom:n1-5 to:n1+5 lines:lines1];
+					*expected = [self linesFrom:n2 - window to:n2 + window lines:lines2];
+					*diverged = [self linesFrom:n1 - window to:n1 + window lines:lines1];
 					whiteSpaceOnly = NO;
 					break;
 				}
