@@ -12,6 +12,7 @@ typedef NS_ENUM(NSUInteger, ECAssertStringTestMode)
 	ECAssertStringTestShowLines,
 	ECAssertStringTestShowLinesIgnoreWhitespace,
 	ECAssertStringDiff,
+	ECAssertStringDiffNoJSON,
 };
 
 #define ECAssertTest(expr, isTrueVal, expString, description, ...) \
