@@ -34,7 +34,7 @@ sign()
     # check if we need to resign (resigning can be slow, so we check first)
     if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
         echo "Resigning $NAME with id $BUNDLEID"
-        codesign --deep -f -i ${BUNDLEID} -vv -s "${CODE_SIGN_IDENTITY}" "${FILE}"
+        codesign --deep -f -i ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS -vv -s "${CODE_SIGN_IDENTITY}" "${FILE}"
     else
         echo "Didn't need to sign $NAME - already signed correctly"
     fi
