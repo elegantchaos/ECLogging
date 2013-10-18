@@ -4,7 +4,7 @@
 ## Takes the path to the app as the first parameter.
 
 app="$1"
-opts="--verbose --deep"
-codesign -v "$app" $opts
-#codesign -v "$app/Contents/Frameworks/"* $opts
-#codesign -v "$app/Contents/PlugIns/"* $opts
+opts="--deep --verbose=2"
+codesign -d "$app" $opts
+#codesign -d "$app/Contents/Frameworks/"* $opts
+#codesign -d "$app/Contents/PlugIns/"* $opts
