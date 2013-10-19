@@ -1,3 +1,12 @@
+#!/usr/bin/env bash
+
+## Re-sign every plugin and framework using the bundle id and code signing identity of the target
+##
+## You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.
+##
+## (C) 2013 Sam Deane, Elegant Chaos.
+## Feel free to use and abuse this script - I'd love to hear of improvements.
+
 
 sign()
 {
@@ -34,16 +43,13 @@ sign()
     # check if we need to resign (resigning can be slow, so we check first)
     if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
         echo "Resigning $NAME with id $BUNDLEID"
-        codesign --deep -f -i ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS -vv -s "${CODE_SIGN_IDENTITY}" "${FILE}"
+        codesign --verbose=2 --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
     else
         echo "Didn't need to sign $NAME - already signed correctly"
     fi
 }
 
-## Re-sign every plugin and framework using the bundle id and code signing identity of the target
-##
-## You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.
-
+# Pull out the application's bundle id
 APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" ${INFOPLIST_FILE}`
 echo "Resigning bundles items."
 echo "App bundle is $APPID."
@@ -53,13 +59,15 @@ if [[ "$CODE_SIGN_IDENTITY" == "" ]] ; then
 	CODE_SIGN_IDENTITY="3rd Party Mac Developer Application"
 fi
 
-# According to the codesign tool, Mac Developer is ambiguous (also matches 3rd Party Mac Developer)
+# Bit of a hack: according to the codesign tool, Mac Developer is ambiguous (also matches 3rd Party Mac Developer)
 # Mac Developer: shouldn't be, so we change it if necessary.
 if [[ "$CODE_SIGN_IDENTITY" == "Mac Developer" ]] ; then
 	CODE_SIGN_IDENTITY="Mac Developer:"
 fi
 
 echo "Using identity $CODE_SIGN_IDENTITY"
+
+# Sign Plugins
 
 if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns/" ]; then
 	echo "Signing PlugIns as: ${CODE_SIGN_IDENTITY}"
@@ -73,6 +81,8 @@ if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns/" ]; then
 	done
 fi
 
+# Sign Frameworks
+
 if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks/" ]; then
 	echo "Signing Frameworks as: ${CODE_SIGN_IDENTITY}"
 	for f in "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks/"*
@@ -84,6 +94,8 @@ if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks/" ]; then
         sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
 	done
 fi
+
+# Sign XPCServices
 
 if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices/" ]; then
     echo "Signing XPCServices as: ${CODE_SIGN_IDENTITY}"
