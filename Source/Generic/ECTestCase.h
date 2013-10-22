@@ -101,9 +101,10 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  If they don't match, we call STFail reporting the point where they differed.
  @param string1 First string to compare.
  @param string2 Second string to compare.
+ @return YES if the items match, NO otherwise
  */
 
-- (void)assertString:(NSString*)string1 matchesString:(NSString*)string2;
+- (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2;
 
 /**
  Perform some more detailed checking of two bits of text.
@@ -117,9 +118,10 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  @param string1 First string to compare.
  @param string2 Second string to compare.
  @param mode Comparison mode to use.
+ @return YES if the items match, NO otherwise
  */
 
-- (void)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode;
+- (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode;
 
 /**
  Check some text against a file.
@@ -130,9 +132,10 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  @param string The string to compare.
  @param url The file containing text to compare against.
  @param mode Comparison mode to use.
+ @return YES if the items match, NO otherwise
  */
 
-- (void)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode;
+- (BOOL)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode;
 
 /**
  Check that two collections match.
@@ -141,9 +144,10 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  This is implemented by calling description on them both, then calling assertString:matchesString.
  @param collection1 first collection
  @param collection2 second collection
+ @return YES if the items match, NO otherwise
  */
 
-- (void)assertCollection:(id)collection1 matchesCollection:(id)collection2;
+- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2;
 
 /**
  Check that a collection matches the contents of a file.
@@ -153,9 +157,10 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  @param collection Collection to test.
  @param url The file to test against
  @param mode The testing mode.
+ @return YES if the items match, NO otherwise
  */
 
-- (void)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode;
+- (BOOL)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode;
 
 /**
  Check that two collections match.
@@ -165,9 +170,10 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  @param collection1 First collection.
  @param collection2 Second collection.
  @param mode String comparison mode to use.
+ @return YES if the items match, NO otherwise
  */
 
-- (void)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode;
+- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode;
 
 + (NSUInteger)genericCount:(id)item;
 + (BOOL)string:(NSString*)string1 beginsWithString:(NSString *)string2;

@@ -66,39 +66,45 @@
 	return url;
 }
 
-- (void)assertString:(NSString*)string1 matchesString:(NSString*)string2
+- (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2
 {
-	[self assertString:string1 matchesString:string2 mode:ECAssertStringTestShowLinesIgnoreWhitespace];
+	return [self assertString:string1 matchesString:string2 mode:ECAssertStringTestShowLinesIgnoreWhitespace];
 }
 
-- (void)assertCharactersOfString:(NSString*)string1 matchesString:(NSString*)string2
+- (BOOL)assertCharactersOfString:(NSString*)string1 matchesString:(NSString*)string2
 {
 	NSUInteger divergence;
 	UniChar divergentChar;
 	UniChar expectedChar;
 	NSString* prefix;
-    if (![string1 matchesString:string2 divergingAfter:&prefix atIndex:&divergence divergentChar:&divergentChar expectedChar:&expectedChar])
+    BOOL result = [string1 matchesString:string2 divergingAfter:&prefix atIndex:&divergence divergentChar:&divergentChar expectedChar:&expectedChar];
+	if (!result)
     {
         STFail(@"strings diverge at character %d ('%lc' instead of '%lc')\n\nwe expected:\n%@\n\nwe got:\n%@\n\nthe bit that matched:\n%@\n\nthe bit that didn't:\n%@", divergence, divergentChar, expectedChar, string2, string1, prefix, [string1 substringFromIndex:divergence]);
     }
+
+	return result;
 }
 
-- (void)assertCollection:(id)collection1 matchesCollection:(id)collection2
+- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2
 {
-	[self assertString:[collection1 description] matchesString:[collection2 description] mode:ECAssertStringTestShowLinesIgnoreWhitespace];
+	return [self assertString:[collection1 description] matchesString:[collection2 description] mode:ECAssertStringTestShowLinesIgnoreWhitespace];
 }
 
-- (void)assertLinesOfString:(NSString *)string1 matchesString:(NSString *)string2
+- (BOOL)assertLinesOfString:(NSString *)string1 matchesString:(NSString *)string2
 {
 	NSString* after, *diverged, *expected;
 	NSUInteger line;
-    if (![string1 matchesString:string2 divergingAtLine:&line after:&after diverged:&diverged expected:&expected])
+	BOOL result = [string1 matchesString:string2 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
+    if (!result)
 	{
 		STFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", line, after, expected, diverged, string1);
 	}
+
+	return result;
 }
 
-- (void)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode
+- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode
 {
 	// NB if the collections dont match, we convert them to strings and try again - so [collection1 isEqual:collection2] may
 	//       return NO, but as long as the string descriptions match, we don't assert
@@ -139,9 +145,11 @@
 		}
 		else
 		{
-			[self assertString:string1 matchesString:string2 mode:mode];
+			collectionsMatch = [self assertString:string1 matchesString:string2 mode:mode];
 		}
 	}
+
+	return collectionsMatch;
 }
 
 - (void)diffAsJSONCollection:(id)collection1 collection2:(id)collection2 temp1:(NSURL*)temp1 temp2:(NSURL*)temp2
@@ -162,21 +170,25 @@
 	[self diffURL:temp1 againstURL:temp2];
 }
 
-- (void)assertLinesIgnoringWhitespaceOfString:(NSString *)string1 matchesString:(NSString *)string2
+- (BOOL)assertLinesIgnoringWhitespaceOfString:(NSString *)string1 matchesString:(NSString *)string2
 {
 	NSString* diverged;
 	NSString* expected;
 	NSUInteger line1, line2;
-    if (![string1 matchesString:string2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected])
+	BOOL result = [string1 matchesString:string2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
+    if (!result)
 	{
 		STFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\n", line1, line2, expected, diverged);
 		if ([string1 length] < 1000)
 			NSLog(@"full string was %@", string1);
 	}
+
+	return result;
 }
 
-- (void)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode
+- (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode
 {
+	BOOL result = YES;
 	STAssertNotNil(string1, @"string 1 was nil");
 	STAssertNotNil(string2, @"string 2 was nil");
 	if (string1 && string2)
@@ -184,23 +196,24 @@
 		switch (mode)
 		{
 			case ECAssertStringTestShowChars:
-				[self assertCharactersOfString:string1 matchesString:string2];
+				result = [self assertCharactersOfString:string1 matchesString:string2];
 				break;
 
 			case ECAssertStringTestShowLines:
-				[self assertLinesOfString:string1 matchesString:string2];
+				result = [self assertLinesOfString:string1 matchesString:string2];
 				break;
 
 			case ECAssertStringTestShowLinesIgnoreWhitespace:
 			default:
-				[self assertLinesIgnoringWhitespaceOfString:string1 matchesString:string2];
+				result = [self assertLinesIgnoringWhitespaceOfString:string1 matchesString:string2];
 				break;
 		}
 	}
 }
 
-- (void)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode
+- (BOOL)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode
 {
+	BOOL result = YES;
 	NSError* error;
 	NSString* kind = [url pathExtension];
 	if ([kind isEqualToString:@"json"])
@@ -212,7 +225,7 @@
 
 			NSString* string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 			ECTestAssertNotNil(string);
-			[self assertString:string matchesContentsOfURL:url mode:mode];
+			result = [self assertString:string matchesContentsOfURL:url mode:mode];
 		}
 	}
 	else if ([kind isEqualToString:@"plist"])
@@ -220,12 +233,15 @@
 		NSData* data = [NSData dataWithContentsOfURL:url];
 		ECTestAssertNotNil(data);
 		id expected = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:&error];
-		[self assertCollection:collection matchesCollection:expected mode:mode];
+		result = [self assertCollection:collection matchesCollection:expected mode:mode];
 	}
+
+	return result;
 }
 
-- (void)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode
+- (BOOL)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode
 {
+	BOOL result = YES;
 	NSError* error;
 	NSString* expected = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
 	if (expected)
@@ -240,19 +256,22 @@
 				STAssertTrue([string writeToURL:temp atomically:YES encoding:NSUTF8StringEncoding error:&error], @"failed to write temporary text file %@", error);
 				[self diffURL:temp againstURL:url];
 				STFail(@"String failed to match contents of %@", name);
+				result = NO;
 			}
 		}
 		else
 		#endif
 		{
-			[self assertString:string matchesString:expected mode:mode];
+			result = [self assertString:string matchesString:expected mode:mode];
 		}
 	}
 	else
 	{
 		STFail(@"Couldn't load string from %@", url);
+		result = NO;
 	}
 
+	return result;
 }
 
 // --------------------------------------------------------------------------
