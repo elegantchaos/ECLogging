@@ -65,18 +65,24 @@ sign_folder()
   local NAME=`basename "$FOLDER/"`
   if [ -e "$FOLDER/" ]; then
     echo "Signing $NAME as: ${CODE_SIGN_IDENTITY}"
+    local f
     for f in "$FOLDER"/*
     do
+      # sign embedded stuff first
+      sign_folder "$f/Frameworks"
+      sign_folder "$f/PlugIns"
+
+      # if the bundle has an info plist file in it, extract the bundle id to use from it
+      # (if not, we'll use the current one to resign, or we'll use the app id as a last resort)
       local BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Contents/Info.plist"`
       if [[ $BUNDLEID =~ File\ Does.* ]] ; then
         echo "Info.plist didn't exist"
         BUNDLEID=""
       fi
 
+      # now sign this bundle
       sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
 
-      sign_folder "$f/Frameworks"
-      sign_folder "$f/PlugIns"
     done
   fi
 
