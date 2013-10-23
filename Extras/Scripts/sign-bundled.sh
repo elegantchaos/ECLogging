@@ -31,12 +31,22 @@ sign()
         [[ "$CURRENT" =~ $PATTERN ]]
         CURRENT_AUTHORITY=${BASH_REMATCH[1]}
 
+        # if we got an id and weren't being forced to change it to something else, use that
+        if [[ "$BUNDLEID" == "" ]] ; then
+          BUNDLEID="$CURRENT_IDENTIFIER"
+        fi
+
         #    echo "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
         #    echo "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
 
     else
 
         echo "$NAME wasn't signed at all"
+
+        # if we weren't signed, and haven't been given an id to use, use the app one
+        if [[ "$BUNDLEID" == "" ]] ; then
+          BUNDLEID="$APPID"
+        fi
 
     fi
 
@@ -47,6 +57,29 @@ sign()
     else
         echo "Didn't need to sign $NAME - already signed correctly"
     fi
+}
+
+sign_folder()
+{
+  local FOLDER="$1"
+  local NAME=`basename "$FOLDER/"`
+  if [ -e "$FOLDER/" ]; then
+    echo "Signing $NAME as: ${CODE_SIGN_IDENTITY}"
+    for f in "$FOLDER"/*
+    do
+      local BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Contents/Info.plist"`
+      if [[ $BUNDLEID =~ File\ Does.* ]] ; then
+        echo "Info.plist didn't exist"
+        BUNDLEID=""
+      fi
+
+      sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
+
+      sign_folder "$f/Frameworks"
+      sign_folder "$f/PlugIns"
+    done
+  fi
+
 }
 
 # Pull out the application's bundle id
@@ -68,46 +101,15 @@ fi
 echo "Using identity $CODE_SIGN_IDENTITY"
 
 # Sign Plugins
-
-if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns/" ]; then
-	echo "Signing PlugIns as: ${CODE_SIGN_IDENTITY}"
-	for f in "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns/"*
-	do
-	    BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Contents/Info.plist"`
-		if [[ "$BUNDLEID" == "" ]]; then
-			BUNDLEID="$APPID"
-		fi
-	    sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
-	done
-fi
+sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns"
 
 # Sign Frameworks
-
-if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks/" ]; then
-	echo "Signing Frameworks as: ${CODE_SIGN_IDENTITY}"
-	for f in "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks/"*
-	do
-	    BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Resources/Info.plist" 2> /dev/null`
-		if [[ $? != 0 ]]; then
-			BUNDLEID="$APPID"
-		fi
-        sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
-	done
-fi
+sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks"
 
 # Sign XPCServices
 
-if [ -e "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices/" ]; then
-    echo "Signing XPCServices as: ${CODE_SIGN_IDENTITY}"
-    for f in "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices/"*
-    do
-        BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Resources/Info.plist" 2> /dev/null`
-        if [[ $? != 0 ]]; then
-            BUNDLEID="$APPID"
-        fi
-        sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
-    done
-fi
+sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices"
+
 
 echo ""
 echo "Resigning done."
