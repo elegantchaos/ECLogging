@@ -19,7 +19,7 @@ sign()
     CURRENT=`codesign --verbose=2 -d "${FILE}" 2>&1`
     if [ $? == 0 ]; then
 
-        echo "current:$CURRENT"
+        #echo "current:$CURRENT"
 
         # get current id
         PATTERN="Identifier=([a-zA-Z0-9.]*)"
@@ -53,7 +53,7 @@ sign()
     # check if we need to resign (resigning can be slow, so we check first)
     if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
         echo "Resigning $NAME with id $BUNDLEID"
-        codesign --verbose=2 --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
+        codesign --verbose=1 --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
     else
         echo "Didn't need to sign $NAME - already signed correctly"
     fi
@@ -64,7 +64,7 @@ sign_folder()
   local FOLDER="$1"
   local NAME=`basename "$FOLDER/"`
   if [ -e "$FOLDER/" ]; then
-    echo "Signing $NAME as: ${CODE_SIGN_IDENTITY}"
+    #echo "Signing $NAME as: ${CODE_SIGN_IDENTITY}"
     local f
     for f in "$FOLDER"/*
     do
@@ -74,10 +74,11 @@ sign_folder()
 
       # if the bundle has an info plist file in it, extract the bundle id to use from it
       # (if not, we'll use the current one to resign, or we'll use the app id as a last resort)
-      local BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Contents/Info.plist"`
-      if [[ $BUNDLEID =~ File\ Does.* ]] ; then
-        echo "Info.plist didn't exist"
-        BUNDLEID=""
+      local BUNDLEID=""
+      if [ -e "$f/Contents/Info.plist" ]; then
+        BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Contents/Info.plist"`
+      elif [ -e "$f/Info.plist" ]; then
+        BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Info.plist"`
       fi
 
       # now sign this bundle
