@@ -77,6 +77,8 @@ sign_folder()
       local BUNDLEID=""
       if [ -e "$f/Contents/Info.plist" ]; then
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Contents/Info.plist"`
+      elif [ -e "$f/Resources/Info.plist" ]; then
+        BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Resources/Info.plist"`
       elif [ -e "$f/Info.plist" ]; then
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Info.plist"`
       fi
