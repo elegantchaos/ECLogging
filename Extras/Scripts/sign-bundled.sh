@@ -10,53 +10,54 @@
 
 sign()
 {
-    BUNDLEID="$1"
-    CODE_SIGN_IDENTITY="$2"
-    FILE="$3"
-    NAME=`basename "$FILE"`
+  local BUNDLEID="$1"
+  local CODE_SIGN_IDENTITY="$2"
+  local FILE="$3"
+  local NAME=`basename "$FILE"`
 
-    # get current signing details
-    CURRENT=`codesign --verbose=2 -d "${FILE}" 2>&1`
-    if [ $? == 0 ]; then
+  # get current signing details
+  local CURRENT=`codesign --verbose=2 -d "${FILE}" 2>&1`
+  if [ $? == 0 ]; then
 
-        #echo "current:$CURRENT"
+    #echo "current:$CURRENT"
 
-        # get current id
-        PATTERN="Identifier=([a-zA-Z0-9.]*)"
-        [[ "$CURRENT" =~ $PATTERN ]]
-        CURRENT_IDENTIFIER=${BASH_REMATCH[1]}
+    # get current id
+    local PATTERN="Identifier=([a-zA-Z0-9.]*)"
+    [[ "$CURRENT" =~ $PATTERN ]]
+    local CURRENT_IDENTIFIER=${BASH_REMATCH[1]}
 
-        # get first authority - should match the code signing identity that we're using
-        PATTERN="Authority=([a-zA-Z0-9: ]*)"
-        [[ "$CURRENT" =~ $PATTERN ]]
-        CURRENT_AUTHORITY=${BASH_REMATCH[1]}
+    # get first authority - should match the code signing identity that we're using
+    PATTERN="Authority=([a-zA-Z0-9: ]*)"
+    [[ "$CURRENT" =~ $PATTERN ]]
+    local CURRENT_AUTHORITY=${BASH_REMATCH[1]}
 
-        # if we got an id and weren't being forced to change it to something else, use that
-        if [[ "$BUNDLEID" == "" ]] ; then
-          BUNDLEID="$CURRENT_IDENTIFIER"
-        fi
-
-        #    echo "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
-        #    echo "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
-
-    else
-
-        echo "$NAME wasn't signed at all"
-
-        # if we weren't signed, and haven't been given an id to use, use the app one
-        if [[ "$BUNDLEID" == "" ]] ; then
-          BUNDLEID="$APPID"
-        fi
-
+    # if we got an id and weren't being forced to change it to something else, use that
+    if [[ "$BUNDLEID" == "" ]] ; then
+      BUNDLEID="$CURRENT_IDENTIFIER"
     fi
 
-    # check if we need to resign (resigning can be slow, so we check first)
-    if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
-        echo "Resigning $NAME with id $BUNDLEID"
-        codesign --verbose=1 --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
-    else
-        echo "Didn't need to sign $NAME - already signed correctly as $CURRENT_IDENTIFIER $CURRENT_AUTHORITY"
+    #    echo "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
+    #    echo "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
+
+  else
+
+      echo "$NAME wasn't signed at all"
+
+    # if we weren't signed, and haven't been given an id to use, use the app one
+    if [[ "$BUNDLEID" == "" ]] ; then
+      BUNDLEID="$APPID"
     fi
+
+  fi
+
+  # check if we need to resign (resigning can be slow, so we check first)
+  if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
+    echo "Resigning $NAME with id $BUNDLEID"
+    codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
+    #codesign --verbose=2 -d "${FILE}"
+  else
+    echo "Didn't need to sign $NAME - already signed correctly as $CURRENT_IDENTIFIER $CURRENT_AUTHORITY"
+  fi
 }
 
 sign_folder()
@@ -97,14 +98,14 @@ echo "Resigning bundles items."
 echo "App bundle is $APPID."
 
 if [[ "$CODE_SIGN_IDENTITY" == "" ]] ; then
-	echo "App not signed, using default identity."
-	CODE_SIGN_IDENTITY="3rd Party Mac Developer Application"
+  echo "App not signed, using default identity."
+  CODE_SIGN_IDENTITY="3rd Party Mac Developer Application"
 fi
 
 # Bit of a hack: according to the codesign tool, Mac Developer is ambiguous (also matches 3rd Party Mac Developer)
 # Mac Developer: shouldn't be, so we change it if necessary.
 if [[ "$CODE_SIGN_IDENTITY" == "Mac Developer" ]] ; then
-	CODE_SIGN_IDENTITY="Mac Developer:"
+  CODE_SIGN_IDENTITY="Mac Developer:"
 fi
 
 echo "Using identity $CODE_SIGN_IDENTITY"
