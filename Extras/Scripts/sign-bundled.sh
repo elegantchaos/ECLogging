@@ -55,7 +55,7 @@ sign()
         echo "Resigning $NAME with id $BUNDLEID"
         codesign --verbose=1 --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
     else
-        echo "Didn't need to sign $NAME - already signed correctly"
+        echo "Didn't need to sign $NAME - already signed correctly as $CURRENT_IDENTIFIER $CURRENT_AUTHORITY"
     fi
 }
 
