@@ -91,10 +91,10 @@ commonbuild()
     report "$1" "$3"
 
     testfailures=`grep failed "$testout"`
-    if [[ $testfailures != "" ]]; then
-        echo $testfailures
-        echo
+    if [[ $testfailures != "" ]] && [[ $testfailures != "error: failed to launch"* ]]; then
         echo "** UNIT TEST FAILURES **"
+        echo "Found failure in log:$testfailures"
+        echo
         echo "Tests failed for scheme $1"
         exit 1
     fi
