@@ -123,7 +123,7 @@
 }
 
 - (NSString*)linesFrom:(NSInteger)from to:(NSInteger)to lines:(NSArray*)lines {
-	NSMutableString* result = [[NSMutableString alloc] init];
+	NSString* result;
 	NSInteger max = [lines count] - 1;
 	if (from < 0)
 		from = 0;
@@ -134,16 +134,28 @@
 	else if (max < to)
 		to = max;
 
-	for (NSInteger n = from; n <= to; ++n)
-		[result appendFormat:@"%@\n", lines[n]];
+	if (from == to)
+	{
+		result = lines[from];
+	}
+	else
+	{
+		NSMutableString* buffer = [[NSMutableString alloc] init];
+		for (NSInteger n = from; n <= to; ++n)
+			[buffer appendFormat:@"%@\n", lines[n]];
+		result = buffer;
+	}
 
 	return result;
 }
 
 - (BOOL)matchesString:(NSString *)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString**)diverged expected:(NSString**)expected
 {
-	const NSInteger window = 5;
+	return [self matchesString:string divergingAtLine1:line1 andLine2:line2 diverged:diverged expected:expected window:5];
+}
 
+- (BOOL)matchesString:(NSString *)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString**)diverged expected:(NSString**)expected window:(NSInteger)window
+{
 	BOOL result = [self isEqualToString:string];
     if (!result)
 	{
