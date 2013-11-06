@@ -81,7 +81,7 @@ commonbuild()
         cat "$testerr" >&2
         echo
         echo "** BUILD FAILURES **"
-        if [[ $result 1= 0 ]]; then
+        if [[ $result != 0 ]]; then
           echo "xcodebuild returned $result"
         fi
 
