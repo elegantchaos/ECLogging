@@ -169,4 +169,21 @@
 	ECTestAssertIntegerIsEqual(line, 0);
 }
 
+- (void)testMatchesStringWindow
+{
+	NSString* test1 = @"l1\nl2\nl3\ntest string\nl5\nl6";
+	NSString* test2 = @"l1\nl2\nl3\ndifferent string\nl5\nl6";
+
+	NSString *diverged, *expected;
+	NSUInteger line1, line2;
+
+	BOOL result = [test1 matchesString:test2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected window:1];
+	ECTestAssertFalse(result);
+	ECTestAssertIntegerIsEqual(line1, 3);
+	ECTestAssertIntegerIsEqual(line2, 3);
+	ECTestAssertStringIsEqual(diverged, @"l3\ntest string\nl5\n");
+	ECTestAssertStringIsEqual(expected, @"l3\ndifferent string\nl5\n");
+}
+
+
 @end
