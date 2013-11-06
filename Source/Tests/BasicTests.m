@@ -96,7 +96,7 @@
 
 	NSString *diverged, *expected;
 	NSUInteger line1, line2;
-	BOOL result = [test1 matchesString:test2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
+	BOOL result = [test1 matchesString:test2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected window:0];
 	ECTestAssertFalse(result);
 	ECTestAssertIntegerIsEqual(line1, 1);
 	ECTestAssertIntegerIsEqual(line2, 1);
