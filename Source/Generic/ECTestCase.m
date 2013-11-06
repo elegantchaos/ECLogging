@@ -80,7 +80,7 @@
     BOOL result = [string1 matchesString:string2 divergingAfter:&prefix atIndex:&divergence divergentChar:&divergentChar expectedChar:&expectedChar];
 	if (!result)
     {
-        STFail(@"strings diverge at character %d ('%lc' instead of '%lc')\n\nwe expected:\n%@\n\nwe got:\n%@\n\nthe bit that matched:\n%@\n\nthe bit that didn't:\n%@", divergence, divergentChar, expectedChar, string2, string1, prefix, [string1 substringFromIndex:divergence]);
+        ECTestFail(@"strings diverge at character %d ('%lc' instead of '%lc')\n\nwe expected:\n%@\n\nwe got:\n%@\n\nthe bit that matched:\n%@\n\nthe bit that didn't:\n%@", (int)divergence, divergentChar, expectedChar, string2, string1, prefix, [string1 substringFromIndex:divergence]);
     }
 
 	return result;
@@ -98,7 +98,7 @@
 	BOOL result = [string1 matchesString:string2 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
     if (!result)
 	{
-		STFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", line, after, expected, diverged, string1);
+		ECTestFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", line, after, expected, diverged, string1);
 	}
 
 	return result;
@@ -141,7 +141,7 @@
 				}
 			}
 
-			STFail(@"collections failed to match");
+			ECTestFail(@"collections failed to match");
 		}
 		else
 		{
@@ -178,7 +178,7 @@
 	BOOL result = [string1 matchesString:string2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
     if (!result)
 	{
-		STFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\n", line1, line2, expected, diverged);
+		ECTestFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\n", line1, line2, expected, diverged);
 		if ([string1 length] < 1000)
 			NSLog(@"full string was %@", string1);
 	}
@@ -189,8 +189,8 @@
 - (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode
 {
 	BOOL result = YES;
-	STAssertNotNil(string1, @"string 1 was nil");
-	STAssertNotNil(string2, @"string 2 was nil");
+	ECTestAssertNotNil(string1);
+	ECTestAssertNotNil(string2);
 	if (string1 && string2)
 	{
 		switch (mode)
@@ -253,9 +253,9 @@
 			{
 				NSString* name = [url lastPathComponent];
 				NSURL* temp = [self URLForTemporaryFileNamed:[@"Actual-" stringByAppendingString:name]];
-				STAssertTrue([string writeToURL:temp atomically:YES encoding:NSUTF8StringEncoding error:&error], @"failed to write temporary text file %@", error);
+				ECTestAssertTrueFormat([string writeToURL:temp atomically:YES encoding:NSUTF8StringEncoding error:&error], @"failed to write temporary text file %@", error);
 				[self diffURL:temp againstURL:url];
-				STFail(@"String failed to match contents of %@", name);
+				ECTestFail(@"String failed to match contents of %@", name);
 				result = NO;
 			}
 		}
@@ -267,7 +267,7 @@
 	}
 	else
 	{
-		STFail(@"Couldn't load string from %@", url);
+		ECTestFail(@"Couldn't load string from %@", url);
 		result = NO;
 	}
 

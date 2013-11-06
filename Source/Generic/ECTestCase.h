@@ -4,7 +4,20 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <SenTestingKit/SenTestingKit.h>
+//#ifdef MAC_OS_X_VERSION_10_9
+//	#define EC_USE_XCTEST 1
+//#else
+	#define EC_USE_XCTEST 0
+//#endif
+
+#if EC_USE_XCTEST
+	#import <XCTest/XCTest.h>
+#else
+	#import <SenTestingKit/SenTestingKit.h>
+#endif
+
+//#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+//#if __MAC_OS_X_VERSION_MIN_REQUIRED < 1090
 
 typedef NS_ENUM(NSUInteger, ECAssertStringTestMode)
 {
@@ -39,10 +52,26 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 /// You can still use the STAssert macros too of course.
 // --------------------------------------------------------------------------
 
+
+#if EC_USE_XCTEST
+#define ECTestCaseBase XCTestCase
+#define ECTestSuiteClass XCTestSuite
+
+#define ECTestAssertNotNilFormat				XCTAssertNotNil
+#define ECTestAssertNilFormat					XCTAssertNil
+#define ECTestAssertTrueFormat					XCTAssertTrue
+#define ECTestAssertFalseFormat					XCTAssertFalse
+#define ECTestFail								XCTFail
+#else
+#define ECTestCaseBase SenTestCase
+#define ECTestSuiteClass SenTestSuite
+
 #define ECTestAssertNotNilFormat				STAssertNotNil
 #define ECTestAssertNilFormat					STAssertNil
 #define ECTestAssertTrueFormat					STAssertTrue
 #define ECTestAssertFalseFormat					STAssertFalse
+#define ECTestFail								STFail
+#endif
 
 #define ECTestAssertNotNil(x)					ECTestAssertNotNilFormat((x), @"%s shouldn't be nil", #x)
 #define ECTestAssertNil(x)						ECTestAssertNilFormat(x, @"%s should be nil, was %0x", #x, x)
@@ -78,7 +107,6 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 #define ECTestAssertRealIsLessEqual(x,y)		ECTestAssertOperator(x, <=, y, "%lf")
 
 
-#define ECTestFail						STFail
 #define ECTestLog						NSLog
 
 /**
@@ -90,7 +118,7 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 * See [this blog post](http://www.bornsleepy.com/bornsleepy/run-loop-cocoa-unit-tests) for more details of the run loop support.
 */
 
-@interface ECTestCase : SenTestCase
+@interface ECTestCase : ECTestCaseBase
 {
 @private
     BOOL _exitRunLoop;

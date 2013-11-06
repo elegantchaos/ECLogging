@@ -289,9 +289,9 @@ NSString *const SuiteExtension = @"testsuite";
 //! sub-suites of items.
 // --------------------------------------------------------------------------
 
-+ (SenTestSuite*)suiteForSelector:(SEL)selector name:(NSString*)name data:(NSDictionary*)data
++ (ECTestSuiteClass*)suiteForSelector:(SEL)selector name:(NSString*)name data:(NSDictionary*)data
 {
-    SenTestSuite* result = [[SenTestSuite alloc] initWithName:name];
+    ECTestSuiteClass* result = [[ECTestSuiteClass alloc] initWithName:name];
     
     // add items to the suite as tests
     NSDictionary* items = data[TestItemsKey];
@@ -307,7 +307,7 @@ NSString *const SuiteExtension = @"testsuite";
     for (NSString* suiteName in suites)
     {
         NSDictionary* suiteData = suites[suiteName];
-        SenTestSuite* suite = [self suiteForSelector:selector name:suiteName data:suiteData];
+        ECTestSuiteClass* suite = [self suiteForSelector:selector name:suiteName data:suiteData];
         [result addTest:suite];
     }
     
@@ -324,13 +324,13 @@ NSString *const SuiteExtension = @"testsuite";
 
 + (id) defaultTestSuite
 {
-	SenTestSuite* result = nil;
+	ECTestSuiteClass* result = nil;
 	if (self != [ECParameterisedTestCase class])
 	{
 		NSDictionary* data = [self parameterisedTestData];
 		if (data)
 		{
-			result = [[SenTestSuite alloc] initWithName:NSStringFromClass(self)];
+			result = [[ECTestSuiteClass alloc] initWithName:NSStringFromClass(self)];
 			unsigned int methodCount;
 			Method* methods = class_copyMethodList([self class], &methodCount);
 			for (NSUInteger n = 0; n < methodCount; ++n)
@@ -339,7 +339,7 @@ NSString *const SuiteExtension = @"testsuite";
 				NSString* name = NSStringFromSelector(selector);
 				if ([name rangeOfString:@"parameterisedTest"].location == 0)
 				{
-					SenTestSuite* subSuite = [self suiteForSelector:selector name:name data:data];
+					ECTestSuiteClass* subSuite = [self suiteForSelector:selector name:name data:data];
 					[result addTest:subSuite];
 				}
 			}
