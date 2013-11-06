@@ -81,6 +81,9 @@ commonbuild()
         cat "$testerr" >&2
         echo
         echo "** BUILD FAILURES **"
+        if [[ $buildfailures != "" ]]; then
+          echo "Found failure in log:$buildfailures"
+        fi
         echo "Build failed for scheme $1"
         if [[ $result == 0 ]]; then
             result=1
