@@ -4,11 +4,11 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-//#ifdef MAC_OS_X_VERSION_10_9
-//	#define EC_USE_XCTEST 1
-//#else
+#ifdef MAC_OS_X_VERSION_10_9
+	#define EC_USE_XCTEST 1
+#else
 	#define EC_USE_XCTEST 0
-//#endif
+#endif
 
 #if EC_USE_XCTEST
 	#import <XCTest/XCTest.h>
@@ -28,17 +28,6 @@ typedef NS_ENUM(NSUInteger, ECAssertStringTestMode)
 	ECAssertStringDiffNoJSON,
 };
 
-#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
-do { \
-BOOL _evaluatedExpression = (expr);\
-if (!_evaluatedExpression) {\
-[self failWithException:([NSException failureInCondition:expString \
-isTrue:isTrueVal \
-inFile:[NSString stringWithUTF8String:__FILE__] \
-atLine:__LINE__ \
-withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
-} \
-} while (0)
 
 // --------------------------------------------------------------------------
 /// The ECTestAssert macros are generally like the STAssert
@@ -62,6 +51,17 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 #define ECTestAssertTrueFormat					XCTAssertTrue
 #define ECTestAssertFalseFormat					XCTAssertFalse
 #define ECTestFail								XCTFail
+
+#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
+	XCTAssertTrue((expr) == isTrueVal, description, ##__VA_ARGS__)
+
+//#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
+//do { \
+//if (!(expr)) {\
+//	_XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0),description, ##__VA_ARGS__); \
+//} \
+//} while (0)
+
 #else
 #define ECTestCaseBase SenTestCase
 #define ECTestSuiteClass SenTestSuite
@@ -71,7 +71,21 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 #define ECTestAssertTrueFormat					STAssertTrue
 #define ECTestAssertFalseFormat					STAssertFalse
 #define ECTestFail								STFail
+
+#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
+do { \
+BOOL _evaluatedExpression = (expr);\
+if (!_evaluatedExpression) {\
+[self failWithException:([NSException failureInCondition:expString \
+isTrue:isTrueVal \
+inFile:[NSString stringWithUTF8String:__FILE__] \
+atLine:__LINE__ \
+withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
+} \
+} while (0)
+
 #endif
+
 
 #define ECTestAssertNotNil(x)					ECTestAssertNotNilFormat((x), @"%s shouldn't be nil", #x)
 #define ECTestAssertNil(x)						ECTestAssertNilFormat(x, @"%s should be nil, was %0x", #x, x)
@@ -90,21 +104,21 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 #define ECTestAssertNoError(e)					ECTestAssertTrueFormat(e == 0, @"expected no error, but got %@", e)
 #define ECTestAssertOkNoError(status,e)			ECTestAssertTrueFormat(status, @"expected %s to be true, but got %@", #status, e)
 
-#define ECTestAssertOperator(x,t,y,f)			ECAssertTest((x) t (y), NO, @"" #x #t #y, @"Values are " f " and " f ")", x, y)
+#define ECTestAssertOperator(x,t,y,f,c)			ECAssertTest((x) t (y), NO, @"" #x #t #y, @"Values are " f " and " f ")", (c)x, (c)y)
 
-#define ECTestAssertIntegerIsEqual(x,y)			ECTestAssertOperator(x, ==, y, "%ld")
-#define ECTestAssertIntegerIsNotEqual(x,y)		ECTestAssertOperator(x, !=, y, "%ld")
-#define ECTestAssertIntegerIsGreater(x,y)		ECTestAssertOperator(x, >, y, "%ld")
-#define ECTestAssertIntegerIsGreaterEqual(x,y)	ECTestAssertOperator(x, >=, y, "%ld")
-#define ECTestAssertIntegerIsLess(x,y)			ECTestAssertOperator(x, <, y, "%ld")
-#define ECTestAssertIntegerIsLessEqual(x,y)		ECTestAssertOperator(x, <=, y, "%ld")
+#define ECTestAssertIntegerIsEqual(x,y)			ECTestAssertOperator(x, ==, y, "%ld", long)
+#define ECTestAssertIntegerIsNotEqual(x,y)		ECTestAssertOperator(x, !=, y, "%ld", long)
+#define ECTestAssertIntegerIsGreater(x,y)		ECTestAssertOperator(x, >, y, "%ld", long)
+#define ECTestAssertIntegerIsGreaterEqual(x,y)	ECTestAssertOperator(x, >=, y, "%ld", long)
+#define ECTestAssertIntegerIsLess(x,y)			ECTestAssertOperator(x, <, y, "%ld", long)
+#define ECTestAssertIntegerIsLessEqual(x,y)		ECTestAssertOperator(x, <=, y, "%ld", long)
 
-#define ECTestAssertRealIsEqual(x,y)			ECTestAssertOperator(x, ==, y, "%lf")
-#define ECTestAssertRealIsNotEqual(x,y)			ECTestAssertOperator(x, !=, y, "%lf")
-#define ECTestAssertRealIsGreater(x,y)			ECTestAssertOperator(x, >, y, "%lf")
-#define ECTestAssertRealIsGreaterEqual(x,y)		ECTestAssertOperator(x, >=, y, "%lf")
-#define ECTestAssertRealIsLess(x,y)				ECTestAssertOperator(x, <, y, "%lf")
-#define ECTestAssertRealIsLessEqual(x,y)		ECTestAssertOperator(x, <=, y, "%lf")
+#define ECTestAssertRealIsEqual(x,y)			ECTestAssertOperator(x, ==, y, "%lf", double)
+#define ECTestAssertRealIsNotEqual(x,y)			ECTestAssertOperator(x, !=, y, "%lf", double)
+#define ECTestAssertRealIsGreater(x,y)			ECTestAssertOperator(x, >, y, "%lf", double)
+#define ECTestAssertRealIsGreaterEqual(x,y)		ECTestAssertOperator(x, >=, y, "%lf", double)
+#define ECTestAssertRealIsLess(x,y)				ECTestAssertOperator(x, <, y, "%lf", double)
+#define ECTestAssertRealIsLessEqual(x,y)		ECTestAssertOperator(x, <=, y, "%lf", double)
 
 
 #define ECTestLog						NSLog

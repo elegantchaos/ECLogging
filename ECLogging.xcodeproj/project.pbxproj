@@ -26,6 +26,7 @@
 		2204C6BC15E160DA00F71E15 /* ECLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = 2204C6BB15E160DA00F71E15 /* ECLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		220D699D15DC510900CCC17C /* ECLogging.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
 		221E215B16E7867100B65B1F /* ECLoggingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2258586A16E7670500E2DDD4 /* ECLoggingViewController.xib */; };
+		222D9493182B97D80038A5B5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227A0DA9182AA301002A0DC0 /* XCTest.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		224E84D717AAB98F002EB661 /* ECOptionsMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 224E84D517AAB98F002EB661 /* ECOptionsMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		224E84D817AAB98F002EB661 /* ECOptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 224E84D617AAB98F002EB661 /* ECOptionsMenu.m */; };
 		224E84D917AAC824002EB661 /* ECOptionsMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 224E84D517AAB98F002EB661 /* ECOptionsMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -440,6 +441,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				222D9493182B97D80038A5B5 /* XCTest.framework in Frameworks */,
 				229C9E0A16F9085B00FD7AAE /* ECUnitTests.framework in Frameworks */,
 				2251BA6415DBD9A600F2FE40 /* ECLogging.framework in Frameworks */,
 				2268499F14F5722300B8691A /* Cocoa.framework in Frameworks */,
@@ -1506,6 +1508,10 @@
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
@@ -1516,6 +1522,10 @@
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
