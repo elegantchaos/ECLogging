@@ -7,5 +7,5 @@
 // Contains standard definitions needed to link a unit test target
 
 RUN_CLANG_STATIC_ANALYZER = YES
-WRAPPER_EXTENSION = octest
+WRAPPER_EXTENSION = xctest
 PRODUCT_NAME = $(TARGET_NAME)

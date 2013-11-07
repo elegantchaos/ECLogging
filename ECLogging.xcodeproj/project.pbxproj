@@ -313,11 +313,11 @@
 		2258586B16E7670500E2DDD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ECLoggingViewController.xib; sourceTree = "<group>"; };
 		225C51511642DC3600794DD2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.md; sourceTree = "<group>"; };
 		225C51521642DC3600794DD2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; wrapsLines = 1; };
-		225EC67211EBAA4800A97AEA /* ECLoggingMacTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingMacTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		225EC67211EBAA4800A97AEA /* ECLoggingMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22696F111630342E006AE56D /* ECDebugMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugMenu.h; sourceTree = "<group>"; };
 		22696F121630342E006AE56D /* ECDebugMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugMenu.m; sourceTree = "<group>"; };
 		2274B37814F56679003B8A0B /* ECLoggingTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ECLoggingTests.plist; sourceTree = "<group>"; };
-		2274B38D14F56896003B8A0B /* ECLoggingIOSTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingIOSTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2274B38D14F56896003B8A0B /* ECLoggingIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2274B38F14F56896003B8A0B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		2277CE1B16D6AB9500835964 /* ECDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECDebug.xcconfig; sourceTree = "<group>"; };
 		2277CE1C16D6AB9500835964 /* ECFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECFramework.xcconfig; sourceTree = "<group>"; };
@@ -488,8 +488,8 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				225EC67211EBAA4800A97AEA /* ECLoggingMacTests.octest */,
-				2274B38D14F56896003B8A0B /* ECLoggingIOSTests.octest */,
+				225EC67211EBAA4800A97AEA /* ECLoggingMacTests.xctest */,
+				2274B38D14F56896003B8A0B /* ECLoggingIOSTests.xctest */,
 				2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */,
 				2251BA1215DBCC4A00F2FE40 /* ECLogging.framework */,
 				221E214B16E7864900B65B1F /* ECLogging.bundle */,
@@ -1007,7 +1007,7 @@
 			);
 			name = ECLoggingMacTests;
 			productName = "EC Foundation Unit Tests";
-			productReference = 225EC67211EBAA4800A97AEA /* ECLoggingMacTests.octest */;
+			productReference = 225EC67211EBAA4800A97AEA /* ECLoggingMacTests.xctest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		2274B38C14F56896003B8A0B /* ECLoggingIOSTests */ = {
@@ -1027,7 +1027,7 @@
 			);
 			name = ECLoggingIOSTests;
 			productName = blahTests;
-			productReference = 2274B38D14F56896003B8A0B /* ECLoggingIOSTests.octest */;
+			productReference = 2274B38D14F56896003B8A0B /* ECLoggingIOSTests.xctest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		228CF1E817562478003E1D25 /* ECLoggingMacStatic */ = {
