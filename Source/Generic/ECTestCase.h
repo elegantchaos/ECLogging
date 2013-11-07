@@ -52,15 +52,15 @@ typedef NS_ENUM(NSUInteger, ECAssertStringTestMode)
 #define ECTestAssertFalseFormat					XCTAssertFalse
 #define ECTestFail								XCTFail
 
-#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
-	XCTAssertTrue((expr) == isTrueVal, description, ##__VA_ARGS__)
-
 //#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
-//do { \
-//if (!(expr)) {\
-//	_XCTRegisterFailure(_XCTFailureDescription(_XCTAssertion_Fail, 0),description, ##__VA_ARGS__); \
-//} \
-//} while (0)
+//	XCTAssertTrue((expr) == isTrueVal, description, ##__VA_ARGS__)
+
+#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
+do { \
+if (!(expr)) {\
+	_XCTRegisterFailure([NSString stringWithFormat:@"assertion failed: %@", expString],description, ##__VA_ARGS__); \
+} \
+} while (0)
 
 #else
 #define ECTestCaseBase SenTestCase
