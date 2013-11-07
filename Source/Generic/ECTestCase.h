@@ -4,11 +4,11 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#ifdef MAC_OS_X_VERSION_10_9
-	#define EC_USE_XCTEST 1
-#else
+//#ifdef MAC_OS_X_VERSION_10_9
+//	#define EC_USE_XCTEST 1
+//#else
 	#define EC_USE_XCTEST 0
-#endif
+//#endif
 
 #if EC_USE_XCTEST
 	#import <XCTest/XCTest.h>
