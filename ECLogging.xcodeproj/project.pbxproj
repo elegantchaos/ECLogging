@@ -191,6 +191,8 @@
 		229C9E0A16F9085B00FD7AAE /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */; };
 		229EDCEB16442DB00087B26E /* ECDebugHandlersViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */; };
 		229EDCEC16442DB00087B26E /* ECDebugHandlersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */; };
+		22C8B755182BC4AC003EA301 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227A0DA9182AA301002A0DC0 /* XCTest.framework */; };
+		22C8B756182BC4AE003EA301 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 227A0DA9182AA301002A0DC0 /* XCTest.framework */; };
 		22ECE86E16DC009E00F9C782 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22ECE86D16DC009E00F9C782 /* Test.bundle */; };
 		22ECE86F16DC009E00F9C782 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22ECE86D16DC009E00F9C782 /* Test.bundle */; };
 		22F2FEF01641418600CD3C7C /* ECLogManagerMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEEE1641418600CD3C7C /* ECLogManagerMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -451,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2274B38E14F56896003B8A0B /* SenTestingKit.framework in Frameworks */,
+				22C8B756182BC4AE003EA301 /* XCTest.framework in Frameworks */,
 				2277CE5416D6B6E700835964 /* ECLogging.framework in Frameworks */,
 				22FF8EC616F1E65D008FC10D /* ECUnitTests.framework in Frameworks */,
 				2274B39014F56896003B8A0B /* UIKit.framework in Frameworks */,
@@ -470,6 +473,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C8B755182BC4AC003EA301 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1531,6 +1535,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Debug;
@@ -1539,6 +1547,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Release;
@@ -1577,6 +1589,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Debug;
@@ -1585,6 +1601,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Release;
