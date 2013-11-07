@@ -118,7 +118,6 @@
 		2258586816E765DD00E2DDD4 /* ECLoggingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2258586616E765DD00E2DDD4 /* ECLoggingViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2258586916E765DD00E2DDD4 /* ECLoggingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2258586716E765DD00E2DDD4 /* ECLoggingViewController.m */; };
 		2258587016E76DF100E2DDD4 /* ECLoggingViewController.xib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2258586A16E7670500E2DDD4 /* ECLoggingViewController.xib */; };
-		2268499E14F5720600B8691A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3CD14F52E93009142F7 /* SenTestingKit.framework */; };
 		2268499F14F5722300B8691A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3BB14F52E93009142F7 /* Cocoa.framework */; };
 		22696F131630342E006AE56D /* ECDebugMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 22696F111630342E006AE56D /* ECDebugMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22696F141630342E006AE56D /* ECDebugMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 22696F121630342E006AE56D /* ECDebugMenu.m */; };
@@ -208,7 +207,6 @@
 		22FF8E9A16F1E5EB008FC10D /* ECParameterisedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4516D6B2B900835964 /* ECParameterisedTestCase.m */; };
 		22FF8E9B16F1E5EB008FC10D /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4716D6B2B900835964 /* ECTestCase.m */; };
 		22FF8E9D16F1E5EB008FC10D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3BB14F52E93009142F7 /* Cocoa.framework */; };
-		22FF8E9E16F1E5EB008FC10D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2283A3CD14F52E93009142F7 /* SenTestingKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		22FF8EB716F1E5EB008FC10D /* ECParameterisedTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4416D6B2B900835964 /* ECParameterisedTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FF8EB816F1E5EB008FC10D /* ECTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4616D6B2B900835964 /* ECTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FF8EB916F1E5EB008FC10D /* ECUnitTests.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4816D6B2B900835964 /* ECUnitTests.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -445,7 +443,6 @@
 				229C9E0A16F9085B00FD7AAE /* ECUnitTests.framework in Frameworks */,
 				2251BA6415DBD9A600F2FE40 /* ECLogging.framework in Frameworks */,
 				2268499F14F5722300B8691A /* Cocoa.framework in Frameworks */,
-				2268499E14F5720600B8691A /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,7 +479,6 @@
 			files = (
 				227A0DAA182AA301002A0DC0 /* XCTest.framework in Frameworks */,
 				22FF8E9D16F1E5EB008FC10D /* Cocoa.framework in Frameworks */,
-				22FF8E9E16F1E5EB008FC10D /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
