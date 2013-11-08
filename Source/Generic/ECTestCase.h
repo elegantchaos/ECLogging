@@ -88,8 +88,8 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 
 
 #define ECTestAssertNotNil(x)					ECTestAssertNotNilFormat((x), @"%s shouldn't be nil", #x)
-#define ECTestAssertNil(x)						ECTestAssertNilFormat(x, @"%s should be nil, was %0x", #x, x)
-#define ECTestAssertZero(x)						ECTestAssertTrueFormat(x == 0, @"%s should be zero, was %0x", #x, x)
+#define ECTestAssertNil(x)						ECTestAssertNilFormat(x, @"%s should be nil, was %0x", #x, (unsigned int)x)
+#define ECTestAssertZero(x)						ECTestAssertTrueFormat(x == 0, @"%s should be zero, was %0x", #x, (unsigned int)x)
 #define ECTestAssertTrue(x)						ECTestAssertTrueFormat(x, @"%s should be true", #x)
 #define ECTestAssertFalse(x)					ECTestAssertFalseFormat(x, @"%s should be false", #x)
 #define ECTestAssertStringIsEqual(x,y)			ECAssertTest([(x) isEqualToString:(y)], NO, @"" #x " and " #y " match", @"Values were \"%@\" and \"%@\"", x, y)
@@ -98,7 +98,7 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 #define ECTestAssertStringContains(x,y)			ECAssertTest([ECTestCase string:x containsString:y], NO, @"" #x " contains " #y, @"Values were \"%@\" and \"%@\"", x, y)
 #define ECTestAssertIsEmpty(x)					ECAssertTest([ECTestCase genericCount:x] == 0, NO, @"Object" #x "is empty", @"Value is %@", x)
 #define ECTestAssertNotEmpty(x)					ECAssertTest([ECTestCase genericCount:x] != 0, YES, @"Object" #x "is empty", @"Value is %@", x)
-#define ECTestAssertLength(x, l)				ECAssertTest([ECTestCase genericCount:x] == l, NO, @"Length of " #x " is " #l, @"Value is %@, length is %d", x, [ECTestCase genericCount:x])
+#define ECTestAssertLength(x, l)				ECAssertTest([ECTestCase genericCount:x] == l, NO, @"Length of " #x " is " #l, @"Value is %@, length is %ld", x, (long)[ECTestCase genericCount:x])
 #define ECTestAssertIsEqual(x, y)				ECAssertTest([x isEqual:y], NO, @"" #x " and " #y " are equal", @"Values were %@ and %@", x, y)
 #define ECTestAssertTextIsEqual(x,y)			[self assertString:x matchesString:y]
 #define ECTestAssertNoError(e)					ECTestAssertTrueFormat(e == 0, @"expected no error, but got %@", e)
