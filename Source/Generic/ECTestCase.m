@@ -98,7 +98,7 @@
 	BOOL result = [string1 matchesString:string2 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
     if (!result)
 	{
-		ECTestFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", line, after, expected, diverged, string1);
+		ECTestFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", (long)line, after, expected, diverged, string1);
 	}
 
 	return result;
@@ -178,7 +178,7 @@
 	BOOL result = [string1 matchesString:string2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
     if (!result)
 	{
-		ECTestFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\n", line1, line2, expected, diverged);
+		ECTestFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\n", (long)line1, (long)line2, expected, diverged);
 		if ([string1 length] < 1000)
 			NSLog(@"full string was %@", string1);
 	}
