@@ -32,6 +32,11 @@ mkdir -p "$build"
 
 config="Debug"
 
+urlencode()
+{
+    encoded="$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$1")"
+}
+
 report()
 {
     pushd "$build" > /dev/null
@@ -86,10 +91,11 @@ commonbuild()
         fi
 
         if [[ $buildfailures != "" ]]; then
-          echo "Found failure in log:$buildfailures"
+          echo "Found failure in log: $buildfailures"
         fi
         echo "Build failed for scheme $1"
-        echo "Full log: $JOB_URL/ws/test-build/logs/$1-$3"
+        urlencode "${JOB_URL}ws/test-build/logs/$1-$3"
+        echo "Full log: $encoded"
         if [[ $result == 0 ]]; then
             result=1
         fi
