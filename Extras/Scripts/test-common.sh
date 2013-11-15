@@ -77,7 +77,7 @@ commonbuild()
     if [[ $result != 0 ]] || [[ $buildfailures != "" ]]; then
         # if it looks like the build failed, output everything to stdout
         echo "Build Failed"
-        cat "$testout"
+        #cat "$testout"
         cat "$testerr" >&2
         echo
         echo "** BUILD FAILURES **"
@@ -89,6 +89,7 @@ commonbuild()
           echo "Found failure in log:$buildfailures"
         fi
         echo "Build failed for scheme $1"
+        echo "Full log: $JOB_URL/ws/test-build/logs/$1-$3"
         if [[ $result == 0 ]]; then
             result=1
         fi
