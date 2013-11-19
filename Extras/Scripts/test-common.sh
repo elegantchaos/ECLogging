@@ -39,13 +39,13 @@ urlencode()
 
 report()
 {
-    pushd "$build" > /dev/null
-    "$ocunit2junit" < "$testout" > /dev/null 2>&1
+    pushd "$build" > /dev/null 2>> "$testerr"
+    "$ocunit2junit" < "$testout" > /dev/null 2>> "$testerr"
     reportdir="$build/reports/$2-$1"
     mkdir -p "$reportdir"
-    mv test-reports/* "$reportdir" 2> /dev/null
-    rmdir test-reports
-    popd > /dev/null
+    mv test-reports/* "$reportdir" 2>> "$testerr"
+    rmdir test-reports 2>> "$testerr"
+    popd > /dev/null 2>> "$testerr"
 }
 
 cleanbuild()
