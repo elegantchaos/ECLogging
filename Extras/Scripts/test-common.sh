@@ -76,10 +76,13 @@ commonbuild()
     # build it
     xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
 
-    # we don't entirely trust the return code from xcodebuild, so we also scan the output for "failed"
     result=$?
+
+    report "$1" "$3"
+
+    # we don't entirely trust the return code from xcodebuild, so we also scan the output for "failed"
     buildfailures=`grep failed "$testerr"`
-    if [[ $result != 0 ]] || [[ $buildfailures != "" ]]; then
+    if ([[ $result != 0 ]] && [[ $result != 65 ]]) || [[ $buildfailures != "" ]]; then
         # if it looks like the build failed, output everything to stdout
         echo "Build Failed"
         #cat "$testout"
@@ -102,7 +105,6 @@ commonbuild()
         exit $result
     fi
 
-    report "$1" "$3"
 
     testfailures=`grep failed "$testout"`
     if [[ $testfailures != "" ]] && [[ $testfailures != "error: failed to launch"* ]]; then
