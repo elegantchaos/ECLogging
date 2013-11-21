@@ -13,5 +13,6 @@ typedef void (^ECTestComparisonBlock)(NSString* context, NSUInteger level, id it
 @interface NSObject(ECTestComparisons)
 - (BOOL)matches:(id)item2 block:(ECTestComparisonBlock)block;
 - (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level block:(ECTestComparisonBlock)block;
+- (NSString*)nameForMatching;
 @end
 

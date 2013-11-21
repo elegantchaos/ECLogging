@@ -16,9 +16,9 @@
 	Class c2 = [item2 class];
 	NSString* context = nil;
 	if (c1 == c2)
-		context = [NSString stringWithFormat:@"%@", c1];
+		context = [NSString stringWithFormat:@"%@", [self nameForMatching]];
 	else
-		context = [NSString stringWithFormat:@"%@ vs %@", c1, c2];
+		context = [NSString stringWithFormat:@"%@ vs %@", [self nameForMatching], [item2 nameForMatching]];
 	
 	return [self matches:item2 context:context level:0 block:block];
 }
@@ -37,16 +37,39 @@
 	return matches;
 }
 
+- (NSString*)nameForMatching
+{
+	return NSStringFromClass([self class]);
+}
+
+@end
+
+@implementation NSString(ECTestComparisons)
+
+- (NSString*)nameForMatching
+{
+	return @"string";
+}
+
+@end
+
+@implementation NSNumber(ECTestComparisons)
+
+- (NSString*)nameForMatching
+{
+	return @"number";
+}
+
 @end
 
 @implementation NSArray(ECTestComparisons)
 
 - (BOOL)matches:(id)item2 context:(NSString *)context level:(NSUInteger)level block:(ECTestComparisonBlock)block
 {
-	BOOL matches = [self isKindOfClass:[NSArray class]];
+	BOOL matches = [item2 isKindOfClass:[NSArray class]];
 	if (!matches)
 	{
-		NSString* newContext = [NSString stringWithFormat:@"%@ NSArray compared with %@", context, [item2 class]];
+		NSString* newContext = [NSString stringWithFormat:@"%@ %@ compared with %@", context, [self nameForMatching], [item2 nameForMatching]];
 		block(newContext, level, self, item2);
 	}
 	else
@@ -85,16 +108,21 @@
 	return matches;
 }
 
+- (NSString*)nameForMatching
+{
+	return @"array";
+}
+
 @end
 
 @implementation NSDictionary(ECTestComparisons)
 
 - (BOOL)matches:(id)item2 context:(NSString *)context level:(NSUInteger)level block:(ECTestComparisonBlock)block
 {
-	BOOL matches = [self isKindOfClass:[NSDictionary class]];
+	BOOL matches = [item2 isKindOfClass:[NSDictionary class]];
 	if (!matches)
 	{
-		NSString* newContext = [NSString stringWithFormat:@"%@ NSDictionary compared with %@", context, [item2 class]];
+		NSString* newContext = [NSString stringWithFormat:@"%@ %@ compared with %@", context, [self nameForMatching], [item2 nameForMatching]];
 		block(newContext, level, self, item2);
 	}
 	else
@@ -127,6 +155,11 @@
 	}
 	
 	return matches;
+}
+
+- (NSString*)nameForMatching
+{
+	return @"dictionary";
 }
 
 @end
