@@ -119,4 +119,12 @@
 	ECTestAssertIsEqual(self.output, @"__NSDictionaryI[@\"k1\"]: abc didn't match def\n__NSDictionaryI[@\"k2\"] extra key: (null) didn't match abc\n");
 }
 
+- (void)testCompound
+{
+	id item1 = @{@"k1":@[@"abc", @{@"k2" : @"def"}]};
+	id item2 = @{@"k1":@[@"def", @{@"k3" : @"def"}]};
+	ECTestAssertFalse([self item:item1 matches:item2]);
+	ECTestAssertIsEqual(self.output, @"__NSDictionaryI[@\"k1\"][0]: abc didn't match def\n__NSDictionaryI[@\"k1\"][1][@\"k2\"] missing key: def didn't match (null)\n__NSDictionaryI[@\"k1\"][1][@\"k3\"] extra key: (null) didn't match def\n");
+}
+
 @end
