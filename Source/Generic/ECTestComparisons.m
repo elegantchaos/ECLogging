@@ -25,12 +25,7 @@
 
 - (BOOL)matches:(id)item2 context:(NSString *)context level:(NSUInteger)level block:(ECTestComparisonBlock)block
 {
-	BOOL matches = [self isKindOfClass:[item2 class]];
-	if (matches)
-	{
-		matches = [self isEqual:item2];
-	}
-
+	BOOL matches = [self isEqual:item2];
 	if (!matches)
 		block(context, level, self, item2);
 

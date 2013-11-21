@@ -16,17 +16,10 @@
 	#import <SenTestingKit/SenTestingKit.h>
 #endif
 
+#import "ECTestComparisons.h"
+
 //#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 //#if __MAC_OS_X_VERSION_MIN_REQUIRED < 1090
-
-typedef NS_ENUM(NSUInteger, ECAssertStringTestMode)
-{
-	ECAssertStringTestShowChars,
-	ECAssertStringTestShowLines,
-	ECAssertStringTestShowLinesIgnoreWhitespace,
-	ECAssertStringDiff,
-	ECAssertStringDiffNoJSON,
-};
 
 
 // --------------------------------------------------------------------------
@@ -163,7 +156,7 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  @return YES if the items match, NO otherwise
  */
 
-- (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode;
+- (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECTestComparisonMode)mode;
 
 /**
  Check some text against a file.
@@ -177,7 +170,7 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  @return YES if the items match, NO otherwise
  */
 
-- (BOOL)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode;
+- (BOOL)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECTestComparisonMode)mode;
 
 /**
  Check that two collections match.
@@ -202,7 +195,7 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  @return YES if the items match, NO otherwise
  */
 
-- (BOOL)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode;
+- (BOOL)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECTestComparisonMode)mode;
 
 /**
  Check that two collections match.
@@ -215,7 +208,7 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  @return YES if the items match, NO otherwise
  */
 
-- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode;
+- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECTestComparisonMode)mode;
 
 + (NSUInteger)genericCount:(id)item;
 + (BOOL)string:(NSString*)string1 beginsWithString:(NSString *)string2;

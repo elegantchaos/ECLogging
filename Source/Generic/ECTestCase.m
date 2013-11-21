@@ -69,7 +69,7 @@
 
 - (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2
 {
-	return [self assertString:string1 matchesString:string2 mode:ECAssertStringTestShowLinesIgnoreWhitespace];
+	return [self assertString:string1 matchesString:string2 mode:ECTestComparisonShowLinesIgnoreWhitespace];
 }
 
 - (BOOL)assertCharactersOfString:(NSString*)string1 matchesString:(NSString*)string2
@@ -109,48 +109,56 @@
 	return result;
 }
 
-- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECAssertStringTestMode)mode
+- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECTestComparisonMode)mode
 {
-	// NB if the collections dont match, we convert them to strings and try again - so [collection1 isEqual:collection2] may
-	//       return NO, but as long as the string descriptions match, we don't assert
-	BOOL collectionsMatch = [collection1 isEqual:collection2];
-	NSString* string1;
-	NSString* string2;
-	if (!collectionsMatch)
+	BOOL collectionsMatch;
+	if (mode == ECTestComparisonDefault)
 	{
-		string1 = [collection1 description];
-		string2 = [collection2 description];
-		collectionsMatch = [string1 isEqualToString:string2];
+		collectionsMatch = [self assertCollection:collection1 matchesCollection:collection2];
 	}
-
-
-	if (!collectionsMatch)
+	else
 	{
-		if ((mode == ECAssertStringDiff) || (mode == ECAssertStringDiffNoJSON))
+		// NB if the collections dont match, we convert them to strings and try again - so [collection1 isEqual:collection2] may
+		//       return NO, but as long as the string descriptions match, we don't assert
+		collectionsMatch = [collection1 isEqual:collection2];
+		NSString* string1;
+		NSString* string2;
+		if (!collectionsMatch)
 		{
-			NSURL* temp1 = [self URLForTemporaryFileNamed:@"collection1"];
-			NSURL* temp2 = [self URLForTemporaryFileNamed:@"collection2"];
-
-			if (mode == ECAssertStringDiffNoJSON)
+			string1 = [collection1 description];
+			string2 = [collection2 description];
+			collectionsMatch = [string1 isEqualToString:string2];
+		}
+		
+		
+		if (!collectionsMatch)
+		{
+			if ((mode == ECTestComparisonDiff) || (mode == ECTestComparisonDiffNoJSON))
 			{
-				[self diffAsTextString1:string1 string2:string2 temp1:temp1 temp2:temp2];
+				NSURL* temp1 = [self URLForTemporaryFileNamed:@"collection1"];
+				NSURL* temp2 = [self URLForTemporaryFileNamed:@"collection2"];
+				
+				if (mode == ECTestComparisonDiffNoJSON)
+				{
+					[self diffAsTextString1:string1 string2:string2 temp1:temp1 temp2:temp2];
+				}
+				else
+				{
+					// try to write as JSON - might not work but it'll produce nicer output
+					@try {
+						[self diffAsJSONCollection:collection1 collection2:collection2 temp1:temp1 temp2:temp2];
+					}
+					@catch (NSException *exception) {
+						[self diffAsTextString1:string1 string2:string2 temp1:temp1 temp2:temp2];
+					}
+				}
+				
+				ECTestFail(@"collections failed to match");
 			}
 			else
 			{
-				// try to write as JSON - might not work but it'll produce nicer output
-				@try {
-					[self diffAsJSONCollection:collection1 collection2:collection2 temp1:temp1 temp2:temp2];
-				}
-				@catch (NSException *exception) {
-					[self diffAsTextString1:string1 string2:string2 temp1:temp1 temp2:temp2];
-				}
+				collectionsMatch = [self assertString:string1 matchesString:string2 mode:mode];
 			}
-
-			ECTestFail(@"collections failed to match");
-		}
-		else
-		{
-			collectionsMatch = [self assertString:string1 matchesString:string2 mode:mode];
 		}
 	}
 
@@ -191,7 +199,7 @@
 	return result;
 }
 
-- (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECAssertStringTestMode)mode
+- (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECTestComparisonMode)mode
 {
 	BOOL result = YES;
 	ECTestAssertNotNil(string1);
@@ -200,15 +208,15 @@
 	{
 		switch (mode)
 		{
-			case ECAssertStringTestShowChars:
+			case ECTestComparisonShowChars:
 				result = [self assertCharactersOfString:string1 matchesString:string2];
 				break;
 
-			case ECAssertStringTestShowLines:
+			case ECTestComparisonShowLines:
 				result = [self assertLinesOfString:string1 matchesString:string2];
 				break;
 
-			case ECAssertStringTestShowLinesIgnoreWhitespace:
+			case ECTestComparisonShowLinesIgnoreWhitespace:
 			default:
 				result = [self assertLinesIgnoringWhitespaceOfString:string1 matchesString:string2];
 				break;
@@ -216,7 +224,7 @@
 	}
 }
 
-- (BOOL)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode
+- (BOOL)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECTestComparisonMode)mode
 {
 	BOOL result = YES;
 	NSError* error;
@@ -244,7 +252,7 @@
 	return result;
 }
 
-- (BOOL)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECAssertStringTestMode)mode
+- (BOOL)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECTestComparisonMode)mode
 {
 	BOOL result = YES;
 	NSError* error;
@@ -252,7 +260,7 @@
 	if (expected)
 	{
 		#if !TARGET_OS_IPHONE
-		if (mode == ECAssertStringDiff)
+		if (mode == ECTestComparisonDiff)
 		{
 			if (![string isEqualToString:expected])
 			{

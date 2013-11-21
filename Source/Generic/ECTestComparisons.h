@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
+{
+	ECTestComparisonShowChars,
+	ECTestComparisonShowLines,
+	ECTestComparisonShowLinesIgnoreWhitespace,
+	ECTestComparisonDiff,
+	ECTestComparisonDiffNoJSON,
+	ECTestComparisonDefault
+};
+
 typedef void (^ECTestComparisonBlock)(NSString* context, NSUInteger level, id item1, id item2);
 
 @interface NSObject(ECTestComparisons)
