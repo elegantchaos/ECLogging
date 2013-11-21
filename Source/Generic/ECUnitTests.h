@@ -8,3 +8,4 @@
 
 #import "ECTestCase.h"
 #import "ECParameterisedTestCase.h"
+#import "ECTestComparisons.h"
