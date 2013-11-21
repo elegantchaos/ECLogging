@@ -440,10 +440,16 @@
 - (void)diffURL:(NSURL*)url1 againstURL:(NSURL*)url2
 {
 #if !TARGET_OS_IPHONE // this doesn't make a lot of sense on iOS
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+
 	// To use a different diff tool, do, eg:
     //         defaults write otest DiffTool "/usr/local/bin/ksdiff"
+	//
+	// or uncomment below:
+//	[defaults setObject:@"/usr/local/bin/ksdiff" forKey:@"DiffTool"];
+//	[defaults synchronize];
 
-	NSString* diff = [[NSUserDefaults standardUserDefaults] stringForKey:@"DiffTool"];
+	NSString* diff = [defaults stringForKey:@"DiffTool"];
     if (!diff)
         diff = @"/usr/bin/diff";
 
