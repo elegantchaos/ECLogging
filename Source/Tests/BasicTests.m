@@ -185,5 +185,4 @@
 	ECTestAssertStringIsEqual(expected, @"l3\ndifferent string\nl5\n");
 }
 
-
 @end
