@@ -6,6 +6,7 @@
 
 #import "ECTestCase.h"
 #import "ECParameterisedTestCase.h"
+#import "ECTestComparisons.h"
 #import "NSString+ECLogging.h"
 
 @interface ECTestCase()
@@ -88,7 +89,11 @@
 
 - (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2
 {
-	return [self assertString:[collection1 description] matchesString:[collection2 description] mode:ECAssertStringTestShowLinesIgnoreWhitespace];
+	BOOL result = [collection1 matches:collection2 block:^(NSString *context, NSUInteger level, id i1, id i2) {
+		ECTestFail(@"%@: %@ didn't match %@\n", context, i1, i2);
+	}];
+
+	return result;
 }
 
 - (BOOL)assertLinesOfString:(NSString *)string1 matchesString:(NSString *)string2
