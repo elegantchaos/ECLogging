@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^ECTestComparisonBlock)(id item1, id item2);
+typedef void (^ECTestComparisonBlock)(NSString* context, id item1, id item2);
 
 @interface NSObject(ECTestComparisons)
 - (BOOL)matches:(id)item2 block:(ECTestComparisonBlock)block;
+- (BOOL)matches:(id)item2 context:(NSString*)context indent:(NSString*)indent block:(ECTestComparisonBlock)block;
 @end
 
