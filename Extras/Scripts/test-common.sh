@@ -80,11 +80,9 @@ commonbuildxctool()
   echo "Building $1 for $3 $2 with xctool"
   cleanoutput "$1" "$3"
 
-  xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" -reporter junit >> "$testout" 2>> "$testerr"
-
   reportdir="$build/reports/$3-$1"
   mkdir -p "$reportdir"
-  cp "$testout" "$reportdir/report.xml" 2>> "$testerr"
+  xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" >> "$testout" 2>> "$testerr"
 }
 
 commonbuildxcbuild()
