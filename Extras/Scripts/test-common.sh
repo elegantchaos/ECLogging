@@ -77,7 +77,7 @@ cleanoutput()
 
 commonbuildxctool()
 {
-  echo "Building $1 for $3 $2"
+  echo "Building $1 for $3 $2 with xctool"
   cleanoutput "$1" "$3"
 
   xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" -reporter junit >> "$testout" 2>> "$testerr"
@@ -89,7 +89,7 @@ commonbuildxctool()
 
 commonbuildxcbuild()
 {
-    echo "Building $1 for $3 $2"
+    echo "Building $1 for $3 $2 with xcodebuild"
     cleanoutput "$1" "$3"
 
     # build it
