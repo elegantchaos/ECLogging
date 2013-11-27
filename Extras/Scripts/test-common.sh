@@ -2,6 +2,13 @@
 
 # Common code for test scripts
 
+if [[ `which xctool` == "" ]]
+then
+  use_xctool=false
+else
+  use_xctool=true
+fi
+
 if [[ $project == "" ]];
 then
     echo "Need to define project variable."
@@ -68,9 +75,19 @@ cleanoutput()
     echo "" > "$testerr"
 }
 
-commonbuild()
+commonbuildxctool()
 {
-    echo "Building $1 for $3 $2"
+  echo "Building $1 for $3 $2 with xctool"
+  cleanoutput "$1" "$3"
+
+  reportdir="$build/reports/$3-$1"
+  mkdir -p "$reportdir"
+  xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" >> "$testout" 2>> "$testerr"
+}
+
+commonbuildxcbuild()
+{
+    echo "Building $1 for $3 $2 with xcodebuild"
     cleanoutput "$1" "$3"
 
     # build it
@@ -117,6 +134,16 @@ commonbuild()
 
 }
 
+commonbuild()
+{
+  if $use_xctool
+  then
+    commonbuildxctool "$1" "$2" "$3" "$4" "$5"
+  else
+    commonbuildxcbuild "$1" "$2" "$3" "$4" "$5"
+  fi
+}
+
 macbuild()
 {
     if $testMac ; then
@@ -131,11 +158,14 @@ iosbuild()
 {
     if $testIOS; then
 
-        if [[ $2 == "test" ]];
+        if ! $use_xctool
         then
-            action="build TEST_AFTER_BUILD=YES"
-        else
-            action=$2
+          if [[ $2 == "test" ]];
+          then
+              action="build TEST_AFTER_BUILD=YES"
+          else
+              action=$2
+          fi
         fi
 
         cleanbuild
