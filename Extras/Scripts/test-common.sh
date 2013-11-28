@@ -82,7 +82,32 @@ commonbuildxctool()
 
   reportdir="$build/reports/$3-$1"
   mkdir -p "$reportdir"
-  xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" >> "$testout" 2>> "$testerr"
+
+    xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 build OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
+
+    result=$?
+
+    if [[ $result == 0 ]]
+    then
+        xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" >> "$testout" 2>> "$testerr"
+    fi
+
+    if ([[ $result != 0 ]]
+    then
+        # if it looks like the build failed, output everything to stdout
+        echo "Build Failed"
+        #cat "$testout"
+        cat "$testerr" >&2
+        echo
+        echo "** BUILD FAILURES **"
+        echo "xxctool returned $result"
+
+        echo "Build failed for scheme $1"
+        urlencode "${JOB_URL}ws/test-build/logs/$1-$3"
+        echo "Full log: $encoded"
+        exit $result
+    fi
+
 }
 
 commonbuildxcbuild()
