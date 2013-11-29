@@ -96,6 +96,7 @@ commonbuildxctool()
         echo "Build Failed"
         #cat "$testout"
         cat "$testerr" >&2
+        tail "$testout"
         echo
         echo "** BUILD FAILURES **"
         echo "xxctool returned $result"
@@ -103,6 +104,7 @@ commonbuildxctool()
         echo "Build failed for scheme $1"
         urlencode "${JOB_URL}ws/test-build/logs/$1-$3"
         echo "Full log: $encoded"
+
         exit $result
     fi
 
