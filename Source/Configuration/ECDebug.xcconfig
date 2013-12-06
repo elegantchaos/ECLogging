@@ -33,3 +33,9 @@ COPY_PHASE_STRIP = NO
 ECDEBUGCONFIG=YES
 
 GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 $(inherited)
+
+// --------------------------------------------------------------------------
+// Signing
+// --------------------------------------------------------------------------
+
+OTHER_CODE_SIGN_FLAGS = --timestamp=none // don't timestamp for debug builds (it needs a net connection, which we might not have)
