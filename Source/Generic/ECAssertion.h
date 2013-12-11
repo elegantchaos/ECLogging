@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------
 
 #define ECAssertShouldntBeHereBase(imp)							imp(FALSE)
+#define ECAssertSubclassShouldOverrideBase(imp)					imp(FALSE)
 #define ECAssertNonNilBase(expression, imp)						imp((expression) != nil)
 #define ECAssertNilBase(expression, imp)						imp((expression) == nil)
 #define ECAssertCountAtLeastBase(container, countMinimum, imp)	imp([container count] >= countMinimum)
@@ -30,6 +31,9 @@ ECDeclareDebugChannel(AssertionChannel);
 #define ECAssertC(expression)
 
 #endif
+
+#define ECAssertSubclassShouldOverride() ECAssertSubclassShouldOverrideBase(ECAssert)
+#define ECAssertSubclassShouldOverrideC() ECAssertSubclassShouldOverrideBase(ECAssertC)
 
 #define ECAssertShouldntBeHere() ECAssertShouldntBeHereBase(ECAssert)
 #define ECAssertShouldntBeHereC() ECAssertShouldntBeHereBase(ECAssertC)
