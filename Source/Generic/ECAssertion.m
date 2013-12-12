@@ -18,7 +18,7 @@ ECDefineDebugChannel(AssertionChannel);
 }
 
 + (id)assertObject:(id)object isOfClass:(Class)c {
-	ECAssert([object isKindOfClass:c]);
+	ECAssert((object == nil) || [object isKindOfClass:c]);
 	
 	return object;
 }
