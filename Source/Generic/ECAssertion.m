@@ -17,4 +17,10 @@ ECDefineDebugChannel(AssertionChannel);
     [NSException raise:@"ECAssertion failed" format:@"Expression:%s", expression];
 }
 
++ (id)assertObject:(id)object isOfClass:(Class)c {
+	ECAssert([object isKindOfClass:c]);
+	
+	return object;
+}
+
 @end

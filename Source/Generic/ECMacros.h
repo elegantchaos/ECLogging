@@ -19,14 +19,13 @@
 #define EC_EXPORTED __attribute__((visibility("default"))) 
 
 
-
 #if EC_DEBUG
 
 #define ECUnusedInDebug(v) ECUnused(v)
 #define ECUnusedInRelease(v) do {} while(0)
 #define ECDebugOnly(x) x
 #define ECReleaseOnly(x) do {} while(0)
-
+#define ECCheckedCast(_class_,_expression_) ((_class_*) [ECAssertion assertObject:(_expression_) isOfClass:([_class_ class])])
 
 #else
 
@@ -34,5 +33,6 @@
 #define ECUnusedInRelease(v) ECUnused(v)
 #define ECDebugOnly(x) do {} while(0)
 #define ECReleaseOnly(x) x
+#define ECCheckedCast(_class_,_expression_) ((_class_*) (_expression_))
 
 #endif

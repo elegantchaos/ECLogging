@@ -55,5 +55,7 @@ ECDeclareDebugChannel(AssertionChannel);
 @interface ECAssertion : NSObject
 
 + (void)failAssertion:(const char*)expression;
++ (id)assertObject:(id)object isOfClass:(Class)c;
+
 
 @end
