@@ -88,7 +88,9 @@ NSString *const SuiteExtension = @"testsuite";
     
     if (self.parameterisedTestName)
     {
-        result = [NSString stringWithFormat:@"-[%@ %@]", NSStringFromClass([self class]), self.parameterisedTestName];
+		NSString* methodName = [[super name] componentsSeparatedByString:@" "][1];
+		methodName = [methodName substringToIndex:[methodName length] - 1];
+        result = [NSString stringWithFormat:@"-[%@ %@%@]", NSStringFromClass([self class]), methodName, self.parameterisedTestName];
     }
     else 
     {
