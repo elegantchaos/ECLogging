@@ -32,6 +32,7 @@ popd > /dev/null
 
 sym="$build/sym"
 obj="$build/obj"
+dst="$build/dst"
 precomp="$build/precomp"
 
 rm -rf "$build"
@@ -59,6 +60,7 @@ cleanbuild()
 {
     # ensure a clean build every time
     rm -rf "$obj"
+    rm -rf "$dst"
     rm -rf "$sym"
     rm -rf "$precomp"
 }
@@ -83,7 +85,7 @@ commonbuildxctool()
   reportdir="$build/reports/$3-$1"
   mkdir -p "$reportdir"
 
-    xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testout" 2>> "$testerr"
+    xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testout" 2>> "$testerr"
     result=$?
 
 
@@ -112,7 +114,7 @@ commonbuildxcbuild()
     cleanoutput "$1" "$3"
 
     # build it
-    xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
+    xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
 
     result=$?
 
@@ -205,9 +207,9 @@ iosbuildproject()
 
         cd "$1"
         echo Building debug target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
+        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
         echo Building release target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
+        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
         result=$?
         cd ..
         if [[ $result != 0 ]]; then
@@ -232,9 +234,9 @@ iostestproject()
 
         cd "$1"
         echo Testing debug target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
+        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
         echo Testing release target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" SHARED_PRECOMPS_DIR="$precomp" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
+        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
         result=$?
         cd ..
         if [[ $result != 0 ]]; then
