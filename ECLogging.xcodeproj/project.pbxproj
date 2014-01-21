@@ -405,9 +405,9 @@
 		22970D3D14F5AA80007B254B /* ECLoggingRelease.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingRelease.pch; sourceTree = "<group>"; };
 		229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugHandlersViewController.h; sourceTree = "<group>"; };
 		229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugHandlersViewController.m; sourceTree = "<group>"; };
-		22B6A243183E0C5400873C05 /* ECTestComparisons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTestComparisons.h; sourceTree = "<group>"; };
-		22B6A244183E0C5400873C05 /* ECTestComparisons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTestComparisons.m; sourceTree = "<group>"; };
-		22B6A24A183E0CA800873C05 /* ComparisonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComparisonTests.m; sourceTree = "<group>"; };
+		22B6A243183E0C5400873C05 /* ECTestComparisons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ECTestComparisons.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		22B6A244183E0C5400873C05 /* ECTestComparisons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ECTestComparisons.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		22B6A24A183E0CA800873C05 /* ComparisonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComparisonTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		22ECE86D16DC009E00F9C782 /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Test.bundle; sourceTree = "<group>"; };
 		22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
