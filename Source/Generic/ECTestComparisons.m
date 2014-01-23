@@ -134,7 +134,7 @@
 			}
 			else
 			{
-				NSString* itemContext = [NSString stringWithFormat:@"%@[@\"%@\"] missing key", context, key];
+				NSString* itemContext = [NSString stringWithFormat:@"%@[@\"%@\"] missing key %@", context, key, key];
 				block(itemContext, level, v1, nil);
 				matches = NO;
 			}
@@ -143,7 +143,7 @@
 		
 		for (NSString* key in keys2)
 		{
-			NSString* itemContext = [NSString stringWithFormat:@"%@[@\"%@\"] extra key", context, key];
+			NSString* itemContext = [NSString stringWithFormat:@"%@[@\"%@\"] extra key %@", context, key, key];
 			block(itemContext, level, nil, item2[key]);
 			matches = NO;
 		}

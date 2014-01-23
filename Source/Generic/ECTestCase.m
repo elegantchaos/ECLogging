@@ -90,8 +90,10 @@
 - (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2
 {
 	BOOL result = [collection1 matches:collection2 block:^(NSString *context, NSUInteger level, id i1, id i2) {
-
-		NSLog(@"%@: %@ didn't match %@\n", context, i1, i2);
+		if (i1 && i2)
+			NSLog(@"%@: %@ didn't match %@\n", context, i1, i2);
+		else
+			NSLog(@"%@: %@\n", context, i1 ? i1 : i2);
 	}];
 
 	ECTestAssertTrueFormat(result, @"collections didn't match");
