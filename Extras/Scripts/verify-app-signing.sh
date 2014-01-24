@@ -12,4 +12,7 @@ spctl --verbose=8 --assess --type execute "$app"
 echo "codesign:"
 codesign -v "$app" $opts
 codesign -v "$app/Contents/Frameworks/"* $opts
-codesign -v "$app/Contents/PlugIns/"* $opts
+if [[ -e "$app/Contents/PlugIns/" ]]
+then
+    codesign -v "$app/Contents/PlugIns/"* $opts
+fi
