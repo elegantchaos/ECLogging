@@ -93,7 +93,8 @@ sign_folder()
 }
 
 # Pull out the application's bundle id
-APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" ${INFOPLIST_FILE}`
+BUILT_INFO_PLIST="${CODESIGNING_FOLDER_PATH}/Contents/Info.plist"
+APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" ${BUILT_INFO_PLIST}`
 echo "Resigning bundles items."
 echo "App bundle is $APPID."
 
