@@ -35,7 +35,7 @@ obj="$build/obj"
 dst="$build/dst"
 precomp="$build/precomp"
 
-rm -rf "$build"
+rm -rfd "$build"
 mkdir -p "$build"
 
 config="Debug"
@@ -59,10 +59,10 @@ report()
 cleanbuild()
 {
     # ensure a clean build every time
-    rm -rf "$obj"
-    rm -rf "$dst"
-    rm -rf "$sym"
-    rm -rf "$precomp"
+    rm -rfd "$obj"
+    rm -rfd "$dst"
+    rm -rfd "$sym"
+    rm -rfd "$precomp"
 }
 
 cleanoutput()
@@ -77,17 +77,36 @@ cleanoutput()
     echo "" > "$testerr"
 }
 
+setup()
+{
+    local TOOL="$1"
+    shift
+
+    local SCHEME="$1"
+    shift
+
+    local PLATFORM="$1"
+    shift
+
+    echo "Building $SCHEME for $PLATFORM with $TOOL"
+    echo "Actions: $@"
+    cleanoutput "$SCHEME" "$PLATFORM"
+}
+
 commonbuildxctool()
 {
-  echo "Building $1 for $3 $2 with xctool"
-  cleanoutput "$1" "$3"
+    local SCHEME="$1"
+    shift
+    local PLATFORM="$1"
+    shift
 
-  reportdir="$build/reports/$3-$1"
-  mkdir -p "$reportdir"
+    setup "xctool" "$SCHEME" "$PLATFORM" "$@"
 
-    xctool -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testout" 2>> "$testerr"
+    reportdir="$build/reports/$PLATFORM-$SCHEME"
+    mkdir -p "$reportdir"
+
+    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" "$@" OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testout" 2>> "$testerr"
     result=$?
-
 
     if [[ $result != 0 ]]
     then
@@ -105,20 +124,24 @@ commonbuildxctool()
 
         exit $result
     fi
-
 }
 
 commonbuildxcbuild()
 {
-    echo "Building $1 for $3 $2 with xcodebuild"
-    cleanoutput "$1" "$3"
+    local SCHEME="$1"
+    shift
+    local PLATFORM="$1"
+    shift
+
+    setup "xcworkspace" "$SCHEME" "$PLATFORM" "$@"
+
 
     # build it
-    xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
+    xcodebuild -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" "$@" OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
 
     result=$?
 
-    report "$1" "$3"
+    report "$SCHEME" "$PLATFORM"
 
     # we don't entirely trust the return code from xcodebuild, so we also scan the output for "failed"
     buildfailures=`grep failed "$testerr"`
@@ -136,8 +159,8 @@ commonbuildxcbuild()
         if [[ $buildfailures != "" ]]; then
           echo "Found failure in log: $buildfailures"
         fi
-        echo "Build failed for scheme $1"
-        urlencode "${JOB_URL}ws/test-build/logs/$1-$3"
+        echo "Build failed for scheme $SCHEME"
+        urlencode "${JOB_URL}ws/test-build/logs/$SCHEME-$PLATFORM"
         echo "Full log: $encoded"
         if [[ $result == 0 ]]; then
             result=1
@@ -151,7 +174,7 @@ commonbuildxcbuild()
         echo "** UNIT TEST FAILURES **"
         echo "Found failure in log:$testfailures"
         echo
-        echo "Tests failed for scheme $1"
+        echo "Tests failed for scheme $SCHEME"
         exit 1
     fi
 
@@ -159,20 +182,29 @@ commonbuildxcbuild()
 
 commonbuild()
 {
+  local SCHEME="$1"
+  shift
+
   if $use_xctool
   then
-    commonbuildxctool "$1" "$2" "$3" "$4" "$5"
+    commonbuildxctool "$SCHEME" "$@"
   else
-    commonbuildxcbuild "$1" "$2" "$3" "$4" "$5"
+    commonbuildxcbuild "$SCHEME" "$@"
   fi
 }
 
 macbuild()
 {
+
     if $testMac ; then
+        local SCHEME=$1
+        shift
+        local ACTIONS=$1
+        shift
+        local PLATFORM="macosx"
 
         cleanbuild
-        commonbuild "$1" "$2" "macosx" ""
+        commonbuild "$SCHEME" "$PLATFORM" "$ACTIONS" "$@"
 
     fi
 }
@@ -181,18 +213,22 @@ iosbuild()
 {
     if $testIOS; then
 
+        local SCHEME=$1
+        shift
+
+        local ACTIONS=$1
+        shift
         if ! $use_xctool
         then
-          if [[ $2 == "test" ]];
+          if [[ $ACTIONS == "test" ]];
           then
-              action="build TEST_AFTER_BUILD=YES"
-          else
-              action=$2
+              ACTIONS="build TEST_AFTER_BUILD=YES"
           fi
         fi
+        local PLATFORM="iphonesimulator"
 
         cleanbuild
-        commonbuild "$1" "$action" "iphonesimulator" "-arch i386 ONLY_ACTIVE_ARCH=NO"
+        commonbuild "$SCHEME" "$PLATFORM" "$ACTIONS" -arch i386 ONLY_ACTIVE_ARCH=NO "$@"
 
     fi
 }
