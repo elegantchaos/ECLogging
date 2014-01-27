@@ -70,12 +70,12 @@
 	else
 	{
 		NSUInteger c1 = [self count];
-		NSUInteger c2 = [item2 count];
+		NSUInteger c2 = [(NSArray*)item2 count];
 		NSUInteger min = MIN(c1, c2);
 
 		for (NSUInteger n = 0; n < min; ++n)
 		{
-			NSString* itemContext = [NSString stringWithFormat:@"%@[%ld]", context, n];
+			NSString* itemContext = [NSString stringWithFormat:@"%@[%ld]", context, (long)n];
 			matches = [self[n] matches:item2[n] context:itemContext level:level+1 block:block] && matches;
 		}
 
@@ -84,7 +84,7 @@
 			matches = NO;
 			for (NSUInteger n = min; n < c2; ++n)
 			{
-				NSString* itemContext = [NSString stringWithFormat:@"%@[%ld] extra item", context, n];
+				NSString* itemContext = [NSString stringWithFormat:@"%@[%ld] extra item", context, (long)n];
 				block(itemContext, level, nil, item2[n]);
 			}
 		}
@@ -94,7 +94,7 @@
 			matches = NO;
 			for (NSUInteger n = min; n < c1; ++n)
 			{
-				NSString* itemContext = [NSString stringWithFormat:@"%@[%ld] missing item", context, n];
+				NSString* itemContext = [NSString stringWithFormat:@"%@[%ld] missing item", context, (long)n];
 				block(itemContext, level, self[n], nil);
 			}
 		}
