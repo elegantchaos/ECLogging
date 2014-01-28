@@ -460,7 +460,7 @@
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
 	// To use a different diff tool, do, eg:
-    //         defaults write otest DiffTool "/usr/local/bin/ksdiff"
+    //         defaults write xctest DiffTool "/usr/local/bin/ksdiff"
 	//
 	// or uncomment below:
 //	[defaults setObject:@"/usr/local/bin/ksdiff" forKey:@"DiffTool"];
