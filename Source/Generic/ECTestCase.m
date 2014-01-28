@@ -470,11 +470,14 @@
     if (!diff)
         diff = @"/usr/bin/diff";
 
-	NSTask *task;
-	task = [[NSTask alloc] init];
-	[task setLaunchPath: diff];
-	[task setArguments: @[[url1 path], [url2 path]]];
-	[task launch];
+	if (![diff isEqualToString:@"off"])
+	{
+		NSTask *task;
+		task = [[NSTask alloc] init];
+		[task setLaunchPath: diff];
+		[task setArguments: @[[url1 path], [url2 path]]];
+		[task launch];
+	}
 #endif
 }
 
