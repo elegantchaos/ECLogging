@@ -470,7 +470,11 @@
     if (!diff)
         diff = @"/usr/bin/diff";
 
-	if (![diff isEqualToString:@"off"])
+	if ([diff isEqualToString:@"off"])
+	{
+		NSLog(@"diffing of %@ and %@ disabled", [url1 lastPathComponent], [url2 lastPathComponent]);
+	}
+	else
 	{
 		NSTask *task;
 		task = [[NSTask alloc] init];
