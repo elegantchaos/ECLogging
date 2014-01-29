@@ -9,3 +9,4 @@
 #import "ECTestCase.h"
 #import "ECParameterisedTestCase.h"
 #import "ECTestComparisons.h"
+#import "ECTestPerformanceCounter.h"
