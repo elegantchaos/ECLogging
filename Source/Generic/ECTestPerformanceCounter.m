@@ -38,16 +38,19 @@
 	return result;
 }
 
-+ (NSTimeInterval)performIterations:(NSUInteger)iterations label:(NSString*)label key:(NSString*)key block:(void (^)())block
++ (NSTimeInterval)performIterations:(NSUInteger)iterations label:(NSString*)label block:(void (^)())block
 {
 	NSTimeInterval total = 0;
-	
+	BOOL showIterations = iterations < 50;
 	for (NSUInteger i = 0; i < iterations; ++i) {
 		NSTimeInterval before = [NSDate timeIntervalSinceReferenceDate];
 		block();
 		NSTimeInterval after = [NSDate timeIntervalSinceReferenceDate];
 		NSTimeInterval difference = after-before;
-		NSLog(@"%@ #%ld took %fs", label, (long)(i + 1), difference);
+		
+		if (showIterations)
+			NSLog(@"%@ #%ld took %fs", label, (long)(i + 1), difference);
+		
 		total += difference;
 	}
 	
