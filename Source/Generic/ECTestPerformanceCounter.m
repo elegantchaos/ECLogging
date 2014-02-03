@@ -17,7 +17,7 @@
 	// load the previous results from the user defaults
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	NSArray* previousResults = [defaults objectForKey:resultsKey];
-	CGFloat previousTotal = [defaults doubleForKey:totalKey];
+	CGFloat previousTotal = (CGFloat)[defaults doubleForKey:totalKey];
 	if (previousResults) {
 		NSUInteger runs = [previousResults count];
 		CGFloat previousAverage = previousTotal / runs;
@@ -47,7 +47,7 @@
 		block();
 		NSTimeInterval after = [NSDate timeIntervalSinceReferenceDate];
 		NSTimeInterval difference = after-before;
-		NSLog(@"%@ #%ld took %fs", label, i + 1, difference);
+		NSLog(@"%@ #%ld took %fs", label, (long)(i + 1), difference);
 		total += difference;
 	}
 	
