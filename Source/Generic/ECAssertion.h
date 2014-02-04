@@ -5,11 +5,13 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#define ECAssertContainsBase(container, object, imp)			imp([(container) containsObject:(object)])
+#define ECAssertDoesntContainBase(container, object, imp)		imp(![(container) containsObject:(object)])
 #define ECAssertShouldntBeHereBase(imp)							imp(FALSE)
 #define ECAssertSubclassShouldOverrideBase(imp)					imp(FALSE)
 #define ECAssertNonNilBase(expression, imp)						imp((expression) != nil)
 #define ECAssertNilBase(expression, imp)						imp((expression) == nil)
-#define ECAssertCountAtLeastBase(container, countMinimum, imp)	imp([container count] >= countMinimum)
+#define ECAssertCountAtLeastBase(container, countMinimum, imp)	imp([(container) count] >= (countMinimum))
 #define ECAssertEmptyBase(object, imp)							
 
 #if EC_DEBUG
@@ -31,6 +33,12 @@ ECDeclareDebugChannel(AssertionChannel);
 #define ECAssertC(expression)
 
 #endif
+
+#define ECAssertContains(container, object) ECAssertContainsBase(container, object, ECAssert)
+#define ECAssertContainsC(container, object) ECAssertContainsBase(container, object, ECAssertC)
+
+#define ECAssertDoesntContain(container, object) ECAssertDoesntContainBase(container, object, ECAssert)
+#define ECAssertDoesntContainC(container, object) ECAssertDoesntContainBase(container, object, ECAssertC)
 
 #define ECAssertSubclassShouldOverride() ECAssertSubclassShouldOverrideBase(ECAssert)
 #define ECAssertSubclassShouldOverrideC() ECAssertSubclassShouldOverrideBase(ECAssertC)
