@@ -5,8 +5,11 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#include <stdbool.h>
+
 #ifdef __OBJC__
 
+#import <Foundation/Foundation.h>
 @class ECLogChannel;
 
 #else
