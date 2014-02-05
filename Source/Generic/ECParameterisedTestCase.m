@@ -67,8 +67,11 @@ NSString *const SuiteExtension = @"testsuite";
         NSMutableString* cleaned = [NSMutableString stringWithCapacity:[name length]];
         for (NSString* word in words)
         {
-            [cleaned appendString:[[word uppercaseString] substringToIndex:1]];
-            [cleaned appendString:[word substringFromIndex:1]];
+			if ([word length] > 0)
+			{
+				[cleaned appendString:[[word uppercaseString] substringToIndex:1]];
+				[cleaned appendString:[word substringFromIndex:1]];
+			}
         }
         result = cleaned;
     }
