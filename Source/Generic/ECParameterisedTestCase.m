@@ -60,6 +60,8 @@ NSString *const SuiteExtension = @"testsuite";
 + (NSString*)cleanedName:(NSString*)name
 {
     NSString* result = [name stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+    result = [result stringByReplacingOccurrencesOfString:@"(" withString:@"_"];
+    result = [result stringByReplacingOccurrencesOfString:@")" withString:@"_"];
     NSCharacterSet* separators = [NSCharacterSet whitespaceCharacterSet];
     NSArray* words = [name componentsSeparatedByCharactersInSet:separators];
     if ([words count] > 1)
