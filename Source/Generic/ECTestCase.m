@@ -485,6 +485,8 @@
 #endif
 }
 
+#if !TARGET_OS_IPHONE
+
 - (BOOL)imageAsPNG:(NSBitmapImageRep*)image exactlyMatchesReferenceImageAsPNG:(NSBitmapImageRep*)reference {
 	NSData* imageData = [image representationUsingType:NSPNGFileType properties:@{NSImageInterlaced: @(YES)}];
 	NSData* referenceData = [reference representationUsingType:NSPNGFileType properties:@{NSImageInterlaced: @(YES)}];
@@ -575,6 +577,8 @@
 	return result;
 	
 }
+
+#endif
 
 @end
 

@@ -258,6 +258,8 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 
 - (void)diffURL:(NSURL*)url1 againstURL:(NSURL*)url2;
 
+#if !TARGET_OS_IPHONE
+
 /**
  Compare two bitmap images as PNGs and report whether they are equal.
  
@@ -279,5 +281,7 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
  */
 
 - (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference withinThreshold:(CGFloat)threshold pixelThreshold:(CGFloat)pixelThreshold;
+
+#endif
 
 @end
