@@ -258,4 +258,26 @@ withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
 
 - (void)diffURL:(NSURL*)url1 againstURL:(NSURL*)url2;
 
+/**
+ Compare two bitmap images as PNGs and report whether they are equal.
+ 
+ @param image Image to compare.
+ @param reference Reference image to compare against.
+ @return YES if the images are identical after conversion to PNG.
+ */
+
+- (BOOL)imageAsPNG:(NSBitmapImageRep*)image exactlyMatchesReferenceImageAsPNG:(NSBitmapImageRep*)reference;
+
+/**
+ Compare two bitmaps images and say whether they match within a certain threshold of error.
+ 
+ @param image Image to compare.
+ @param reference Reference image to compare against.
+ @param threshold The maximum average difference allowed between each of the corresponding pixels.
+ @param pixelThreshold The maximum difference allowed between any two corresponding pixels.
+ @return YES if the images match within the given thresholds.
+ */
+
+- (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference withinThreshold:(CGFloat)threshold pixelThreshold:(CGFloat)pixelThreshold;
+
 @end

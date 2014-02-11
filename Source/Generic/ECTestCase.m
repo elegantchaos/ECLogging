@@ -485,5 +485,96 @@
 #endif
 }
 
+- (BOOL)imageAsPNG:(NSBitmapImageRep*)image exactlyMatchesReferenceImageAsPNG:(NSBitmapImageRep*)reference {
+	NSData* imageData = [image representationUsingType:NSPNGFileType properties:@{NSImageInterlaced: @(YES)}];
+	NSData* referenceData = [reference representationUsingType:NSPNGFileType properties:@{NSImageInterlaced: @(YES)}];
+	return [imageData isEqual:referenceData];
+}
+
+- (NSBitmapImageRep*)bitmapAs32BitRGBA:(NSBitmapImageRep*)bitmap {
+	NSInteger width = (NSInteger) [bitmap size].width;
+	NSInteger height = (NSInteger) [bitmap size].height;
+	
+	if (width < 1 || height < 1)
+		return nil;
+	
+	NSString *spaceName = [bitmap colorSpaceName];
+	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+																	pixelsWide:width
+																	pixelsHigh:height
+																 bitsPerSample:8
+															   samplesPerPixel:4
+																	  hasAlpha:YES
+																	  isPlanar:NO
+																colorSpaceName:spaceName
+																   bytesPerRow:width * 4
+																  bitsPerPixel:32];
+	
+	NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
+	[NSGraphicsContext saveGraphicsState];
+	[NSGraphicsContext setCurrentContext:ctx];
+	
+	NSRect rect = NSMakeRect(0, 0, width, height);
+	[bitmap drawInRect:rect fromRect:rect operation:NSCompositeCopy fraction:1.0 respectFlipped:NO hints:nil];
+	[ctx flushGraphics];
+	[NSGraphicsContext restoreGraphicsState];
+	
+	return [rep bitmapImageRepByConvertingToColorSpace:[bitmap colorSpace] renderingIntent:0];
+}
+
+- (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference withinThreshold:(CGFloat)threshold pixelThreshold:(CGFloat)pixelThreshold {
+	NSSize imageSize = image.size;
+	NSSize referenceSize = reference.size;
+	
+	reference = [self bitmapAs32BitRGBA:reference];
+	image = [self bitmapAs32BitRGBA:image];
+	
+	struct Pixel { uint8_t r, g, b, a; };
+	struct Pixel *referencePixels = (struct Pixel *)[reference bitmapData];
+	struct Pixel *imagePixels = (struct Pixel *)[image bitmapData];
+	
+	BOOL result = NSEqualSizes(imageSize, referenceSize);
+	if (result) {
+		CGFloat overallDiff = 0;
+		CGFloat maxPixelDiff = 0;
+		
+		struct Pixel *referenceLoc = referencePixels;
+		struct Pixel *imageLoc = imagePixels;
+		for (NSInteger y = 0; y < imageSize.height; ++y) { //having X as our inner loop is much faster for locality-of-reference
+			for (NSInteger x = 0; x < imageSize.width; ++x) {
+				CGFloat pixelDiff = fabs(imageLoc->r - referenceLoc->r)/255;
+				pixelDiff += fabs(imageLoc->g - referenceLoc->g)/255.0;
+				pixelDiff += fabs(imageLoc->b - referenceLoc->b)/255.0;
+				pixelDiff += fabs(imageLoc->a - referenceLoc->a)/255.0;
+				if (pixelDiff) {
+					if (pixelDiff > maxPixelDiff)
+						maxPixelDiff = pixelDiff;
+					overallDiff += pixelDiff;
+				}
+				
+				referenceLoc++;
+				imageLoc++;
+			}
+		}
+		
+		CGFloat averageDiff = overallDiff / (imageSize.width * imageSize.height);
+		NSLog(@"Image differences: average %lf max %lf", averageDiff, maxPixelDiff);
+		
+		result = (averageDiff <= threshold);
+		if (!result) {
+			NSLog(@"Average difference in pixels %lf was over the threshold %lf", averageDiff, threshold);
+		}
+		else {
+			result = (maxPixelDiff <= pixelThreshold);
+			if (!result) {
+				NSLog(@"One or more pixel differences %lf was over the threshold %lf", maxPixelDiff, pixelThreshold);
+			}
+		}
+	}
+	
+	return result;
+	
+}
+
 @end
 
