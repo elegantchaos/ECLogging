@@ -330,13 +330,16 @@ NSString *const SuiteExtension = @"testsuite";
 
 + (id) defaultTestSuite
 {
-	ECTestSuiteClass* result = nil;
+	ECTestSuiteClass* result = [super defaultTestSuite];
 	if (self != [ECParameterisedTestCase class])
 	{
 		NSDictionary* data = [self parameterisedTestData];
 		if (data)
 		{
-			result = [[ECTestSuiteClass alloc] initWithName:NSStringFromClass(self)];
+			if (!result)
+			{
+				result = [[ECTestSuiteClass alloc] initWithName:NSStringFromClass(self)];
+			}
 			unsigned int methodCount;
 			Method* methods = class_copyMethodList([self class], &methodCount);
 			for (NSUInteger n = 0; n < methodCount; ++n)
@@ -356,10 +359,6 @@ NSString *const SuiteExtension = @"testsuite";
 		}
 	}
 
-	if (!result)
-	{
-		result = [super defaultTestSuite];
-	}
 
     return result;
 }
