@@ -62,6 +62,8 @@
 #define ECDeclareDebugChannel ECDeclareLogChannel
 #define ECDebugChannelEnabled ECChannelEnabled
 #define ECDebugOptionEnabled(key) ECOptionEnabled(key)
+#define ECEnableDebugChannel ECEnableChannel
+#define ECDisableDebugChannel ECDisableChannel
 
 #else
 
@@ -71,5 +73,7 @@
 #define ECDeclareDebugChannel(...)
 #define ECDebugChannelEnabled(channel) (false)
 #define ECDebugOptionEnabled(key) NO
+#define ECEnableDebugChannel(...)
+#define ECDisableDebugChannel(...)
 
 #endif
