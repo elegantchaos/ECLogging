@@ -7,6 +7,5 @@
 // Defaults for standard definitions needed to link a static library on the mac
 
 PRODUCT_NAME = $(PROJECT_NAME)
-OTHER_LDFLAGS = -ObjC -all_load
 PUBLIC_HEADERS_FOLDER_PATH = include/$(PRODUCT_NAME)
 MACH_O_TYPE = staticlib
