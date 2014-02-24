@@ -31,8 +31,11 @@
 	extern ECLogChannel* getChannel##channel(void); \
 	ECLogChannel* getChannel##channel(void) \
 	{ \
+		static dispatch_once_t onceToken; \
 		static ECLogChannel* instance = nil; \
-		if (!instance) { instance = registerChannel(#channel); } \
+		dispatch_once(&onceToken, ^{ \
+			instance = registerChannel(#channel); \
+		}); \
 		return instance; \
 	}
 
