@@ -50,7 +50,7 @@ MESSAGE=""
 if $DEFAULT_MESSAGE_IS_GIT_LOG; then
     # use the git log since the last upload as the upload message
     # any unused shell arguments are passed to git to allow us to filter the log to certain directories (ie to avoid commit messages for unrelated targets)
-    MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline origin/testflight/latest..HEAD $@`
+    MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline origin/testflight/latest..HEAD "$@"`
     if [[ $? != 0 ]]; then
         MESSAGE="first upload"
     fi
