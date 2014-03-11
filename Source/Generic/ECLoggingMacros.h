@@ -53,7 +53,7 @@
 
 #define ECChannelEnabled(channel) channelEnabled(getChannel##channel())
 
-#define ECOptionEnabled(key) ([[NSUserDefaults standardUserDefaults] boolForKey:key])
+#define ECOptionEnabled(key) ([[NSUserDefaults standardUserDefaults] boolForKey:@ #key])
 
 #pragma mark - Debug Only Macros
 
