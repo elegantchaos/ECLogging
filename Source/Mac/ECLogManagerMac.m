@@ -54,42 +54,24 @@ static ECLogManager* gSharedInstance = nil;
 }
 
 /// --------------------------------------------------------------------------
-/// Install a Logging menu with log related controls.
+/// Install a submenu into the debug menu if it doesn't already exist.
 /// --------------------------------------------------------------------------
 
-- (void)installLoggingMenu
+- (NSMenu*)installDebugSubmenuWithTitle:(NSString*)title class:(Class)class
 {
 	NSMenuItem* debugItem = [self debugMenuItem];
-	NSMenuItem* loggingItem = [debugItem.submenu itemWithTitle:@"Logging"];
-	if (!loggingItem)
+	NSMenuItem* submenuItem = [debugItem.submenu itemWithTitle:title];
+	if (!submenuItem)
 	{
-		loggingItem = [[NSMenuItem alloc] initWithTitle:@"Logging" action:nil keyEquivalent:@""];
-
-		ECLoggingMenu* menu = [[ECLoggingMenu alloc] initWithTitle:@"Logging"];
-		loggingItem.submenu = menu;
-
-		[debugItem.submenu addItem:loggingItem];
+		submenuItem = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
+		
+		id menu = [[class alloc] initWithTitle:title];
+		submenuItem.submenu = menu;
+		
+		[debugItem.submenu addItem:submenuItem];
 	}
-}
-
-/// --------------------------------------------------------------------------
-/// Install a options menu for controlling debug options.
-/// --------------------------------------------------------------------------
-
-- (void)installOptionsMenu
-{
-	NSMenuItem* debugItem = [self debugMenuItem];
-	NSMenuItem* optionsItem = [debugItem.submenu itemWithTitle:@"Options"];
-	if (!optionsItem)
-	{
-		optionsItem = [[NSMenuItem alloc] initWithTitle:@"Options" action:nil keyEquivalent:@""];
-
-		ECOptionsMenu* menu = [[ECOptionsMenu alloc] initWithTitle:@"Options"];
-		[menu setupAsRootMenu];
-		optionsItem.submenu = menu;
-
-		[debugItem.submenu addItem:optionsItem];
-	}
+	
+	return submenuItem.submenu;
 }
 
 /// --------------------------------------------------------------------------
@@ -103,8 +85,11 @@ static ECLogManager* gSharedInstance = nil;
 	if ([self.settings[@"InstallMenu"] boolValue])
 	{
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
-			[self installLoggingMenu];
-			[self installOptionsMenu];
+			[self installDebugSubmenuWithTitle:@"Logging" class:[ECLoggingMenu class]];
+			[self installDebugSubmenuWithTitle:@"Options" class:[ECOptionsMenu class]];
+			NSMenu* utilities = [self installDebugSubmenuWithTitle:@"Utilities" class:[NSMenu class]];
+			[utilities addItemWithTitle:@"Crash Now" action:@selector(crashNow:) keyEquivalent:@""].target = self;
+			[utilities addItemWithTitle:@"Assert Now" action:@selector(assertNow:) keyEquivalent:@""].target = self;
 		}];
 	}
 
@@ -132,6 +117,24 @@ static ECLogManager* gSharedInstance = nil;
 - (void)saveSettings:(NSNotification*)notification
 {
     [self saveChannelSettings];
+}
+
+/// --------------------------------------------------------------------------
+/// Cause a crash.
+/// Useful for testing crash logging etc.
+/// --------------------------------------------------------------------------
+
+- (void)crashNow:(id)sender {
+	strcpy((char*)0x1, "I gotta bad feeling about this");
+}
+
+/// --------------------------------------------------------------------------
+/// Cause an assertion failure.
+/// Useful for testing crash logging etc.
+/// --------------------------------------------------------------------------
+
+- (void)assertNow:(id)sender {
+	ECAssertShouldntBeHere();
 }
 
 @end
