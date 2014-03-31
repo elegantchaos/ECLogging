@@ -57,7 +57,7 @@ static ECLogManager* gSharedInstance = nil;
 /// Install a submenu into the debug menu if it doesn't already exist.
 /// --------------------------------------------------------------------------
 
-- (NSMenu*)installDebugSubmenuWithTitle:(NSString*)title class:(Class)class
+- (NSMenu*)installDebugSubmenuWithTitle:(NSString*)title class:(Class)menuClass
 {
 	NSMenuItem* debugItem = [self debugMenuItem];
 	NSMenuItem* submenuItem = [debugItem.submenu itemWithTitle:title];
@@ -65,7 +65,10 @@ static ECLogManager* gSharedInstance = nil;
 	{
 		submenuItem = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
 		
-		id menu = [[class alloc] initWithTitle:title];
+		id menu = [[menuClass alloc] initWithTitle:title];
+		if ([menu respondsToSelector:@selector(setupAsRootMenu)])
+			[menu setupAsRootMenu];
+		
 		submenuItem.submenu = menu;
 		
 		[debugItem.submenu addItem:submenuItem];
