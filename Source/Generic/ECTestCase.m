@@ -270,9 +270,12 @@
 			{
 				NSString* name = [url lastPathComponent];
 				NSURL* temp = [self URLForTemporaryFileNamed:[@"Actual-" stringByAppendingString:name]];
-				ECTestAssertTrueFormat([string writeToURL:temp atomically:YES encoding:NSUTF8StringEncoding error:&error], @"failed to write temporary text file %@", error);
-				[self diffURL:temp againstURL:url];
-				ECTestFail(@"String failed to match contents of %@", name);
+				BOOL writtenTemp = [string writeToURL:temp atomically:YES encoding:NSUTF8StringEncoding error:&error];
+				ECTestAssertTrueFormat(writtenTemp, @"failed to write temporary text file %@", error);
+				if (writtenTemp) {
+					[self diffURL:temp againstURL:url];
+					ECTestFail(@"String failed to match contents of %@", name);
+				}
 				result = NO;
 			}
 		}
