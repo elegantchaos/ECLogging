@@ -21,7 +21,7 @@ echo "Need to set ecbase variable - assuming it's at $base/.. (which is probably
 ecbase="$base/.."
 fi
 
-echo "Setting up tests for $project"
+echo "Preparing to build $project"
 
 build="$PWD/test-build"
 
