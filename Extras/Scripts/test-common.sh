@@ -35,7 +35,7 @@ obj="$build/obj"
 dst="$build/dst"
 precomp="$build/precomp"
 
-rm -rfd "$build"
+rm -rfd "$build" 2> /dev/null
 mkdir -p "$build"
 
 config="Debug"
@@ -59,10 +59,10 @@ report()
 cleanbuild()
 {
     # ensure a clean build every time
-    rm -rfd "$obj"
-    rm -rfd "$dst"
-    rm -rfd "$sym"
-    rm -rfd "$precomp"
+    rm -rfd "$obj" 2> /dev/null
+    rm -rfd "$dst" 2> /dev/null
+    rm -rfd "$sym" 2> /dev/null
+    rm -rfd "$precomp" > /dev/null
 }
 
 cleanoutput()
