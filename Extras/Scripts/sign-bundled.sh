@@ -118,8 +118,10 @@ sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks"
 
 # Sign XPCServices
-
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices"
+
+# Sign Quicklook
+sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Library/QuickLook"
 
 
 echo ""
