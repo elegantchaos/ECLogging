@@ -38,6 +38,14 @@
     return result;
 }
 
+- (void)setUp
+{
+	NSFileManager* fm = [NSFileManager defaultManager];
+	NSURL* url = [self URLForTemporaryFolder];
+	NSError* error;
+	[fm removeItemAtURL:url error:&error];
+}
+
 - (NSURL*)URLForTemporaryFolder
 {
 	NSURL* url = nil;
@@ -47,7 +55,8 @@
 	{
 		NSString* name = [self.name substringWithRange:NSMakeRange(2, length - 3)];
 		url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:name];
-		[[NSFileManager defaultManager] createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+		NSFileManager* fm = [NSFileManager defaultManager];
+		[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
 	}
 	
 	return url;
