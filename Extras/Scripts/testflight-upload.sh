@@ -10,6 +10,8 @@
 ## The second parameter should be the name of a TestFlight distribution list. All users in the list will be notified
 ## when the target has been uploaded.
 
+say "uploading to test flight"
+
 TMP=/tmp/testflight-upload
 LOG="${TMP}/upload.log"
 ERROR_LOG="${TMP}/error.log"
@@ -27,6 +29,7 @@ APITOKEN=`defaults read com.elegantchaos.testflight-upload API_TOKEN`
 if [[ "${APITOKEN}" == "" ]]; then
     echo "Need to set the TestFlight API token using 'defaults write com.elegantchaos.testflight-upload API_TOKEN <token>'" >> "${ERROR_LOG}"
     open "${ERROR_LOG}"
+    say "API token missing"
     exit 1
 fi
 
@@ -109,6 +112,7 @@ if [[ $? == 0 ]] ; then
         CONFIG_URL=`"${SCRIPT_DIR}/testflight-extract-url.py" < "${CURLLOG}"`
 
         if [[ $? == 0 ]] ; then
+            say "upload done"
             echo "Upload done." >> "${LOG}"
             open "${CONFIG_URL}"
 
@@ -122,6 +126,7 @@ if [[ $? == 0 ]] ; then
             rm "${IPA}"
 
         else
+            say "upload failed"
             echo "Test Flight returned error:" > "${ERROR_LOG}"
             cat "${CURLLOG}" >> "${ERROR_LOG}"
             echo "Curl errors:" >> "${ERROR_LOG}"
@@ -131,7 +136,7 @@ if [[ $? == 0 ]] ; then
 
         fi
 else
-
+    say "upload failed - couldn't make IPA"
     echo "Failed to build IPA"  >> "${ERROR_LOG}"
     echo "Profile was: ${PROVISIONING_PROFILE}" >> "${TMP}/xcrun.log"
     echo "Identity was: ${CODE_SIGN_IDENTITY}" >> "${TMP}/xcrun.log"
