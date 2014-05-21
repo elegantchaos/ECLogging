@@ -108,7 +108,7 @@ if [[ $? == 0 ]] ; then
         rm "$CURLLOG"
         CURL_OPTIONS="--connect-timeout 60 --max-time 600 --retry 10 --retry-delay 1 --retry-max-time 600 --verbose"
         #CURL_OPTIONS="--connect-timeout 60 --max-time 600 --retry 10 --retry-delay 1 --trace-ascii"
-        curl http://testflightapp.com/api/builds.json $CURL_OPTIONS --form file="@${IPA}" --form dsym="@${DSYM}.zip" --form api_token="${APITOKEN}" --form team_token="${TEAMTOKEN}" --form notes="${MESSAGE}" --form notify=True --form distribution_lists="${DISTRIBUTION}" -o "${CURLLOG}" &> "${CURLERR}"
+        curl http://testflightapp.com/api/builds.json $CURL_OPTIONS --form file="@${IPA}" --form dsym="@${DSYM}.zip" --form api_token="${APITOKEN}" --form team_token="${TEAMTOKEN}" --form notes="${MESSAGE}" --form notify="true" --form distribution_lists="${DISTRIBUTION}" -o "${CURLLOG}" &> "${CURLERR}"
         CONFIG_URL=`"${SCRIPT_DIR}/testflight-extract-url.py" < "${CURLLOG}"`
 
         if [[ $? == 0 ]] ; then
