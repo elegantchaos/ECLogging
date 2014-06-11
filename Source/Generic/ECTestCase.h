@@ -4,17 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#ifdef MAC_OS_X_VERSION_10_9
-	#define EC_USE_XCTEST 1
-#else
-	#define EC_USE_XCTEST 0
-#endif
-
-#if EC_USE_XCTEST
-	#import <XCTest/XCTest.h>
-#else
-	#import <SenTestingKit/SenTestingKit.h>
-#endif
+#import <XCTest/XCTest.h>
 
 #import "ECTestComparisons.h"
 
@@ -35,7 +25,6 @@
 // --------------------------------------------------------------------------
 
 
-#if EC_USE_XCTEST
 #define ECTestCaseBase XCTestCase
 #define ECTestSuiteClass XCTestSuite
 
@@ -45,39 +34,14 @@
 #define ECTestAssertFalseFormat					XCTAssertFalse
 #define ECTestFail								XCTFail
 
-//#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
-//	XCTAssertTrue((expr) == isTrueVal, description, ##__VA_ARGS__)
-
 #define ECAssertTest(expr, isTrueVal, expString, description, ...) \
 do { \
 if (!(expr)) {\
-	_XCTRegisterFailure([NSString stringWithFormat:@"assertion failed: %@", expString],description, ##__VA_ARGS__); \
+_XCTRegisterFailure(self, [NSString stringWithFormat:@"assertion failed: %@", expString],description, ##__VA_ARGS__); \
 } \
 } while (0)
 
-#else
-#define ECTestCaseBase SenTestCase
-#define ECTestSuiteClass SenTestSuite
-
-#define ECTestAssertNotNilFormat				STAssertNotNil
-#define ECTestAssertNilFormat					STAssertNil
-#define ECTestAssertTrueFormat					STAssertTrue
-#define ECTestAssertFalseFormat					STAssertFalse
-#define ECTestFail								STFail
-
-#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
-do { \
-BOOL _evaluatedExpression = (expr);\
-if (!_evaluatedExpression) {\
-[self failWithException:([NSException failureInCondition:expString \
-isTrue:isTrueVal \
-inFile:[NSString stringWithUTF8String:__FILE__] \
-atLine:__LINE__ \
-withDescription:@"%@", STComposeString(description, ##__VA_ARGS__)])]; \
-} \
-} while (0)
-
-#endif
+//_XCTFailureHandler(self, isTrueVal, __FILE__, __LINE__, [NSString stringWithFormat:@"assertion failed: %@", expString], description, ##__VA_ARGS__);
 
 
 #define ECTestAssertNotNil(x)					ECTestAssertNotNilFormat((x), @"%s shouldn't be nil", #x)
