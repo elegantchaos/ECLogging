@@ -81,6 +81,7 @@ Item kItems[] =
 	ECDebug(DebugViewChannel, @"setting up view");
     self.title = @"Debug";
 	self.settingsFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+	[super viewDidLoad];
 }
 
 // --------------------------------------------------------------------------
