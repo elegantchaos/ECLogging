@@ -56,15 +56,6 @@ NSString *const kSectionFooters[] = { @"Enabled channels produce output. Disable
     return self;
 }
 
-// --------------------------------------------------------------------------
-//! Support any orientation.
-// --------------------------------------------------------------------------
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
 #pragma mark UITableViewDataSource methods
 
 // --------------------------------------------------------------------------

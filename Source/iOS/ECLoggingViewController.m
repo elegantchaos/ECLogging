@@ -48,12 +48,17 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 	navigation.view.frame = frame;
 	self.title = @"ECLogging";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneModal)];
-	[controller presentModalViewController:navigation animated:YES];
+	
+	[controller presentViewController:navigation animated:YES completion:^{
+		
+	}];
 }
 
 - (void)doneModal
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:^{
+		
+	}];
 }
 
 - (void)viewWillLayoutSubviews

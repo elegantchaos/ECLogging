@@ -45,14 +45,6 @@ ECDefineDebugChannel(DebugHandlersViewChannel);
     [super viewDidLoad];
 }
 
-// --------------------------------------------------------------------------
-//! Support any orientation.
-// --------------------------------------------------------------------------
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
 
 #pragma mark UITableViewDataSource methods
 
