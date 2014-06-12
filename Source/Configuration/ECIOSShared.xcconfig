@@ -5,6 +5,10 @@
 // --------------------------------------------------------------------------
 
 SDKROOT = iphoneos
-IPHONEOS_DEPLOYMENT_TARGET = 5.0
+IPHONEOS_DEPLOYMENT_TARGET = 6.0
+ARCHS = $(ARCHS_DEFAULT)
+VALID_ARCHS = arm64 armv7 armv7s x86_64
+SUPPORTED_PLATFORMS = iphonesimulator iphoneos
+
 
 UNIT_TEST_FRAMEWORK_PATH = $(SDKROOT)/Developer/Library/Frameworks
