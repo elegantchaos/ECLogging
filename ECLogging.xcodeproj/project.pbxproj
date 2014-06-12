@@ -1458,7 +1458,6 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
@@ -1475,7 +1474,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -1487,7 +1485,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -1514,8 +1511,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 			};
 			name = Debug;
 		};
@@ -1523,8 +1518,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 			};
 			name = Release;
 		};
