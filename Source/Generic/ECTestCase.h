@@ -8,9 +8,6 @@
 
 #import "ECTestComparisons.h"
 
-//#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-//#if __MAC_OS_X_VERSION_MIN_REQUIRED < 1090
-
 
 // --------------------------------------------------------------------------
 /// The ECTestAssert macros are generally like the STAssert
