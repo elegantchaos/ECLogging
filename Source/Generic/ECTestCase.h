@@ -34,12 +34,25 @@
 #define ECTestAssertFalseFormat					XCTAssertFalse
 #define ECTestFail								XCTFail
 
-#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
-do { \
-if (!(expr)) {\
-_XCTRegisterFailure(self, [NSString stringWithFormat:@"assertion failed: %@", expString],description, ##__VA_ARGS__); \
-} \
-} while (0)
+#ifdef __MAC_10_10
+	// Yosemite version of XCTest takes a self parameter for _XCTRegisterFailure
+	#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
+	do { \
+	  if (!(expr)) { \
+		NSString* condition = [NSString stringWithFormat:@"assertion failed: %@", expString]; \
+		_XCTRegisterFailure(self, condition, description, __VA_ARGS__); \
+	  } \
+	} while (0)
+#else
+	#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
+	do { \
+	if (!(expr)) { \
+	NSString* condition = [NSString stringWithFormat:@"assertion failed: %@", expString]; \
+	_XCTRegisterFailure(condition, description, __VA_ARGS__); \
+	} \
+	} while (0)
+#endif
+
 
 //_XCTFailureHandler(self, isTrueVal, __FILE__, __LINE__, [NSString stringWithFormat:@"assertion failed: %@", expString], description, ##__VA_ARGS__);
 
@@ -47,8 +60,8 @@ _XCTRegisterFailure(self, [NSString stringWithFormat:@"assertion failed: %@", ex
 #define ECTestAssertNotNil(x)					ECTestAssertNotNilFormat((x), @"%s shouldn't be nil", #x)
 #define ECTestAssertNil(x)						ECTestAssertNilFormat(x, @"%s should be nil, was %0x", #x, (unsigned int)x)
 #define ECTestAssertZero(x)						ECTestAssertTrueFormat(x == 0, @"%s should be zero, was %0x", #x, (unsigned int)x)
-#define ECTestAssertTrue(x)						ECTestAssertTrueFormat(x, @"%s should be true", #x)
-#define ECTestAssertFalse(x)					ECTestAssertFalseFormat(x, @"%s should be false", #x)
+#define ECTestAssertTrue(x)						ECTestAssertTrueFormat(x, "%s should be true", #x)
+#define ECTestAssertFalse(x)					ECTestAssertFalseFormat(x, "%s should be false", #x)
 #define ECTestAssertStringIsEqual(x,y)			ECAssertTest([(x) isEqualToString:(y)], NO, @"" #x " and " #y " match", @"Values were \"%@\" and \"%@\"", x, y)
 #define ECTestAssertStringBeginsWith(x,y)		ECAssertTest([ECTestCase string:x beginsWithString:y], NO, @"" #x " begins with " #y, @"Values were \"%@\" and \"%@\"", x, y)
 #define ECTestAssertStringEndsWith(x,y)			ECAssertTest([ECTestCase string:x endsWithString:y], NO, @"" #x " ends with " #y, @"Values were \"%@\" and \"%@\"", x, y)
