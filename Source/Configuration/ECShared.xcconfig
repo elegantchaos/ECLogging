@@ -120,4 +120,4 @@ ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
 /// It's in a different location on the Mac and iOS, but luckily our standard xcconfig
 /// files define a setting UNIT_TEST_FRAMEWORK_PATH with its location:
 
-FRAMEWORK_SEARCH_PATHS = "$(UNIT_TEST_FRAMEWORK_PATH)"
+FRAMEWORK_SEARCH_PATHS = $inherited $(UNIT_TEST_FRAMEWORK_PATH)
