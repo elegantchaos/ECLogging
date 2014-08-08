@@ -93,6 +93,7 @@ static ECLogManager* gSharedInstance = nil;
 			NSMenu* utilities = [self installDebugSubmenuWithTitle:@"Utilities" class:[NSMenu class]];
 			[utilities addItemWithTitle:@"Crash Now" action:@selector(crashNow:) keyEquivalent:@""].target = self;
 			[utilities addItemWithTitle:@"Assert Now" action:@selector(assertNow:) keyEquivalent:@""].target = self;
+			[utilities addItemWithTitle:@"Reveal Application Support" action:@selector(revealApplicationSupport:) keyEquivalent:@""].target = self;
 		}];
 	}
 
@@ -127,7 +128,8 @@ static ECLogManager* gSharedInstance = nil;
 /// Useful for testing crash logging etc.
 /// --------------------------------------------------------------------------
 
-- (void)crashNow:(id)sender {
+- (void)crashNow:(id)sender
+{
 	strcpy((char*)0x1, "I gotta bad feeling about this");
 }
 
@@ -136,8 +138,24 @@ static ECLogManager* gSharedInstance = nil;
 /// Useful for testing crash logging etc.
 /// --------------------------------------------------------------------------
 
-- (void)assertNow:(id)sender {
+- (void)assertNow:(id)sender
+{
 	ECAssertShouldntBeHere();
+}
+
+/// --------------------------------------------------------------------------
+/// Reveal our application support folder.
+/// This will open the one in our container, if we're sandboxed.
+/// --------------------------------------------------------------------------
+
+- (void)revealApplicationSupport:(id)sender
+{
+	NSError* error;
+	NSURL* url = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
+	if (url)
+	{
+		[[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[url]];
+	}
 }
 
 @end
