@@ -151,9 +151,24 @@ static ECLogManager* gSharedInstance = nil;
 - (void)revealApplicationSupport:(id)sender
 {
 	NSError* error;
-	NSURL* url = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
+	NSFileManager* fm = [NSFileManager defaultManager];
+	NSURL* url = [fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
 	if (url)
 	{
+		NSString* identifier = [[NSBundle mainBundle] bundleIdentifier];
+		while ([identifier length])
+		{
+			NSURL* specificURL = [url URLByAppendingPathComponent:identifier];
+			if ([fm fileExistsAtPath:[specificURL path]])
+			{
+				url = specificURL;
+				break;
+			}
+			else
+			{
+				identifier = [identifier stringByDeletingPathExtension];
+			}
+		}
 		[[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[url]];
 	}
 }
