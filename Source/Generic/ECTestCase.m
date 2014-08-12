@@ -235,6 +235,8 @@
 				break;
 		}
 	}
+	
+	return result;
 }
 
 - (BOOL)assertCollection:(id)collection matchesContentsOfURL:(NSURL*)url mode:(ECTestComparisonMode)mode
