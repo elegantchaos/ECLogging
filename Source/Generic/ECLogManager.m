@@ -297,25 +297,20 @@ const ContextFlagInfo kContextFlagInfo[] =
     LogManagerLog(@"log manager shutdown");
 }
 
-// --------------------------------------------------------------------------
-//! Return the default settings.
-// --------------------------------------------------------------------------
-
-- (NSDictionary*)defaultSettings
+- (NSDictionary*)settingsFromBundle:(NSBundle*)bundle
 {
-	NSBundle* mainBundle = [NSBundle mainBundle];
-	NSURL* defaultSettingsFile;
+	NSURL* url;
 #if EC_DEBUG
-	defaultSettingsFile = [mainBundle URLForResource:DebugLogSettingsFile withExtension:@"plist"];
-	if (defaultSettingsFile)
+	url = [bundle URLForResource:DebugLogSettingsFile withExtension:@"plist"];
+	if (url)
 	{
 		LogManagerLog(@"loaded defaults from %@.plist", DebugLogSettingsFile);
 	}
 	else
 #endif
 	{
-		defaultSettingsFile = [mainBundle URLForResource:LogSettingsFile withExtension:@"plist"];
-		if (defaultSettingsFile)
+		url = [bundle URLForResource:LogSettingsFile withExtension:@"plist"];
+		if (url)
 		{
 			LogManagerLog(@"loaded defaults from %@.plist", LogSettingsFile);
 		}
@@ -324,19 +319,36 @@ const ContextFlagInfo kContextFlagInfo[] =
 			LogManagerLog(@"couldn't load defaults from %@.plist", LogSettingsFile);
 		}
 	}
-
-	NSDictionary* defaultSettings = [NSDictionary dictionaryWithContentsOfURL:defaultSettingsFile];
-	if (![defaultSettings count])
+	
+	NSDictionary* result = [NSDictionary dictionaryWithContentsOfURL:url];
+	if (![result count])
 	{
-		#if EC_DEBUG
-			defaultSettings = mainBundle.infoDictionary[DebugLogSettingsFile];
-		#endif
-		if (![defaultSettings count])
+#if EC_DEBUG
+		result = bundle.infoDictionary[DebugLogSettingsFile];
+#endif
+		if (![result count])
 		{
-			defaultSettings = mainBundle.infoDictionary[LogSettingsFile];
+			result = bundle.infoDictionary[LogSettingsFile];
 		}
 	}
+	
+	return result;
+}
 
+// --------------------------------------------------------------------------
+//! Return the default settings.
+// --------------------------------------------------------------------------
+
+- (NSDictionary*)defaultSettings
+{
+	// try loading settings from the main bundle first
+	NSDictionary* defaultSettings = [self settingsFromBundle:[NSBundle mainBundle]];
+	
+	// if that doesn't work, try our bundle (we might be in a plugin)
+	if (![defaultSettings count])
+		defaultSettings = [self settingsFromBundle:[NSBundle bundleForClass:[self class]]];
+
+	// if that doesn't work, use some defaults
 	if (![defaultSettings count])
 	{
 		NSLog(@"Registering ECLogHandlerNSLog log handler. Add an ECLogging.plist file to your project to customise this behaviour.");
