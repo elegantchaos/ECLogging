@@ -6,6 +6,8 @@
 #import "ECTestPerformanceCounter.h"
 #import "ECTestCase.h"
 
+uint64_t dispatch_benchmark(size_t count, void (^block)(void)); // private API - ok for testing purposes
+
 @implementation ECTestPerformanceCounter
 
 + (BOOL)updateWithValue:(CGFloat)average key:(NSString*)key threshold:(CGFloat)threshold
@@ -40,21 +42,11 @@
 
 + (NSTimeInterval)performIterations:(NSUInteger)iterations label:(NSString*)label block:(void (^)())block
 {
-	NSTimeInterval total = 0;
-	BOOL showIterations = iterations < 50;
-	for (NSUInteger i = 0; i < iterations; ++i) {
-		NSTimeInterval before = [NSDate timeIntervalSinceReferenceDate];
-		block();
-		NSTimeInterval after = [NSDate timeIntervalSinceReferenceDate];
-		NSTimeInterval difference = after-before;
-		
-		if (showIterations)
-			NSLog(@"%@ #%ld took %fs", label, (long)(i + 1), difference);
-		
-		total += difference;
-	}
-	
-	NSTimeInterval average = total / iterations;
+	NSLog(@"%@ performing %ld iterations", label, iterations);
+	uint64_t nanos = dispatch_benchmark(iterations, block);
+	NSTimeInterval average = (NSTimeInterval)nanos / 1000000000.0;
+	NSLog(@"%@ average over #%ld iterations was %lfs (%lldns)", label, iterations, average, nanos);
+
 	return average;
 }
 
