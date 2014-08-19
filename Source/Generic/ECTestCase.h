@@ -71,6 +71,9 @@
 #define ECTestAssertNoError(e)					ECTestAssertTrueFormat(e == 0, @"expected no error, but got %@", e)
 #define ECTestAssertOkNoError(status,e)			ECTestAssertTrueFormat(status, @"expected %s to be true, but got %@", #status, e)
 
+#define ECTestAssertIsKindOfClass(o, c)			ECTestAssertTrueFormat((o == nil) || [o isKindOfClass:[c class]], @"%s should be a kind of %s, is actually a %@", #o, #c, [o class])
+#define ECTestAssertIsMemberOfClass(o, c)		ECTestAssertTrueFormat((o == nil) || [o isMemberOfClass:[c class]], @"%s should be a %s, is actually a %@", #o, #c, [o class])
+
 #define ECTestAssertOperator(x,t,y,f,c)			ECAssertTest((x) t (y), NO, @"" #x #t #y, @"Values are " f " and " f ")", (c)x, (c)y)
 
 #define ECTestAssertIntegerIsEqual(x,y)			ECTestAssertOperator(x, ==, y, "%ld", long)
