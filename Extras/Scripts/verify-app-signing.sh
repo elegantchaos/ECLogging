@@ -28,7 +28,7 @@ echo "Signing:"
 echo "--------"
 echo ""
 
-for f in ${items[@]}
+for f in "${items[@]}"
 do
     echo "Checking $f"
     codesign --verbose=5 --deep --verify "$f"
@@ -39,7 +39,7 @@ echo "Entitlements:"
 echo "-------------"
 echo ""
 
-for f in ${items[@]}
+for f in "${items[@]}"
 do
     echo "Entitlements for $f"
     codesign -vvv --display --entitlements :- "$f"
