@@ -27,7 +27,7 @@ sign()
     local CURRENT_IDENTIFIER=${BASH_REMATCH[1]}
 
     # get first authority - should match the code signing identity that we're using
-    PATTERN="Authority=([a-zA-Z0-9: ]*)"
+    PATTERN="Authority=([a-zA-Z0-9: ()]*)"
     [[ "$CURRENT" =~ $PATTERN ]]
     local CURRENT_AUTHORITY=${BASH_REMATCH[1]}
 
@@ -52,7 +52,8 @@ sign()
 
   # check if we need to resign (resigning can be slow, so we check first)
   if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
-    echo "Resigning $NAME with id $BUNDLEID"
+    echo "Resigning $NAME as $CODE_SIGN_IDENTITY with id $BUNDLEID"
+    echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
     codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
     #codesign --verbose=2 -d "${FILE}"
   else
