@@ -5,11 +5,15 @@
 
 app="$1"
 
-echo "spctl:"
+echo "Assessment (spctl):"
+echo "(rejected is the expected result for a Mac App Store build)"
+echo "-------------------"
+echo ""
+
 spctl --verbose=8 --assess --type execute "$app"
 
 local -a items=( "$app" )
-echo $items
+
 for f in "$app/Contents/Frameworks/"*; do items+=("$f"); done
 
 if [[ -e "$app/Contents/PlugIns/" ]]; then
@@ -19,8 +23,6 @@ fi
 if [[ -e "$app/Contents/Library/Quicklook/" ]]; then
     for f in "$app/Contents/Library/Quicklook/"*; do items+=("$f"); done
 fi
-
-echo ${items[@]}
 
 
 echo ""
@@ -35,6 +37,7 @@ do
     echo ""
 done
 
+echo ""
 echo "Entitlements:"
 echo "-------------"
 echo ""
