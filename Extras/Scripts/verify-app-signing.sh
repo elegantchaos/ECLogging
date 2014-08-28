@@ -5,23 +5,30 @@
 
 app="$1"
 
+appname=`basename "$app"`
+base=`dirname "$app"`
+
+cd "$base"
+
 echo "Assessment (spctl):"
 echo "(rejected is the expected result for a Mac App Store build)"
 echo "-------------------"
 echo ""
 
-spctl --verbose=8 --assess --type execute "$app"
+spctl --verbose=8 --assess --type execute "$appname"
 
-local -a items=( "$app" )
+items=( "$appname" )
 
-for f in "$app/Contents/Frameworks/"*; do items+=("$f"); done
-
-if [[ -e "$app/Contents/PlugIns/" ]]; then
-    for f in "$app/Contents/PlugIns/"*; do items+=("$f"); done
+if [[ -e "$appname/Contents/Frameworks/" ]]; then
+    for f in "$appname/Contents/Frameworks/"*; do items+=("$f"); done
 fi
 
-if [[ -e "$app/Contents/Library/Quicklook/" ]]; then
-    for f in "$app/Contents/Library/Quicklook/"*; do items+=("$f"); done
+if [[ -e "$appname/Contents/PlugIns/" ]]; then
+    for f in "$appname/Contents/PlugIns/"*; do items+=("$f"); done
+fi
+
+if [[ -e "$appname/Contents/Library/Quicklook/" ]]; then
+    for f in "$appname/Contents/Library/Quicklook/"*; do items+=("$f"); done
 fi
 
 
