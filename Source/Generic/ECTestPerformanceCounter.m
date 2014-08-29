@@ -42,7 +42,7 @@ uint64_t dispatch_benchmark(size_t count, void (^block)(void)); // private API -
 
 + (NSTimeInterval)performIterations:(NSUInteger)iterations label:(NSString*)label block:(void (^)())block
 {
-	NSLog(@"%@ performing %ld iterations", label, iterations);
+	NSLog(@"%@ performing %ld iterations", label, (long)iterations);
 	uint64_t nanos = dispatch_benchmark(iterations, block);
 	NSTimeInterval average = (NSTimeInterval)nanos / 1000000000.0;
 	NSLog(@"%@ average over #%ld iterations was %lfs (%lldns)", label, iterations, average, nanos);
