@@ -95,9 +95,10 @@ setup()
 
 commonbuildxctool()
 {
-    local SCHEME="$1"
-    shift
     local PLATFORM="$1"
+    shift
+
+    local SCHEME="$1"
     shift
 
     setup "xctool" "$SCHEME" "$PLATFORM" "$@"
@@ -128,9 +129,10 @@ commonbuildxctool()
 
 commonbuildxcbuild()
 {
-    local SCHEME="$1"
-    shift
     local PLATFORM="$1"
+    shift
+
+    local SCHEME="$1"
     shift
 
     setup "xcworkspace" "$SCHEME" "$PLATFORM" "$@"
@@ -182,30 +184,26 @@ commonbuildxcbuild()
 
 commonbuild()
 {
-  local SCHEME="$1"
-  shift
-
   if $use_xctool
   then
-    commonbuildxctool "$SCHEME" "$@"
+    commonbuildxctool "$@"
   else
-    commonbuildxcbuild "$SCHEME" "$@"
+    commonbuildxcbuild "$@"
   fi
 }
 
 macbuild()
 {
-
     if $testMac ; then
-        local SCHEME=$1
-        shift
-        local ACTIONS=$1
-        shift
-        local PLATFORM="macosx"
+        if [[ $1 != "--dontclean" ]]
+        then
+            cleanbuild
+        else
+            echo "Suppressing cleaning - will reuse the same build products"
+            shift
+        fi
 
-        cleanbuild
-        commonbuild "$SCHEME" "$PLATFORM" "$ACTIONS" "$@"
-
+        commonbuild "macosx" "$@"
     fi
 }
 
@@ -225,11 +223,8 @@ iosbuild()
               ACTIONS="build TEST_AFTER_BUILD=YES"
           fi
         fi
-        local PLATFORM="iphonesimulator"
-
         cleanbuild
-        commonbuild "$SCHEME" "$PLATFORM" "$ACTIONS" -arch i386 ONLY_ACTIVE_ARCH=NO "$@"
-
+        commonbuild "iphonesimulator" "$SCHEME" "$ACTIONS" -arch i386 ONLY_ACTIVE_ARCH=NO "$@"
     fi
 }
 
