@@ -31,7 +31,7 @@
 #define ECTestAssertFalseFormat					XCTAssertFalse
 #define ECTestFail								XCTFail
 
-#ifdef __MAC_10_10
+#ifdef _XCTPrimitiveAssertGreaterThan // indicates a newer version of XCTest
 	// Yosemite version of XCTest takes a self parameter for _XCTRegisterFailure
 	#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
 	do { \
@@ -74,7 +74,7 @@
 #define ECTestAssertIsKindOfClass(o, c)			ECTestAssertTrueFormat((o == nil) || [o isKindOfClass:[c class]], @"%s should be a kind of %s, is actually a %@", #o, #c, [o class])
 #define ECTestAssertIsMemberOfClass(o, c)		ECTestAssertTrueFormat((o == nil) || [o isMemberOfClass:[c class]], @"%s should be a %s, is actually a %@", #o, #c, [o class])
 
-#define ECTestAssertOperator(x,t,y,f,c)			ECAssertTest((x) t (y), NO, @"" #x #t #y, @"Values are " f " and " f ")", (c)x, (c)y)
+#define ECTestAssertOperator(x,t,y,f,c)			ECAssertTest((x) t (y), NO, @"" #x #t #y, @"Values are " f " and " f ")", ((c)(x)), ((c)(y)))
 
 #define ECTestAssertIntegerIsEqual(x,y)			ECTestAssertOperator(x, ==, y, "%ld", long)
 #define ECTestAssertIntegerIsNotEqual(x,y)		ECTestAssertOperator(x, !=, y, "%ld", long)
