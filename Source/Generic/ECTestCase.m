@@ -514,12 +514,7 @@
 	if (width < 1 || height < 1)
 		return nil;
 	
-	NSString *spaceName = [bitmap colorSpaceName];
-	if ([spaceName isEqualToString:NSDeviceWhiteColorSpace])
-		spaceName = NSDeviceRGBColorSpace;
-	else if ([spaceName isEqualToString:NSCalibratedWhiteColorSpace])
-		spaceName = NSCalibratedRGBColorSpace;
-	
+	NSBitmapImageRep* sRGB = [bitmap bitmapImageRepByConvertingToColorSpace:[NSColorSpace sRGBColorSpace] renderingIntent:0];
 	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
 																	pixelsWide:width
 																	pixelsHigh:height
@@ -527,7 +522,7 @@
 															   samplesPerPixel:4
 																	  hasAlpha:YES
 																	  isPlanar:NO
-																colorSpaceName:spaceName
+																colorSpaceName:[sRGB colorSpaceName]
 																   bytesPerRow:width * 4
 																  bitsPerPixel:32];
 	
