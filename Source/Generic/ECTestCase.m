@@ -515,6 +515,11 @@
 		return nil;
 	
 	NSString *spaceName = [bitmap colorSpaceName];
+	if ([spaceName isEqualToString:NSDeviceWhiteColorSpace])
+		spaceName = NSDeviceRGBColorSpace;
+	else if ([spaceName isEqualToString:NSCalibratedWhiteColorSpace])
+		spaceName = NSCalibratedRGBColorSpace;
+	
 	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
 																	pixelsWide:width
 																	pixelsHigh:height
@@ -535,15 +540,23 @@
 	[ctx flushGraphics];
 	[NSGraphicsContext restoreGraphicsState];
 	
-	return [rep bitmapImageRepByConvertingToColorSpace:[bitmap colorSpace] renderingIntent:0];
+	return rep;
 }
 
 - (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference withinThreshold:(CGFloat)threshold pixelThreshold:(CGFloat)pixelThreshold {
 	NSSize imageSize = image.size;
 	NSSize referenceSize = reference.size;
 	
-	reference = [self bitmapAs32BitRGBA:reference];
-	image = [self bitmapAs32BitRGBA:image];
+	// TODO: need to deal with greyscale images differently? currently we convert them to RGBA, we could just conver them to 8-bit grey.
+	NSBitmapImageRep* reference32 = [self bitmapAs32BitRGBA:reference];
+	NSBitmapImageRep* image32 = [self bitmapAs32BitRGBA:image];
+	if (!reference32 || !image32) {
+		NSLog(@"couldn't convert images to 32-bit RGBA for comparison");
+		return NO;
+	}
+	
+	reference = reference32;
+	image = image32;
 	
 	struct Pixel { uint8_t r, g, b, a; };
 	struct Pixel *referencePixels = (struct Pixel *)[reference bitmapData];
