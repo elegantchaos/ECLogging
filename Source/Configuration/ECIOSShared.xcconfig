@@ -6,8 +6,8 @@
 
 SDKROOT = iphoneos
 IPHONEOS_DEPLOYMENT_TARGET = 6.0
-ARCHS = armv7 armv7s
-VALID_ARCHS = arm64 armv7 armv7s
+ARCHS = $(ARCHS_STANDARD)
+VALID_ARCHS = $(ARCHS_STANDARD)
 SUPPORTED_PLATFORMS = iphonesimulator iphoneos
 
 
