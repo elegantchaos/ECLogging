@@ -33,6 +33,12 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 	return gSharedInstance;
 }
 
++ (void)load {
+	// we want to register with the log manager as early as possible, so that we
+	// get the startup and shutdown notifications
+	[ECLogManager sharedInstance].delegate = [self sharedInstance];
+}
+
 - (UIViewController*)rootViewController
 {
 	UIWindow* window = [UIApplication sharedApplication].windows[0];
@@ -41,15 +47,10 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 	return root;
 }
 
-- (id)init
+- (void)logManagerDidStartup:(ECLogManager *)manager
 {
-	if ((self = [super init]) != nil)
-	{
-		NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-		[nc addObserver:self selector:@selector(installGestureRecognizer) name:UIApplicationDidFinishLaunchingNotification object:nil];
-	}
-
-	return self;
+	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+	[nc addObserver:self selector:@selector(installGestureRecognizer) name:UIApplicationDidFinishLaunchingNotification object:nil];
 }
 
 - (void)installGestureRecognizer
@@ -60,6 +61,11 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 	UILongPressGestureRecognizer* recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showUI)];
 	recognizer.numberOfTouchesRequired = 2;
 	[window addGestureRecognizer:recognizer];
+}
+
++ (void)showUI
+{
+	[[self sharedInstance] showUI];
 }
 
 - (void)showUI

@@ -7,5 +7,5 @@
 #import <ECLogging/ECLogging.h>
 
 @interface ECLogManagerIOSUISupport : NSObject<ECLogManagerDelegate>
-- (void)showUI;
++ (void)showUI;
 @end
