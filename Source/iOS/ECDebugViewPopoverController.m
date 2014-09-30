@@ -16,8 +16,6 @@
 
 @implementation ECDebugViewPopoverController
 
-@synthesize navController;
-
 - (void)loadView
 {
     CGRect frame = CGRectMake(0, 0, 600, 800);

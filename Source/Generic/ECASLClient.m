@@ -23,9 +23,6 @@ static ECASLClient* gSharedInstance = nil;
 
 @implementation ECASLClient
 
-@synthesize client;
-@synthesize msg;
-
 #pragma mark - Object Lifecycle
 
 // --------------------------------------------------------------------------

@@ -27,13 +27,6 @@ static NSString *const DebugHandlersViewCell = @"DebugHandlersViewCell";
 ECDefineDebugChannel(DebugHandlersViewChannel);
 
 // --------------------------------------------------------------------------
-// Properties
-// --------------------------------------------------------------------------
-
-@synthesize handlers = _handlers;
-@synthesize debugViewController = _debugViewController;
-
-// --------------------------------------------------------------------------
 //! Finish setting up the view.
 // --------------------------------------------------------------------------
 

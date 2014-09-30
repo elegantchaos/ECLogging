@@ -8,9 +8,6 @@
 
 @implementation ECErrorAndMessage
 
-@synthesize message = _message;
-@synthesize error = _error;
-
 - (NSString*)description
 {
 	NSString* result;

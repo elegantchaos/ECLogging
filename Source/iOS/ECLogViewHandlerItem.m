@@ -8,8 +8,4 @@
 #import "ECLogChannel.h"
 
 @implementation ECLogViewHandlerItem
-
-@synthesize context;
-@synthesize message;
-
 @end

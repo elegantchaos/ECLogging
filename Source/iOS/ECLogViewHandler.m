@@ -12,8 +12,6 @@
 
 @implementation ECLogViewHandler
 
-@synthesize items = _items;
-
 NSString *const LogItemsUpdated = @"LogItemsUpdated";
 
 // --------------------------------------------------------------------------

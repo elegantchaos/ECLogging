@@ -106,11 +106,6 @@ extern NSString *const SuiteItemsKey;
  */
 
 @interface ECParameterisedTestCase : ECTestCase
-{
-@private
-	id parameterisedTestDataItem;
-	NSString* parameterisedTestName;
-}
 
 @property (strong, nonatomic) id parameterisedTestDataItem;
 @property (strong, nonatomic) NSString* parameterisedTestName;

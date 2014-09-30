@@ -9,10 +9,6 @@
 #import <asl.h>
 
 @interface ECASLClient : NSObject
-{
-    aslclient client;
-    aslmsg msg;
-}
 
 + (ECASLClient*)sharedInstance;
 - (id)initWithName:(NSString*)name;

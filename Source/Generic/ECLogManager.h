@@ -13,11 +13,8 @@
 
 @protocol ECLogManagerDelegate <NSObject>
 @optional
-- (void)logManagerWillStartup:(ECLogManager*)manager;
 - (void)logManagerDidStartup:(ECLogManager*)manager;
 - (void)logManagerWillShutdown:(ECLogManager*)manager;
-- (void)logManagerDidShutdown:(ECLogManager*)manager;
-
 @end
 
 /**

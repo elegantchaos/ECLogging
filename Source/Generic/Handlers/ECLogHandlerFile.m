@@ -21,11 +21,6 @@
 
 @implementation ECLogHandlerFile
 
-#pragma mark - Properties
-
-@synthesize files;
-@synthesize logFolder;
-
 #pragma mark - Lifecycle
 
 // --------------------------------------------------------------------------

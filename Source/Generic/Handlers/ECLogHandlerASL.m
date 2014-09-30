@@ -11,16 +11,11 @@
 #import <asl.h>
 
 @interface ECLogHandlerASL()
-
 @property (assign, nonatomic) aslclient aslClient;
 @property (strong, nonatomic) NSMutableDictionary*  aslMsgs;
-
 @end
 
 @implementation ECLogHandlerASL
-
-@synthesize aslClient;
-@synthesize aslMsgs;
 
 #pragma mark - Lifecycle
 

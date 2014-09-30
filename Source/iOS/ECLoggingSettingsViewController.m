@@ -19,8 +19,6 @@
 
 @implementation ECLoggingSettingsViewController
 
-@synthesize navController;
-
 // --------------------------------------------------------------------------
 // Log Channels
 // --------------------------------------------------------------------------

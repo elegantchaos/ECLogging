@@ -25,9 +25,6 @@ NSString *const DataURLKey = @"ECTestSuiteDataURL";
 
 NSString *const SuiteExtension = @"testsuite";
 
-@synthesize parameterisedTestName;
-@synthesize parameterisedTestDataItem;
-
 // --------------------------------------------------------------------------
 //! Make a test case with a given selector and parameter.
 // --------------------------------------------------------------------------

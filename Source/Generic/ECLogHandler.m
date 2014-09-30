@@ -12,10 +12,6 @@
 
 @implementation ECLogHandler
 
-#pragma mark - Properties
-
-@synthesize name;
-
 #pragma mark - Logging
 
 // --------------------------------------------------------------------------

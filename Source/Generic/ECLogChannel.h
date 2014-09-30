@@ -67,14 +67,6 @@
  */
 
 @interface ECLogChannel : NSObject
-{
-@private
-	BOOL enabled;
-	BOOL setup;
-	NSString* name;
-	NSMutableSet* handlers;
-    ECLogContextFlags context;
-}
 
 // --------------------------------------------------------------------------
 // Public Properties

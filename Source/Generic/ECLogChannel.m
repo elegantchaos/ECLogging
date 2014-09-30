@@ -23,13 +23,6 @@ static NSString *const kSuffixToStrip = @"Channel";
 
 @implementation ECLogChannel
 
-@synthesize context;
-@synthesize enabled;
-@synthesize handlers;
-@synthesize level;
-@synthesize name;
-@synthesize setup;
-
 #pragma mark - Lifecycle
 
 // --------------------------------------------------------------------------

@@ -21,8 +21,6 @@
 
 @implementation ECTestCase
 
-@synthesize exitRunLoop = _exitRunLoop;
-
 // --------------------------------------------------------------------------
 /// Return the default test suite.
 /// We don't want ECTestCase to show up in the unit test

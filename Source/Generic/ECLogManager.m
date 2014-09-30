@@ -284,10 +284,6 @@ static ECLogManager* gSharedInstance = nil;
 {
 	LogManagerLog(@"starting log manager");
 
-	id<ECLogManagerDelegate> delegate = self.delegate;
-	if ([delegate respondsToSelector:@selector(logManagerWillStartup:)])
-		[delegate logManagerWillStartup:self];
-
 	NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
 	self.channels = dictionary;
 	self.defaultContextFlags = ECLogContextName | ECLogContextMessage;
@@ -295,19 +291,6 @@ static ECLogManager* gSharedInstance = nil;
 	[self loadSettings];
 	[self registerHandlers];
 	[self notifyDelegateOfStartup];
-}
-
-- (void)notifyDelegateOfStartup
-{
-	dispatch_async(dispatch_get_main_queue(), ^{
-		// we call the didStartup delegate method some time later, to allow for the fact that the delegate
-		// can't even be set until the manager has been created
-		id<ECLogManagerDelegate> delegate = self.delegate;
-		if ([delegate respondsToSelector:@selector(logManagerDidStartup:)])
-		{
-			[delegate logManagerDidStartup:self];
-		}
-	});
 }
 
 // --------------------------------------------------------------------------
@@ -326,9 +309,20 @@ static ECLogManager* gSharedInstance = nil;
     self.settings = nil;
 
     LogManagerLog(@"log manager shutdown");
+}
 
-	if ([delegate respondsToSelector:@selector(logManagerDidShutdown:)])
-		[delegate logManagerDidShutdown:self];
+
+- (void)notifyDelegateOfStartup
+{
+	dispatch_async(dispatch_get_main_queue(), ^{
+		// we call the didStartup delegate method some time later, to allow for the fact that the delegate
+		// can't even be set until the manager has been created
+		id<ECLogManagerDelegate> delegate = self.delegate;
+		if ([delegate respondsToSelector:@selector(logManagerDidStartup:)])
+		{
+			[delegate logManagerDidStartup:self];
+		}
+	});
 }
 
 - (NSDictionary*)settingsFromBundle:(NSBundle*)bundle

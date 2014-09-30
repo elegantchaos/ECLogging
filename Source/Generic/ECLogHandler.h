@@ -51,11 +51,6 @@
 
 @interface ECLogHandler : NSObject 
 
-{
-@private
-	NSString* name;
-}
-
 @property (strong, nonatomic) NSString* name;
 
 /**
