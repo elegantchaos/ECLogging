@@ -22,6 +22,20 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "228CF1E817562478003E1D25"
+               BuildableName = "libECLogging.a"
+               BlueprintName = "ECLoggingMacStatic"
+               ReferencedContainer = "container:ECLogging.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
@@ -31,6 +45,34 @@
                BlueprintIdentifier = "22FF8E8516F1E5EB008FC10D"
                BuildableName = "ECUnitTests.framework"
                BlueprintName = "ECUnitTestsMac"
+               ReferencedContainer = "container:ECLogging.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "222186B419DAB5F300F08CCE"
+               BuildableName = "ECLoggingUI.framework"
+               BlueprintName = "ECLoggingUI"
+               ReferencedContainer = "container:ECLogging.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "222186F319DAB60900F08CCE"
+               BuildableName = "libECLoggingUIStatic.a"
+               BlueprintName = "ECLoggingUIStatic"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -53,6 +95,15 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2251B9FE15DBCC3E00F2FE40"
+            BuildableName = "ECLogging.framework"
+            BlueprintName = "ECLoggingMac"
+            ReferencedContainer = "container:ECLogging.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -81,6 +132,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2251B9FE15DBCC3E00F2FE40"
+            BuildableName = "ECLogging.framework"
+            BlueprintName = "ECLoggingMac"
+            ReferencedContainer = "container:ECLogging.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

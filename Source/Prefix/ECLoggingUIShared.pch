@@ -12,24 +12,12 @@
 #ifdef __OBJC__
 
 // --------------------------------------------------------------------------
-// Shared Settings
-// --------------------------------------------------------------------------
-
-#import <CoreFoundation/CoreFoundation.h>
-
-#define EC_FOUNDATION 1
-#define EC_LOGGING 1
-
-// --------------------------------------------------------------------------
 // iOS Settings
 // --------------------------------------------------------------------------
 
 #if TARGET_OS_IPHONE
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
-#define EC_PLATFORM_IOS 1
 
 
 // --------------------------------------------------------------------------
@@ -38,9 +26,7 @@
 
 #elif TARGET_OS_MAC
 
-#import <Foundation/Foundation.h>
-
-#define EC_PLATFORM_MAC 1
+#import <AppKit/AppKit.h>
 
 #endif
 
