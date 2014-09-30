@@ -6,9 +6,6 @@
 
 // Contains standard definitions needed to link a bundle-style target as a pseudo-framework on iOS
 
-ARCHS = $(ARCHS_STANDARD_32_BIT)
-SDKROOT = iphoneos
-
 FRAMEWORK_VERSION=A
 PRODUCT_NAME=$(PROJECT_NAME)
 INSTALL_PATH = $(LOCAL_LIBRARY_DIR)/Frameworks
