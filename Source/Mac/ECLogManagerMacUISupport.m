@@ -31,8 +31,9 @@ static ECLogManagerMacUISupport* gSharedInstance = nil;
 	return gSharedInstance;
 }
 
-+ (void)initialize
-{
++ (void)load {
+	// we want to register with the log manager as early as possible, so that we
+	// get the startup and shutdown notifications
 	[ECLogManager sharedInstance].delegate = [self sharedInstance];
 }
 

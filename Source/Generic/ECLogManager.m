@@ -93,7 +93,7 @@ static ECLogManager* gSharedInstance = nil;
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		gSharedInstance = [[ECLogManager alloc] init];
+		gSharedInstance = [ECLogManager new];
 	});
 
 	return gSharedInstance;
@@ -294,9 +294,20 @@ static ECLogManager* gSharedInstance = nil;
 
 	[self loadSettings];
 	[self registerHandlers];
+	[self notifyDelegateOfStartup];
+}
 
-	if ([delegate respondsToSelector:@selector(logManagerDidStartup:)])
-		[delegate logManagerDidStartup:self];
+- (void)notifyDelegateOfStartup
+{
+	dispatch_async(dispatch_get_main_queue(), ^{
+		// we call the didStartup delegate method some time later, to allow for the fact that the delegate
+		// can't even be set until the manager has been created
+		id<ECLogManagerDelegate> delegate = self.delegate;
+		if ([delegate respondsToSelector:@selector(logManagerDidStartup:)])
+		{
+			[delegate logManagerDidStartup:self];
+		}
+	});
 }
 
 // --------------------------------------------------------------------------
