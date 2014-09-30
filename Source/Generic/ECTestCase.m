@@ -9,6 +9,10 @@
 #import "ECTestComparisons.h"
 #import "NSString+ECLogging.h"
 
+#if !TARGET_OS_IPHONE
+#import <Cocoa/Cocoa.h>
+#endif
+
 @interface ECTestCase()
 
 @property (assign, atomic) BOOL exitRunLoop;

@@ -4,30 +4,10 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLogManagerIOS.h"
+#import "ECLogManagerIOSUISupport.h"
 #import "ECLoggingViewController.h"
 
-@implementation ECLogManager(PlatformSpecific)
-
-static ECLogManager* gSharedInstance = nil;
-
-// --------------------------------------------------------------------------
-//! Return the shared instance.
-// --------------------------------------------------------------------------
-
-+ (ECLogManager*)sharedInstance
-{
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		gSharedInstance = [[ECLogManagerIOS alloc] init];
-	});
-
-	return gSharedInstance;
-}
-
-@end
-
-@interface ECLogManagerIOS()
+@interface ECLogManagerIOSUISupport()
 
 @property (strong, nonatomic) ECLoggingViewController* viewController;
 @property (assign, nonatomic) BOOL uiShowing;
@@ -35,7 +15,23 @@ static ECLogManager* gSharedInstance = nil;
 @end
 
 
-@implementation ECLogManagerIOS
+@implementation ECLogManagerIOSUISupport
+
+static ECLogManagerIOSUISupport* gSharedInstance = nil;
+
+// --------------------------------------------------------------------------
+//! Return the shared instance.
+// --------------------------------------------------------------------------
+
++ (ECLogManagerIOSUISupport*)sharedInstance
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		gSharedInstance = [ECLogManagerIOSUISupport new];
+	});
+
+	return gSharedInstance;
+}
 
 - (UIViewController*)rootViewController
 {

@@ -11,4 +11,4 @@ VALID_ARCHS = arm64 armv7 armv7s
 SUPPORTED_PLATFORMS = iphonesimulator iphoneos
 
 
-UNIT_TEST_FRAMEWORK_PATH = $(SDKROOT)/Developer/Library/Frameworks
+UNIT_TEST_FRAMEWORK_PATH = "$(PLATFORM_DIR)/Developer/Library/Frameworks"

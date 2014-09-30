@@ -4,7 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLoggingGeneric.h"
+#import <ECLogging/ECLogging.h>
 
 #import "ECLogManagerIOS.h"
 #import "ECErrorPresenterHandler.h"

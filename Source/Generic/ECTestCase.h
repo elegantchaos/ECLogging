@@ -5,9 +5,10 @@
 // --------------------------------------------------------------------------
 
 #import <XCTest/XCTest.h>
-
 #import "ECTestComparisons.h"
 
+
+@class NSBitmapImageRep;
 
 // --------------------------------------------------------------------------
 /// The ECTestAssert macros are generally like the STAssert
