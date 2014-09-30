@@ -9,6 +9,16 @@
 
 @class ECLogChannel;
 @class ECLogHandler;
+@class ECLogManager;
+
+@protocol ECLogManagerDelegate <NSObject>
+@optional
+- (void)logManagerWillStartup:(ECLogManager*)manager;
+- (void)logManagerDidStartup:(ECLogManager*)manager;
+- (void)logManagerWillShutdown:(ECLogManager*)manager;
+- (void)logManagerDidShutdown:(ECLogManager*)manager;
+
+@end
 
 /**
  * Singleton which keeps track of all the log channels and log handlers, and mediates the logging process.
@@ -20,14 +30,12 @@
 
 @interface ECLogManager : NSObject
 
-{
-@private
-	NSMutableDictionary* _channels;
-	NSMutableDictionary* _handlers;
-	NSMutableArray* _defaultHandlers;
-	NSMutableDictionary* _settings;
-    ECLogContextFlags _defaultContextFlags;
-}
+
+/**
+ * Return the shared log manager.
+ */
+
++ (ECLogManager*)sharedInstance;
 
 // --------------------------------------------------------------------------
 // Public Properties
@@ -37,7 +45,8 @@
 @property (strong, nonatomic) NSMutableDictionary* handlers;
 @property (strong, nonatomic) NSMutableArray* defaultHandlers;
 @property (assign, nonatomic) ECLogContextFlags defaultContextFlags;
-@property (strong, nonatomic)NSMutableDictionary* settings;
+@property (strong, nonatomic) NSMutableDictionary* settings;
+@property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
 
 // --------------------------------------------------------------------------
 // Public Methods
@@ -73,12 +82,6 @@
 @end
 
 @interface ECLogManager(PlatformSpecific)
-
-/** 
- * Return the shared log manager.
- */
-
-+ (ECLogManager*)sharedInstance;
 
 @end
 

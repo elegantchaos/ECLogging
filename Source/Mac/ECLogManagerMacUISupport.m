@@ -4,29 +4,37 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLogManagerMac.h"
+#import "ECLogManagerMacUISupport.h"
+#import "ECDebugMenu.h"
+#import "ECLoggingMenu.h"
+#import "ECOptionsMenu.h"
 
-@implementation ECLogManager(PlatformSpecific)
+@implementation ECLogManagerMacUISupport
 
-static ECLogManager* gSharedInstance = nil;
+// --------------------------------------------------------------------------
+// Properties
+// --------------------------------------------------------------------------
+
+static ECLogManagerMacUISupport* gSharedInstance = nil;
 
 /// --------------------------------------------------------------------------
 /// Return the shared instance.
 /// --------------------------------------------------------------------------
 
-+ (ECLogManager*)sharedInstance
++ (ECLogManagerMacUISupport*)sharedInstance
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		gSharedInstance = [[ECLogManagerMac alloc] init];
+		gSharedInstance = [ECLogManagerMacUISupport new];
 	});
 
 	return gSharedInstance;
 }
 
-@end
-
-@implementation ECLogManagerMac
++ (void)initialize
+{
+	[ECLogManager sharedInstance].delegate = [self sharedInstance];
+}
 
 /// --------------------------------------------------------------------------
 /// Return the top level Debug menu item.
@@ -81,11 +89,9 @@ static ECLogManager* gSharedInstance = nil;
 /// Perform some extra Mac-only startup.
 /// --------------------------------------------------------------------------
 
-- (void)startup
+- (void)logManagerDidStartup:(ECLogManager *)manager
 {
-	[super startup];
-
-	if ([self.settings[@"InstallMenu"] boolValue])
+	if ([manager.settings[@"InstallMenu"] boolValue])
 	{
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 			[self installDebugSubmenuWithTitle:@"Logging" class:[ECLoggingMenu class]];
@@ -98,19 +104,17 @@ static ECLogManager* gSharedInstance = nil;
 	}
 
 	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self selector:@selector(saveSettings:) name:NSApplicationWillResignActiveNotification object:nil];
-	[nc addObserver:self selector:@selector(saveSettings:) name:NSApplicationWillTerminateNotification object:nil];
+	[nc addObserver:self selector:@selector(handleBackgroundOrQuitting:) name:NSApplicationWillResignActiveNotification object:nil];
+	[nc addObserver:self selector:@selector(handleBackgroundOrQuitting:) name:NSApplicationWillTerminateNotification object:nil];
 }
 
 /// --------------------------------------------------------------------------
 /// Perform some extra Mac-only cleanup.
 /// --------------------------------------------------------------------------
 
-- (void)shutdown
+- (void)logManagerWillShutdown:(ECLogManager *)manager
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
-	[super shutdown];
 }
 
 /// --------------------------------------------------------------------------
@@ -118,9 +122,9 @@ static ECLogManager* gSharedInstance = nil;
 /// settings.
 /// --------------------------------------------------------------------------
 
-- (void)saveSettings:(NSNotification*)notification
+- (void)handleBackgroundOrQuitting:(NSNotification*)notification
 {
-    [self saveChannelSettings];
+    [[ECLogManager sharedInstance] saveChannelSettings];
 }
 
 /// --------------------------------------------------------------------------

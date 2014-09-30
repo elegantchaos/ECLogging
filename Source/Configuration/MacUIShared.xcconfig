@@ -4,4 +4,4 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-GCC_PREFIX_HEADER = Source/Prefix/$(TARGET_NAME)$(CONFIGURATION).pch
+GCC_PREFIX_HEADER = Source/Prefix/ECLoggingUI$(CONFIGURATION).pch

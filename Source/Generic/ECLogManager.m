@@ -83,12 +83,21 @@ const ContextFlagInfo kContextFlagInfo[] =
 // Properties
 // --------------------------------------------------------------------------
 
-@synthesize channels = _channels;
-@synthesize defaultContextFlags = _defaultContextFlags;
-@synthesize handlers = _handlers;
-@synthesize handlersSorted = _handlersSorted;
-@synthesize settings = _settings;
-@synthesize defaultHandlers = _defaultHandlers;
+static ECLogManager* gSharedInstance = nil;
+
+/// --------------------------------------------------------------------------
+/// Return the shared instance.
+/// --------------------------------------------------------------------------
+
++ (ECLogManager*)sharedInstance
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		gSharedInstance = [[ECLogManager alloc] init];
+	});
+
+	return gSharedInstance;
+}
 
 // --------------------------------------------------------------------------
 //! Return the channel with a given name, making it first if necessary.
@@ -275,12 +284,19 @@ const ContextFlagInfo kContextFlagInfo[] =
 {
 	LogManagerLog(@"starting log manager");
 
+	id<ECLogManagerDelegate> delegate = self.delegate;
+	if ([delegate respondsToSelector:@selector(logManagerWillStartup:)])
+		[delegate logManagerWillStartup:self];
+
 	NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
 	self.channels = dictionary;
 	self.defaultContextFlags = ECLogContextName | ECLogContextMessage;
 
 	[self loadSettings];
 	[self registerHandlers];
+
+	if ([delegate respondsToSelector:@selector(logManagerDidStartup:)])
+		[delegate logManagerDidStartup:self];
 }
 
 // --------------------------------------------------------------------------
@@ -289,12 +305,19 @@ const ContextFlagInfo kContextFlagInfo[] =
 
 - (void)shutdown
 {
+	id<ECLogManagerDelegate> delegate = self.delegate;
+	if ([delegate respondsToSelector:@selector(logManagerWillShutdown:)])
+		[delegate logManagerWillShutdown:self];
+
 	[self saveChannelSettings];
 	self.channels = nil;
     self.handlers = nil;
     self.settings = nil;
 
     LogManagerLog(@"log manager shutdown");
+
+	if ([delegate respondsToSelector:@selector(logManagerDidShutdown:)])
+		[delegate logManagerDidShutdown:self];
 }
 
 - (NSDictionary*)settingsFromBundle:(NSBundle*)bundle
