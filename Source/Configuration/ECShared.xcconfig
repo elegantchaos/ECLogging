@@ -124,8 +124,7 @@ ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
 // Unit Testing
 // --------------------------------------------------------------------------
 
-/// Since all of the targets link against SenTestKit, we need to be able to find it.
-/// It's in a different location on the Mac and iOS, but luckily our standard xcconfig
-/// files define a setting UNIT_TEST_FRAMEWORK_PATH with its location:
+/// Since all of the unit test targets link against XCTest, we need to be able to find it.
 
+UNIT_TEST_FRAMEWORK_PATH = "$(PLATFORM_DIR)/Developer/Library/Frameworks"
 FRAMEWORK_SEARCH_PATHS = $inherited $(UNIT_TEST_FRAMEWORK_PATH)

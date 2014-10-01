@@ -9,6 +9,3 @@ IPHONEOS_DEPLOYMENT_TARGET = 6.0
 ARCHS = $(ARCHS_STANDARD)
 VALID_ARCHS = $(ARCHS_STANDARD)
 SUPPORTED_PLATFORMS = iphonesimulator iphoneos
-
-
-UNIT_TEST_FRAMEWORK_PATH = "$(SDKROOT)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/Frameworks"
