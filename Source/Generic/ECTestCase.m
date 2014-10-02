@@ -540,12 +540,22 @@
 	return rep;
 }
 
-- (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference withinThreshold:(CGFloat)threshold pixelThreshold:(CGFloat)pixelThreshold {
+- (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference withinThreshold:(CGFloat)threshold pixelThreshold:(CGFloat)pixelThreshold maxSize:(NSSize)maxSize {
 	NSSize imageSize = image.size;
+	if ((imageSize.width > maxSize.width) || (imageSize.height > maxSize.height))
+	{
+		NSLog(@"image looks a bit big: %@", NSStringFromSize(imageSize));
+		return NO;
+	}
+
 	NSSize referenceSize = reference.size;
-	
+	if ((referenceSize.width > maxSize.width) || (referenceSize.height > maxSize.height))
+	{
+		NSLog(@"reference looks a bit big: %@", NSStringFromSize(referenceSize));
+		return NO;
+	}
+
 	// TODO: need to deal with greyscale images differently? currently we convert them to RGBA, we could just conver them to 8-bit grey.
-	
 	NSBitmapImageRep* reference32 = nil;
 	NSBitmapImageRep* image32 = nil;
 	if (reference && image) {
