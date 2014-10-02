@@ -545,8 +545,14 @@
 	NSSize referenceSize = reference.size;
 	
 	// TODO: need to deal with greyscale images differently? currently we convert them to RGBA, we could just conver them to 8-bit grey.
-	NSBitmapImageRep* reference32 = [self bitmapAs32BitRGBA:reference];
-	NSBitmapImageRep* image32 = [self bitmapAs32BitRGBA:image];
+	
+	NSBitmapImageRep* reference32 = nil;
+	NSBitmapImageRep* image32 = nil;
+	if (reference && image) {
+		reference32 = [self bitmapAs32BitRGBA:reference];
+		image32 = [self bitmapAs32BitRGBA:image];
+	}
+	
 	if (!reference32 || !image32) {
 		NSLog(@"couldn't convert images to 32-bit RGBA for comparison");
 		return NO;
