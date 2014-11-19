@@ -618,6 +618,20 @@
 	
 }
 
+- (NSImage*)imageNamed:(NSString*)name {
+	NSArray* extensions = @[@"png", @"jpg", @"pdf", @"eps", @"tiff"];
+	NSURL* url = nil;
+	for (NSString* extension in extensions) {
+		url = [self URLForTestResource:name withExtension:extension];
+		if (url)
+			break;
+	}
+
+	NSData* data = [NSData dataWithContentsOfURL:url];
+	NSImage* image = [[NSImage alloc] initWithData:data];
+	return image;
+}
+
 #endif
 
 @end

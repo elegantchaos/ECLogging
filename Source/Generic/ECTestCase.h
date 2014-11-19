@@ -260,6 +260,12 @@
 
 - (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference withinThreshold:(CGFloat)threshold pixelThreshold:(CGFloat)pixelThreshold maxSize:(NSSize)maxSize;
 
+/**
+ Return an image from the test bundle.
+ */
+
+- (NSImage*)imageNamed:(NSString*)name;
+
 #endif
 
 @end
