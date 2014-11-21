@@ -68,6 +68,7 @@
 #define ECTestAssertNotEmpty(x)					ECAssertTest([ECTestCase genericCount:x] != 0, YES, @"Object" #x "is empty", @"Value is %@", x)
 #define ECTestAssertLength(x, l)				ECAssertTest([ECTestCase genericCount:x] == l, NO, @"Length of " #x " is " #l, @"Value is %@, length is %ld", x, (long)[ECTestCase genericCount:x])
 #define ECTestAssertIsEqual(x, y)				ECAssertTest([x isEqual:y], NO, @"" #x " and " #y " are equal", @"Values were %@ and %@", x, y)
+#define ECTestAssertIsNotEqual(x, y)			ECAssertTest(![x isEqual:y], NO, @"" #x " and " #y " are not equal", @"Values were %@ and %@", x, y)
 #define ECTestAssertTextIsEqual(x,y)			[self assertString:x matchesString:y]
 #define ECTestAssertNoError(e)					ECTestAssertTrueFormat(e == 0, @"expected no error, but got %@", e)
 #define ECTestAssertOkNoError(status,e)			ECTestAssertTrueFormat(status, @"expected %s to be true, but got %@", #status, e)
