@@ -490,7 +490,7 @@
 	{
 		NSLog(@"diffing of %@ and %@ disabled", [url1 lastPathComponent], [url2 lastPathComponent]);
 	}
-	else
+	else if (url1 && url2)
 	{
 		NSTask *task;
 		task = [[NSTask alloc] init];
