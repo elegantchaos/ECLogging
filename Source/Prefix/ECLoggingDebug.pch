@@ -8,7 +8,4 @@
  * Standard debug definitions.
  */
 
-#define EC_CONFIGURATION_STRING @"Debug"
-#define EC_CONFIGURATION_STRING_SHORT @"D"
-
 #import "ECLoggingShared.pch"

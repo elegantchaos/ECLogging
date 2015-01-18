@@ -21,6 +21,9 @@
 
 #if EC_DEBUG
 
+#define EC_CONFIGURATION_STRING @"Debug"
+#define EC_CONFIGURATION_STRING_SHORT @"D"
+
 #define ECUnusedInDebug(v) ECUnused(v)
 #define ECUnusedInRelease(v) do {} while(0)
 #define ECDebugOnly(x) x
@@ -28,6 +31,9 @@
 #define ECCastTo(_class_,_expression_) ((_class_*) [ECAssertion assertObject:(_expression_) isOfClass:([_class_ class])])
 
 #else
+
+#define EC_CONFIGURATION_STRING @"Release"
+#define EC_CONFIGURATION_STRING_SHORT @"R"
 
 #define ECUnusedInDebug(v) do {} while(0)
 #define ECUnusedInRelease(v) ECUnused(v)
