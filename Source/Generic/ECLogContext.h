@@ -5,6 +5,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+@import Foundation;
+
 #ifdef __OBJC__
 
 @class ECLogChannel;
@@ -44,7 +46,7 @@ extern "C"
     extern void makeContext(ECLogContext* context, const char* file, unsigned int line, const char* date, const char* function);
     extern void enableChannel(ECLogChannel* channel);
     extern void disableChannel(ECLogChannel* channel);
-    extern bool channelEnabled(ECLogChannel* channel);
+    extern BOOL channelEnabled(ECLogChannel* channel);
     extern ECLogChannel* registerChannel(const char* name);
     extern ECLogChannel* registerChannelWithOptions(const char* name, id options);
     extern void	logToChannel(ECLogChannel* channel, ECLogContext* context, id object, ...);
