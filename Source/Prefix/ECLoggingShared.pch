@@ -29,8 +29,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define EC_PLATFORM_IOS 1
-
 
 // --------------------------------------------------------------------------
 // Mac Settings
@@ -39,8 +37,6 @@
 #elif TARGET_OS_MAC
 
 #import <Foundation/Foundation.h>
-
-#define EC_PLATFORM_MAC 1
 
 #endif
 
