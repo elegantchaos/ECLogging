@@ -584,10 +584,10 @@
 		struct Pixel *imageLoc = imagePixels;
 		for (NSInteger y = 0; y < imageSize.height; ++y) { //having X as our inner loop is much faster for locality-of-reference
 			for (NSInteger x = 0; x < imageSize.width; ++x) {
-				CGFloat pixelDiff = fabs(imageLoc->r - referenceLoc->r)/255;
-				pixelDiff += fabs(imageLoc->g - referenceLoc->g)/255.0;
-				pixelDiff += fabs(imageLoc->b - referenceLoc->b)/255.0;
-				pixelDiff += fabs(imageLoc->a - referenceLoc->a)/255.0;
+				CGFloat pixelDiff = abs(imageLoc->r - referenceLoc->r)/255;
+				pixelDiff += abs(imageLoc->g - referenceLoc->g)/255.0;
+				pixelDiff += abs(imageLoc->b - referenceLoc->b)/255.0;
+				pixelDiff += abs(imageLoc->a - referenceLoc->a)/255.0;
 				if (pixelDiff) {
 					if (pixelDiff > maxPixelDiff)
 						maxPixelDiff = pixelDiff;
