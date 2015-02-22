@@ -433,6 +433,7 @@
 		22B6A243183E0C5400873C05 /* ECTestComparisons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ECTestComparisons.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		22B6A244183E0C5400873C05 /* ECTestComparisons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ECTestComparisons.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		22B6A24A183E0CA800873C05 /* ComparisonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComparisonTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		22B83F0D1A8F8B1600FA8A8E /* ecunittests.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ecunittests.modulemap; sourceTree = "<group>"; };
 		22ECE86D16DC009E00F9C782 /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Test.bundle; sourceTree = "<group>"; };
 		22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
@@ -591,6 +592,7 @@
 				22ECE86D16DC009E00F9C782 /* Test.bundle */,
 				2251BA6C15DBDA5100F2FE40 /* Info.plist */,
 				22381E161A6C35BF000AD60A /* module.modulemap */,
+				22B83F0D1A8F8B1600FA8A8E /* ecunittests.modulemap */,
 				2274B37814F56679003B8A0B /* ECLoggingTests.plist */,
 			);
 			path = Resources;
@@ -1775,6 +1777,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				MODULEMAP_FILE = Resources/ecunittests.modulemap;
 				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Debug;
@@ -1785,6 +1788,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MODULEMAP_FILE = Resources/ecunittests.modulemap;
 				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Release;
