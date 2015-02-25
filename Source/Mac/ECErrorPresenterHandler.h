@@ -4,7 +4,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLogHandler.h"
 
 /**
  * Log handler which presents the logged object as an error using [NSApplication presentError:].
