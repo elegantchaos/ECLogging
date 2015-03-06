@@ -60,6 +60,7 @@ NSString *const LogManagerSettings = @"ECLogging";
 NSString *const ChannelsSetting = @"Channels";
 NSString *const DefaultSetting = @"Default";
 NSString *const VersionSetting = @"Version";
+NSString *const ResetSettingsSetting = @"resetLogging";
 
 static NSUInteger kSettingsVersion = 2;
 
@@ -394,7 +395,19 @@ static ECLogManager* gSharedInstance = nil;
 {
     LogManagerLog(@"log manager loading settings");
 
-	NSDictionary* savedSettings = [[NSUserDefaults standardUserDefaults] dictionaryForKey:LogManagerSettings];
+	NSUserDefaults* userSettings = [NSUserDefaults standardUserDefaults];
+	BOOL skipSavedSettings = [userSettings boolForKey:ResetSettingsSetting];
+	NSDictionary* savedSettings;
+	if (skipSavedSettings)
+	{
+		[userSettings removeObjectForKey:LogManagerSettings];
+		savedSettings = nil;
+	}
+	else
+	{
+		savedSettings = [userSettings dictionaryForKey:LogManagerSettings];
+	}
+	
 	NSDictionary* defaultSettings = [self defaultSettings];
 	self.settings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
 	
