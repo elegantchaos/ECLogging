@@ -61,7 +61,8 @@ static NSString *const ChannelsKey = @"Channels";
 static NSString *const DefaultKey = @"Default";
 static NSString *const VersionKey = @"Version";
 static NSString *const ResetSettingsKey = @"ECLoggingReset";
-static NSString *const ForceChannelKey = @"ECLoggingEnableChannel";
+static NSString *const ForceChannelEnabledKey = @"ECLoggingEnableChannel";
+static NSString *const ForceChannelDisabledKey = @"ECLoggingDisableChannel";
 
 static NSUInteger kSettingsVersion = 2;
 
@@ -317,16 +318,30 @@ static ECLogManager* gSharedInstance = nil;
     LogManagerLog(@"log manager shutdown");
 }
 
-- (void)finishStartup {
-	[self enabledForcedChannel];
+- (void)finishStartup
+{
+	[self processForcedChannels];
 	[self notifyDelegateOfStartup];
 }
 
-- (void)enabledForcedChannel {
-	NSString* forcedChannel = [[NSUserDefaults standardUserDefaults] stringForKey:ForceChannelKey];
-	if (forcedChannel) {
-		ECLogChannel* channel = self.channels[forcedChannel];
+- (void)processForcedChannels
+{
+	NSString* enabledChannel = [[NSUserDefaults standardUserDefaults] stringForKey:ForceChannelEnabledKey];
+	if (enabledChannel)
+	{
+		ECLogChannel* channel = self.channels[enabledChannel];
 		[channel enable];
+	}
+
+	NSString* disabledChannel = [[NSUserDefaults standardUserDefaults] stringForKey:ForceChannelDisabledKey];
+	if (disabledChannel)
+	{
+		ECLogChannel* channel = self.channels[disabledChannel];
+		[channel disable];
+	}
+
+	if (enabledChannel || disabledChannel)
+	{
 		[self saveChannelSettings];
 	}
 }
