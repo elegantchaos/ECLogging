@@ -51,16 +51,17 @@ NSString *const LogChannelsChanged = @"LogChannelsChanged";
 static NSString *const DebugLogSettingsFile = @"ECLoggingDebug";
 static NSString *const LogSettingsFile = @"ECLogging";
 
-NSString *const ContextSetting = @"Context";
-NSString *const EnabledSetting = @"Enabled";
-NSString *const HandlersSetting = @"Handlers";
-NSString *const OptionsSetting = @"Options";
-NSString *const LevelSetting = @"Level";
-NSString *const LogManagerSettings = @"ECLogging";
-NSString *const ChannelsSetting = @"Channels";
-NSString *const DefaultSetting = @"Default";
-NSString *const VersionSetting = @"Version";
-NSString *const ResetSettingsSetting = @"ECLoggingReset";
+static NSString *const ContextKey = @"Context";
+static NSString *const EnabledKey = @"Enabled";
+static NSString *const HandlersKey = @"Handlers";
+static NSString *const OptionsKey = @"Options";
+static NSString *const LevelKey = @"Level";
+static NSString *const LogManagerSettingsKey = @"ECLogging";
+static NSString *const ChannelsKey = @"Channels";
+static NSString *const DefaultKey = @"Default";
+static NSString *const VersionKey = @"Version";
+static NSString *const ResetSettingsKey = @"ECLoggingReset";
+static NSString *const ForceChannelKey = @"ECLoggingEnableChannel";
 
 static NSUInteger kSettingsVersion = 2;
 
@@ -154,13 +155,13 @@ static ECLogManager* gSharedInstance = nil;
 
 - (void)applySettings:(NSDictionary*)channelSettings toChannel:(ECLogChannel*)channel
 {
-    channel.enabled = [channelSettings[EnabledSetting] boolValue];
-    channel.level = channelSettings[LevelSetting];
-    NSNumber* contextValue = channelSettings[ContextSetting];
+    channel.enabled = [channelSettings[EnabledKey] boolValue];
+    channel.level = channelSettings[LevelKey];
+    NSNumber* contextValue = channelSettings[ContextKey];
     channel.context = contextValue ? ((ECLogContextFlags)[contextValue integerValue]): ECLogContextDefault;
     LogManagerLog(@"loaded channel %@ setting enabled: %d", channel.name, channel.enabled);
     
-    NSArray* handlerNames = channelSettings[HandlersSetting];
+    NSArray* handlerNames = channelSettings[HandlersKey];
     if (handlerNames)
     {
         for (NSString* handlerName in handlerNames)
@@ -199,7 +200,7 @@ static ECLogManager* gSharedInstance = nil;
 
 		if (self.settings)
 		{
-			NSDictionary* allChannels = self.settings[ChannelsSetting];
+			NSDictionary* allChannels = self.settings[ChannelsKey];
 			NSDictionary* channelSettings = allChannels[channel.name];
 			[self applySettings:channelSettings toChannel:channel];
 
@@ -220,7 +221,7 @@ static ECLogManager* gSharedInstance = nil;
 {
 	self.handlers = [NSMutableDictionary dictionary];
 	self.defaultHandlers = [NSMutableArray array];
-	NSDictionary* allHandlers = self.settings[HandlersSetting];
+	NSDictionary* allHandlers = self.settings[HandlersKey];
 	if ([allHandlers count] == 0)
 	{
 		ECLogHandler* handler = [[ECLogHandlerNSLog alloc] init];
@@ -239,7 +240,7 @@ static ECLogManager* gSharedInstance = nil;
 				(self.handlers)[handler.name] = handler;
 				LogManagerLog(@"registered handler %@", handler.name);
 
-				if ([handlerSettings[DefaultSetting] boolValue])
+				if ([handlerSettings[DefaultKey] boolValue])
 				{
 					LogManagerLog(@"add handler %@ to default handlers", handler.name);
 					[self.defaultHandlers addObject:handler];
@@ -318,11 +319,11 @@ static ECLogManager* gSharedInstance = nil;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		// we call the didStartup delegate method some time later, to allow for the fact that the delegate
 		// can't even be set until the manager has been created
-		id<ECLogManagerDelegate> delegate = self.delegate;
-		if ([delegate respondsToSelector:@selector(logManagerDidStartup:)])
-		{
-			[delegate logManagerDidStartup:self];
-		}
+	id<ECLogManagerDelegate> delegate = self.delegate;
+	if ([delegate respondsToSelector:@selector(logManagerDidStartup:)])
+	{
+		[delegate logManagerDidStartup:self];
+	}
 	});
 }
 
@@ -396,38 +397,38 @@ static ECLogManager* gSharedInstance = nil;
     LogManagerLog(@"log manager loading settings");
 
 	NSUserDefaults* userSettings = [NSUserDefaults standardUserDefaults];
-	BOOL skipSavedSettings = [userSettings boolForKey:ResetSettingsSetting];
+	BOOL skipSavedSettings = [userSettings boolForKey:ResetSettingsKey];
 	NSDictionary* savedSettings;
 	if (skipSavedSettings)
 	{
-		[userSettings removeObjectForKey:LogManagerSettings];
+		[userSettings removeObjectForKey:LogManagerSettingsKey];
 		savedSettings = nil;
 	}
 	else
 	{
-		savedSettings = [userSettings dictionaryForKey:LogManagerSettings];
+		savedSettings = [userSettings dictionaryForKey:LogManagerSettingsKey];
 	}
 	
 	NSDictionary* defaultSettings = [self defaultSettings];
 	self.settings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
 	
-	NSUInteger expectedVersion = [defaultSettings[VersionSetting] unsignedIntegerValue];
+	NSUInteger expectedVersion = [defaultSettings[VersionKey] unsignedIntegerValue];
 	if (expectedVersion == 0)
 		expectedVersion = kSettingsVersion;
 	
-	NSUInteger savedVersion = [savedSettings[VersionSetting] unsignedIntegerValue];
+	NSUInteger savedVersion = [savedSettings[VersionKey] unsignedIntegerValue];
 	if (savedVersion == expectedVersion)
 	{
 		// use saved channel settings if we have them, otherwise the defaults
-		id channels = savedSettings[ChannelsSetting];
+		id channels = savedSettings[ChannelsKey];
 		if (!channels)
 		{
-			channels = defaultSettings[ChannelsSetting];
+			channels = defaultSettings[ChannelsKey];
 		}
 
 		// always use list of handlers from the defaults, but merge in saved handler settings
-		NSDictionary* defaultHandlers = defaultSettings[HandlersSetting];
-		NSDictionary* savedHandlers = savedSettings[HandlersSetting];
+		NSDictionary* defaultHandlers = defaultSettings[HandlersKey];
+		NSDictionary* savedHandlers = savedSettings[HandlersKey];
 		NSMutableDictionary* handlers = [NSMutableDictionary dictionary];
 		for (NSString* handlerName in defaultHandlers)
 		{
@@ -440,8 +441,8 @@ static ECLogManager* gSharedInstance = nil;
 			}
 		}
 		
-		self.settings[ChannelsSetting] = channels;
-		self.settings[HandlersSetting] = handlers;
+		self.settings[ChannelsKey] = channels;
+		self.settings[HandlersKey] = handlers;
 	}
 
 	[self loadChannelSettings];
@@ -456,7 +457,7 @@ static ECLogManager* gSharedInstance = nil;
 {
     LogManagerLog(@"log manager loading settings");
 
-	NSDictionary* channelSettings = self.settings[ChannelsSetting];
+	NSDictionary* channelSettings = self.settings[ChannelsKey];
 	for (NSString* channel in [channelSettings allKeys])
 	{
 		LogManagerLog(@"loaded settings for channel %@", channel);
@@ -473,14 +474,14 @@ static ECLogManager* gSharedInstance = nil;
     LogManagerLog(@"log manager saving settings");
     
 	NSDictionary* defaultSettings = [self defaultSettings];
-	NSDictionary* defaultChannelSettings = defaultSettings[ChannelsSetting];
+	NSDictionary* defaultChannelSettings = defaultSettings[ChannelsKey];
 	NSMutableDictionary* allChannelSettings = [[NSMutableDictionary alloc] init];
 
 	for (ECLogChannel* channel in [self.channels allValues])
 	{
         NSMutableDictionary* channelSettings = [NSMutableDictionary dictionaryWithDictionary:defaultChannelSettings[channel.name]];
-		channelSettings[EnabledSetting] = @(channel.enabled);
-		channelSettings[ContextSetting] = @(channel.context);
+		channelSettings[EnabledKey] = @(channel.enabled);
+		channelSettings[ContextKey] = @(channel.context);
         NSSet* channelHandlers = channel.handlers;
         if (channelHandlers)
         {
@@ -489,7 +490,7 @@ static ECLogManager* gSharedInstance = nil;
             {
                 [handlerNames addObject:handler.name];
             }
-            channelSettings[HandlersSetting] = handlerNames;
+            channelSettings[HandlersKey] = handlerNames;
         }
         
         LogManagerLog(@"settings for channel %@:%@", channel.name, channelSettings);
@@ -511,17 +512,17 @@ static ECLogManager* gSharedInstance = nil;
 		ECLogHandler* handler = self.handlers[handlerName];
 		NSString* handlerClass = NSStringFromClass([handler class]);
 		BOOL isDefault = [self.defaultHandlers containsObject:handler];
-		allHandlerSettings[handlerClass] = @{ DefaultSetting : @(isDefault) };
+		allHandlerSettings[handlerClass] = @{ DefaultKey : @(isDefault) };
 	}
 
     NSDictionary* allSettings =
 		@{
-		VersionSetting : @(kSettingsVersion),
-		ChannelsSetting : allChannelSettings,
-		HandlersSetting : allHandlerSettings
+		VersionKey : @(kSettingsVersion),
+		ChannelsKey : allChannelSettings,
+		HandlersKey : allHandlerSettings
 		};
 
-    [defaults setObject:allSettings forKey:LogManagerSettings];
+    [defaults setObject:allSettings forKey:LogManagerSettingsKey];
     [defaults synchronize];
 
 
@@ -529,7 +530,7 @@ static ECLogManager* gSharedInstance = nil;
 
 - (NSDictionary*)optionsSettings
 {
-	return self.settings[OptionsSetting];
+	return self.settings[OptionsKey];
 }
 
 // --------------------------------------------------------------------------
@@ -589,7 +590,7 @@ static ECLogManager* gSharedInstance = nil;
 {
     LogManagerLog(@"reset channel %@", channel.name);
     NSDictionary* defaultSettings = [self defaultSettings];
-	NSDictionary* allChannelSettings = defaultSettings[ChannelsSetting];
+	NSDictionary* allChannelSettings = defaultSettings[ChannelsKey];
     [self applySettings:allChannelSettings[channel.name] toChannel:channel];
     [self saveChannelSettings];
 }
@@ -603,7 +604,7 @@ static ECLogManager* gSharedInstance = nil;
 {
     LogManagerLog(@"reset all channels");
     NSDictionary* defaultSettings = [self defaultSettings];
-	NSDictionary* allChannelSettings = defaultSettings[ChannelsSetting];
+	NSDictionary* allChannelSettings = defaultSettings[ChannelsKey];
 	for (NSString* name in self.channels)
 	{
         ECLogChannel* channel = self.channels[name];
@@ -618,7 +619,7 @@ static ECLogManager* gSharedInstance = nil;
 
 - (void)resetAllSettings
 {
-	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LogManagerSettings];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LogManagerSettingsKey];
 	[self loadSettings];
 	[self registerHandlers];
 	[self resetAllChannels];
