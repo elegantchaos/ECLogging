@@ -60,7 +60,7 @@ NSString *const LogManagerSettings = @"ECLogging";
 NSString *const ChannelsSetting = @"Channels";
 NSString *const DefaultSetting = @"Default";
 NSString *const VersionSetting = @"Version";
-NSString *const ResetSettingsSetting = @"resetLogging";
+NSString *const ResetSettingsSetting = @"ECLoggingReset";
 
 static NSUInteger kSettingsVersion = 2;
 
