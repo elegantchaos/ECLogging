@@ -15,6 +15,9 @@
 // Properties
 // --------------------------------------------------------------------------
 
+static NSString *const ForceDebugMenuKey = @"ECLoggingMenu";
+static NSString *const InstallDebugMenuKey = @"InstallMenu";
+
 static ECLogManagerMacUISupport* gSharedInstance = nil;
 
 /// --------------------------------------------------------------------------
@@ -92,7 +95,8 @@ static ECLogManagerMacUISupport* gSharedInstance = nil;
 
 - (void)logManagerDidStartup:(ECLogManager *)manager
 {
-	if ([manager.settings[@"InstallMenu"] boolValue])
+	BOOL forceMenu = [[NSUserDefaults standardUserDefaults] boolForKey:ForceDebugMenuKey];
+	if (forceMenu || [manager.settings[InstallDebugMenuKey] boolValue])
 	{
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 			[self installDebugSubmenuWithTitle:@"Logging" class:[ECLoggingMenu class]];
