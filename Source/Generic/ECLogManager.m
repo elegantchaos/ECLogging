@@ -415,6 +415,15 @@ static ECLogManager* gSharedInstance = nil;
 	return defaultSettings;
 }
 
+- (NSUInteger)expectedSettingsVersionWithDefaultSettings:(NSDictionary*)defaultSettings
+{
+	NSUInteger expectedVersion = [defaultSettings[VersionKey] unsignedIntegerValue];
+	if (expectedVersion == 0)
+		expectedVersion = kSettingsVersion;
+	
+	return expectedVersion;
+}
+
 // --------------------------------------------------------------------------
 //! Load saved channel details.
 //! We make and register any channel found in the settings.
@@ -440,10 +449,7 @@ static ECLogManager* gSharedInstance = nil;
 	NSDictionary* defaultSettings = [self defaultSettings];
 	self.settings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
 	
-	NSUInteger expectedVersion = [defaultSettings[VersionKey] unsignedIntegerValue];
-	if (expectedVersion == 0)
-		expectedVersion = kSettingsVersion;
-	
+	NSUInteger expectedVersion = [self expectedSettingsVersionWithDefaultSettings:defaultSettings];
 	NSUInteger savedVersion = [savedSettings[VersionKey] unsignedIntegerValue];
 	if (savedVersion == expectedVersion)
 	{
@@ -545,7 +551,7 @@ static ECLogManager* gSharedInstance = nil;
 
     NSDictionary* allSettings =
 		@{
-		VersionKey : @(kSettingsVersion),
+		VersionKey : @([self expectedSettingsVersionWithDefaultSettings:defaultSettings]),
 		ChannelsKey : allChannelSettings,
 		HandlersKey : allHandlerSettings
 		};
