@@ -292,7 +292,11 @@ static ECLogManager* gSharedInstance = nil;
 
 	[self loadSettings];
 	[self registerHandlers];
-	[self notifyDelegateOfStartup];
+	
+	// defer the end of the startup until the main runloop is in action - this gives the client time to add a delegate
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[self finishStartup];
+	});
 }
 
 // --------------------------------------------------------------------------
@@ -313,18 +317,27 @@ static ECLogManager* gSharedInstance = nil;
     LogManagerLog(@"log manager shutdown");
 }
 
+- (void)finishStartup {
+	[self enabledForcedChannel];
+	[self notifyDelegateOfStartup];
+}
+
+- (void)enabledForcedChannel {
+	NSString* forcedChannel = [[NSUserDefaults standardUserDefaults] stringForKey:ForceChannelKey];
+	if (forcedChannel) {
+		ECLogChannel* channel = self.channels[forcedChannel];
+		[channel enable];
+		[self saveChannelSettings];
+	}
+}
 
 - (void)notifyDelegateOfStartup
 {
-	dispatch_async(dispatch_get_main_queue(), ^{
-		// we call the didStartup delegate method some time later, to allow for the fact that the delegate
-		// can't even be set until the manager has been created
 	id<ECLogManagerDelegate> delegate = self.delegate;
 	if ([delegate respondsToSelector:@selector(logManagerDidStartup:)])
 	{
 		[delegate logManagerDidStartup:self];
 	}
-	});
 }
 
 - (NSDictionary*)settingsFromBundle:(NSBundle*)bundle
