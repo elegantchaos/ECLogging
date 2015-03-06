@@ -398,8 +398,12 @@ static ECLogManager* gSharedInstance = nil;
 	NSDictionary* defaultSettings = [self defaultSettings];
 	self.settings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
 	
+	NSUInteger expectedVersion = [defaultSettings[VersionSetting] unsignedIntegerValue];
+	if (expectedVersion == 0)
+		expectedVersion = kSettingsVersion;
+	
 	NSUInteger savedVersion = [savedSettings[VersionSetting] unsignedIntegerValue];
-	if (savedVersion == kSettingsVersion)
+	if (savedVersion == expectedVersion)
 	{
 		// use saved channel settings if we have them, otherwise the defaults
 		id channels = savedSettings[ChannelsSetting];
