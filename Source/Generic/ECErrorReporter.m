@@ -9,6 +9,7 @@
 #import "ECLoggingMacros.h"
 #import "ECAssertion.h"
 #import "ECErrorAndMessage.h"
+#import "ECLogChannel.h"
 
 @interface ECErrorReporter()
 

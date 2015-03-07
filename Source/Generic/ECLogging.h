@@ -13,6 +13,7 @@
 #import "ECErrorAndMessage.h"
 #import "ECErrorReporter.h"
 #import "ECLogChannel.h"
+#import "ECLogContext.h"
 //#import "ECLogHandlerASL.h"
 #import "ECLogHandlerFile.h"
 #import "ECLogHandlerNSLog.h"

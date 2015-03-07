@@ -18,6 +18,7 @@
 
 #import "ECLoggingMacros.h"
 
+@class ECLogChannel;
 ECDeclareDebugChannel(AssertionChannel);
 
 #endif

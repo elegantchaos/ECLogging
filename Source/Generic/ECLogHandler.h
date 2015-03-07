@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECLoggingMacros.h"
+#import "ECLogContext.h"
 
 @class ECLogChannel;
 
