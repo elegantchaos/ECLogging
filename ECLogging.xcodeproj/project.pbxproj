@@ -330,6 +330,8 @@
 		2237ECDA14F563D200085BF5 /* NSMenu+ECLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMenu+ECLogging.m"; sourceTree = "<group>"; };
 		22381E161A6C35BF000AD60A /* ECLogging.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECLogging.modulemap; sourceTree = "<group>"; };
 		223C3B1D1AAB5A7F003CCFFC /* ECLoggingUI.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECLoggingUI.modulemap; sourceTree = "<group>"; };
+		223C3B1F1AAB61F8003CCFFC /* IOSTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOSTests.pch; sourceTree = "<group>"; };
+		223C3B201AAB61F8003CCFFC /* MacTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacTests.pch; sourceTree = "<group>"; };
 		224E84D517AAB98F002EB661 /* ECOptionsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECOptionsMenu.h; sourceTree = "<group>"; };
 		224E84D617AAB98F002EB661 /* ECOptionsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECOptionsMenu.m; sourceTree = "<group>"; };
 		2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECLogging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -434,7 +436,7 @@
 		22B6A243183E0C5400873C05 /* ECTestComparisons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ECTestComparisons.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		22B6A244183E0C5400873C05 /* ECTestComparisons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ECTestComparisons.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		22B6A24A183E0CA800873C05 /* ComparisonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComparisonTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		22B83F0D1A8F8B1600FA8A8E /* ecunittests.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ecunittests.modulemap; sourceTree = "<group>"; };
+		22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECUnitTests.modulemap; sourceTree = "<group>"; };
 		22ECE86D16DC009E00F9C782 /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Test.bundle; sourceTree = "<group>"; };
 		22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
@@ -594,7 +596,7 @@
 				2251BA6C15DBDA5100F2FE40 /* Info.plist */,
 				22381E161A6C35BF000AD60A /* ECLogging.modulemap */,
 				223C3B1D1AAB5A7F003CCFFC /* ECLoggingUI.modulemap */,
-				22B83F0D1A8F8B1600FA8A8E /* ecunittests.modulemap */,
+				22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */,
 				2274B37814F56679003B8A0B /* ECLoggingTests.plist */,
 			);
 			path = Resources;
@@ -810,6 +812,8 @@
 				2221873819DAB8B800F08CCE /* ECLoggingUIDebug.pch */,
 				2221873919DAB8B800F08CCE /* ECLoggingUIRelease.pch */,
 				2221873A19DAB8B800F08CCE /* ECLoggingUIShared.pch */,
+				223C3B1F1AAB61F8003CCFFC /* IOSTests.pch */,
+				223C3B201AAB61F8003CCFFC /* MacTests.pch */,
 			);
 			path = Prefix;
 			sourceTree = "<group>";
@@ -1686,6 +1690,7 @@
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREFIX_HEADER = Source/Prefix/MacTests.pch;
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
@@ -1696,6 +1701,7 @@
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREFIX_HEADER = Source/Prefix/MacTests.pch;
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
@@ -1709,6 +1715,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_PREFIX_HEADER = Source/Prefix/IOSTests.pch;
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Debug;
@@ -1721,6 +1728,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_PREFIX_HEADER = Source/Prefix/IOSTests.pch;
 				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Release;
@@ -1777,7 +1785,6 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				MODULEMAP_FILE = Resources/ecunittests.modulemap;
 				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Debug;
@@ -1788,7 +1795,6 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				MODULEMAP_FILE = Resources/ecunittests.modulemap;
 				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Release;
