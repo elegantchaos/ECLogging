@@ -5,8 +5,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <Foundation/Foundation.h>
-#import <asl.h>
+@import asl.h;
 
 @interface ECASLClient : NSObject
 

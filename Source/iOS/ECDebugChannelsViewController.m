@@ -11,6 +11,7 @@
 
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
+#import "ECLoggingMacros.h"
 
 static NSString *const DebugChannelsViewCell = @"DebugChannelsViewCell";
 

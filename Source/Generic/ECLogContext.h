@@ -7,22 +7,14 @@
 
 @import Foundation;
 
-#ifdef __OBJC__
-
 @class ECLogChannel;
-
-#else
-
-typedef void ECLogChannel;
-
-#endif
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-    
-    typedef enum
+	
+    typedef NS_ENUM(NSUInteger, ECLogContextFlags)
     {
         ECLogContextNone        = 0x0000,
         ECLogContextFile        = 0x0001,
@@ -33,7 +25,7 @@ extern "C"
         
         ECLogContextFullPath    = 0x1000,
         ECLogContextDefault     = 0x8000
-    } ECLogContextFlags;
+    };
     
     typedef struct 
     {

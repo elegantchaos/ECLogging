@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------
 
 #import "ECErrorPresenterHandler.h"
-#import "ECErrorAndMessage.h"
 
 @implementation ECErrorPresenterHandler
 

@@ -14,4 +14,4 @@ WRAPPER_EXTENSION = framework
 INSTALL_PATH = @rpath
 
 DEFINES_MODULE = YES
-MODULEMAP_FILE = Resources/module.modulemap
+MODULEMAP_FILE = Resources/$(PRODUCT_NAME).modulemap

@@ -10,6 +10,7 @@
 
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
+#import "ECLoggingMacros.h"
 
 @interface ECLoggingSettingsViewController()
 

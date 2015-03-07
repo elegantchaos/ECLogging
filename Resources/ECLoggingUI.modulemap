@@ -1,0 +1,8 @@
+framework module ECLoggingUI {
+  umbrella header "ECLoggingUI.h"
+
+  config_macros [exhaustive] EC_DEBUG, EC_RELEASE
+
+  export *
+  module * { export * }
+}

@@ -8,6 +8,4 @@
  * Standard release definitions.
  */
 
-#define EC_RELEASE 1
-
 #import "ECLoggingShared.pch"
