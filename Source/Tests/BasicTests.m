@@ -10,6 +10,11 @@
 
 ECDefineLogChannel(TestChannel);
 
+@interface ECLogManager(PrivateTestAccessOnly)
+- (void)loadChannelSettings;
+- (void)processForcedChannels;
+@end
+
 @interface TestHandler : ECLogHandler
 @property (strong, nonatomic) NSMutableString* logged;
 @end
@@ -64,6 +69,14 @@ ECDefineLogChannel(TestChannel);
 	[self clearLoggedOutput];
 }
 
+- (void)tearDown
+{
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	[defaults removeObjectForKey:@"ECLogging"];
+	[defaults removeObjectForKey:@"ECLoggingEnableChannel"];
+	[defaults removeObjectForKey:@"ECLoggingDisableChannel"];
+}
+
 #pragma mark - Tests
 
 - (void)testLogging
@@ -101,5 +114,33 @@ ECDefineLogChannel(TestChannel);
 	ECLog(TestChannel, @"hello world");
 	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «-[BasicTests testContextFlags]»");
 
+	[self clearLoggedOutput];
+	self.channel.context = ECLogContextMessage | ECLogContextName | ECLogContextFunction | ECLogContextFile;
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «Test BasicTests.m, 119 -[BasicTests testContextFlags]»");
 }
+
+- (void)testForceEnableFromCommandLine
+{
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+
+	ECDisableChannel(TestChannel);
+	[defaults setObject:@"Test" forKey:@"ECLoggingEnableChannel"];
+	[[ECLogManager sharedInstance] processForcedChannels]; // TODO: this forces the log manager to re-processes the command line options, so it's a bit fragile; a better test would be to actually launch a test executable which used ECLogging
+	[self clearLoggedOutput];
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «Test»");
+}
+
+- (void)testForceDisableFromCommandLine
+{
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	
+	[defaults setObject:@"Test" forKey:@"ECLoggingDisableChannel"];
+	[[ECLogManager sharedInstance] processForcedChannels]; // TODO: this forces the log manager to re-processes the command line options, so it's a bit fragile; a better test would be to actually launch a test executable which used ECLogging
+	[self clearLoggedOutput];
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"");
+}
+
 @end
