@@ -117,7 +117,17 @@ ECDefineLogChannel(TestChannel);
 	[self clearLoggedOutput];
 	self.channel.context = ECLogContextMessage | ECLogContextName | ECLogContextFunction | ECLogContextFile;
 	ECLog(TestChannel, @"hello world");
-	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «Test BasicTests.m, 119 -[BasicTests testContextFlags]»");
+	NSError* error;
+	
+	// line number can obviously change in the output (when we change the code!), so match with a regexp
+	NSRegularExpression* exp = [NSRegularExpression regularExpressionWithPattern:@"hello world «Test BasicTests.m, \\d+ -\\[BasicTests testContextFlags\\]»" options:NSRegularExpressionCaseInsensitive error:&error];
+	__block NSUInteger matches = 0;
+	[exp enumerateMatchesInString:self.handler.logged options:0 range:NSMakeRange(0, [self.handler.logged length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+		ECTestAssertIntegerIsEqual(result.range.location, 0);
+		++matches;
+	}];
+	ECTestAssertIntegerIsEqual(matches, 1);
+
 }
 
 - (void)testForceEnableFromCommandLine
