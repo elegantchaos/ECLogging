@@ -5,184 +5,101 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#import "ECLogging.h"
 #import "ECTestCase.h"
-#import "NSString+ECLogging.h"
 
-@interface StringTests : ECTestCase
-{
-}
+ECDefineLogChannel(TestChannel);
 
+@interface TestHandler : ECLogHandler
+@property (strong, nonatomic) NSMutableString* logged;
 @end
 
-@implementation StringTests
+@implementation TestHandler
+
+- (instancetype)init
+{
+	if ((self = [super init]) != nil)
+	{
+		self.logged = [NSMutableString new];
+		self.name = @"Test Handler";
+	}
+	
+	return self;
+}
+- (void)logFromChannel:(ECLogChannel *)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext *)context
+{
+	NSString* output = [self simpleOutputStringForChannel:channel withObject:object arguments:arguments context:context];
+	[self.logged appendString:output];
+}
+@end
+
+@interface BasicTests : ECTestCase
+@property (strong, nonatomic) TestHandler* handler;			// test handler we install in order to capture output of the channel
+@property (strong, nonatomic) ECLogChannel* channel;		// normally we wouldn't interact with a channel object directly, but having a reference is handy for the tests
+@end
+
+@implementation BasicTests
+
+- (void)clearLoggedOutput
+{
+	self.handler.logged.string = @"";
+}
+
+- (void)setUp
+{
+	// grab a reference to the test channel - only something we need to do for test purposes
+	ECLogChannel* channel = ECGetChannel(TestChannel);
+	self.channel = channel;
+
+	// install a custom handler and make the test channel use it, so that we can capture anything that was sent to it
+	TestHandler* handler = [TestHandler new];
+	[channel enableHandler:handler];
+	[channel enable];
+	
+	// restore the default settings for the channel - again, not something we'd have to do in normal use, but in this case previous tests might have messed with it
+	channel.context = ECLogContextDefault;
+	self.handler = handler;
+	
+	// enabling the handler and the channel will have produced some output, so lets clear it to prevent it interfering with the tests
+	[self clearLoggedOutput];
+}
 
 #pragma mark - Tests
 
-- (void)testStringBySplittingMixedCaps
+- (void)testLogging
 {
-	ECTestAssertStringIsEqual([@"mixedCapTest" stringBySplittingMixedCaps], @"mixed Cap Test");
-	ECTestAssertStringIsEqual([@"alllowercaseoneword" stringBySplittingMixedCaps], @"alllowercaseoneword");
-	ECTestAssertStringIsEqual([@"" stringBySplittingMixedCaps], @"");
-	ECTestAssertStringIsEqual([@"all lower case multiple words" stringBySplittingMixedCaps], @"all lower case multiple words");
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «Test»");
 }
 
-- (void)testLastLines
+- (void)testDisabling
 {
-	NSString* threeLines = [@[@"line1", @"line2", @"line3"] componentsJoinedByString:@"\n"];
-	NSString* lastTwoLines = [@[@"line2", @"line3"] componentsJoinedByString:@"\n"];
-
-	ECTestAssertStringIsEqual([threeLines lastLines:0], @"");
-	ECTestAssertStringIsEqual([threeLines lastLines:1], @"line3");
-	ECTestAssertStringIsEqual([threeLines lastLines:2], lastTwoLines);
-	ECTestAssertStringIsEqual([threeLines lastLines:3], threeLines);
-	ECTestAssertStringIsEqual([threeLines lastLines:4], threeLines);
+	ECDisableChannel(TestChannel);
+	[self clearLoggedOutput];
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"");
 }
 
-- (void)testFirstLines
+- (void)testContextFlags
 {
-	NSString* threeLines = [@[@"line1", @"line2", @"line3"] componentsJoinedByString:@"\n"];
-	NSString* firstTwoLines = [@[@"line1", @"line2"] componentsJoinedByString:@"\n"];
+	self.channel.context = ECLogContextNone;
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"");
 
-	ECTestAssertStringIsEqual([threeLines firstLines:0], @"");
-	ECTestAssertStringIsEqual([threeLines firstLines:1], @"line1");
-	ECTestAssertStringIsEqual([threeLines firstLines:2], firstTwoLines);
-	ECTestAssertStringIsEqual([threeLines firstLines:3], threeLines);
-	ECTestAssertStringIsEqual([threeLines firstLines:4], threeLines);
+	[self clearLoggedOutput];
+	self.channel.context = ECLogContextMessage;
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world");
+
+	[self clearLoggedOutput];
+	self.channel.context = ECLogContextMessage | ECLogContextName;
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «Test»");
+
+	[self clearLoggedOutput];
+	self.channel.context = ECLogContextMessage | ECLogContextFunction;
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «-[BasicTests testContextFlags]»");
+
 }
-
-- (void)testMatchesString1
-{
-	NSString* test1 = @"This is a test string";
-	NSString* test2 = @"This is a different string";
-
-	NSString* after;
-	NSUInteger index;
-	UniChar divergent, expected;
-	BOOL result = [test1 matchesString:test2 divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 10);
-	ECTestAssertIntegerIsEqual(divergent, 't');
-	ECTestAssertIntegerIsEqual(expected, 'd');
-
-	result = [test1 matchesString:test1 divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertTrue(result);
-
-	result = [@"" matchesString:@"" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertTrue(result);
-
-	result = [test1 matchesString:@"" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 0);
-
-	result = [@"" matchesString:test1 divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 0);
-
-	result = [@"" matchesString:nil divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 0);
-
-	result = [@"AAA" matchesString:@"BBB" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 0);
-	ECTestAssertIntegerIsEqual(divergent, 'A');
-	ECTestAssertIntegerIsEqual(expected, 'B');
-}
-
-- (void)testMatchesString2
-{
-	NSString* test1 = @"This is a\ntest string";
-	NSString* test2 = @"This is a\ndifferent string";
-
-	NSString *diverged, *expected;
-	NSUInteger line1, line2;
-	BOOL result = [test1 matchesString:test2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected window:0];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 1);
-	ECTestAssertIntegerIsEqual(line2, 1);
-	ECTestAssertStringIsEqual(diverged, @"test string");
-	ECTestAssertStringIsEqual(expected, @"different string");
-
-	result = [test1 matchesString:test1 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertTrue(result);
-
-	result = [@"" matchesString:@"" divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertTrue(result);
-
-	result = [test1 matchesString:@"" divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 0);
-	ECTestAssertIntegerIsEqual(line2, 0);
-
-	result = [@"" matchesString:test1 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 0);
-	ECTestAssertIntegerIsEqual(line2, 0);
-
-	result = [@"" matchesString:nil divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 0);
-	ECTestAssertIntegerIsEqual(line2, 0);
-
-	result = [@"AAA" matchesString:@"BBB" divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 0);
-	ECTestAssertIntegerIsEqual(line2, 0);
-	ECTestAssertStringIsEqual(diverged, @"AAA");
-	ECTestAssertStringIsEqual(expected, @"BBB");
-}
-
-- (void)testMatchesString3
-{
-	NSString* test1 = @"This is a\ntest string";
-	NSString* test2 = @"This is a\ndifferent string";
-
-	NSString *after, *diverged, *expected;
-	NSUInteger line;
-	BOOL result = [test1 matchesString:test2 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 1);
-	ECTestAssertStringIsEqual(after, @"This is a\n");
-	ECTestAssertStringIsEqual(diverged, @"test string");
-	ECTestAssertStringIsEqual(expected, @"different string");
-
-	result = [test1 matchesString:test1 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertTrue(result);
-
-	result = [@"" matchesString:@"" divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertTrue(result);
-
-	result = [test1 matchesString:@"" divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 0);
-
-	result = [@"" matchesString:test1 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 0);
-
-	result = [@"" matchesString:nil divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 0);
-
-	result = [@"AAA" matchesString:@"BBB" divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 0);
-}
-
-- (void)testMatchesStringWindow
-{
-	NSString* test1 = @"l1\nl2\nl3\ntest string\nl5\nl6";
-	NSString* test2 = @"l1\nl2\nl3\ndifferent string\nl5\nl6";
-
-	NSString *diverged, *expected;
-	NSUInteger line1, line2;
-
-	BOOL result = [test1 matchesString:test2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected window:1];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 3);
-	ECTestAssertIntegerIsEqual(line2, 3);
-	ECTestAssertStringIsEqual(diverged, @"l3\ntest string\nl5\n");
-	ECTestAssertStringIsEqual(expected, @"l3\ndifferent string\nl5\n");
-}
-
 @end

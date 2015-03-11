@@ -215,6 +215,8 @@
 		22ECE86F16DC009E00F9C782 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22ECE86D16DC009E00F9C782 /* Test.bundle */; };
 		22F2FEF4164142A600CD3C7C /* ECLogManagerIOSUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */; };
+		22FA57601AB085E10045A364 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA575F1AB085E10045A364 /* StringTests.m */; };
+		22FA57611AB085EB0045A364 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA575F1AB085E10045A364 /* StringTests.m */; };
 		22FF8E5016F1E418008FC10D /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4716D6B2B900835964 /* ECTestCase.m */; };
 		22FF8E5116F1E418008FC10D /* ECParameterisedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4516D6B2B900835964 /* ECParameterisedTestCase.m */; };
 		22FF8E6C16F1E418008FC10D /* ECLogManagerIOSUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */; };
@@ -455,6 +457,7 @@
 		22F2FEEF1641418600CD3C7C /* ECLogManagerMacUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerMacUISupport.m; sourceTree = "<group>"; };
 		22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerIOSUISupport.h; sourceTree = "<group>"; };
 		22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerIOSUISupport.m; sourceTree = "<group>"; };
+		22FA575F1AB085E10045A364 /* StringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTests.m; sourceTree = "<group>"; };
 		22FF8E7E16F1E418008FC10D /* ECUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -591,6 +594,7 @@
 			isa = PBXGroup;
 			children = (
 				2251BA6115DBD93700F2FE40 /* BasicTests.m */,
+				22FA575F1AB085E10045A364 /* StringTests.m */,
 				22B6A24A183E0CA800873C05 /* ComparisonTests.m */,
 			);
 			path = Tests;
@@ -1505,6 +1509,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22B6A24C183E0CA800873C05 /* ComparisonTests.m in Sources */,
+				22FA57601AB085E10045A364 /* StringTests.m in Sources */,
 				2251BA6215DBD93700F2FE40 /* BasicTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1514,6 +1519,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22B6A24E183E0CA800873C05 /* ComparisonTests.m in Sources */,
+				22FA57611AB085EB0045A364 /* StringTests.m in Sources */,
 				2251BA6315DBD93700F2FE40 /* BasicTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
