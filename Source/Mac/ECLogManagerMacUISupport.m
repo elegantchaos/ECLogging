@@ -18,28 +18,6 @@
 static NSString *const ForceDebugMenuKey = @"ECLoggingMenu";
 static NSString *const InstallDebugMenuKey = @"InstallMenu";
 
-static ECLogManagerMacUISupport* gSharedInstance = nil;
-
-/// --------------------------------------------------------------------------
-/// Return the shared instance.
-/// --------------------------------------------------------------------------
-
-+ (ECLogManagerMacUISupport*)sharedInstance
-{
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		gSharedInstance = [ECLogManagerMacUISupport new];
-	});
-
-	return gSharedInstance;
-}
-
-+ (void)load {
-	// we want to register with the log manager as early as possible, so that we
-	// get the startup and shutdown notifications
-	[ECLogManager sharedInstance].delegate = [self sharedInstance];
-}
-
 /// --------------------------------------------------------------------------
 /// Return the top level Debug menu item.
 /// If it doesn't already exist, we add one.
