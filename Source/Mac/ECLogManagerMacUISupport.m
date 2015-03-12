@@ -15,8 +15,6 @@
 // Properties
 // --------------------------------------------------------------------------
 
-static NSString *const ForceDebugMenuKey = @"ECLoggingMenu";
-static NSString *const InstallDebugMenuKey = @"InstallMenu";
 
 /// --------------------------------------------------------------------------
 /// Return the top level Debug menu item.
@@ -73,8 +71,7 @@ static NSString *const InstallDebugMenuKey = @"InstallMenu";
 
 - (void)logManagerDidStartup:(ECLogManager *)manager
 {
-	BOOL forceMenu = [[NSUserDefaults standardUserDefaults] boolForKey:ForceDebugMenuKey];
-	if (forceMenu || [manager.settings[InstallDebugMenuKey] boolValue])
+	if (manager.showMenu)
 	{
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 			[self installDebugSubmenuWithTitle:@"Logging" class:[ECLoggingMenu class]];

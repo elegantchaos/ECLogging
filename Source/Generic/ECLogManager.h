@@ -44,6 +44,7 @@
 @property (assign, nonatomic) ECLogContextFlags defaultContextFlags;
 @property (strong, nonatomic) NSMutableDictionary* settings;
 @property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
+@property (assign, nonatomic) BOOL showMenu;
 
 // --------------------------------------------------------------------------
 // Public Methods

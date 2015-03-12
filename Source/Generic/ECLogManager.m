@@ -63,6 +63,8 @@ static NSString *const VersionKey = @"Version";
 static NSString *const ResetSettingsKey = @"ECLoggingReset";
 static NSString *const ForceChannelEnabledKey = @"ECLoggingEnableChannel";
 static NSString *const ForceChannelDisabledKey = @"ECLoggingDisableChannel";
+static NSString *const ForceDebugMenuKey = @"ECLoggingMenu";
+static NSString *const InstallDebugMenuKey = @"InstallMenu";
 
 static NSUInteger kSettingsVersion = 2;
 
@@ -488,6 +490,11 @@ static ECLogManager* gSharedInstance = nil;
 	}
 
 	[self loadChannelSettings];
+
+	// the showMenu property is read/set here in generic code, but it's up to the
+	// platform specific UI support to interpret it
+	BOOL forceMenu = [userSettings boolForKey:ForceDebugMenuKey];
+	self.showMenu = (forceMenu || [self.settings[InstallDebugMenuKey] boolValue]);
 }
 
 // --------------------------------------------------------------------------
