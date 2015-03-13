@@ -19,7 +19,10 @@
 - (void)awakeFromNib
 {
 #if EC_RELEASE
-	[self removeFromParentEC];
+	if (![ECLogManager sharedInstance].showMenu)
+	{
+		[self removeFromParentEC];
+	}
 #endif
 }
 
