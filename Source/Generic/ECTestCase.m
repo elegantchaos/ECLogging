@@ -15,7 +15,11 @@
 
 @interface ECTestCase()
 
+#if USE_EXPECTATIONS
+@property (strong, nonatomic) XCTestExpectation* defaultExpectation;
+#else
 @property (assign, atomic) BOOL exitRunLoop;
+#endif
 
 @end
 
@@ -46,6 +50,10 @@
 	NSURL* url = [self URLForTemporaryFolder];
 	NSError* error;
 	[fm removeItemAtURL:url error:&error];
+	
+#if USE_EXPECTATIONS
+	self.defaultExpectation = [self expectationWithDescription:@"runUntil"];
+#endif
 }
 
 - (NSURL*)URLForTemporaryFolder
@@ -436,16 +444,26 @@
 
 - (void)runUntilTimeToExit
 {
-    self.exitRunLoop = NO;
+#if USE_EXPECTATIONS
+	[self waitForExpectationsWithTimeout:60.0 handler:^(NSError *error) {
+		self.defaultExpectation = [self expectationWithDescription:@"runUntil"];
+	}];
+#else
     while (!self.exitRunLoop)
     {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate date]];
     }
+	self.exitRunLoop = NO;
+#endif
 }
 
 - (void)timeToExitRunLoop
 {
+#if USE_EXPECTATIONS
+	[self.defaultExpectation fulfill];
+#else
     self.exitRunLoop = YES;
+#endif
 }
 
 - (void)diffAsPlistObject:(id)object1 againstObject:(id)object2
