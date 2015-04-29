@@ -23,9 +23,6 @@
  */
 
 @interface ECLoggingMenu : ECDebugMenu
-{
-    ECLogManager* mLogManager;
-}
 
 // --------------------------------------------------------------------------
 // Public Properties

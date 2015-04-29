@@ -204,7 +204,12 @@ static NSString *const kSuffixToStrip = @"Channel";
         {
             [string appendString:[NSString stringWithFormat:@"%s ", contextIn->function]];
         }
-        
+		
+		if ([self showContext:ECLogContextDate])
+		{
+			[string appendString:[NSString stringWithFormat:@"%s ", contextIn->date]];
+		}
+		
         NSUInteger length = [string length];
         if (length > 0)
         {

@@ -14,6 +14,8 @@
 
 @interface ECLoggingMenu()
 
+@property (weak, nonatomic) ECLogManager* logManager;
+
 - (void)setup;
 - (void)buildMenu;
 - (void)channelsChanged:(NSNotification*)notification;
@@ -34,9 +36,7 @@
 {
 	[super awakeFromNib];
 
-	#if EC_DEBUG
-		[self setup];
-	#endif
+	[self setup];
 }
 
 // --------------------------------------------------------------------------
@@ -69,10 +69,14 @@
 
 - (void)setup
 {
-    mLogManager = [ECLogManager sharedInstance];
-	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver: self selector: @selector(channelsChanged:) name: LogChannelsChanged object: nil];
-	[self buildMenu];
+	ECLogManager* lm = [ECLogManager sharedInstance];
+	self.logManager = lm;
+	if (lm.showMenu)
+	{
+		NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver: self selector: @selector(channelsChanged:) name: LogChannelsChanged object: nil];
+		[self buildMenu];
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -90,11 +94,12 @@
     [menu addItem: item];
 
     [menu addItem: [NSMenuItem separatorItem]];
-	
-    NSUInteger count = [mLogManager handlerCount];
+
+	ECLogManager* manager = self.logManager;
+    NSUInteger count = [manager handlerCount];
     for (NSUInteger n = 0; n < count; ++n)
 	{
-        NSMenuItem* handlerItem = [[NSMenuItem alloc] initWithTitle: [mLogManager handlerNameForIndex:n] action: @selector(handlerSelected:) keyEquivalent: @""];
+        NSMenuItem* handlerItem = [[NSMenuItem alloc] initWithTitle: [manager handlerNameForIndex:n] action: @selector(handlerSelected:) keyEquivalent: @""];
         handlerItem.target = self;
         handlerItem.tag = n;
         [menu addItem: handlerItem];
@@ -102,10 +107,10 @@
     
     [menu addItem: [NSMenuItem separatorItem]];
     
-    count = [mLogManager contextFlagCount];
+    count = [manager contextFlagCount];
     for (NSUInteger n = 0; n < count; ++n)
     {
-        NSString* name = [mLogManager contextFlagNameForIndex:n];
+        NSString* name = [manager contextFlagNameForIndex:n];
 		NSMenuItem* flagItem = [[NSMenuItem alloc] initWithTitle:name action: @selector(contextMenuSelected:) keyEquivalent: @""];
 		flagItem.target = self;
         flagItem.tag = n;
@@ -128,11 +133,12 @@
 - (NSMenu*)buildDefaultHandlersMenu
 {
     NSMenu* menu = [[NSMenu alloc] initWithTitle:@"Default Handlers"];
-    
-    NSUInteger count = [mLogManager handlerCount];
+	
+	ECLogManager* manager = self.logManager;
+    NSUInteger count = [manager handlerCount];
     for (NSUInteger n = 1; n < count; ++n)
 	{
-        ECLogHandler* handler = [mLogManager handlerForIndex:n];
+        ECLogHandler* handler = [manager handlerForIndex:n];
         NSMenuItem* item = [[NSMenuItem alloc] initWithTitle: handler.name action: @selector(defaultHandlerSelected:) keyEquivalent: @""];
         item.target = self;
         item.representedObject = handler;
@@ -150,47 +156,50 @@
 
 - (void)buildMenu
 {
-#if EC_DEBUG
-    [self removeAllItemsEC];
-    
-    NSMenuItem* enableAllItem = [[NSMenuItem alloc] initWithTitle: @"Enable All Channels" action: @selector(enableAllChannels) keyEquivalent: @""];
-    enableAllItem.target = mLogManager;
-    [self addItem: enableAllItem];
-
-    NSMenuItem* disableAllItem = [[NSMenuItem alloc] initWithTitle: @"Disable All Channels" action: @selector(disableAllChannels) keyEquivalent: @""];
-    disableAllItem.target = mLogManager;
-    [self addItem: disableAllItem];
-
-    NSMenuItem* resetAllItem = [[NSMenuItem alloc] initWithTitle: @"Reset All Settings" action: @selector(resetAllSettings) keyEquivalent: @""];
-    resetAllItem.target = mLogManager;
-    [self addItem: resetAllItem];
-
-	NSMenuItem* revealLogFilesItem = [[NSMenuItem alloc] initWithTitle: @"Reveal Log Files" action: @selector(revealLogFiles) keyEquivalent: @""];
-    revealLogFilesItem.target = self;
-    [self addItem: revealLogFilesItem];
-
-	NSMenuItem* revealSettingsItem = [[NSMenuItem alloc] initWithTitle: @"Reveal Settings" action: @selector(revealSettings) keyEquivalent: @""];
-    revealSettingsItem.target = self;
-    [self addItem: revealSettingsItem];
-
-    [self addItem:[NSMenuItem separatorItem]];
-
-    NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Default Handlers" action:nil keyEquivalent: @""];
-    item.submenu = [self buildDefaultHandlersMenu];
-    item.target = self;
-    [self addItem: item];
-
-    [self addItem:[NSMenuItem separatorItem]];
-
-	for (ECLogChannel* channel in mLogManager.channelsSortedByName)
+	ECLogManager* manager = self.logManager;
+	if (manager.showMenu)
 	{
-		NSMenuItem* channelItem = [[NSMenuItem alloc] initWithTitle: channel.name action: @selector(channelMenuSelected:) keyEquivalent: @""];
-        channelItem.submenu = [self buildMenuForChannel:channel];
-		channelItem.target = self;
-		channelItem.representedObject = channel;
-		[self addItem: channelItem];
+		[self removeAllItemsEC];
+		
+		NSMenuItem* enableAllItem = [[NSMenuItem alloc] initWithTitle: @"Enable All Channels" action: @selector(enableAllChannels) keyEquivalent: @""];
+		enableAllItem.target = manager;
+		[self addItem: enableAllItem];
+		
+		NSMenuItem* disableAllItem = [[NSMenuItem alloc] initWithTitle: @"Disable All Channels" action: @selector(disableAllChannels) keyEquivalent: @""];
+		disableAllItem.target = manager;
+		[self addItem: disableAllItem];
+		
+		NSMenuItem* resetAllItem = [[NSMenuItem alloc] initWithTitle: @"Reset All Settings" action: @selector(resetAllSettings) keyEquivalent: @""];
+		resetAllItem.target = manager;
+		[self addItem: resetAllItem];
+		
+		NSMenuItem* revealLogFilesItem = [[NSMenuItem alloc] initWithTitle: @"Reveal Log Files" action: @selector(revealLogFiles) keyEquivalent: @""];
+		revealLogFilesItem.target = self;
+		[self addItem: revealLogFilesItem];
+		
+		NSMenuItem* revealSettingsItem = [[NSMenuItem alloc] initWithTitle: @"Reveal Settings" action: @selector(revealSettings) keyEquivalent: @""];
+		revealSettingsItem.target = self;
+		[self addItem: revealSettingsItem];
+		
+		[self addItem:[NSMenuItem separatorItem]];
+		
+		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Default Handlers" action:nil keyEquivalent: @""];
+		item.submenu = [self buildDefaultHandlersMenu];
+		item.target = self;
+		[self addItem: item];
+		
+		[self addItem:[NSMenuItem separatorItem]];
+		
+		for (ECLogChannel* channel in manager.channelsSortedByName)
+		{
+			NSMenuItem* channelItem = [[NSMenuItem alloc] initWithTitle: channel.name action: @selector(channelMenuSelected:) keyEquivalent: @""];
+			channelItem.submenu = [self buildMenuForChannel:channel];
+			channelItem.target = self;
+			channelItem.representedObject = channel;
+			[self addItem: channelItem];
+		}
+		
 	}
-#endif
 }
 
 #pragma mark - Actions
@@ -202,9 +211,10 @@
 
 - (IBAction)channelMenuSelected:(NSMenuItem*)item
 {
+	ECLogManager* manager = self.logManager;
 	ECLogChannel* channel = item.representedObject;
 	channel.enabled = !channel.enabled;
-	[mLogManager saveChannelSettings];
+	[manager saveChannelSettings];
 }
 
 // --------------------------------------------------------------------------
@@ -225,9 +235,10 @@
 
 - (IBAction)channelSelected:(NSMenuItem*)item
 {
+	ECLogManager* manager = self.logManager;
 	ECLogChannel* channel = item.representedObject;
 	channel.enabled = !channel.enabled;
-	[mLogManager saveChannelSettings];
+	[manager saveChannelSettings];
 }
 
 // --------------------------------------------------------------------------
@@ -248,8 +259,9 @@
 
 - (IBAction)resetSelected:(NSMenuItem*)item
 {
+	ECLogManager* manager = self.logManager;
     ECLogChannel* channel = [item parentItem].representedObject;
-    [mLogManager resetChannel:channel];
+    [manager resetChannel:channel];
 }
 
 // --------------------------------------------------------------------------
@@ -261,19 +273,20 @@
 {
 	ECLogHandler* handler = item.representedObject;
     
-    BOOL currentlyEnabled = [mLogManager.defaultHandlers containsObject:handler];
+	ECLogManager* manager = self.logManager;
+    BOOL currentlyEnabled = [manager.defaultHandlers containsObject:handler];
     BOOL newEnabled = !currentlyEnabled;
     
     if (newEnabled)
     {
-        [mLogManager.defaultHandlers addObject:handler];
+        [manager.defaultHandlers addObject:handler];
     }
     else
 	{
-        [mLogManager.defaultHandlers removeObject:handler];
+        [manager.defaultHandlers removeObject:handler];
     }
     
-	[mLogManager saveChannelSettings];
+	[manager saveChannelSettings];
 }
 
 // --------------------------------------------------------------------------
@@ -320,7 +333,8 @@
     {
         ECLogHandler* handler = item.representedObject;
         
-        BOOL currentlyEnabled = [mLogManager.defaultHandlers containsObject:handler];
+		ECLogManager* manager = self.logManager;
+        BOOL currentlyEnabled = [manager.defaultHandlers containsObject:handler];
         item.state = currentlyEnabled ? NSOnState : NSOffState;
     }
 

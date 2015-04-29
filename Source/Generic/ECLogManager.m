@@ -63,6 +63,8 @@ static NSString *const VersionKey = @"Version";
 static NSString *const ResetSettingsKey = @"ECLoggingReset";
 static NSString *const ForceChannelEnabledKey = @"ECLoggingEnableChannel";
 static NSString *const ForceChannelDisabledKey = @"ECLoggingDisableChannel";
+static NSString *const ForceDebugMenuKey = @"ECLoggingMenu";
+static NSString *const InstallDebugMenuKey = @"InstallMenu";
 
 static NSUInteger kSettingsVersion = 2;
 
@@ -294,7 +296,15 @@ static ECLogManager* gSharedInstance = nil;
 	[self loadSettings];
 	[self registerHandlers];
 	
-	// defer the end of the startup until the main runloop is in action - this gives the client time to add a delegate
+	// The log manager is created on demand, the first time that a channel needs to register itself.
+	// This allows channels to be declared and used in the simplest possible way, and to work in code
+	// that runs early.
+	// Since this can be before main() is called, and definitely before something nice and high level
+	// like applicationWillFinishLaunching has been called, the client application won't have an opportunity
+	// to set a delegate before startup is run.
+	// As a workaround for this, we defer the final parts of the startup until the main runloop is in action.
+	// This gives a window during which the client can set a delegate and adjust some other settings.
+
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[self finishStartup];
 	});
@@ -480,6 +490,11 @@ static ECLogManager* gSharedInstance = nil;
 	}
 
 	[self loadChannelSettings];
+
+	// the showMenu property is read/set here in generic code, but it's up to the
+	// platform specific UI support to interpret it
+	BOOL forceMenu = [userSettings boolForKey:ForceDebugMenuKey];
+	self.showMenu = (forceMenu || [self.settings[InstallDebugMenuKey] boolValue]);
 }
 
 // --------------------------------------------------------------------------

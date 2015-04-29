@@ -32,13 +32,10 @@
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
-
-#if EC_DEBUG
 	if (![self.supermenu isKindOfClass:[self class]])
 	{
 		[self setupAsRootMenu];
 	}
-#endif
 }
 
 // --------------------------------------------------------------------------
@@ -58,23 +55,18 @@
 - (void)setupAsRootMenu
 {
 	ECLogManager* logManager = [ECLogManager sharedInstance];
-	self.options = [logManager optionsSettings];
-
-	[self buildMenu];
+	if (logManager.showMenu)
+	{
+		self.options = [logManager optionsSettings];
+		[self removeAllItemsEC];
+		[self buildMenuWithOptions:self.options];
+	}
 }
 
 // --------------------------------------------------------------------------
 //! Build the channels menu.
 //! We make some global items, then a submenu for each registered channel.
 // --------------------------------------------------------------------------
-
-- (void)buildMenu
-{
-#if EC_DEBUG
-	[self removeAllItemsEC];
-	[self buildMenuWithOptions:self.options];
-#endif
-}
 
 - (void)buildMenuWithOptions:(NSDictionary*)options
 {
