@@ -120,7 +120,7 @@ ECDefineLogChannel(TestChannel);
 	NSError* error;
 	
 	// line number can obviously change in the output (when we change the code!), so match with a regexp
-	NSRegularExpression* exp = [NSRegularExpression regularExpressionWithPattern:@"hello world «Test BasicTests.m, \\d+ -\\[BasicTests testContextFlags\\] ... \\d+ \\d+»" options:NSRegularExpressionCaseInsensitive error:&error];
+	NSRegularExpression* exp = [NSRegularExpression regularExpressionWithPattern:@"hello world «Test BasicTests.m, \\d+ -\\[BasicTests testContextFlags\\] ... +\\d+ \\d+»" options:NSRegularExpressionCaseInsensitive error:&error];
 	__block NSUInteger matches = 0;
 	[exp enumerateMatchesInString:self.handler.logged options:0 range:NSMakeRange(0, [self.handler.logged length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
 		ECTestAssertIntegerIsEqual(result.range.location, 0);
@@ -128,7 +128,7 @@ ECDefineLogChannel(TestChannel);
 	}];
 	ECTestAssertIntegerIsEqual(matches, 1);
 	if (matches != 1) {
-		NSLog(@"failed output was %@", self.handler.logged);
+		NSLog(@"failed with %ld matches, output was '%@'", matches, self.handler.logged);
 	}
 
 }
