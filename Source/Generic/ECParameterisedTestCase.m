@@ -352,6 +352,9 @@ NSString *const SuiteExtension = @"testsuite";
 
 + (id) defaultTestSuite
 {
+	NSString* methodPrefix = @"parameterisedTest";
+	NSUInteger methodPrefixLength = [methodPrefix length];
+	
 	XCTestSuite* result = nil;
 	if (self != [ECParameterisedTestCase class])
 	{
@@ -370,9 +373,10 @@ NSString *const SuiteExtension = @"testsuite";
 			{
 				SEL selector = method_getName(methods[n]);
 				NSString* name = NSStringFromSelector(selector);
-				if ([name rangeOfString:@"parameterisedTest"].location == 0)
+				if ([name rangeOfString:methodPrefix].location == 0)
 				{
-					ECParameterisedTestSuite* subSuite = [self suiteForSelector:selector name:name data:data];
+					NSString* suiteName = [name substringFromIndex:methodPrefixLength];
+					ECParameterisedTestSuite* subSuite = [self suiteForSelector:selector name:suiteName data:data];
 					[result addTest:subSuite];
 				}
 			}
