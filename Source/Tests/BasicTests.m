@@ -5,8 +5,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLogging.h"
-#import "ECTestCase.h"
+#import <ECLogging/ECLogging.h>
+#import <ECUnitTests/ECUnitTests.h>
 
 ECDefineLogChannel(TestChannel);
 

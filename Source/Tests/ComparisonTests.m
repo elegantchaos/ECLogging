@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Sam Deane, Elegant Chaos. All rights reserved.
 //
 
-#import "ECUnitTests.h"
+#import <ECUnitTests/ECUnitTests.h>
 
 @interface ComparisonTests : ECTestCase
 @property (strong, nonatomic) NSString* output;

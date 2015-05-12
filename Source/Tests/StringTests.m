@@ -5,7 +5,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECTestCase.h"
+#import <ECUnitTests/ECUnitTests.h>
+
 #import "NSString+ECLogging.h"
 
 @interface StringTests : ECTestCase
