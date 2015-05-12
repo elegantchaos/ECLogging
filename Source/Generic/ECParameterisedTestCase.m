@@ -66,7 +66,8 @@ NSString *const ParameterisedTestMethodPrefix = @"parameterisedTest";
 NSString *const ParameterisedTestShortPrefix = @"test";
 NSString *const ParameterisedTestSeparator = @"__";
 
-+ (BOOL)resolveInstanceMethod:(SEL)sel {
++ (BOOL)resolveInstanceMethod:(SEL)sel
+{
 	// for a parameterised test called parameterisedTestBlah,
 	// if there are two bits of test data "foo" and "bar"
 	// the methods that are actually called on the tests will be parameterisedTestBlah-foo and parameterisedTestBlah-bar.
