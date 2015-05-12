@@ -2,7 +2,7 @@
 //
 //  Created by Sam Deane on 11/08/2010.
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -18,6 +18,6 @@
  about the order that the keys appear in.
  */
 
-@interface NSObject(DescriptionDictionary)
+@interface NSObject (DescriptionDictionary)
 - (id)descriptionDictionary;
 @end

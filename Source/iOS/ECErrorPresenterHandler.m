@@ -9,26 +9,26 @@
 
 @implementation ECErrorPresenterHandler
 
-NSString *const ECLoggingErrorDomain = @"ECLogging";
+NSString* const ECLoggingErrorDomain = @"ECLogging";
 const NSInteger ECLoggingUnknownError = -1;
 
 // --------------------------------------------------------------------------
 //! Initialise.
 // --------------------------------------------------------------------------
 
-- (id) init 
+- (id)init
 {
-    if ((self = [super init]) != nil) 
-    {
-        self.name = @"ErrorPresenter";
-    }
-    
-    return self;
+	if ((self = [super init]) != nil)
+	{
+		self.name = @"ErrorPresenter";
+	}
+
+	return self;
 }
 
 #pragma mark - Logging
 
-- (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext *)context
+- (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context
 {
 	NSString* message;
 	if ([object isMemberOfClass:[NSError class]])
@@ -40,7 +40,7 @@ const NSInteger ECLoggingUnknownError = -1;
 		ECErrorAndMessage* eam = object;
 		message = [eam description];
 	}
-	else 
+	else
 	{
 		message = [self simpleOutputStringForChannel:channel withObject:object arguments:arguments context:context];
 	}
@@ -57,7 +57,7 @@ const NSInteger ECLoggingUnknownError = -1;
 //! to display an error alert which we only want to do for actual errors.
 // --------------------------------------------------------------------------
 
-- (void)wasEnabledForChannel:(ECLogChannel *)channel
+- (void)wasEnabledForChannel:(ECLogChannel*)channel
 {
 }
 
@@ -68,7 +68,7 @@ const NSInteger ECLoggingUnknownError = -1;
 //! to display an error alert which we only want to do for actual errors.
 // --------------------------------------------------------------------------
 
-- (void)wasDisabledForChannel:(ECLogChannel *)channel
+- (void)wasDisabledForChannel:(ECLogChannel*)channel
 {
 }
 

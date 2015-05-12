@@ -17,7 +17,7 @@
 - (BOOL)item:(id)item1 matches:(id)item2
 {
 	NSMutableString* string = [NSMutableString new];
-	BOOL result = [item1 matches:item2 block:^(NSString *context, NSUInteger level, id i1, id i2) {
+	BOOL result = [item1 matches:item2 block:^(NSString* context, NSUInteger level, id i1, id i2) {
 		if (i1 && i2)
 			[string appendFormat:@"%@: %@ didn't match %@\n", context, i1, i2];
 		else
@@ -26,7 +26,7 @@
 
 	self.output = string;
 	NSLog(@"Output:\n%@", string);
-	
+
 	return result;
 }
 
@@ -84,48 +84,55 @@
 
 - (void)testDictionariesEqual
 {
-	NSDictionary* d1 = @{@"k1":@"abc", @"k2":@"def"};
-	NSDictionary* d2 = @{@"k1":@"abc", @"k2":@"def"};
+	NSDictionary* d1 = @{ @"k1": @"abc",
+		@"k2": @"def" };
+	NSDictionary* d2 = @{ @"k1": @"abc",
+		@"k2": @"def" };
 	ECTestAssertTrue([self item:d1 matches:d2]);
 	ECTestAssertIsEqual(self.output, @"");
 }
 
 - (void)testDictionariesDifferent
 {
-	NSDictionary* d1 = @{@"k1":@"abc", @"k2":@"def"};
-	NSDictionary* d2 = @{@"k1":@"def", @"k2":@"abc"};
+	NSDictionary* d1 = @{ @"k1": @"abc",
+		@"k2": @"def" };
+	NSDictionary* d2 = @{ @"k1": @"def",
+		@"k2": @"abc" };
 	ECTestAssertFalse([self item:d1 matches:d2]);
 	ECTestAssertIsEqual(self.output, @"dictionary[@\"k2\"]: def didn't match abc\ndictionary[@\"k1\"]: abc didn't match def\n");
 }
 
 - (void)testDictionariesShorter
 {
-	NSDictionary* d1 = @{@"k1":@"abc", @"k2":@"def"};
-	NSDictionary* d2 = @{@"k1":@"abc"};
+	NSDictionary* d1 = @{ @"k1": @"abc",
+		@"k2": @"def" };
+	NSDictionary* d2 = @{ @"k1": @"abc" };
 	ECTestAssertFalse([self item:d1 matches:d2]);
 	ECTestAssertIsEqual(self.output, @"dictionary[@\"k2\"] missing key k2: def\n");
 }
 
 - (void)testDictionariesLonger
 {
-	NSDictionary* d1 = @{@"k1":@"abc"};
-	NSDictionary* d2 = @{@"k1":@"abc", @"k2":@"def"};
+	NSDictionary* d1 = @{ @"k1": @"abc" };
+	NSDictionary* d2 = @{ @"k1": @"abc",
+		@"k2": @"def" };
 	ECTestAssertFalse([self item:d1 matches:d2]);
 	ECTestAssertIsEqual(self.output, @"dictionary[@\"k2\"] extra key k2: def\n");
 }
 
 - (void)testDictionariesDifferentAndLonger
 {
-	NSDictionary* d1 = @{@"k1":@"abc"};
-	NSDictionary* d2 = @{@"k1":@"def", @"k2":@"abc"};
+	NSDictionary* d1 = @{ @"k1": @"abc" };
+	NSDictionary* d2 = @{ @"k1": @"def",
+		@"k2": @"abc" };
 	ECTestAssertFalse([self item:d1 matches:d2]);
 	ECTestAssertIsEqual(self.output, @"dictionary[@\"k1\"]: abc didn't match def\ndictionary[@\"k2\"] extra key k2: abc\n");
 }
 
 - (void)testCompound
 {
-	id item1 = @{@"k1":@[@"abc", @{@"k2" : @"def"}]};
-	id item2 = @{@"k1":@[@"def", @{@"k3" : @"def"}]};
+	id item1 = @{ @"k1": @[@"abc", @{ @"k2": @"def" }] };
+	id item2 = @{ @"k1": @[@"def", @{ @"k3": @"def" }] };
 	ECTestAssertFalse([self item:item1 matches:item2]);
 	ECTestAssertIsEqual(self.output, @"dictionary[@\"k1\"][0]: abc didn't match def\ndictionary[@\"k1\"][1][@\"k2\"] missing key k2: def\ndictionary[@\"k1\"][1][@\"k3\"] extra key k3: def\n");
 }
@@ -133,7 +140,7 @@
 - (void)testChalkAndCheese
 {
 	id item1 = @[@"abc"];
-	id item2 = @{@"k1":@"abc"};
+	id item2 = @{ @"k1": @"abc" };
 	ECTestAssertFalse([self item:item1 matches:item2]);
 	ECTestAssertIsEqual(self.output, @"array vs dictionary array compared with dictionary: (\n    abc\n) didn't match {\n    k1 = abc;\n}\n");
 

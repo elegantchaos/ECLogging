@@ -15,28 +15,32 @@ uint64_t dispatch_benchmark(size_t count, void (^block)(void)); // private API -
 	BOOL result = YES;
 	NSString* resultsKey = [NSString stringWithFormat:@"%@Results", key];
 	NSString* totalKey = [NSString stringWithFormat:@"%@Total", key];
-	
+
 	// load the previous results from the user defaults
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	NSArray* previousResults = [defaults objectForKey:resultsKey];
 	CGFloat previousTotal = (CGFloat)[defaults doubleForKey:totalKey];
-	if (previousResults) {
+	if (previousResults)
+	{
 		NSUInteger runs = [previousResults count];
 		CGFloat previousAverage = previousTotal / runs;
 		// has the performance got worse by more than 10%?
-		if (average > (previousAverage * 1.1)) {
+		if (average > (previousAverage * 1.1))
+		{
 			result = NO;
 			NSLog(@"Performance %lfs was at least %lf times worse than the previous average %lfs", average, threshold, previousAverage);
 		}
-	} else {
+	}
+	else
+	{
 		previousResults = @[];
 		previousTotal = 0;
 	}
-	
+
 	// record results
 	[defaults setObject:[previousResults arrayByAddingObject:@(average)] forKey:resultsKey];
 	[defaults setDouble:previousTotal + average forKey:totalKey];
-	
+
 	return result;
 }
 

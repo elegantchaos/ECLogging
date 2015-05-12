@@ -9,7 +9,7 @@
 //! Log handler which presents the logged object as an error using [NSApplication presentError:]
 //! If it's not sent an actual error to log, it makes one from the default string value of whatever it was sent.
 
-extern NSString *const ECLoggingErrorDomain;
+extern NSString* const ECLoggingErrorDomain;
 extern const NSInteger ECLoggingUnknownError;
 
 @interface ECErrorPresenterHandler : ECLogHandler

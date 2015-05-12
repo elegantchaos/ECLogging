@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -12,27 +12,39 @@
 
 #define EC_DEPRECATED __attribute__((deprecated))
 
-#define ECUnused(v)	(void) (v)
+#define ECUnused(v) (void)(v)
 
 #define EC_HINT_UNUSED __attribute__((__unused__))
 
-#define EC_EXPORTED __attribute__((visibility("default"))) 
+#define EC_EXPORTED __attribute__((visibility("default")))
 
 
 #if EC_DEBUG
 
 #define ECUnusedInDebug(v) ECUnused(v)
-#define ECUnusedInRelease(v) do {} while(0)
+#define ECUnusedInRelease(v) \
+	do                       \
+	{                        \
+	} while (0)
 #define ECDebugOnly(x) x
-#define ECReleaseOnly(x) do {} while(0)
-#define ECCastTo(_class_,_expression_) ((_class_*) [ECAssertion assertObject:(_expression_) isOfClass:([_class_ class])])
+#define ECReleaseOnly(x) \
+	do                   \
+	{                    \
+	} while (0)
+#define ECCastTo(_class_, _expression_) ((_class_*)[ECAssertion assertObject:(_expression_)isOfClass:([_class_ class])])
 
 #else
 
-#define ECUnusedInDebug(v) do {} while(0)
+#define ECUnusedInDebug(v) \
+	do                     \
+	{                      \
+	} while (0)
 #define ECUnusedInRelease(v) ECUnused(v)
-#define ECDebugOnly(x) do {} while(0)
+#define ECDebugOnly(x) \
+	do                 \
+	{                  \
+	} while (0)
 #define ECReleaseOnly(x) x
-#define ECCastTo(_class_,_expression_) ((_class_*) (_expression_))
+#define ECCastTo(_class_, _expression_) ((_class_*)(_expression_))
 
 #endif

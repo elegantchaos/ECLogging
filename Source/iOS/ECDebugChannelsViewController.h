@@ -6,7 +6,7 @@
 
 @class ECLoggingSettingsViewController;
 
-@interface ECDebugChannelsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate> 
+@interface ECDebugChannelsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSArray* channels;
 @property (strong, nonatomic) ECLoggingSettingsViewController* debugViewController;

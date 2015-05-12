@@ -7,7 +7,7 @@
 #import "ECLogManagerIOSUISupport.h"
 #import "ECLoggingViewController.h"
 
-@interface ECLogManagerIOSUISupport()
+@interface ECLogManagerIOSUISupport ()
 
 @property (strong, nonatomic) ECLoggingViewController* viewController;
 @property (assign, nonatomic) BOOL uiShowing;
@@ -33,7 +33,8 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 	return gSharedInstance;
 }
 
-+ (void)load {
++ (void)load
+{
 	// we want to register with the log manager as early as possible, so that we
 	// get the startup and shutdown notifications
 	[ECLogManager sharedInstance].delegate = [self sharedInstance];
@@ -47,7 +48,7 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 	return root;
 }
 
-- (void)logManagerDidStartup:(ECLogManager *)manager
+- (void)logManagerDidStartup:(ECLogManager*)manager
 {
 	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(installGestureRecognizer) name:UIApplicationDidFinishLaunchingNotification object:nil];
@@ -70,13 +71,13 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 
 - (void)showUI
 {
-		if (!self.viewController)
-		{
-			NSURL* url = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"bundle"];
-			NSBundle* bundle = [NSBundle bundleWithURL:url];
-			ECLoggingViewController* controller = [[ECLoggingViewController alloc] initWithNibName:@"ECLoggingViewController" bundle:bundle];
-			self.viewController = controller;
-		}
+	if (!self.viewController)
+	{
+		NSURL* url = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"bundle"];
+		NSBundle* bundle = [NSBundle bundleWithURL:url];
+		ECLoggingViewController* controller = [[ECLoggingViewController alloc] initWithNibName:@"ECLoggingViewController" bundle:bundle];
+		self.viewController = controller;
+	}
 
 	if (!self.viewController.parentViewController)
 	{

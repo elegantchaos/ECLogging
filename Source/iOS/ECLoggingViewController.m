@@ -10,7 +10,7 @@
 #import "ECLogManager.h"
 #import "ECLogViewController.h"
 
-@interface ECLoggingViewController()
+@interface ECLoggingViewController ()
 
 @end
 
@@ -24,40 +24,39 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-
+	[super viewDidLoad];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+	[super viewDidAppear:animated];
 	self.oSettingsController.navController = self.navigationController;
-    [[ECLogManager sharedInstance] saveChannelSettings];
+	[[ECLogManager sharedInstance] saveChannelSettings];
 }
 
 - (void)showModallyWithController:(UIViewController*)controller
 {
 	CGRect frame = self.view.frame;
-    const CGFloat kInset = 10.0;
-    frame.origin.x += kInset;
-    frame.origin.y += kInset;
-    frame.size.width -= kInset * 2.0;
-    frame.size.height -= kInset * 2.0;
+	const CGFloat kInset = 10.0;
+	frame.origin.x += kInset;
+	frame.origin.y += kInset;
+	frame.size.width -= kInset * 2.0;
+	frame.size.height -= kInset * 2.0;
 
 	UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:self];
 	navigation.view.frame = frame;
 	self.title = @"ECLogging";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneModal)];
-	
+
 	[controller presentViewController:navigation animated:YES completion:^{
-		
+
 	}];
 }
 
 - (void)doneModal
 {
 	[self dismissViewControllerAnimated:YES completion:^{
-		
+
 	}];
 }
 

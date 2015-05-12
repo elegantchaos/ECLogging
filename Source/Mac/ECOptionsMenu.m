@@ -16,7 +16,7 @@
 // Private Methods
 // --------------------------------------------------------------------------
 
-@interface ECOptionsMenu()
+@interface ECOptionsMenu ()
 
 @property (strong, nonatomic) NSDictionary* options;
 
@@ -48,7 +48,7 @@
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver: self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -117,12 +117,12 @@
 - (BOOL)validateMenuItem:(NSMenuItem*)item
 {
 	BOOL enabled = YES;
-    if (item.action == @selector(optionSelected:))
-    {
+	if (item.action == @selector(optionSelected:))
+	{
 		NSString* option = item.representedObject;
 		NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 		item.state = [defaults boolForKey:option] ? NSOnState : NSOffState;
-    }
+	}
 
 	return enabled;
 }

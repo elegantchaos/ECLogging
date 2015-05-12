@@ -16,10 +16,10 @@
  The [sample application](https://github.com/elegantchaos/ECLoggingExamples) illustrates how to use this class.
  */
 
-@interface ECLoggingSettingsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate> 
+@interface ECLoggingSettingsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UINavigationController* navController;
 
-- (void)pushViewController:(UIViewController *)controller;
+- (void)pushViewController:(UIViewController*)controller;
 
 @end

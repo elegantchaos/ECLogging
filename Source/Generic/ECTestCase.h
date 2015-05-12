@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -23,28 +23,32 @@
 // --------------------------------------------------------------------------
 
 
-#define ECTestAssertNotNilFormat				XCTAssertNotNil
-#define ECTestAssertNilFormat					XCTAssertNil
-#define ECTestAssertTrueFormat					XCTAssertTrue
-#define ECTestAssertFalseFormat					XCTAssertFalse
-#define ECTestFail								XCTFail
+#define ECTestAssertNotNilFormat XCTAssertNotNil
+#define ECTestAssertNilFormat XCTAssertNil
+#define ECTestAssertTrueFormat XCTAssertTrue
+#define ECTestAssertFalseFormat XCTAssertFalse
+#define ECTestFail XCTFail
 
 #ifdef _XCTPrimitiveAssertGreaterThan // indicates a newer version of XCTest
-	// Yosemite version of XCTest takes a self parameter for _XCTRegisterFailure
-	#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
-	do { \
-	  if (!(expr)) { \
-		NSString* condition = [NSString stringWithFormat:@"assertion failed: %@", expString]; \
-		_XCTRegisterFailure(self, condition, description, __VA_ARGS__); \
-	  } \
+// Yosemite version of XCTest takes a self parameter for _XCTRegisterFailure
+#define ECAssertTest(expr, isTrueVal, expString, description, ...)                                \
+	do                                                                                            \
+	{                                                                                             \
+		if (!(expr))                                                                              \
+		{                                                                                         \
+			NSString* condition = [NSString stringWithFormat:@"assertion failed: %@", expString]; \
+			_XCTRegisterFailure(self, condition, description, __VA_ARGS__);                       \
+		}                                                                                         \
 	} while (0)
 #else
-	#define ECAssertTest(expr, isTrueVal, expString, description, ...) \
-	do { \
-	if (!(expr)) { \
-	NSString* condition = [NSString stringWithFormat:@"assertion failed: %@", expString]; \
-	_XCTRegisterFailure(condition, description, __VA_ARGS__); \
-	} \
+#define ECAssertTest(expr, isTrueVal, expString, description, ...)                                \
+	do                                                                                            \
+	{                                                                                             \
+		if (!(expr))                                                                              \
+		{                                                                                         \
+			NSString* condition = [NSString stringWithFormat:@"assertion failed: %@", expString]; \
+			_XCTRegisterFailure(condition, description, __VA_ARGS__);                             \
+		}                                                                                         \
 	} while (0)
 #endif
 
@@ -52,45 +56,45 @@
 //_XCTFailureHandler(self, isTrueVal, __FILE__, __LINE__, [NSString stringWithFormat:@"assertion failed: %@", expString], description, ##__VA_ARGS__);
 
 
-#define ECTestAssertNotNil(x)					ECTestAssertNotNilFormat((x), @"%s shouldn't be nil", #x)
-#define ECTestAssertNil(x)						ECTestAssertNilFormat(x, @"%s should be nil, was %0x", #x, (unsigned int)x)
-#define ECTestAssertZero(x)						ECTestAssertTrueFormat(x == 0, @"%s should be zero, was %0x", #x, (unsigned int)x)
-#define ECTestAssertTrue(x)						ECTestAssertTrueFormat(x, "%s should be true", #x)
-#define ECTestAssertFalse(x)					ECTestAssertFalseFormat(x, "%s should be false", #x)
-#define ECTestAssertStringIsEqual(x,y)			ECAssertTest([(x) isEqualToString:(y)], NO, @"" #x " and " #y " match", @"Values were \"%@\" and \"%@\"", x, y)
-#define ECTestAssertStringBeginsWith(x,y)		ECAssertTest([ECTestCase string:x beginsWithString:y], NO, @"" #x " begins with " #y, @"Values were \"%@\" and \"%@\"", x, y)
-#define ECTestAssertStringEndsWith(x,y)			ECAssertTest([ECTestCase string:x endsWithString:y], NO, @"" #x " ends with " #y, @"Values were \"%@\" and \"%@\"", x, y)
-#define ECTestAssertStringContains(x,y)			ECAssertTest([ECTestCase string:x containsString:y], NO, @"" #x " contains " #y, @"Values were \"%@\" and \"%@\"", x, y)
-#define ECTestAssertIsEmpty(x)					ECAssertTest([ECTestCase genericCount:x] == 0, NO, @"Object" #x "is empty", @"Value is %@", x)
-#define ECTestAssertNotEmpty(x)					ECAssertTest([ECTestCase genericCount:x] != 0, YES, @"Object" #x "is empty", @"Value is %@", x)
-#define ECTestAssertLength(x, l)				ECAssertTest([ECTestCase genericCount:x] == l, NO, @"Length of " #x " is " #l, @"Value is %@, length is %ld", x, (long)[ECTestCase genericCount:x])
-#define ECTestAssertIsEqual(x, y)				ECAssertTest([x isEqual:y], NO, @"" #x " and " #y " are equal", @"Values were %@ and %@", x, y)
-#define ECTestAssertIsNotEqual(x, y)			ECAssertTest(![x isEqual:y], NO, @"" #x " and " #y " are not equal", @"Values were %@ and %@", x, y)
-#define ECTestAssertTextIsEqual(x,y)			[self assertString:x matchesString:y]
-#define ECTestAssertNoError(e)					ECTestAssertTrueFormat(e == 0, @"expected no error, but got %@", e)
-#define ECTestAssertOkNoError(status,e)			ECTestAssertTrueFormat(status, @"expected %s to be true, but got %@", #status, e)
+#define ECTestAssertNotNil(x) ECTestAssertNotNilFormat((x), @"%s shouldn't be nil", #x)
+#define ECTestAssertNil(x) ECTestAssertNilFormat(x, @"%s should be nil, was %0x", #x, (unsigned int)x)
+#define ECTestAssertZero(x) ECTestAssertTrueFormat(x == 0, @"%s should be zero, was %0x", #x, (unsigned int)x)
+#define ECTestAssertTrue(x) ECTestAssertTrueFormat(x, "%s should be true", #x)
+#define ECTestAssertFalse(x) ECTestAssertFalseFormat(x, "%s should be false", #x)
+#define ECTestAssertStringIsEqual(x, y) ECAssertTest([(x)isEqualToString:(y)], NO, @"" #x " and " #y " match", @"Values were \"%@\" and \"%@\"", x, y)
+#define ECTestAssertStringBeginsWith(x, y) ECAssertTest([ECTestCase string:x beginsWithString:y], NO, @"" #x " begins with " #y, @"Values were \"%@\" and \"%@\"", x, y)
+#define ECTestAssertStringEndsWith(x, y) ECAssertTest([ECTestCase string:x endsWithString:y], NO, @"" #x " ends with " #y, @"Values were \"%@\" and \"%@\"", x, y)
+#define ECTestAssertStringContains(x, y) ECAssertTest([ECTestCase string:x containsString:y], NO, @"" #x " contains " #y, @"Values were \"%@\" and \"%@\"", x, y)
+#define ECTestAssertIsEmpty(x) ECAssertTest([ECTestCase genericCount:x] == 0, NO, @"Object" #x "is empty", @"Value is %@", x)
+#define ECTestAssertNotEmpty(x) ECAssertTest([ECTestCase genericCount:x] != 0, YES, @"Object" #x "is empty", @"Value is %@", x)
+#define ECTestAssertLength(x, l) ECAssertTest([ECTestCase genericCount:x] == l, NO, @"Length of " #x " is " #l, @"Value is %@, length is %ld", x, (long)[ECTestCase genericCount:x])
+#define ECTestAssertIsEqual(x, y) ECAssertTest([x isEqual:y], NO, @"" #x " and " #y " are equal", @"Values were %@ and %@", x, y)
+#define ECTestAssertIsNotEqual(x, y) ECAssertTest(![x isEqual:y], NO, @"" #x " and " #y " are not equal", @"Values were %@ and %@", x, y)
+#define ECTestAssertTextIsEqual(x, y) [self assertString:x matchesString:y]
+#define ECTestAssertNoError(e) ECTestAssertTrueFormat(e == 0, @"expected no error, but got %@", e)
+#define ECTestAssertOkNoError(status, e) ECTestAssertTrueFormat(status, @"expected %s to be true, but got %@", #status, e)
 
-#define ECTestAssertIsKindOfClass(o, c)			ECTestAssertTrueFormat((o == nil) || [o isKindOfClass:[c class]], @"%s should be a kind of %s, is actually a %@", #o, #c, [o class])
-#define ECTestAssertIsMemberOfClass(o, c)		ECTestAssertTrueFormat((o == nil) || [o isMemberOfClass:[c class]], @"%s should be a %s, is actually a %@", #o, #c, [o class])
+#define ECTestAssertIsKindOfClass(o, c) ECTestAssertTrueFormat((o == nil) || [o isKindOfClass:[c class]], @"%s should be a kind of %s, is actually a %@", #o, #c, [o class])
+#define ECTestAssertIsMemberOfClass(o, c) ECTestAssertTrueFormat((o == nil) || [o isMemberOfClass:[c class]], @"%s should be a %s, is actually a %@", #o, #c, [o class])
 
-#define ECTestAssertOperator(x,t,y,f,c)			ECAssertTest((x) t (y), NO, @"" #x #t #y, @"Values are " f " and " f ")", ((c)(x)), ((c)(y)))
+#define ECTestAssertOperator(x, t, y, f, c) ECAssertTest((x)t(y), NO, @"" #x #t #y, @"Values are " f " and " f ")", ((c)(x)), ((c)(y)))
 
-#define ECTestAssertIntegerIsEqual(x,y)			ECTestAssertOperator(x, ==, y, "%ld", long)
-#define ECTestAssertIntegerIsNotEqual(x,y)		ECTestAssertOperator(x, !=, y, "%ld", long)
-#define ECTestAssertIntegerIsGreater(x,y)		ECTestAssertOperator(x, >, y, "%ld", long)
-#define ECTestAssertIntegerIsGreaterEqual(x,y)	ECTestAssertOperator(x, >=, y, "%ld", long)
-#define ECTestAssertIntegerIsLess(x,y)			ECTestAssertOperator(x, <, y, "%ld", long)
-#define ECTestAssertIntegerIsLessEqual(x,y)		ECTestAssertOperator(x, <=, y, "%ld", long)
+#define ECTestAssertIntegerIsEqual(x, y) ECTestAssertOperator(x, ==, y, "%ld", long)
+#define ECTestAssertIntegerIsNotEqual(x, y) ECTestAssertOperator(x, !=, y, "%ld", long)
+#define ECTestAssertIntegerIsGreater(x, y) ECTestAssertOperator(x, >, y, "%ld", long)
+#define ECTestAssertIntegerIsGreaterEqual(x, y) ECTestAssertOperator(x, >=, y, "%ld", long)
+#define ECTestAssertIntegerIsLess(x, y) ECTestAssertOperator(x, <, y, "%ld", long)
+#define ECTestAssertIntegerIsLessEqual(x, y) ECTestAssertOperator(x, <=, y, "%ld", long)
 
-#define ECTestAssertRealIsEqual(x,y)			ECTestAssertOperator(x, ==, y, "%lf", double)
-#define ECTestAssertRealIsNotEqual(x,y)			ECTestAssertOperator(x, !=, y, "%lf", double)
-#define ECTestAssertRealIsGreater(x,y)			ECTestAssertOperator(x, >, y, "%lf", double)
-#define ECTestAssertRealIsGreaterEqual(x,y)		ECTestAssertOperator(x, >=, y, "%lf", double)
-#define ECTestAssertRealIsLess(x,y)				ECTestAssertOperator(x, <, y, "%lf", double)
-#define ECTestAssertRealIsLessEqual(x,y)		ECTestAssertOperator(x, <=, y, "%lf", double)
+#define ECTestAssertRealIsEqual(x, y) ECTestAssertOperator(x, ==, y, "%lf", double)
+#define ECTestAssertRealIsNotEqual(x, y) ECTestAssertOperator(x, !=, y, "%lf", double)
+#define ECTestAssertRealIsGreater(x, y) ECTestAssertOperator(x, >, y, "%lf", double)
+#define ECTestAssertRealIsGreaterEqual(x, y) ECTestAssertOperator(x, >=, y, "%lf", double)
+#define ECTestAssertRealIsLess(x, y) ECTestAssertOperator(x, <, y, "%lf", double)
+#define ECTestAssertRealIsLessEqual(x, y) ECTestAssertOperator(x, <=, y, "%lf", double)
 
 
-#define ECTestLog						NSLog
+#define ECTestLog NSLog
 
 /**
 * This class contains a few utility methods which:
@@ -104,7 +108,7 @@
 @interface ECTestCase : XCTestCase
 {
 @private
-    BOOL _exitRunLoop;
+	BOOL _exitRunLoop;
 }
 
 /**
@@ -187,9 +191,9 @@
 - (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 mode:(ECTestComparisonMode)mode;
 
 + (NSUInteger)genericCount:(id)item;
-+ (BOOL)string:(NSString*)string1 beginsWithString:(NSString *)string2;
-+ (BOOL)string:(NSString*)string1 endsWithString:(NSString *)string2;
-+ (BOOL)string:(NSString*)string1 containsString:(NSString *)string2;
++ (BOOL)string:(NSString*)string1 beginsWithString:(NSString*)string2;
++ (BOOL)string:(NSString*)string1 endsWithString:(NSString*)string2;
++ (BOOL)string:(NSString*)string1 containsString:(NSString*)string2;
 
 /**
  Return a URL to a temporary folder.
@@ -211,10 +215,10 @@
  @param ext The extension to use for the temporary file.
  */
 
-- (NSURL*)URLForTemporaryFileNamed:(NSString *)name withExtension:(NSString *)ext;
+- (NSURL*)URLForTemporaryFileNamed:(NSString*)name withExtension:(NSString*)ext;
 
-- (NSURL *)URLForTestResource:(NSString *)name withExtension:(NSString *)ext;
-- (NSURL *)URLForTestResource:(NSString *)name withExtension:(NSString *)ext subdirectory:(NSString *)subpath;
+- (NSURL*)URLForTestResource:(NSString*)name withExtension:(NSString*)ext;
+- (NSURL*)URLForTestResource:(NSString*)name withExtension:(NSString*)ext subdirectory:(NSString*)subpath;
 
 - (NSBundle*)exampleBundle;
 - (NSURL*)exampleBundleURL;

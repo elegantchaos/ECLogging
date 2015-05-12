@@ -9,29 +9,29 @@
 
 @implementation ECErrorPresenterHandler
 
-NSString *const ECLoggingErrorDomain = @"ECLogging";
+NSString* const ECLoggingErrorDomain = @"ECLogging";
 const NSInteger ECLoggingUnknownError = -1;
 
 // --------------------------------------------------------------------------
 //! Initialise.
 // --------------------------------------------------------------------------
 
-- (id) init 
+- (id)init
 {
-    if ((self = [super init]) != nil) 
-    {
-        self.name = @"ErrorPresenter";
-    }
-    
-    return self;
+	if ((self = [super init]) != nil)
+	{
+		self.name = @"ErrorPresenter";
+	}
+
+	return self;
 }
 
 #pragma mark - Logging
 
-- (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext *)context
+- (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context
 {
 	NSError* error;
-	
+
 	if ([object isMemberOfClass:[NSError class]])
 	{
 		error = object;
@@ -41,10 +41,10 @@ const NSInteger ECLoggingUnknownError = -1;
 		ECErrorAndMessage* eam = object;
 		error = eam.error;
 	}
-	else 
+	else
 	{
 		NSString* string = [self simpleOutputStringForChannel:channel withObject:object arguments:arguments context:context];
-		error = [NSError errorWithDomain:ECLoggingErrorDomain code:ECLoggingUnknownError userInfo:@{NSLocalizedDescriptionKey: string}];
+		error = [NSError errorWithDomain:ECLoggingErrorDomain code:ECLoggingUnknownError userInfo:@{ NSLocalizedDescriptionKey: string }];
 	}
 
 	[[NSApplication sharedApplication] presentError:error];
@@ -57,7 +57,7 @@ const NSInteger ECLoggingUnknownError = -1;
 //! to display an error alert which we only want to do for actual errors.
 // --------------------------------------------------------------------------
 
-- (void)wasEnabledForChannel:(ECLogChannel *)channel
+- (void)wasEnabledForChannel:(ECLogChannel*)channel
 {
 }
 
@@ -68,7 +68,7 @@ const NSInteger ECLoggingUnknownError = -1;
 //! to display an error alert which we only want to do for actual errors.
 // --------------------------------------------------------------------------
 
-- (void)wasDisabledForChannel:(ECLogChannel *)channel
+- (void)wasDisabledForChannel:(ECLogChannel*)channel
 {
 }
 
