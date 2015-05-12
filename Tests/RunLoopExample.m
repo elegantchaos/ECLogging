@@ -9,17 +9,10 @@
 #import <ECUnitTests/ECUnitTests.h>
 
 @interface RunLoopExample : ECTestCase
-{
-	NSMutableData* _data;
-}
-
 @property (strong, nonatomic) NSMutableData* data;
-
 @end
 
 @implementation RunLoopExample
-
-@synthesize data = _data;
 
 #pragma mark - Tests
 
@@ -69,7 +62,7 @@
 
 - (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
 {
-	NSLog(@"failed with error %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+	NSLog(@"failed with error %@ %@", [error localizedDescription], [error userInfo][NSURLErrorFailingURLStringErrorKey]);
 
 	// failed - signal that we want to exit the run loop
 	[self timeToExitRunLoop];

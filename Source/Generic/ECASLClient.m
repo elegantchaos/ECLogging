@@ -40,7 +40,7 @@ static ECASLClient* gSharedInstance = nil;
 //! Set up ASL connection etc.
 // --------------------------------------------------------------------------
 
-- (id)initWithName:(NSString*)name
+- (instancetype)initWithName:(NSString*)name
 {
 	if ((self = [super init]) != nil)
 	{

@@ -137,7 +137,7 @@
  @param name The name of the channel.
  */
 
-- (id)initWithName:(NSString*)name;
+- (instancetype)initWithName:(NSString*)name NS_DESIGNATED_INITIALIZER;
 
 
 /**

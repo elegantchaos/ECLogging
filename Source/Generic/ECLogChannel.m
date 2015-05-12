@@ -29,7 +29,7 @@ static NSString* const kSuffixToStrip = @"Channel";
 //! Initialse a channel.
 // --------------------------------------------------------------------------
 
-- (id)initWithName:(NSString*)nameIn
+- (instancetype)initWithName:(NSString*)nameIn
 {
 	if ((self = [super init]) != nil)
 	{

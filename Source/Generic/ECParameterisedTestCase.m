@@ -58,7 +58,7 @@ NSString* const ParameterisedTestSeparator = @"__";
 //! Make a test case with a given selector, parameter and a custom name.
 // --------------------------------------------------------------------------
 
-+ (id)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name
++ (instancetype)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name
 {
 	NSString* originalSelector = NSStringFromSelector(selector);
 	NSString* stub = [originalSelector substringFromIndex:[ParameterisedTestMethodPrefix length]];

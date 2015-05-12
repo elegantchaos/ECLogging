@@ -262,7 +262,7 @@ static ECLogManager* gSharedInstance = nil;
 //! Initialise the log manager.
 // --------------------------------------------------------------------------
 
-- (id)init
+- (instancetype)init
 {
 	if ((self = [super init]) != nil)
 	{

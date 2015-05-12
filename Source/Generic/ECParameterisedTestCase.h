@@ -111,7 +111,7 @@ extern NSString* const SuiteItemsKey;
 @property (strong, nonatomic) NSString* parameterisedTestName;
 @property (strong, nonatomic) NSString* parameterisedBaseName;
 
-+ (id)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
++ (instancetype)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
 
 + (NSDictionary*)parameterisedTestData;
 + (NSDictionary*)parameterisedTestDataFromFolder:(NSURL*)folder settings:(NSDictionary*)settings;

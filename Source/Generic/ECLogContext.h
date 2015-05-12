@@ -19,7 +19,7 @@ typedef void ECLogChannel;
 extern "C" {
 #endif
 
-typedef enum
+typedef NS_OPTIONS(NSUInteger, ECLogContextFlags)
 {
 	ECLogContextNone = 0x0000,
 	ECLogContextFile = 0x0001,
@@ -30,7 +30,7 @@ typedef enum
 
 	ECLogContextFullPath = 0x1000,
 	ECLogContextDefault = 0x8000
-} ECLogContextFlags;
+} ;
 
 typedef struct
 {
