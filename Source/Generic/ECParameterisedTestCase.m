@@ -1,62 +1,14 @@
 // --------------------------------------------------------------------------
-//! @author Sam Deane
-//! @date 12/04/2011
-//
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #import "ECParameterisedTestCase.h"
+#import "ECParameterisedTestSuite.h"
 
 #import <objc/runtime.h>
 
-@interface XCTestSuite (ProbeExtensions)
-- (void)removeTestsWithNames:(NSArray*)names;
-@end
-
-@interface ECParameterisedTestSuite : XCTestSuite
-@property (strong, nonatomic) NSString* baseName;
-@property (strong, nonatomic) NSArray* parameterisedNames;
-@end
-
-@interface ECParameterisedTestCase ()
-@property (strong, nonatomic) NSString* parameterisedBaseName;
-@end
-
-@implementation ECParameterisedTestSuite
-
-- (void)removeTestsWithNames:(NSArray*)names
-{
-	// the names we're asked to remove may not actually match the parameterised test names, because
-	// we mess around with them slightly
-	// as a result, we scan the tests and if we find any parameterised ones where the base name is in the names array
-	// we explicitly add the test name to the array as well
-	NSMutableArray* modifiedNames = nil;
-	for (ECParameterisedTestCase* test in self.tests)
-	{
-		if ([test isKindOfClass:[ECParameterisedTestCase class]])
-		{
-			if ([names containsObject:test.parameterisedBaseName])
-			{
-				if (!modifiedNames)
-					modifiedNames = [names mutableCopy];
-				[modifiedNames addObject:test.name];
-				NSLog(@"removed %@ %@ from %@", test.name, test, self);
-			}
-		}
-	}
-
-	[super removeTestsWithNames:modifiedNames ? modifiedNames : names];
-}
-
-@end
-
-@implementation ECParameterisedTestCase
-
-// --------------------------------------------------------------------------
-//! Standard keys.
-// --------------------------------------------------------------------------
 
 NSString* const TestItemsKey = @"ECTestItems";
 NSString* const SuiteItemsKey = @"ECTestSuites";
@@ -69,6 +21,12 @@ NSString* const SuiteExtension = @"testsuite";
 NSString* const ParameterisedTestMethodPrefix = @"parameterisedTest";
 NSString* const ParameterisedTestShortPrefix = @"test";
 NSString* const ParameterisedTestSeparator = @"__";
+
+@interface XCTestSuite (ProbeExtensions)
+- (void)removeTestsWithNames:(NSArray*)names;
+@end
+
+@implementation ECParameterisedTestCase
 
 + (BOOL)resolveInstanceMethod:(SEL)sel
 {
@@ -141,15 +99,12 @@ NSString* const ParameterisedTestSeparator = @"__";
 	return result;
 }
 
-#pragma mark - Tests
-
 // --------------------------------------------------------------------------
 //! Build up data for an item from a folder
 // --------------------------------------------------------------------------
 
 + (NSDictionary*)parameterisedTestDataFromItem:(NSURL*)folder settings:(NSDictionary*)settings
 {
-
 	// if there's a testdata.plist here, add values from it
 	NSMutableDictionary* result = nil;
 	NSFileManager* fm = [NSFileManager defaultManager];
@@ -199,12 +154,12 @@ NSString* const ParameterisedTestSeparator = @"__";
 }
 
 // --------------------------------------------------------------------------
-//! Recurse through a directory structure building up a dictionary of data items (and sub-suites) from it.
+//! Recurse through a directory structure building up a dictionary
+//! of data items (and sub-suites) from it.
 // --------------------------------------------------------------------------
 
 + (NSDictionary*)parameterisedTestDataFromFolder:(NSURL*)folder settings:(NSDictionary*)settings
 {
-
 	// if there's a testdata.plist here, add values from it
 	NSMutableDictionary* result = nil;
 	NSFileManager* fm = [NSFileManager defaultManager];
@@ -399,7 +354,6 @@ NSString* const ParameterisedTestSeparator = @"__";
 			NSLog(@"couldn't build test data for %@", NSStringFromClass(self));
 		}
 	}
-
 
 	return result;
 }

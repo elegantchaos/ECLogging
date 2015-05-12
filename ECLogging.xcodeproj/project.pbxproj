@@ -239,6 +239,10 @@
 		22D6EF661B021982004F9FC7 /* HierarchicalExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF631B021982004F9FC7 /* HierarchicalExample.m */; };
 		22F2FEF4164142A600CD3C7C /* ECLogManagerIOSUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */; };
+		22F861271B029BFF00586780 /* ECParameterisedTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */; };
+		22F861281B029C0100586780 /* ECParameterisedTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */; };
+		22F861291B029C0F00586780 /* ECParameterisedTestSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22F8612A1B029C1200586780 /* ECParameterisedTestSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FA57601AB085E10045A364 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA575F1AB085E10045A364 /* StringTests.m */; };
 		22FA57611AB085EB0045A364 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA575F1AB085E10045A364 /* StringTests.m */; };
 		22FF8E5016F1E418008FC10D /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4716D6B2B900835964 /* ECTestCase.m */; };
@@ -498,6 +502,8 @@
 		22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerIOSUISupport.h; sourceTree = "<group>"; };
 		22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerIOSUISupport.m; sourceTree = "<group>"; };
 		22F861241B02956300586780 /* .clang-format */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".clang-format"; sourceTree = "<group>"; };
+		22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECParameterisedTestSuite.h; sourceTree = "<group>"; };
+		22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECParameterisedTestSuite.m; sourceTree = "<group>"; };
 		22FA575F1AB085E10045A364 /* StringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTests.m; sourceTree = "<group>"; };
 		22FF8E7E16F1E418008FC10D /* ECUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -779,6 +785,8 @@
 				227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */,
 				2277CE4416D6B2B900835964 /* ECParameterisedTestCase.h */,
 				2277CE4516D6B2B900835964 /* ECParameterisedTestCase.m */,
+				22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */,
+				22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */,
 				2285B5EC1899855400919FA7 /* ECTestPerformanceCounter.h */,
 				2285B5ED1899855400919FA7 /* ECTestPerformanceCounter.m */,
 				2277CE4616D6B2B900835964 /* ECTestCase.h */,
@@ -1057,6 +1065,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F8612A1B029C1200586780 /* ECParameterisedTestSuite.h in Headers */,
 				22FF8E6C16F1E418008FC10D /* ECLogManagerIOSUISupport.h in Headers */,
 				22FF8E6D16F1E418008FC10D /* ECDebugHandlersViewController.h in Headers */,
 				22FF8E7216F1E418008FC10D /* ECParameterisedTestCase.h in Headers */,
@@ -1073,6 +1082,7 @@
 			files = (
 				22FF8EB716F1E5EB008FC10D /* ECParameterisedTestCase.h in Headers */,
 				22FF8EB816F1E5EB008FC10D /* ECTestCase.h in Headers */,
+				22F861291B029C0F00586780 /* ECParameterisedTestSuite.h in Headers */,
 				22FF8EB916F1E5EB008FC10D /* ECUnitTests.h in Headers */,
 				22B6A245183E0C5400873C05 /* ECTestComparisons.h in Headers */,
 				2285B5EE1899855400919FA7 /* ECTestPerformanceCounter.h in Headers */,
@@ -1687,6 +1697,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F861281B029C0100586780 /* ECParameterisedTestSuite.m in Sources */,
 				22B6A248183E0C5400873C05 /* ECTestComparisons.m in Sources */,
 				22FF8E5016F1E418008FC10D /* ECTestCase.m in Sources */,
 				22FF8E5116F1E418008FC10D /* ECParameterisedTestCase.m in Sources */,
@@ -1698,6 +1709,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F861271B029BFF00586780 /* ECParameterisedTestSuite.m in Sources */,
 				22B6A247183E0C5400873C05 /* ECTestComparisons.m in Sources */,
 				22FF8E9A16F1E5EB008FC10D /* ECParameterisedTestCase.m in Sources */,
 				22FF8E9B16F1E5EB008FC10D /* ECTestCase.m in Sources */,

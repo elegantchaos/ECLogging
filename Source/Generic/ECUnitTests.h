@@ -8,5 +8,6 @@
 
 #import "ECTestCase.h"
 #import "ECParameterisedTestCase.h"
+#import "ECParameterisedTestSuite.h"
 #import "ECTestComparisons.h"
 #import "ECTestPerformanceCounter.h"
