@@ -62,6 +62,8 @@ NSString *const DataURLKey = @"ECTestSuiteDataURL";
 
 NSString *const SuiteExtension = @"testsuite";
 
+NSString *const ParameterisedTestMethodPrefix = @"parameterisedTest";
+NSString *const ParameterisedTestShortPrefix = @"test";
 NSString *const ParameterisedTestSeparator = @"__";
 
 + (BOOL)resolveInstanceMethod:(SEL)sel {
@@ -74,7 +76,9 @@ NSString *const ParameterisedTestSeparator = @"__";
 	NSString* selectorName = NSStringFromSelector(sel);
 	NSRange range = [selectorName rangeOfString:ParameterisedTestSeparator];
 	if (range.location != NSNotFound) {
-		NSString* baseSelectorName = [selectorName substringToIndex:range.location];
+		NSString* shortSelectorName = [selectorName substringToIndex:range.location];
+		NSString* stub = [shortSelectorName substringFromIndex:[ParameterisedTestShortPrefix length]];
+		NSString* baseSelectorName = [NSString stringWithFormat:@"%@%@", ParameterisedTestMethodPrefix, stub];
 		SEL baseSelector = NSSelectorFromString(baseSelectorName);
 		IMP baseImplementation = [self instanceMethodForSelector:baseSelector];
 		class_addMethod([self class], sel, baseImplementation, "v@:");
@@ -91,7 +95,8 @@ NSString *const ParameterisedTestSeparator = @"__";
 + (id)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name
 {
 	NSString* originalSelector = NSStringFromSelector(selector);
-	NSString* newSelectorName = [NSString stringWithFormat:@"%@%@%@", originalSelector, ParameterisedTestSeparator, name];
+	NSString* stub = [originalSelector substringFromIndex:[ParameterisedTestMethodPrefix length]];
+	NSString* newSelectorName = [NSString stringWithFormat:@"%@%@%@%@", ParameterisedTestShortPrefix, stub, ParameterisedTestSeparator, name];
 	SEL newSelector = NSSelectorFromString(newSelectorName);
     ECParameterisedTestCase* tc = [self testCaseWithSelector:newSelector];
     tc.parameterisedTestDataItem = param;
@@ -354,8 +359,7 @@ NSString *const ParameterisedTestSeparator = @"__";
 
 + (id) defaultTestSuite
 {
-	NSString* methodPrefix = @"parameterisedTest";
-	NSUInteger methodPrefixLength = [methodPrefix length];
+	NSUInteger methodPrefixLength = [ParameterisedTestMethodPrefix length];
 	
 	XCTestSuite* result = nil;
 	if (self != [ECParameterisedTestCase class])
@@ -375,7 +379,7 @@ NSString *const ParameterisedTestSeparator = @"__";
 			{
 				SEL selector = method_getName(methods[n]);
 				NSString* name = NSStringFromSelector(selector);
-				if ([name rangeOfString:methodPrefix].location == 0)
+				if ([name rangeOfString:ParameterisedTestMethodPrefix].location == 0)
 				{
 					NSString* suiteName = [name substringFromIndex:methodPrefixLength];
 					ECParameterisedTestSuite* subSuite = [self suiteForSelector:selector name:suiteName data:data];
