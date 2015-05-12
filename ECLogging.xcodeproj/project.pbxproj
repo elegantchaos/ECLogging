@@ -497,6 +497,7 @@
 		22F2FEEF1641418600CD3C7C /* ECLogManagerMacUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerMacUISupport.m; sourceTree = "<group>"; };
 		22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerIOSUISupport.h; sourceTree = "<group>"; };
 		22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerIOSUISupport.m; sourceTree = "<group>"; };
+		22F861241B02956300586780 /* .clang-format */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".clang-format"; sourceTree = "<group>"; };
 		22FA575F1AB085E10045A364 /* StringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTests.m; sourceTree = "<group>"; };
 		22FF8E7E16F1E418008FC10D /* ECUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -905,6 +906,7 @@
 		22F2FEEC164140E700CD3C7C /* Extras */ = {
 			isa = PBXGroup;
 			children = (
+				22F861241B02956300586780 /* .clang-format */,
 				22F2FEEB164140D800CD3C7C /* .appledoc.plist */,
 				225C51511642DC3600794DD2 /* LICENSE.md */,
 				225C51521642DC3600794DD2 /* README.md */,
