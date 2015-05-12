@@ -11,6 +11,32 @@
 
 #import <objc/runtime.h>
 
+@interface XCTestSuite(ProbeExtensions)
+- (void)removeTestsWithNames:(NSArray*)names;
+@end
+
+@interface ECParameterisedTestSuite : XCTestSuite
+
+@end
+
+@implementation ECParameterisedTestSuite
+
+- (void)removeTestsWithNames:(NSArray*)names {
+	NSLog(@"names %@", names);
+	[super removeTestsWithNames:names];
+}
+
+- (void)addTest:(XCTest *)test {
+	NSLog(@"adding test %@", test);
+	[super addTest:test];
+}
+
++ (id)testSuiteForTestCaseWithName:(NSString *)name {
+	return [super testSuiteForTestCaseWithName:name];
+}
+
+@end
+
 @implementation ECParameterisedTestCase
 
 // --------------------------------------------------------------------------
@@ -24,6 +50,41 @@ NSString *const IncludesKey = @"includes";
 NSString *const DataURLKey = @"ECTestSuiteDataURL";
 
 NSString *const SuiteExtension = @"testsuite";
+
++ (BOOL)instancesRespondToSelector:(SEL)aSelector {
+	return [super instancesRespondToSelector:aSelector];
+}
+
++ (IMP)instanceMethodForSelector:(SEL)aSelector {
+	return [super instanceMethodForSelector:aSelector];
+}
+
+- (void)doesNotRecognizeSelector:(SEL)aSelector {
+	[super doesNotRecognizeSelector:aSelector];
+}
+
+- (IMP)methodForSelector:(SEL)aSelector {
+	return [super methodForSelector:aSelector];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+	NSLog(@"asked to forward %@",anInvocation);
+}
+
++ (BOOL)resolveInstanceMethod:(SEL)sel {
+	NSLog(@"blah");
+	NSString* selectorName = NSStringFromSelector(sel);
+	NSRange range = [selectorName rangeOfString:@"-"];
+	if (range.location != NSNotFound) {
+		NSString* baseSelectorName = [selectorName substringToIndex:range.location];
+		SEL baseSelector = NSSelectorFromString(baseSelectorName);
+		IMP baseImplementation = [self instanceMethodForSelector:baseSelector];
+		class_addMethod([self class], sel, baseImplementation, "v@:");
+		return YES;
+	} else {
+		return [super resolveInstanceMethod:sel];
+	}
+}
 
 // --------------------------------------------------------------------------
 //! Make a test case with a given selector and parameter.
@@ -43,7 +104,10 @@ NSString *const SuiteExtension = @"testsuite";
 
 + (id)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name
 {
-    ECParameterisedTestCase* tc = [self testCaseWithSelector:selector];
+	NSString* originalSelector = NSStringFromSelector(selector);
+	NSString* newSelectorName = [NSString stringWithFormat:@"%@-%@", originalSelector, name];
+	SEL newSelector = NSSelectorFromString(newSelectorName);
+    ECParameterisedTestCase* tc = [self testCaseWithSelector:newSelector];
     tc.parameterisedTestDataItem = param;
     tc.parameterisedTestName = name;
     
@@ -292,9 +356,9 @@ NSString *const SuiteExtension = @"testsuite";
 //! sub-suites of items.
 // --------------------------------------------------------------------------
 
-+ (ECTestSuiteClass*)suiteForSelector:(SEL)selector name:(NSString*)name data:(NSDictionary*)data
++ (ECParameterisedTestSuite*)suiteForSelector:(SEL)selector name:(NSString*)name data:(NSDictionary*)data
 {
-    ECTestSuiteClass* result = [[ECTestSuiteClass alloc] initWithName:name];
+    ECParameterisedTestSuite* result = [[ECParameterisedTestSuite alloc] initWithName:name];
     
     // add items to the suite as tests
     NSDictionary* items = data[TestItemsKey];
@@ -310,7 +374,7 @@ NSString *const SuiteExtension = @"testsuite";
     for (NSString* suiteName in suites)
     {
         NSDictionary* suiteData = suites[suiteName];
-        ECTestSuiteClass* suite = [self suiteForSelector:selector name:suiteName data:suiteData];
+        ECParameterisedTestSuite* suite = [self suiteForSelector:selector name:suiteName data:suiteData];
         [result addTest:suite];
     }
     
@@ -327,7 +391,7 @@ NSString *const SuiteExtension = @"testsuite";
 
 + (id) defaultTestSuite
 {
-	ECTestSuiteClass* result = nil;
+	XCTestSuite* result = nil;
 	if (self != [ECParameterisedTestCase class])
 	{
 		result = [super defaultTestSuite];
@@ -338,7 +402,7 @@ NSString *const SuiteExtension = @"testsuite";
 			Method* methods = class_copyMethodList([self class], &methodCount);
 			if ((methodCount > 0) && !result)
 			{
-				result = [[ECTestSuiteClass alloc] initWithName:NSStringFromClass(self)];
+				result = [[ECParameterisedTestSuite alloc] initWithName:NSStringFromClass(self)];
 			}
 
 			for (NSUInteger n = 0; n < methodCount; ++n)
@@ -347,7 +411,7 @@ NSString *const SuiteExtension = @"testsuite";
 				NSString* name = NSStringFromSelector(selector);
 				if ([name rangeOfString:@"parameterisedTest"].location == 0)
 				{
-					ECTestSuiteClass* subSuite = [self suiteForSelector:selector name:name data:data];
+					ECParameterisedTestSuite* subSuite = [self suiteForSelector:selector name:name data:data];
 					[result addTest:subSuite];
 				}
 			}

@@ -23,9 +23,6 @@
 // --------------------------------------------------------------------------
 
 
-#define ECTestCaseBase XCTestCase
-#define ECTestSuiteClass XCTestSuite
-
 #define ECTestAssertNotNilFormat				XCTAssertNotNil
 #define ECTestAssertNilFormat					XCTAssertNil
 #define ECTestAssertTrueFormat					XCTAssertTrue
@@ -104,7 +101,7 @@
 * See [this blog post](http://www.bornsleepy.com/bornsleepy/run-loop-cocoa-unit-tests) for more details of the run loop support.
 */
 
-@interface ECTestCase : ECTestCaseBase
+@interface ECTestCase : XCTestCase
 {
 @private
     BOOL _exitRunLoop;
