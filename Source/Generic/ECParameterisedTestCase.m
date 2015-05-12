@@ -62,6 +62,8 @@ NSString *const DataURLKey = @"ECTestSuiteDataURL";
 
 NSString *const SuiteExtension = @"testsuite";
 
+NSString *const ParameterisedTestSeparator = @"__";
+
 + (BOOL)resolveInstanceMethod:(SEL)sel {
 	// for a parameterised test called parameterisedTestBlah,
 	// if there are two bits of test data "foo" and "bar"
@@ -70,7 +72,7 @@ NSString *const SuiteExtension = @"testsuite";
 	// we just want them to be aliases for parameterisedTestBlah, as they're only there to fool Xcode into reporting each
 	// invocation of the test properly
 	NSString* selectorName = NSStringFromSelector(sel);
-	NSRange range = [selectorName rangeOfString:@"-"];
+	NSRange range = [selectorName rangeOfString:ParameterisedTestSeparator];
 	if (range.location != NSNotFound) {
 		NSString* baseSelectorName = [selectorName substringToIndex:range.location];
 		SEL baseSelector = NSSelectorFromString(baseSelectorName);
@@ -89,7 +91,7 @@ NSString *const SuiteExtension = @"testsuite";
 + (id)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name
 {
 	NSString* originalSelector = NSStringFromSelector(selector);
-	NSString* newSelectorName = [NSString stringWithFormat:@"%@-%@", originalSelector, name];
+	NSString* newSelectorName = [NSString stringWithFormat:@"%@%@%@", originalSelector, ParameterisedTestSeparator, name];
 	SEL newSelector = NSSelectorFromString(newSelectorName);
     ECParameterisedTestCase* tc = [self testCaseWithSelector:newSelector];
     tc.parameterisedTestDataItem = param;
