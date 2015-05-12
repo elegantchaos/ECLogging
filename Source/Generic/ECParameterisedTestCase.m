@@ -288,7 +288,6 @@ NSString* const ParameterisedTestSeparator = @"__";
 + (ECParameterisedTestSuite*)suiteForSelector:(SEL)selector name:(NSString*)name data:(NSDictionary*)data
 {
 	ECParameterisedTestSuite* result = [[ECParameterisedTestSuite alloc] initWithName:name];
-	result.baseName = NSStringFromSelector(selector);
 
 	// add items to the suite as tests
 	NSDictionary* items = data[TestItemsKey];
