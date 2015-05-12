@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-clang-format -style=file -i Source/Generic/*.h
-clang-format -style=file -i Source/Generic/*.m
-
-for FOLDER in "Source/"*
+for FOLDER in "Source/"* "Tests"
 do
 	echo "Formatting $FOLDER"
 	clang-format -style=file -i "$FOLDER"/*.h 2> /dev/null
