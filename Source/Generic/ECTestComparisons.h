@@ -1,10 +1,8 @@
-//
-//  ECTestComparisons.h
-//  ECLogging
-//
-//  Created by Sam Deane on 21/11/2013.
-//  Copyright (c) 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//
+// --------------------------------------------------------------------------
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
 
 #import <Foundation/Foundation.h>
 

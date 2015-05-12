@@ -787,12 +787,12 @@
 				2277CE4516D6B2B900835964 /* ECParameterisedTestCase.m */,
 				22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */,
 				22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */,
-				2285B5EC1899855400919FA7 /* ECTestPerformanceCounter.h */,
-				2285B5ED1899855400919FA7 /* ECTestPerformanceCounter.m */,
 				2277CE4616D6B2B900835964 /* ECTestCase.h */,
+				2277CE4716D6B2B900835964 /* ECTestCase.m */,
 				22B6A243183E0C5400873C05 /* ECTestComparisons.h */,
 				22B6A244183E0C5400873C05 /* ECTestComparisons.m */,
-				2277CE4716D6B2B900835964 /* ECTestCase.m */,
+				2285B5EC1899855400919FA7 /* ECTestPerformanceCounter.h */,
+				2285B5ED1899855400919FA7 /* ECTestPerformanceCounter.m */,
 				2277CE4816D6B2B900835964 /* ECUnitTests.h */,
 			);
 			name = Testing;
