@@ -26,7 +26,7 @@
     [super tearDown];
 }
 
-- (void)parameterisedTestExample
+- (void)parameterisedTestHierarchicalExample
 {
     NSLog(@"Example test run with data item: %@", self.parameterisedTestDataItem);
 }

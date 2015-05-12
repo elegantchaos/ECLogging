@@ -110,7 +110,6 @@ extern NSString *const SuiteItemsKey;
 @property (strong, nonatomic) id parameterisedTestDataItem;
 @property (strong, nonatomic) NSString* parameterisedTestName;
 
-+ (id)testCaseWithSelector:(SEL)selector param:(id)param;
 + (id)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
 
 + (NSDictionary*)parameterisedTestData;

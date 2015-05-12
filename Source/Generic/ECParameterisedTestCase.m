@@ -16,23 +16,34 @@
 @end
 
 @interface ECParameterisedTestSuite : XCTestSuite
+@property (strong, nonatomic) NSString* baseName;
+@property (strong, nonatomic) NSArray* parameterisedNames;
+@end
 
+@interface ECParameterisedTestCase()
+@property (strong, nonatomic) NSString* parameterisedBaseName;
 @end
 
 @implementation ECParameterisedTestSuite
 
 - (void)removeTestsWithNames:(NSArray*)names {
-	NSLog(@"names %@", names);
-	[super removeTestsWithNames:names];
-}
-
-- (void)addTest:(XCTest *)test {
-	NSLog(@"adding test %@", test);
-	[super addTest:test];
-}
-
-+ (id)testSuiteForTestCaseWithName:(NSString *)name {
-	return [super testSuiteForTestCaseWithName:name];
+	// the names we're asked to remove may not actually match the parameterised test names, because
+	// we mess around with them slightly
+	// as a result, we scan the tests and if we find any parameterised ones where the base name is in the names array
+	// we explicitly add the test name to the array as well
+	NSMutableArray* modifiedNames = nil;
+	for (ECParameterisedTestCase* test in self.tests) {
+		if ([test isKindOfClass:[ECParameterisedTestCase class]]) {
+			if ([names containsObject:test.parameterisedBaseName]) {
+				if (!modifiedNames)
+					modifiedNames = [names mutableCopy];
+				[modifiedNames addObject:test.name];
+				NSLog(@"removed %@ %@ from %@", test.name, test, self);
+			}
+		}
+	}
+	
+	[super removeTestsWithNames:modifiedNames ? modifiedNames : names];
 }
 
 @end
@@ -51,28 +62,13 @@ NSString *const DataURLKey = @"ECTestSuiteDataURL";
 
 NSString *const SuiteExtension = @"testsuite";
 
-+ (BOOL)instancesRespondToSelector:(SEL)aSelector {
-	return [super instancesRespondToSelector:aSelector];
-}
-
-+ (IMP)instanceMethodForSelector:(SEL)aSelector {
-	return [super instanceMethodForSelector:aSelector];
-}
-
-- (void)doesNotRecognizeSelector:(SEL)aSelector {
-	[super doesNotRecognizeSelector:aSelector];
-}
-
-- (IMP)methodForSelector:(SEL)aSelector {
-	return [super methodForSelector:aSelector];
-}
-
-- (void)forwardInvocation:(NSInvocation *)anInvocation {
-	NSLog(@"asked to forward %@",anInvocation);
-}
-
 + (BOOL)resolveInstanceMethod:(SEL)sel {
-	NSLog(@"blah");
+	// for a parameterised test called parameterisedTestBlah,
+	// if there are two bits of test data "foo" and "bar"
+	// the methods that are actually called on the tests will be parameterisedTestBlah-foo and parameterisedTestBlah-bar.
+	// these methods won't actually exist, so we need to add them
+	// we just want them to be aliases for parameterisedTestBlah, as they're only there to fool Xcode into reporting each
+	// invocation of the test properly
 	NSString* selectorName = NSStringFromSelector(sel);
 	NSRange range = [selectorName rangeOfString:@"-"];
 	if (range.location != NSNotFound) {
@@ -87,18 +83,6 @@ NSString *const SuiteExtension = @"testsuite";
 }
 
 // --------------------------------------------------------------------------
-//! Make a test case with a given selector and parameter.
-// --------------------------------------------------------------------------
-
-+ (id)testCaseWithSelector:(SEL)selector param:(id)param
-{
-    ECParameterisedTestCase* tc = [self testCaseWithSelector:selector];
-    tc.parameterisedTestDataItem = param;
-    
-    return tc;
-}
-
-// --------------------------------------------------------------------------
 //! Make a test case with a given selector, parameter and a custom name.
 // --------------------------------------------------------------------------
 
@@ -110,7 +94,8 @@ NSString *const SuiteExtension = @"testsuite";
     ECParameterisedTestCase* tc = [self testCaseWithSelector:newSelector];
     tc.parameterisedTestDataItem = param;
     tc.parameterisedTestName = name;
-    
+	tc.parameterisedBaseName = [NSString stringWithFormat:@"-[%@ %@]", [self class], originalSelector];
+	
     return tc;
 }
 
@@ -140,31 +125,6 @@ NSString *const SuiteExtension = @"testsuite";
 
     return result;
 }
-
-// --------------------------------------------------------------------------
-//! Return the test case's name.
-//! If we've overridden the default method name, we return
-//! that, otherwise we do the default thing.
-// --------------------------------------------------------------------------
-
-- (NSString*)name
-{
-    NSString* result;
-    
-    if (self.parameterisedTestName)
-    {
-		NSString* methodName = [[super name] componentsSeparatedByString:@" "][1];
-		methodName = [methodName substringToIndex:[methodName length] - 1];
-        result = [NSString stringWithFormat:@"-[%@ %@%@]", NSStringFromClass([self class]), methodName, self.parameterisedTestName];
-    }
-    else 
-    {
-        result = [super name];
-    }
-    
-    return result;
-}
-
 
 #pragma mark - Tests
 
@@ -359,7 +319,8 @@ NSString *const SuiteExtension = @"testsuite";
 + (ECParameterisedTestSuite*)suiteForSelector:(SEL)selector name:(NSString*)name data:(NSDictionary*)data
 {
     ECParameterisedTestSuite* result = [[ECParameterisedTestSuite alloc] initWithName:name];
-    
+	result.baseName = NSStringFromSelector(selector);
+	
     // add items to the suite as tests
     NSDictionary* items = data[TestItemsKey];
     for (NSString* testName in items)
