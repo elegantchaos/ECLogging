@@ -480,7 +480,7 @@
 		22B6A243183E0C5400873C05 /* ECTestComparisons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ECTestComparisons.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		22B6A244183E0C5400873C05 /* ECTestComparisons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ECTestComparisons.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		22B6A24A183E0CA800873C05 /* ComparisonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComparisonTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		22D6EF4B1B0218EA004F9FC7 /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Test.bundle; path = Tests/Test.bundle; sourceTree = SOURCE_ROOT; };
+		22D6EF4B1B0218EA004F9FC7 /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Test.bundle; path = Resources/Test.bundle; sourceTree = SOURCE_ROOT; };
 		22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParameterisedTestsExample.m; path = Tests/ParameterisedTestsExample.m; sourceTree = SOURCE_ROOT; };
 		22D6EF501B021900004F9FC7 /* RunLoopExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RunLoopExample.m; path = Tests/RunLoopExample.m; sourceTree = SOURCE_ROOT; };
 		22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HierarchicalExample.testsuite; path = Tests/HierarchicalExample.testsuite; sourceTree = SOURCE_ROOT; };
@@ -659,6 +659,7 @@
 		2274B37714F56679003B8A0B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				22D6EF4B1B0218EA004F9FC7 /* Test.bundle */,
 				2251BA6C15DBDA5100F2FE40 /* Info.plist */,
 				2274B37814F56679003B8A0B /* ECLoggingTests.plist */,
 			);
@@ -897,7 +898,6 @@
 				22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */,
 				22D6EF581B021952004F9FC7 /* Included.testsuite */,
 				22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */,
-				22D6EF4B1B0218EA004F9FC7 /* Test.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
