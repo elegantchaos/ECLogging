@@ -255,12 +255,16 @@
  
  @param image Image to compare.
  @param reference Reference image to compare against.
- @param threshold The maximum average difference allowed between each of the corresponding pixels.
- @param pixelThreshold The maximum difference allowed between any two corresponding pixels.
+ @param properties A dictionary of properties which fine-tune the comparison:
+ The properties include:
+ - threshold The maximum average difference allowed between each of the corresponding pixels.
+ - pixelThreshold The maximum difference allowed between any two corresponding pixels.
+ - maxWidth The maximum width of the image that's allowed (to avoid trying to compare images that are enourmous).
+ - maxHeight The maximum width of the image that's allowed (to avoid trying to compare images that are enourmous).
  @return YES if the images match within the given thresholds.
  */
 
-- (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference withinThreshold:(CGFloat)threshold pixelThreshold:(CGFloat)pixelThreshold maxSize:(NSSize)maxSize;
+- (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference properties:(NSDictionary*)properties;
 
 /**
  Return an image from the test bundle.

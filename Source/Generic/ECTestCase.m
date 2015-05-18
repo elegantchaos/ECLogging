@@ -562,8 +562,24 @@
 	return rep;
 }
 
-- (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference withinThreshold:(CGFloat)threshold pixelThreshold:(CGFloat)pixelThreshold maxSize:(NSSize)maxSize
+- (NSDictionary*)defaultImageComparisonSettings {
+	return @{ @"threshold" : @0.006, @"pixelThreshold" : @3.0, @"maxWidth" : @2048, @"maxHeight" : @2048};
+}
+
+- (BOOL)image:(NSBitmapImageRep*)image matchesReferenceImage:(NSBitmapImageRep*)reference properties:(NSDictionary *)properties
 {
+	NSMutableDictionary* mergedProperties = [NSMutableDictionary dictionaryWithDictionary:[self defaultImageComparisonSettings]];
+	[mergedProperties addEntriesFromDictionary:properties];
+	
+	NSValue* maxSizeValue = mergedProperties[@"maxSize"];
+	if (maxSizeValue) {
+		mergedProperties[@"maxWidth"] = mergedProperties[@"maxHeight"] = maxSizeValue;
+	}
+	
+	CGFloat threshold = [mergedProperties[@"threshold"] doubleValue];
+	CGFloat pixelThreshold = [mergedProperties[@"pixelThreshold"] doubleValue];
+	NSSize maxSize = NSMakeSize([mergedProperties[@"maxWidth"] doubleValue], [mergedProperties[@"maxHeight"] doubleValue]);
+
 	NSSize imageSize = image.size;
 	if ((imageSize.width > maxSize.width) || (imageSize.height > maxSize.height))
 	{
