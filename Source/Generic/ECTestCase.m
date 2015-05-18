@@ -521,6 +521,55 @@
 #endif
 }
 
++ (NSString*)testModuleName {
+	return [[[[NSBundle bundleForClass:self] bundleURL] lastPathComponent] stringByDeletingPathExtension];
+}
+
+- (NSURL*)URLForOutputAsReference:(BOOL)asReference {
+	NSString* moduleName = [[self class] testModuleName];
+	NSString* outputKey = [NSString stringWithFormat:@"%@Output", moduleName];
+	NSString* outputPath = [[NSUserDefaults standardUserDefaults] stringForKey:outputKey];
+	if (!outputPath)
+		outputPath = [NSString stringWithFormat:@"~/Desktop/Unit Test Output/%@/", moduleName];
+	NSURL* url = [NSURL fileURLWithPath:[outputPath stringByExpandingTildeInPath]];
+	NSError* error;
+	NSFileManager* fm = [NSFileManager defaultManager];
+	[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+	if (asReference)
+		url = [url URLByAppendingPathComponent:@"Reference"];
+	else
+		url = [url URLByAppendingPathComponent:@"Generated"];
+	
+	[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+	
+	return url;
+}
+
+- (NSURL*)writeOutputData:(NSDictionary*)dictionary name:(NSString*)name extension:(NSString*)extension asReference:(BOOL)asReference {
+	NSURL* container = [self URLForOutputAsReference:asReference];
+	NSURL* file = [[container URLByAppendingPathComponent:name] URLByAppendingPathExtension:extension];
+	NSError* error;
+	NSData* data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:(NSPropertyListFormat)kCFPropertyListBinaryFormat_v1_0 options:0 error:&error];
+	ECTestAssertTrue([data writeToURL:file atomically:YES]);
+	return file;
+}
+
+- (NSURL*)writeOutputText:(NSString*)data name:(NSString*)name asReference:(BOOL)asReference {
+	NSURL* container = [self URLForOutputAsReference:asReference];
+	NSURL* file = [[container URLByAppendingPathComponent:name] URLByAppendingPathExtension:@"txt"];
+	NSError* error;
+	ECTestAssertTrue([data writeToURL:file atomically:YES encoding:NSUTF8StringEncoding error:&error]);
+	return file;
+}
+
+- (NSURL*)writeOutputImage:(NSBitmapImageRep*)image name:(NSString*)name asReference:(BOOL)asReference {
+	NSURL* desktop = [self URLForOutputAsReference:asReference];
+	NSURL* file = [[desktop URLByAppendingPathComponent:name] URLByAppendingPathExtension:@"png"];
+	NSData* data = [image representationUsingType:NSPNGFileType properties:@{NSImageInterlaced: @YES}];
+	ECTestAssertTrueFormat([data writeToURL:file atomically:YES], @"failed to write data");
+	return file;
+}
+
 #if !TARGET_OS_IPHONE
 
 - (BOOL)imageAsPNG:(NSBitmapImageRep*)image exactlyMatchesReferenceImageAsPNG:(NSBitmapImageRep*)reference
