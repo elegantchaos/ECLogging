@@ -624,10 +624,14 @@
 	if (maxSizeValue) {
 		mergedProperties[@"maxWidth"] = mergedProperties[@"maxHeight"] = maxSizeValue;
 	}
-	
 	CGFloat threshold = [mergedProperties[@"threshold"] doubleValue];
 	CGFloat pixelThreshold = [mergedProperties[@"pixelThreshold"] doubleValue];
-	NSSize maxSize = NSMakeSize([mergedProperties[@"maxWidth"] doubleValue], [mergedProperties[@"maxHeight"] doubleValue]);
+	NSSize maxSize = NSZeroSize;
+	if ([mergedProperties[@"maxSizeMatchesReference"] boolValue]) {
+		maxSize = reference.size;
+	} else {
+		maxSize = NSMakeSize([mergedProperties[@"maxWidth"] doubleValue], [mergedProperties[@"maxHeight"] doubleValue]);
+	}
 
 	NSSize imageSize = image.size;
 	if ((imageSize.width > maxSize.width) || (imageSize.height > maxSize.height))

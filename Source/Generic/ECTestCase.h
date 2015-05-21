@@ -294,6 +294,8 @@
  - pixelThreshold The maximum difference allowed between any two corresponding pixels.
  - maxWidth The maximum width of the image that's allowed (to avoid trying to compare images that are enourmous).
  - maxHeight The maximum width of the image that's allowed (to avoid trying to compare images that are enourmous).
+ - maxSize: The value to use for both maxWidth and maxHeight
+ - maxSizeMatchesReference: Ignore maxWidth/maxHeight and use the size of the reference image instead.
  @return YES if the images match within the given thresholds.
  */
 
