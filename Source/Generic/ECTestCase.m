@@ -554,9 +554,9 @@
 	return file;
 }
 
-- (NSURL*)writeOutputText:(NSString*)data name:(NSString*)name asReference:(BOOL)asReference {
+- (NSURL*)writeOutputText:(NSString*)data name:(NSString*)name extension:(NSString*)extension asReference:(BOOL)asReference {
 	NSURL* container = [self URLForOutputAsReference:asReference];
-	NSURL* file = [[container URLByAppendingPathComponent:name] URLByAppendingPathExtension:@"txt"];
+	NSURL* file = [[container URLByAppendingPathComponent:name] URLByAppendingPathExtension:extension];
 	NSError* error;
 	ECTestAssertTrue([data writeToURL:file atomically:YES encoding:NSUTF8StringEncoding error:&error]);
 	return file;

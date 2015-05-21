@@ -262,7 +262,7 @@
  Write some text as an output file.
  */
 
-- (NSURL*)writeOutputText:(NSString*)data name:(NSString*)name asReference:(BOOL)asReference;
+- (NSURL*)writeOutputText:(NSString*)data name:(NSString*)name extension:(NSString*)extension asReference:(BOOL)asReference;
 
 /** 
  Write an image as an output file.
