@@ -109,21 +109,23 @@ commonbuildxctool()
     xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" "$@" OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testout" 2>> "$testerr"
     result=$?
 
-    echo "Result $result"
-
     if [[ $result != 0 ]]
     then
-        echo "Build Failed"
-        #cat "$testout"
+        echo "Build Failed:"
         cat "$testerr" >&2
         tail "$testout"
         echo
-        echo "** BUILD FAILURES **"
-        echo "xctool returned $result"
-
-        echo "Build failed for scheme $1"
-        urlencode "${JOB_URL}ws/test-build/logs/$1-$3"
-        echo "Full log: $encoded"
+        echo $'\n** BUILD FAILURES **\n'
+        echo "Build failed for scheme $SCHEME (xctool returned $result)"
+        LOG_PATH="test-build/logs/$PLATFORM-$SCHEME"
+        if [[ "$JOB_URL" != "" ]]
+        then
+            LOG_URL="${JOB_URL}/${LOG_PATH}"
+            urlencode "${LOG_URL}"
+        else
+            LOG_URL="$LOG_PATH"
+        fi
+        echo "Full log: $LOG_URL"
 
         exit $result
     fi
