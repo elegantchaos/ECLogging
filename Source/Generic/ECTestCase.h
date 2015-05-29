@@ -113,13 +113,38 @@
 
 /**
  Perform some more detailed checking of two bits of text.
- If they don't match, we call STFail reporting the point where they differed.
+ @param string1 First string to compare.
+ @param string2 Second string to compare.
+ @return YES if the items match, NO otherwise
+ */
+
+- (BOOL)checkString:(NSString*)string1 matchesString:(NSString*)string2;
+
+/**
+ Perform some more detailed checking of two bits of text.
+ If they don't match, we call ECTestFail reporting the point where they differed.
  @param string1 First string to compare.
  @param string2 Second string to compare.
  @return YES if the items match, NO otherwise
  */
 
 - (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2;
+
+/**
+ Perform some more detailed checking of two bits of text.
+ 
+ The comparison modes determine exactly how differences are reported.
+ - ECAssertStringTestShowChars:  we report the differing lengths, and the characters where they diverge
+ - ECAssertStringTestShowLines: we report the lines where they diverge
+ - ECAssertStringTestShowLinesIgnoreWhitespace: we report the lines where they diverge, ignoring blank lines
+ 
+ @param string1 First string to compare.
+ @param string2 Second string to compare.
+ @param mode Comparison mode to use.
+ @return YES if the items match, NO otherwise
+ */
+
+- (BOOL)checkString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECTestComparisonMode)mode;
 
 /**
  Perform some more detailed checking of two bits of text.
@@ -140,10 +165,23 @@
 
 /**
  Check some text against a file.
- If they don't match, we call STFail reporting the point where they differed.
 
  The comparison modes determine exactly how differences are reported.
 
+ @param string The string to compare.
+ @param url The file containing text to compare against.
+ @param mode Comparison mode to use.
+ @return YES if the items match, NO otherwise
+ */
+
+- (BOOL)checkString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECTestComparisonMode)mode;
+
+/**
+ Check some text against a file.
+ If they don't match, we call STFail reporting the point where they differed.
+ 
+ The comparison modes determine exactly how differences are reported.
+ 
  @param string The string to compare.
  @param url The file containing text to compare against.
  @param mode Comparison mode to use.

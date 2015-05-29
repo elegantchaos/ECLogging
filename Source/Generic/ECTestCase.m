@@ -88,10 +88,22 @@
 
 - (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2
 {
-	return [self assertString:string1 matchesString:string2 mode:ECTestComparisonShowLinesIgnoreWhitespace];
+	ECTestAssertTrue([self checkString:string1 matchesString:string2]);
+}
+
+- (BOOL)checkString:(NSString*)string1 matchesString:(NSString*)string2
+{
+	return [self checkString:string1 matchesString:string2 mode:ECTestComparisonShowLinesIgnoreWhitespace];
 }
 
 - (BOOL)assertCharactersOfString:(NSString*)string1 matchesString:(NSString*)string2
+{
+	BOOL ok = [self checkCharactersOfString:string1 matchesString:string2];
+	ECTestAssertTrue(ok);
+	return ok;
+}
+
+- (BOOL)checkCharactersOfString:(NSString*)string1 matchesString:(NSString*)string2
 {
 	NSUInteger divergence;
 	UniChar divergentChar;
@@ -100,7 +112,7 @@
 	BOOL result = [string1 matchesString:string2 divergingAfter:&prefix atIndex:&divergence divergentChar:&divergentChar expectedChar:&expectedChar];
 	if (!result)
 	{
-		ECTestFail(@"strings diverge at character %d ('%lc' instead of '%lc')\n\nwe expected:\n%@\n\nwe got:\n%@\n\nthe bit that matched:\n%@\n\nthe bit that didn't:\n%@", (int)divergence, divergentChar, expectedChar, string2, string1, prefix, [string1 substringFromIndex:divergence]);
+		NSLog(@"strings diverge at character %d ('%lc' instead of '%lc')\n\nwe expected:\n%@\n\nwe got:\n%@\n\nthe bit that matched:\n%@\n\nthe bit that didn't:\n%@", (int)divergence, divergentChar, expectedChar, string2, string1, prefix, [string1 substringFromIndex:divergence]);
 	}
 
 	return result;
@@ -121,12 +133,19 @@
 
 - (BOOL)assertLinesOfString:(NSString*)string1 matchesString:(NSString*)string2
 {
+	BOOL ok = [self checkLinesOfString:string1 matchesString:string2];
+	ECTestAssertTrue(ok);
+	return ok;
+}
+
+- (BOOL)checkLinesOfString:(NSString*)string1 matchesString:(NSString*)string2
+{
 	NSString *after, *diverged, *expected;
 	NSUInteger line;
 	BOOL result = [string1 matchesString:string2 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
 	if (!result)
 	{
-		ECTestFail(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", (long)line, after, expected, diverged, string1);
+		NSLog(@"strings diverge around line %ld:\n%@\n\nwe expected:'%@'\n\nwe got:'%@'\n\nfull string was:\n%@", (long)line, after, expected, diverged, string1);
 	}
 
 	return result;
@@ -210,13 +229,20 @@
 
 - (BOOL)assertLinesIgnoringWhitespaceOfString:(NSString*)string1 matchesString:(NSString*)string2
 {
+	BOOL ok = [self checkLinesIgnoringWhitespaceOfString:string1 matchesString:string2];
+	ECTestAssertTrue(ok);
+	return ok;
+}
+
+- (BOOL)checkLinesIgnoringWhitespaceOfString:(NSString*)string1 matchesString:(NSString*)string2
+{
 	NSString* diverged;
 	NSString* expected;
 	NSUInteger line1, line2;
 	BOOL result = [string1 matchesString:string2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
 	if (!result)
 	{
-		ECTestFail(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\n", (long)line1, (long)line2, expected, diverged);
+		NSLog(@"strings diverge at lines %ld/%ld:\nwe expected:'%@'\n\nwe got:'%@'\n\n", (long)line1, (long)line2, expected, diverged);
 		if ([string1 length] < 1000)
 			NSLog(@"full string was %@", string1);
 	}
@@ -226,6 +252,13 @@
 
 - (BOOL)assertString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECTestComparisonMode)mode
 {
+	BOOL ok = [self checkString:string1 matchesString:string2 mode:mode];
+	ECTestAssertTrue(ok);
+	return ok;
+}
+
+- (BOOL)checkString:(NSString*)string1 matchesString:(NSString*)string2 mode:(ECTestComparisonMode)mode
+{
 	BOOL result = YES;
 	ECTestAssertNotNil(string1);
 	ECTestAssertNotNil(string2);
@@ -234,16 +267,16 @@
 		switch (mode)
 		{
 			case ECTestComparisonShowChars:
-				result = [self assertCharactersOfString:string1 matchesString:string2];
+				result = [self checkCharactersOfString:string1 matchesString:string2];
 				break;
 
 			case ECTestComparisonShowLines:
-				result = [self assertLinesOfString:string1 matchesString:string2];
+				result = [self checkLinesOfString:string1 matchesString:string2];
 				break;
 
 			case ECTestComparisonShowLinesIgnoreWhitespace:
 			default:
-				result = [self assertLinesIgnoringWhitespaceOfString:string1 matchesString:string2];
+				result = [self checkLinesIgnoringWhitespaceOfString:string1 matchesString:string2];
 				break;
 		}
 	}
@@ -281,6 +314,13 @@
 
 - (BOOL)assertString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECTestComparisonMode)mode
 {
+	BOOL ok = [self checkString:string matchesContentsOfURL:url mode:mode];
+	ECTestAssertTrue(ok);
+	return ok;
+}
+
+- (BOOL)checkString:(NSString*)string matchesContentsOfURL:(NSURL*)url mode:(ECTestComparisonMode)mode
+{
 	BOOL result = YES;
 	NSError* error;
 	NSString* expected = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
@@ -294,11 +334,14 @@
 				NSString* name = [url lastPathComponent];
 				NSURL* temp = [self URLForTemporaryFileNamed:[@"Actual-" stringByAppendingString:name]];
 				BOOL writtenTemp = [string writeToURL:temp atomically:YES encoding:NSUTF8StringEncoding error:&error];
-				ECTestAssertTrueFormat(writtenTemp, @"failed to write temporary text file %@", error);
 				if (writtenTemp)
 				{
 					[self diffURL:temp againstURL:url];
-					ECTestFail(@"String failed to match contents of %@", name);
+					NSLog(@"String failed to match contents of %@", name);
+				}
+				else
+				{
+					NSLog(@"failed to write temporary text file %@", error);
 				}
 				result = NO;
 			}
