@@ -32,6 +32,12 @@ def checkout_and_update(ref):
 def submodule():
     return subprocess.check_output(["git", "submodule"])
 
+def branches():
+    output = subprocess.check_output(["git", "branch", "-a"])
+    lines = output.split("\n")
+    branches = map(str.strip, lines)
+    return branches
+    
 def merge(ref, options = None):
     cmd = ["git", "merge"]
     if options:
