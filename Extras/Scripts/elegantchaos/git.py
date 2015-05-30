@@ -66,3 +66,9 @@ def branches():
 
 def delete_branch(branch):
     return shell.call_output_and_result(["git", "branch", "-d", branch])
+
+def pull(fastForwardOnly = False):
+    cmd = ["git", "pull"]
+    if fastForwardOnly:
+        cmd += ["--ff-only"]
+    return shell.call_output_and_result(cmd)

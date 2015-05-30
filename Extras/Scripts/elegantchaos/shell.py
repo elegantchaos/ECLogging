@@ -37,6 +37,9 @@ def write_text(path, text):
 
 def view_file(path):
     subprocess.call(["open", path])
+
+def view_url(path):
+    subprocess.call(["open", path])
     
 def got_tool(tool):
     try:
