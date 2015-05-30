@@ -61,3 +61,8 @@ def script_base():
 def script_relative(path):
     return os.path.join(script_base(), path)
 
+def call_output_and_result(cmd):
+    try:
+        return (0, subprocess.check_output(cmd))
+    except subprocess.CalledProcessError as e:
+        return (e.returncode, e.output)

@@ -20,7 +20,10 @@ def exit_if_changes():
     	shell.exit_with_message("You have changes. Commit them first.", errors.ERROR_GIT_CHANGES_PENDING)
 
 def checkout(ref):
-    return subprocess.check_output(["git", "checkout", ref])
+    return shell.call_output_and_result(["git", "checkout", ref])
+    
+def checkout_detached():
+    return shell.call_output_and_result(["git", "checkout", "--detach"])
     
 def submodule_update():
     return subprocess.check_output(["git", "submodule", "update"])
@@ -32,12 +35,7 @@ def checkout_and_update(ref):
 def submodule():
     return subprocess.check_output(["git", "submodule"])
 
-def branches():
-    output = subprocess.check_output(["git", "branch", "-a"])
-    lines = output.split("\n")
-    branches = map(str.strip, lines)
-    return branches
-    
+        
 def merge(ref, options = None):
     cmd = ["git", "merge"]
     if options:
@@ -53,3 +51,18 @@ def submodules():
         result[name] = ref
     
     return result
+
+def make_branch(name, ref = None):
+    cmd = ["git", "checkout", "-b", name]
+    if ref:
+        cmd = cmd + [ref]
+    return shell.call_output_and_result(cmd)
+        
+def branches():
+    output = subprocess.check_output(["git", "branch", "-a"])
+    lines = output.split("\n")
+    branches = map(str.strip, lines)
+    return branches
+
+def delete_branch(branch):
+    return shell.call_output_and_result(["git", "branch", "-d", branch])
