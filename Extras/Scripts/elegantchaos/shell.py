@@ -44,3 +44,20 @@ def got_tool(tool):
         return True
     except subprocess.CalledProcessError:
         return False
+
+def html_link_attributes(text, attributes):
+       return "<a " + " ".join(attributes) + ">" + text + "</a>"
+
+def html_link(text, url):
+       attributes = [ "href=\"" + url + "\""]
+       return html_link_attributes(text, attributes) 
+       
+def script_name():
+    return os.path.basename(sys.argv[0])
+
+def script_base():
+    return os.path.dirname(sys.argv[0])
+
+def script_relative(path):
+    return os.path.join(script_base(), path)
+
