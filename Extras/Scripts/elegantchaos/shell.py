@@ -66,6 +66,6 @@ def script_relative(path):
 
 def call_output_and_result(cmd):
     try:
-        return (0, subprocess.check_output(cmd))
+        return (0, subprocess.check_output(cmd, stderr = subprocess.STDOUT))
     except subprocess.CalledProcessError as e:
         return (e.returncode, e.output)

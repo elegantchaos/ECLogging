@@ -12,12 +12,12 @@ def find_key(fn, out):
     return match and match.group(1)
 
 
-def set_internet_password(user, password, api):
+def set_internet_password(user, password, server):
     cmd = [
         'security',
         'add-internet-password',
         '-a', user,
-        '-s', api,
+        '-s', server,
         '-w', password,
         '-U'
     ]
@@ -27,12 +27,12 @@ def set_internet_password(user, password, api):
     except:
         print "set password failed"
 
-def get_internet_password(api):
+def get_internet_password(server):
     cmd = [
        'security',
        'find-internet-password',
        '-g',
-       '-s', api
+       '-s', server
     ]
     try:
         out = check_output(cmd, stderr=STDOUT)
@@ -43,3 +43,4 @@ def get_internet_password(api):
         result = None
 
     return result
+   
