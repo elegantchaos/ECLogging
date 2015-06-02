@@ -111,20 +111,38 @@ commonbuildxctool()
 
     if [[ $result != 0 ]]
     then
-        echo "Build Failed"
-        #cat "$testout"
+        echo "Build Failed:"
         cat "$testerr" >&2
         tail "$testout"
         echo
-        echo "** BUILD FAILURES **"
-        echo "xxctool returned $result"
-
-        echo "Build failed for scheme $1"
-        urlencode "${JOB_URL}ws/test-build/logs/$1-$3"
-        echo "Full log: $encoded"
+        echo $'\n** BUILD FAILURES **\n'
+        echo "Build failed for scheme $SCHEME (xctool returned $result)"
+        LOG_PATH="test-build/logs/$PLATFORM-$SCHEME"
+        if [[ "$JOB_URL" != "" ]]
+        then
+            LOG_URL="${JOB_URL}/${LOG_PATH}"
+            urlencode "${LOG_URL}"
+        else
+            LOG_URL="$LOG_PATH"
+        fi
+        echo "Full log: $LOG_URL"
 
         exit $result
     fi
+
+    # grep the build output for warnings that didn't cause it to fail
+    # these are likely to be analyser warnings
+    buildWarnings=`grep --only-matching -E "\w+.m:\d+:\d+: warning:.*" "$testout"`
+    if [[ $buildWarnings != "" ]]
+    then
+        echo "** ANALYSER WARNINGS **"
+        echo "Found analyser warnings in log:"
+        echo "$buildWarnings"
+        echo
+        echo "Analyser failed for scheme $SCHEME"
+        exit 1
+    fi
+
 }
 
 commonbuildxcbuild()
@@ -136,7 +154,6 @@ commonbuildxcbuild()
     shift
 
     setup "xcworkspace" "$SCHEME" "$PLATFORM" "$@"
-
 
     # build it
     xcodebuild -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" "$@" OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" SHARED_PRECOMPS_DIR="$precomp" >> "$testout" 2>> "$testerr"
@@ -170,6 +187,18 @@ commonbuildxcbuild()
         exit $result
     fi
 
+    # grep the build output for warnings that didn't cause it to fail
+    # these are likely to be analyser warnings
+    buildWarnings=`grep --only-matching -E "\w+.m:\d+:\d+: warning:.*" "$testout"`
+    if [[ $buildWarnings != "" ]]
+    then
+        echo "** ANALYSER WARNINGS **"
+        echo "Found analyser warnings in log"
+        echo "$buildWarnings"
+        echo
+        echo "Analyser failed for scheme $SCHEME"
+        exit 1
+    fi
 
     testfailures=`grep failed "$testout"`
     if [[ $testfailures != "" ]] && [[ $testfailures != "error: failed to launch"* ]]; then
