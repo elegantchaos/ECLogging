@@ -6,7 +6,7 @@
 
 #import <ECLogging/ECLogging.h>
 
-#import "ECLogManagerIOS.h"
+#import "ECLogManagerIOSUISupport.h"
 #import "ECErrorPresenterHandler.h"
 #import "ECDebugChannelsViewController.h"
 #import "ECDebugChannelViewController.h"
