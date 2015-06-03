@@ -16,7 +16,6 @@ def hipchat_request(command, token, data, parameters = None):
     url = "https://api.hipchat.com/v2/" + command + "?auth_token=" + token
     if parameters:
         url += "&" + parameters
-    print url
     request = urllib2.Request(url, data)
     return request
 
