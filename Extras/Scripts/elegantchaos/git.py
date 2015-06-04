@@ -7,6 +7,7 @@ import re
 import errors
 
 RE_ENTRIES = re.compile("^.(\w+) (.*) .*$", re.MULTILINE)
+RE_BRANCH = re.compile("^[\* ] (.*)$", re.MULTILINE)
 
 def status():
     status = subprocess.check_output(["git", "status", "--porcelain"])
@@ -58,10 +59,15 @@ def make_branch(name, ref = None):
         cmd = cmd + [ref]
     return shell.call_output_and_result(cmd)
         
-def branches():
-    output = subprocess.check_output(["git", "branch", "-a"])
-    lines = output.split("\n")
-    branches = map(str.strip, lines)
+def branches(type="all"):
+    cmd = ["git", "branch"]
+    if type == "all":
+        cmd += [ "-a" ]
+    elif type == "remote":
+        cmd += [ "-r" ]
+        
+    output = subprocess.check_output(cmd)
+    branches = RE_BRANCH.findall(output)
     return branches
 
 def delete_branch(branch):
@@ -72,3 +78,10 @@ def pull(fastForwardOnly = False):
     if fastForwardOnly:
         cmd += ["--ff-only"]
     return shell.call_output_and_result(cmd)
+    
+def commit_for_ref(ref):
+    (result, output) = shell.call_output_and_result(["git", "log", "-1", "--oneline", ref])
+    if result == 0:
+        words = output.split(" ")
+        if len(words) > 0:
+            return words[0]
