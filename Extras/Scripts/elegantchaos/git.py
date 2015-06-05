@@ -28,11 +28,14 @@ def checkout_detached():
     return shell.call_output_and_result(["git", "checkout", "--detach"])
 
 def checkout_recursive_helper(module, expectedCommit, checkoutRef):
-    checkoutCommit = commit_for_ref(checkoutRef)
-    if checkoutCommit != expectedCommit:
-        print "Branch {0} for submodule {1} wasn't at the commit that the parent repo expected: {2} instead of {3}.".format(checkoutRef, module, checkoutCommit, expectedCommit)
-    else:
-        checkout(checkoutRef)
+    checkoutCommit = commit_for_ref("origin/" + checkoutRef)
+    if checkoutCommit:
+        if checkoutCommit != expectedCommit:
+            print "Branch {0} for submodule {1} wasn't at the commit that the parent repo expected: {2} instead of {3}.".format(checkoutRef, module, checkoutCommit, expectedCommit)
+        else:
+            checkout(checkoutRef)
+            merge(fastForwardOnly = True)
+            
     
 def checkout_recursive(ref):
     checkout(ref)
@@ -88,6 +91,12 @@ def delete_branch(branch):
 
 def pull(fastForwardOnly = False):
     cmd = ["git", "pull"]
+    if fastForwardOnly:
+        cmd += ["--ff-only"]
+    return shell.call_output_and_result(cmd)
+
+def merge(fastForwardOnly = False):
+    cmd = ["git", "merge"]
     if fastForwardOnly:
         cmd += ["--ff-only"]
     return shell.call_output_and_result(cmd)
