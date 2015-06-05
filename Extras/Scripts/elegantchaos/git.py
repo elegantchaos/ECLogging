@@ -107,3 +107,22 @@ def enumerate_submodules(cmd, args = None):
         cmd(module, modules[module], args)
     
     os.chdir(basePath)	
+
+
+def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "feature"):
+    if remote:
+    	branchType = "remotes/origin/" + branchType
+    	gitType = "remote"
+    else:
+    	gitType = "local"
+        	
+    gitBranches = branches(gitType)
+    
+    branch = branchType + "/" + issueNumber
+    niceBranchStart = branch + "-"
+    for possibleBranch in gitBranches:
+        if possibleBranch.startswith(niceBranchStart):
+        	branch = possibleBranch
+        	break
+            
+    return branch
