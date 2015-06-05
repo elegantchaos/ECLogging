@@ -93,7 +93,7 @@ def pull(fastForwardOnly = False):
     return shell.call_output_and_result(cmd)
     
 def commit_for_ref(ref):
-    (result, output) = shell.call_output_and_result(["git", "log", "-1", "--oneline", ref])
+    (result, output) = shell.call_output_and_result(["git", "log", "-1", "--oneline", "--no-abbrev-commit", ref])
     if result == 0:
         words = output.split(" ")
         if len(words) > 0:
