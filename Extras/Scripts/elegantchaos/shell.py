@@ -41,7 +41,7 @@ def option_name_from_getopt_name(optname):
 def exit_if_too_few_arguments(args, count, usage):
         argc = len(args)
         if (argc < count):
-            name = os.path.basename(argv[0])
+            name = os.path.basename(sys.argv[0])
             message = "Error: too few arguments were supplied.\n\nUsage {0} {1}.".format(name, usage)
             message = message.format(name) # usage can contain {0} itself
             exit_with_message(message, errors.ERROR_WRONG_ARGUMENTS)
