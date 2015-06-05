@@ -5,6 +5,7 @@ import subprocess
 import shell
 import re
 import errors
+import os
 
 RE_ENTRIES = re.compile("^.(\w+) (.*) .*$", re.MULTILINE)
 RE_BRANCH = re.compile("^[\* ] (.*)$", re.MULTILINE)
@@ -85,3 +86,13 @@ def commit_for_ref(ref):
         words = output.split(" ")
         if len(words) > 0:
             return words[0]
+            
+def cleanup_local_branch(branch, forced = False):
+	if not ((branch == "develop") or (branch == "HEAD") or ("(detached from" in branch)):
+		localCommit = commit_for_ref(branch)
+		remoteCommit = commit_for_ref("remotes/origin/" + branch)
+		possibleIssueNumber = os.path.basename(branch)
+		deletedCommit = commit_for_ref("issues/closed/" + possibleIssueNumber)
+		if (localCommit == remoteCommit) or (localCommit == deletedCommit) or forced:
+			(result, output) = delete_branch(branch)
+			print output
