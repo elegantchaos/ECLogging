@@ -22,7 +22,8 @@ def check_arguments(count, usage, options = {}):
     try:
         optkeys = []
         for key in options.keys():
-            if options[key]:
+            defaultValue = options[key] 
+            if  (defaultValue != None) and (defaultValue != True) and (defaultValue != False):
                 key += "="
             optkeys += [key]
         
@@ -38,6 +39,10 @@ def check_arguments(count, usage, options = {}):
             
             if optvalue:
             	PROCESSED_OPTIONS[cleanName]=optvalue
+            else:
+                defaultValue = options[cleanName]
+                if (defaultValue == True) or (defaultValue == False):
+                    PROCESSED_OPTIONS[cleanName]=True 
 
         PROCESSED_ARGUMENTS += args
         argc = len(args)
