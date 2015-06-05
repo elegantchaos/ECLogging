@@ -5,19 +5,58 @@ import os
 import subprocess
 import sys
 import errors
+import getopt
+
+PROCESSED_ARGUMENTS = []
+PROCESSED_OPTIONS = {}
 
 def exit_with_message(message, error):
     print(message)
     exit(error)
     
-def check_arguments(count, usage):
-    argc = len(sys.argv)
-    if (argc <= count):
-        name = os.path.basename(sys.argv[0])
-        message = "Usage {0} {1}.".format(name, usage)
-        message = message.format(name) # usage can contain {0} itself
-        exit_with_message(message, errors.ERROR_WRONG_ARGUMENTS)
+def check_arguments(count, usage, options = {}):
+    global PROCESSED_OPTIONS
+    global PROCESSED_ARGUMENTS
+       
+    argv = sys.argv
+    try:
+        optkeys = []
+        for key in options.keys():
+            if options[key]:
+                key += "="
+            optkeys += [key]
+        
+        PROCESSED_OPTIONS = options
+        (optlist, args) = getopt.gnu_getopt(argv[1:], "", optkeys)
+        for optname, optvalue in optlist:
+            if optname[:2] == "--":
+                cleanName = optname[2:]
+            elif optname[0] == "-":
+                cleanName = optname[1:]
+            else:
+                cleanName = optname
+            
+            if optvalue:
+            	PROCESSED_OPTIONS[cleanName]=optvalue
 
+        PROCESSED_ARGUMENTS += args
+        argc = len(args)
+        if (argc < count):
+            name = os.path.basename(argv[0])
+            message = "Error: too few arguments were supplied.\n\nUsage {0} {1}.".format(name, usage)
+            message = message.format(name) # usage can contain {0} itself
+            exit_with_message(message, errors.ERROR_WRONG_ARGUMENTS)
+    
+    except getopt.GetoptError as e:
+        print "Error: {0}".format(e)
+        exit(errors.ERROR_UNKNOWN_OPTION)
+    
+def get_argument(index):
+    return PROCESSED_ARGUMENTS[index - 1]
+
+def get_option(key):
+    return PROCESSED_OPTIONS.get(key)
+    
 def expand_directory(path):
     path = os.path.expanduser(path)
     if not os.path.exists(path):
