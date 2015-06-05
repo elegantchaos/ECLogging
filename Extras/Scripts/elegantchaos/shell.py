@@ -14,47 +14,71 @@ def exit_with_message(message, error):
     print(message)
     exit(error)
     
-def check_arguments(count, usage, options = {}):
+def getopt_options_from_options(options):
     global PROCESSED_OPTIONS
-    global PROCESSED_ARGUMENTS
-       
-    argv = sys.argv
-    try:
-        optkeys = []
-        for key in options.keys():
-            defaultValue = options[key] 
-            if  (defaultValue != None) and (defaultValue != True) and (defaultValue != False):
-                key += "="
-            optkeys += [key]
-        
-        PROCESSED_OPTIONS = options
-        (optlist, args) = getopt.gnu_getopt(argv[1:], "", optkeys)
-        for optname, optvalue in optlist:
-            if optname[:2] == "--":
-                cleanName = optname[2:]
-            elif optname[0] == "-":
-                cleanName = optname[1:]
-            else:
-                cleanName = optname
-            
-            if optvalue:
-            	PROCESSED_OPTIONS[cleanName]=optvalue
-            else:
-                defaultValue = options[cleanName]
-                if (defaultValue == True) or (defaultValue == False):
-                    PROCESSED_OPTIONS[cleanName]=True 
+    options["debug-args"] = { "default" : False }
+    optkeys = []
+    for key in options.keys():
+        defaultValue = options[key].get("default")
+        getoptkey = key
+        if  (defaultValue != None) and (defaultValue != True) and (defaultValue != False):
+            getoptkey += "="
+        optkeys += [getoptkey]
+        PROCESSED_OPTIONS[key] = defaultValue
 
-        PROCESSED_ARGUMENTS += args
+    return optkeys
+   
+def option_name_from_getopt_name(optname):
+    if optname[:2] == "--":
+        cleanName = optname[2:]
+    elif optname[0] == "-":
+        cleanName = optname[1:]
+    else:
+        cleanName = optname
+    
+    return cleanName
+
+def exit_if_too_few_arguments(args, count, usage):
         argc = len(args)
         if (argc < count):
             name = os.path.basename(argv[0])
             message = "Error: too few arguments were supplied.\n\nUsage {0} {1}.".format(name, usage)
             message = message.format(name) # usage can contain {0} itself
             exit_with_message(message, errors.ERROR_WRONG_ARGUMENTS)
-    
+
+def process_options(options):
+    global PROCESSED_OPTIONS
+    argv = sys.argv
+    try:
+        optkeys = getopt_options_from_options(options)
+        
+        (optlist, args) = getopt.gnu_getopt(argv[1:], "", optkeys)
+        for optname, optvalue in optlist:
+            cleanName = option_name_from_getopt_name(optname)
+            
+            if optvalue:
+            	PROCESSED_OPTIONS[cleanName]=optvalue
+            else:
+                defaultValue = options[cleanName].get("default")
+                if (defaultValue == True) or (defaultValue == False):
+                    PROCESSED_OPTIONS[cleanName]=True 
+
+        return args
+        
     except getopt.GetoptError as e:
         print "Error: {0}".format(e)
         exit(errors.ERROR_UNKNOWN_OPTION)
+                    
+def check_arguments(count, usage, options = {}):
+    global PROCESSED_ARGUMENTS
+    
+    args = process_options(options)
+    PROCESSED_ARGUMENTS += args
+    exit_if_too_few_arguments(args, count, usage)
+    
+    if PROCESSED_OPTIONS.get("debug-args"):
+        print "Arguments: {0}".format(PROCESSED_ARGUMENTS)
+        print "Options: {0}".format(PROCESSED_OPTIONS)
     
 def get_argument(index):
     return PROCESSED_ARGUMENTS[index - 1]
