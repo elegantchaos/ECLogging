@@ -96,3 +96,14 @@ def cleanup_local_branch(branch, forced = False):
 		if (localCommit == remoteCommit) or (localCommit == deletedCommit) or forced:
 			(result, output) = delete_branch(branch)
 			print output
+
+def enumerate_submodules(cmd, args = None):
+    currentDir = os.getcwd()
+    basePath = os.path.realpath(shell.script_relative("../../.."))
+    modules = submodules()
+    for module in modules.keys():
+    	modulePath = os.path.join(basePath, module)
+    	os.chdir(modulePath)
+        cmd(module, modules[module], args)
+    
+    os.chdir(basePath)	
