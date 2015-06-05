@@ -28,9 +28,11 @@ def checkout_detached():
     return shell.call_output_and_result(["git", "checkout", "--detach"])
 
 def checkout_recursive_helper(module, expectedCommit, checkoutRef):
-    checkout(checkoutRef)
-    if commit_for_ref(checkoutRef) != expectedCommit:
-        print "Branch {0} for submodule {1} wasn't at the commit that the parent repo expected: {2}.".format(checkoutRef, module, expectedCommit)
+    checkoutCommit = commit_for_ref(checkoutRef)
+    if checkoutCommit != expectedCommit:
+        print "Branch {0} for submodule {1} wasn't at the commit that the parent repo expected: {2} instead of {3}.".format(checkoutRef, module, checkoutCommit, expectedCommit)
+    else:
+        checkout(checkoutRef)
     
 def checkout_recursive(ref):
     checkout(ref)
