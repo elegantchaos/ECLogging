@@ -9,11 +9,13 @@
 @class ECLogViewController;
 @class ECLoggingSettingsViewController;
 
+typedef void (^ECLoggingSettingsViewControllerDoneBlock) ();
+
 @interface ECLoggingViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet ECLoggingSettingsViewController* oSettingsController;
 @property (strong, nonatomic) IBOutlet ECLogViewController* oLogController;
 
-- (void)showModallyWithController:(UIViewController*)controller;
+- (void)showInController:(UIViewController*)controller doneBlock:(ECLoggingSettingsViewControllerDoneBlock)doneBlock;
 
 @end

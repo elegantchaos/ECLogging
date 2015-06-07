@@ -9,9 +9,10 @@
 #import "ECLoggingMacros.h"
 #import "ECLogManager.h"
 #import "ECLogViewController.h"
+#import "ECLogManagerIOSUISupport.h"
 
 @interface ECLoggingViewController ()
-
+@property (copy, nonatomic) ECLoggingSettingsViewControllerDoneBlock doneBlock;
 @end
 
 @implementation ECLoggingViewController
@@ -22,11 +23,6 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
-	[super viewDidLoad];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
@@ -34,31 +30,34 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 	[[ECLogManager sharedInstance] saveChannelSettings];
 }
 
-- (void)showModallyWithController:(UIViewController*)controller
+- (void)showInController:(UIViewController*)controller doneBlock:(ECLoggingSettingsViewControllerDoneBlock)doneBlock
 {
-	CGRect frame = self.view.frame;
-	const CGFloat kInset = 10.0;
-	frame.origin.x += kInset;
-	frame.origin.y += kInset;
-	frame.size.width -= kInset * 2.0;
-	frame.size.height -= kInset * 2.0;
-
 	self.edgesForExtendedLayout = UIRectEdgeNone;
-	
-	UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:self];
-	navigation.view.frame = frame;
-	self.title = @"ECLogging";
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneModal)];
+	self.doneBlock = doneBlock;
 
-	[controller presentViewController:navigation animated:YES completion:^{
-
-	}];
+	UINavigationController* nav = [controller navigationController];
+	if (nav)
+	{
+		[nav pushViewController:self animated:YES];
+	}
+	else
+	{
+		UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:self];
+		self.title = @"ECLogging";
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneModal)];
+		
+		[controller presentViewController:navigation animated:YES completion:^{
+			
+		}];
+	}
 }
 
 - (void)doneModal
 {
 	[self dismissViewControllerAnimated:YES completion:^{
-
+		[self removeFromParentViewController];
+		if (self.doneBlock)
+			self.doneBlock();
 	}];
 }
 

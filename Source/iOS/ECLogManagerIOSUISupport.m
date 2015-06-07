@@ -7,6 +7,16 @@
 #import "ECLogManagerIOSUISupport.h"
 #import "ECLoggingViewController.h"
 
+@interface Test : UILongPressGestureRecognizer
+@end
+@implementation Test
+
+- (void)dealloc
+{
+	NSLog(@"deallocing");
+}
+@end
+
 @interface ECLogManagerIOSUISupport ()
 
 @property (strong, nonatomic) ECLoggingViewController* viewController;
@@ -50,16 +60,15 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 
 - (void)logManagerDidStartup:(ECLogManager*)manager
 {
-	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self selector:@selector(installGestureRecognizer) name:UIApplicationDidFinishLaunchingNotification object:nil];
+#if EC_DEBUG
+	[self installGestureRecognizer];
+#endif
 }
 
 - (void)installGestureRecognizer
 {
 	UIWindow* window = [UIApplication sharedApplication].windows[0];
-	//	UISwipeGestureRecognizer* recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showUI)];
-	//	recognizer.numberOfTouchesRequired = 4;
-	UILongPressGestureRecognizer* recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showUI)];
+	UILongPressGestureRecognizer* recognizer = [[Test alloc] initWithTarget:self action:@selector(showUI)];
 	recognizer.numberOfTouchesRequired = 2;
 	[window addGestureRecognizer:recognizer];
 }
@@ -79,22 +88,14 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 		self.viewController = controller;
 	}
 
-	if (!self.viewController.parentViewController)
+	if (!self.uiShowing)
 	{
-
 		UIViewController* root = [self rootViewController];
 		UIViewController* modal = [root presentedViewController];
-		UIViewController* viewToDoPresenting = modal ? modal : root;
-		UINavigationController* nav = [viewToDoPresenting navigationController];
-		if (nav)
-		{
-			[nav pushViewController:self.viewController animated:YES];
-		}
-		else
-		{
-			[self.viewController showModallyWithController:viewToDoPresenting];
-			[self installGestureRecognizer];
-		}
+		[self.viewController showInController:(modal ?: root) doneBlock:^{
+			self.uiShowing = NO;
+		}];
+		self.uiShowing = YES;
 	}
 }
 
