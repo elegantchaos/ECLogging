@@ -4,20 +4,20 @@
 //  liberal license:http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLoggingSettingsViewController.h"
+#import "ECLogSettingsViewController.h"
 #import "ECDebugChannelsViewController.h"
 #import "ECDebugHandlersViewController.h"
 
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
 
-@interface ECLoggingSettingsViewController ()
+@interface ECLogSettingsViewController ()
 
 @property (strong, nonatomic) UIFont* settingsFont;
 
 @end
 
-@implementation ECLoggingSettingsViewController
+@implementation ECLogSettingsViewController
 
 // --------------------------------------------------------------------------
 // Log Channels
@@ -88,7 +88,7 @@ Item kItems[] = {
 - (void)showChannels
 {
 	ECDebugChannelsViewController* controller = [[ECDebugChannelsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	controller.debugViewController = self;
+	controller.settingsViewController = self;
 	[self pushViewController:controller];
 }
 
@@ -99,7 +99,7 @@ Item kItems[] = {
 - (void)showHandlers
 {
 	ECDebugHandlersViewController* controller = [[ECDebugHandlersViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	controller.debugViewController = self;
+	controller.settingsViewController = self;
 	[self pushViewController:controller];
 }
 

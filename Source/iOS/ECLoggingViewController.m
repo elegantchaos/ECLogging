@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECLoggingViewController.h"
-#import "ECLoggingSettingsViewController.h"
+#import "ECLogSettingsViewController.h"
 #import "ECLoggingMacros.h"
 #import "ECLogManager.h"
 #import "ECLogTranscriptViewController.h"

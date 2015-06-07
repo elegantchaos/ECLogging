@@ -7,7 +7,7 @@
 #import "ECDebugHandlersViewController.h"
 
 #import "ECDebugChannelViewController.h"
-#import "ECLoggingSettingsViewController.h"
+#import "ECLogSettingsViewController.h"
 
 #import "ECLogHandler.h"
 #import "ECLogManager.h"
