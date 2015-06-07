@@ -31,9 +31,6 @@
                 <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9" userLabel="Output">
                     <rect key="frame" x="0.0" y="186" width="768" height="744"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="300" id="UNC-0A-lbK"/>
-                    </constraints>
                     <connections>
                         <outlet property="dataSource" destination="14" id="15"/>
                         <outlet property="delegate" destination="14" id="16"/>
