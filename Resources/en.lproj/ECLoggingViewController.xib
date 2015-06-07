@@ -51,13 +51,13 @@
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
         </view>
-        <tableViewController id="14" userLabel="Log Controller" customClass="ECLogViewController">
+        <tableViewController modalPresentationStyle="currentContext" id="14" userLabel="Log Controller" customClass="ECLogViewController">
             <extendedEdge key="edgesForExtendedLayout"/>
             <connections>
                 <outlet property="view" destination="9" id="18"/>
             </connections>
         </tableViewController>
-        <tableViewController id="19" userLabel="Settings Controller" customClass="ECLoggingSettingsViewController">
+        <tableViewController modalPresentationStyle="currentContext" id="19" userLabel="Settings Controller" customClass="ECLoggingSettingsViewController">
             <extendedEdge key="edgesForExtendedLayout"/>
             <connections>
                 <outlet property="view" destination="20" id="23"/>

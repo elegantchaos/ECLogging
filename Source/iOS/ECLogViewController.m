@@ -8,6 +8,7 @@
 #import "ECLogViewHandler.h"
 #import "ECLogViewHandlerItem.h"
 #import "ECLogChannel.h"
+#import "ECLogManager.h"
 
 @interface ECLogViewController ()
 
@@ -16,6 +17,8 @@
 @property (strong, nonatomic) UIFont* contextFont;
 
 @end
+
+const CGFloat ECLogViewControllerCellPadding = 16.0;
 
 @implementation ECLogViewController
 
@@ -47,17 +50,33 @@
 {
 	[super viewDidLoad];
 
-	self.messageFont = [UIFont systemFontOfSize:14];
-	self.contextFont = [UIFont systemFontOfSize:10];
+	self.messageFont = [UIFont systemFontOfSize:12];
+	self.contextFont = [UIFont systemFontOfSize:9];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logItemsUpdated:) name:LogItemsUpdated object:nil];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	// find the log view handler and extract our initial items list from it
+	ECLogManager* logManager = [ECLogManager sharedInstance];
+	for (ECLogViewHandler* handler in logManager.handlers)
+	{
+		if ([handler isKindOfClass:[ECLogViewHandler class]])
+		{
+			self.items = handler.items;
+		}
+	}
+	
+	[super viewWillAppear:animated];
 }
 
 #pragma mark - Table view data source
 
 - (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return @"Log";
+	return @"Transcript";
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
@@ -73,19 +92,18 @@
 	if (cell == nil)
 	{
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+		cell.textLabel.font = self.messageFont;
+		cell.textLabel.numberOfLines = 0;
+		cell.detailTextLabel.font = self.contextFont;
+		cell.detailTextLabel.numberOfLines = 0;
+		cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
+		cell.detailTextLabel.textColor = [UIColor darkGrayColor];
 	}
 
 	// Configure the cell...
 	ECLogViewHandlerItem* item = [self.items objectAtIndex:indexPath.row];
-
 	cell.textLabel.text = item.message;
-	cell.textLabel.font = self.messageFont;
-	cell.textLabel.numberOfLines = 0;
-
 	cell.detailTextLabel.text = item.context;
-	cell.detailTextLabel.font = self.contextFont;
-	cell.detailTextLabel.numberOfLines = 0;
-	//    cell.detailTextLabel.textAlignment = UITextAlignmentRight;
 
 	return cell;
 }
@@ -93,18 +111,12 @@
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
 	ECLogViewHandlerItem* item = [self.items objectAtIndex:indexPath.row];
-
-#ifdef __IPHONE_6_0
 	NSLineBreakMode mode = NSLineBreakByWordWrapping;
-#else
-	UILineBreakMode mode = UILineBreakModeWordWrap;
-#endif
-
 	CGSize constraint = CGSizeMake(tableView.frame.size.width, 10000.0);
 	CGSize messageSize = [item.message sizeWithFont:self.messageFont constrainedToSize:constraint lineBreakMode:mode];
 	CGSize contextSize = [item.context sizeWithFont:self.contextFont constrainedToSize:constraint lineBreakMode:mode];
 
-	return messageSize.height + contextSize.height;
+	return messageSize.height + contextSize.height + ECLogViewControllerCellPadding;
 }
 
 

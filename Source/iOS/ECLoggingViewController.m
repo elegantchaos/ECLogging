@@ -61,11 +61,4 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 	}];
 }
 
-- (void)viewWillLayoutSubviews
-{
-	CGRect logFrame = self.oLogController.view.frame;
-	logFrame.size.height = self.view.frame.size.height - logFrame.origin.y;
-	self.oLogController.view.frame = logFrame;
-}
-
 @end
