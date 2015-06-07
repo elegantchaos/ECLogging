@@ -43,6 +43,8 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 	frame.size.width -= kInset * 2.0;
 	frame.size.height -= kInset * 2.0;
 
+	self.edgesForExtendedLayout = UIRectEdgeNone;
+	
 	UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:self];
 	navigation.view.frame = frame;
 	self.title = @"ECLogging";
