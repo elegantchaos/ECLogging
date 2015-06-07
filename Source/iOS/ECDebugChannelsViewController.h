@@ -4,11 +4,11 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-@class ECLoggingSettingsViewController;
+@class ECLogSettingsViewController;
 
 @interface ECDebugChannelsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSArray* channels;
-@property (strong, nonatomic) ECLoggingSettingsViewController* debugViewController;
+@property (strong, nonatomic) ECLogSettingsViewController* settingsViewController;
 
 @end

@@ -7,7 +7,7 @@
 #import "ECDebugChannelsViewController.h"
 
 #import "ECDebugChannelViewController.h"
-#import "ECLoggingSettingsViewController.h"
+#import "ECLogSettingsViewController.h"
 
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
@@ -130,7 +130,7 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 	ECDebugChannelViewController* controller = [[ECDebugChannelViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	controller.title = channel.name;
 	controller.channel = channel;
-	[self.debugViewController pushViewController:controller];
+	[self.settingsViewController pushViewController:controller];
 }
 
 @end
