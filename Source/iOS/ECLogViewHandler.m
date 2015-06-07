@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------
 
 #import "ECLogViewHandler.h"
-#import "ECLogViewController.h"
 #import "ECLogViewHandlerItem.h"
 #import "ECLogManager.h"
 #import "ECLogChannel.h"

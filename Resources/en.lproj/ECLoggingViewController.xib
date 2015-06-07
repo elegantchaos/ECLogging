@@ -7,8 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECLoggingViewController">
             <connections>
-                <outlet property="oLogController" destination="14" id="27"/>
                 <outlet property="oSettingsController" destination="19" id="26"/>
+                <outlet property="oTranscriptController" destination="14" id="E1f-ha-KAG"/>
                 <outlet property="view" destination="2" id="3"/>
             </connections>
         </placeholder>
@@ -51,7 +51,7 @@
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
         </view>
-        <tableViewController modalPresentationStyle="currentContext" id="14" userLabel="Log Controller" customClass="ECLogViewController">
+        <tableViewController modalPresentationStyle="currentContext" id="14" userLabel="Transcript Controller" customClass="ECLogTranscriptViewController">
             <extendedEdge key="edgesForExtendedLayout"/>
             <connections>
                 <outlet property="view" destination="9" id="18"/>

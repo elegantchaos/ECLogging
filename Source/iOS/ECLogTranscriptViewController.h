@@ -8,6 +8,6 @@
 
 @class ECLogViewHandler;
 
-@interface ECLogViewController : UITableViewController
+@interface ECLogTranscriptViewController : UITableViewController
 
 @end
