@@ -11,7 +11,7 @@
 
 typedef void (^ECLoggingSettingsViewControllerDoneBlock) ();
 
-@interface ECLoggingViewController : UIViewController
+@interface ECLogViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet ECLogSettingsViewController* oSettingsController;
 @property (strong, nonatomic) IBOutlet ECLogTranscriptViewController* oTranscriptController;

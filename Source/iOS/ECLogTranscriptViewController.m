@@ -44,32 +44,24 @@ const CGFloat ECLogViewControllerCellPadding = 16.0;
 	[self.tableView reloadData];
 }
 
+- (void)setupInitialLogItems
+{
+	// find the log view handler and extract our initial items list from it
+	ECLogManager* logManager = [ECLogManager sharedInstance];
+	ECLogViewHandler* handler = logManager.handlers[@"View"];
+	self.items = handler.items;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 
-	self.messageFont = [UIFont systemFontOfSize:12];
+	self.messageFont = [UIFont systemFontOfSize:11];
 	self.contextFont = [UIFont systemFontOfSize:9];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logItemsUpdated:) name:LogItemsUpdated object:nil];
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-	// find the log view handler and extract our initial items list from it
-	ECLogManager* logManager = [ECLogManager sharedInstance];
-	for (ECLogViewHandler* handler in logManager.handlers)
-	{
-		if ([handler isKindOfClass:[ECLogViewHandler class]])
-		{
-			self.items = handler.items;
-		}
-	}
-	
-	[super viewWillAppear:animated];
 }
 
 #pragma mark - Table view data source

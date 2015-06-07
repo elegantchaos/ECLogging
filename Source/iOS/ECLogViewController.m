@@ -4,18 +4,18 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLoggingViewController.h"
+#import "ECLogViewController.h"
 #import "ECLogSettingsViewController.h"
 #import "ECLoggingMacros.h"
 #import "ECLogManager.h"
 #import "ECLogTranscriptViewController.h"
 #import "ECLogManagerIOSUISupport.h"
 
-@interface ECLoggingViewController ()
+@interface ECLogViewController ()
 @property (copy, nonatomic) ECLoggingSettingsViewControllerDoneBlock doneBlock;
 @end
 
-@implementation ECLoggingViewController
+@implementation ECLogViewController
 
 #pragma mark - Channels
 
@@ -23,6 +23,12 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 
 #pragma mark - View lifecycle
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[self.oTranscriptController setupInitialLogItems];
+	[super viewWillAppear:animated];
+	
+}
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
@@ -34,7 +40,6 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 {
 	self.edgesForExtendedLayout = UIRectEdgeNone;
 	self.doneBlock = doneBlock;
-
 	UINavigationController* nav = [controller navigationController];
 	if (nav)
 	{
@@ -55,6 +60,7 @@ ECDefineDebugChannel(ECLoggingViewControllerChannel);
 - (void)doneModal
 {
 	[self dismissViewControllerAnimated:YES completion:^{
+		[[ECLogManager sharedInstance] saveChannelSettings];
 		[self removeFromParentViewController];
 		if (self.doneBlock)
 			self.doneBlock();
