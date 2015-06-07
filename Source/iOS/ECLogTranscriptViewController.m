@@ -4,13 +4,13 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLogViewController.h"
+#import "ECLogTranscriptViewController.h"
 #import "ECLogViewHandler.h"
 #import "ECLogViewHandlerItem.h"
 #import "ECLogChannel.h"
 #import "ECLogManager.h"
 
-@interface ECLogViewController ()
+@interface ECLogTranscriptViewController ()
 
 @property (nonatomic, strong) NSArray* items;
 @property (strong, nonatomic) UIFont* messageFont;
@@ -20,7 +20,7 @@
 
 const CGFloat ECLogViewControllerCellPadding = 16.0;
 
-@implementation ECLogViewController
+@implementation ECLogTranscriptViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

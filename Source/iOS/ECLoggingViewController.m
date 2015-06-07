@@ -8,7 +8,7 @@
 #import "ECLoggingSettingsViewController.h"
 #import "ECLoggingMacros.h"
 #import "ECLogManager.h"
-#import "ECLogViewController.h"
+#import "ECLogTranscriptViewController.h"
 #import "ECLogManagerIOSUISupport.h"
 
 @interface ECLoggingViewController ()
