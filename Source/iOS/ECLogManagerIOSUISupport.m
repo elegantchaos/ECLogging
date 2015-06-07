@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECLogManagerIOSUISupport.h"
-#import "ECLoggingViewController.h"
+#import "ECLogViewController.h"
 
 @interface Test : UILongPressGestureRecognizer
 @end
@@ -19,7 +19,7 @@
 
 @interface ECLogManagerIOSUISupport ()
 
-@property (strong, nonatomic) ECLoggingViewController* viewController;
+@property (strong, nonatomic) ECLogViewController* viewController;
 @property (assign, nonatomic) BOOL uiShowing;
 
 @end
@@ -84,7 +84,7 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 	{
 		NSURL* url = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"bundle"];
 		NSBundle* bundle = [NSBundle bundleWithURL:url];
-		ECLoggingViewController* controller = [[ECLoggingViewController alloc] initWithNibName:@"ECLoggingViewController" bundle:bundle];
+		ECLogViewController* controller = [[ECLogViewController alloc] initWithNibName:@"ECLogViewController" bundle:bundle];
 		self.viewController = controller;
 	}
 

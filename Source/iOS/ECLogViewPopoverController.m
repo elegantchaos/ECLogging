@@ -5,16 +5,16 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECDebugViewPopoverController.h"
+#import "ECLogViewPopoverController.h"
 #import "ECLogSettingsViewController.h"
 
-@interface ECDebugViewPopoverController ()
+@interface ECLogViewPopoverController ()
 
 @property (strong, nonatomic) UINavigationController* navController;
 
 @end
 
-@implementation ECDebugViewPopoverController
+@implementation ECLogViewPopoverController
 
 - (void)loadView
 {

@@ -9,5 +9,5 @@
 @class ECLogViewHandler;
 
 @interface ECLogTranscriptViewController : UITableViewController
-
+- (void)setupInitialLogItems;
 @end
