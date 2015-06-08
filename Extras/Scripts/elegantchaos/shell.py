@@ -72,7 +72,11 @@ def process_options(options):
 def check_arguments(count, usage, options = {}):
     global PROCESSED_ARGUMENTS
 
-    args = process_options(options)
+    if options:
+        args = process_options(options)
+    else:
+        args = sys.argv[1:]
+
     PROCESSED_ARGUMENTS += args
     exit_if_too_few_arguments(args, count, usage)
 
