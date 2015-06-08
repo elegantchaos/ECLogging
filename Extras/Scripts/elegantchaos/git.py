@@ -13,7 +13,7 @@ RE_BRANCH = re.compile("^[\* ] (.*)$", re.MULTILINE)
 def status():
     status = subprocess.check_output(["git", "status", "--porcelain"])
     return status
-    
+
 def got_changes():
     return status() != ""
 
@@ -23,7 +23,7 @@ def exit_if_changes():
 
 def checkout(ref):
     return shell.call_output_and_result(["git", "checkout", ref])
-    
+
 def checkout_detached():
     return shell.call_output_and_result(["git", "checkout", "--detach"])
 
@@ -35,38 +35,40 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
         else:
             checkout(checkoutRef)
             merge(fastForwardOnly = True)
-            
-    
-def checkout_recursive(ref):
+
+
+def checkout_recursive(ref, pullIfSafe = False):
     checkout(ref)
+    if pullIfSafe:
+        pull(fastForwardOnly = True)
     submodule_update()
     enumerate_submodules(checkout_recursive_helper, ref)
-    
+
 def submodule_update():
     return subprocess.check_output(["git", "submodule", "update"])
-    
+
 def checkout_and_update(ref):
     checkout(ref)
     submodule_update()
-    
+
 def submodule():
     return subprocess.check_output(["git", "submodule"])
 
-        
+
 def merge(ref, options = None):
     cmd = ["git", "merge"]
     if options:
         cmd += options
     cmd += [ref]
     return subprocess.check_output(cmd)
-    
+
 def submodules():
     raw = subprocess.check_output(["git", "submodule"])
     entries = RE_ENTRIES.findall(raw)
     result = dict()
     for ref,name in entries:
         result[name] = ref
-    
+
     return result
 
 def make_branch(name, ref = None):
@@ -74,14 +76,14 @@ def make_branch(name, ref = None):
     if ref:
         cmd = cmd + [ref]
     return shell.call_output_and_result(cmd)
-        
+
 def branches(type="all"):
     cmd = ["git", "branch"]
     if type == "all":
         cmd += [ "-a" ]
     elif type == "remote":
         cmd += [ "-r" ]
-        
+
     output = subprocess.check_output(cmd)
     branches = RE_BRANCH.findall(output)
     return branches
@@ -100,14 +102,14 @@ def merge(fastForwardOnly = False):
     if fastForwardOnly:
         cmd += ["--ff-only"]
     return shell.call_output_and_result(cmd)
-    
+
 def commit_for_ref(ref):
     (result, output) = shell.call_output_and_result(["git", "log", "-1", "--oneline", "--no-abbrev-commit", ref])
     if result == 0:
         words = output.split(" ")
         if len(words) > 0:
             return words[0]
-            
+
 def cleanup_local_branch(branch, forced = False):
 	if not ((branch == "develop") or (branch == "HEAD") or ("(detached from" in branch)):
 		localCommit = commit_for_ref(branch)
@@ -126,8 +128,8 @@ def enumerate_submodules(cmd, args = None):
     	modulePath = os.path.join(basePath, module)
     	os.chdir(modulePath)
         cmd(module, modules[module], args)
-    
-    os.chdir(basePath)	
+
+    os.chdir(basePath)
 
 
 def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "feature"):
@@ -137,22 +139,22 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
     	gitType = "remote"
     else:
     	gitType = "local"
-        	
+
     gitBranches = branches(gitType)
-    
+
     # if there's a branch that just has the passed issue number
     # as it's whole name, reutrn it
-    # (this allows things like 'develop' to be passed in, instead of an issue number) 
+    # (this allows things like 'develop' to be passed in, instead of an issue number)
     simpleBranch = remotePrefix + issueNumber
     if simpleBranch in gitBranches:
         return simpleBranch
-    
-    # otherwise try to match a branch with the number and type, eg feature/1234    
+
+    # otherwise try to match a branch with the number and type, eg feature/1234
     branch = remotePrefix + branchType + "/" + issueNumber
     niceBranchStart = branch + "-"
     for possibleBranch in gitBranches:
         if possibleBranch.startswith(niceBranchStart):
         	branch = possibleBranch
         	break
-            
+
     return branch
