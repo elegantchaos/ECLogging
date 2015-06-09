@@ -8,3 +8,4 @@
 
 #include "ECIOSDebug.xcconfig"
 #include "ECUnitTests.xcconfig"
+#include "UnitTestShared.xcconfig"

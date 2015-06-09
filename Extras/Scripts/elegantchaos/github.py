@@ -4,9 +4,16 @@
 import keychain
 
 try:
+    import pip
     import github3
 except:
-    print("You need to install github3 with: pip install --pre github3.py")
+    try:
+        pip.main(["install", "--pre", "github3.py"])
+        import github3
+    except:
+        print("You need to install github3 with: pip install --pre github3.py")
+        print("You may also need to install pip with: sudo easy_install pip")
+        exit(1)
 
 def login_using_keychain():
     (user, password) = keychain.get_internet_password("github.com")

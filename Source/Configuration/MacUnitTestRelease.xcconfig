@@ -8,3 +8,4 @@
 
 #include "ECMacRelease.xcconfig"
 #include "ECUnitTests.xcconfig"
+#include "UnitTestShared.xcconfig"

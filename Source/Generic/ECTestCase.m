@@ -605,6 +605,9 @@
 	return file;
 }
 
+#if !TARGET_OS_IPHONE
+
+
 - (NSURL*)writeOutputImage:(NSBitmapImageRep*)image name:(NSString*)name asReference:(BOOL)asReference {
 	NSURL* desktop = [self URLForOutputAsReference:asReference];
 	NSURL* file = [[desktop URLByAppendingPathComponent:name] URLByAppendingPathExtension:@"png"];
@@ -612,8 +615,6 @@
 	ECTestAssertTrueFormat([data writeToURL:file atomically:YES], @"failed to write data");
 	return file;
 }
-
-#if !TARGET_OS_IPHONE
 
 - (BOOL)imageAsPNG:(NSBitmapImageRep*)image exactlyMatchesReferenceImageAsPNG:(NSBitmapImageRep*)reference
 {
@@ -731,7 +732,7 @@
 				pixelDiff += abs(imageLoc->g - referenceLoc->g) / 255.0;
 				pixelDiff += abs(imageLoc->b - referenceLoc->b) / 255.0;
 				pixelDiff += abs(imageLoc->a - referenceLoc->a) / 255.0;
-				if (pixelDiff)
+				if (pixelDiff != 0)
 				{
 					if (pixelDiff > maxPixelDiff)
 						maxPixelDiff = pixelDiff;

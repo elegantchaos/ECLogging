@@ -23,7 +23,7 @@
 		2204C6B615E15E4000F71E15 /* ECErrorPresenterHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2204C6B715E15E4000F71E15 /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */; };
 		2204C6BC15E160DA00F71E15 /* ECLoggingUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 2204C6BB15E160DA00F71E15 /* ECLoggingUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		220D699D15DC510900CCC17C /* ECLogging.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
+		220D699D15DC510900CCC17C /* ECLogging.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		222186B919DAB5F300F08CCE /* ECDescriptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */; };
 		222186C419DAB5F300F08CCE /* ECOptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 224E84D617AAB98F002EB661 /* ECOptionsMenu.m */; };
 		222186C619DAB5F300F08CCE /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */; };
@@ -378,6 +378,8 @@
 		2230CDAB17636DBA0026AA5E /* ECMacCommandLine.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECMacCommandLine.xcconfig; sourceTree = "<group>"; };
 		2237ECD914F563D200085BF5 /* NSMenu+ECLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMenu+ECLogging.h"; sourceTree = "<group>"; };
 		2237ECDA14F563D200085BF5 /* NSMenu+ECLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMenu+ECLogging.m"; sourceTree = "<group>"; };
+		224ACF311B27271700F620D6 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		224ACF321B2727E300F620D6 /* UnitTestShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = UnitTestShared.xcconfig; sourceTree = "<group>"; };
 		224E84D517AAB98F002EB661 /* ECOptionsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECOptionsMenu.h; sourceTree = "<group>"; };
 		224E84D617AAB98F002EB661 /* ECOptionsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECOptionsMenu.m; sourceTree = "<group>"; };
 		22507DB81B249C8E00C86559 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/ECLogViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -705,6 +707,7 @@
 		2277CE2916D6ABE900835964 /* for ECLogging itself */ = {
 			isa = PBXGroup;
 			children = (
+				224ACF311B27271700F620D6 /* Shared.xcconfig */,
 				2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */,
 				2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */,
 				2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */,
@@ -720,6 +723,7 @@
 				2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */,
 				2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */,
 				2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */,
+				224ACF321B2727E300F620D6 /* UnitTestShared.xcconfig */,
 			);
 			name = "for ECLogging itself";
 			sourceTree = "<group>";
@@ -1325,7 +1329,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Elegant Chaos";
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ECLogging" */;
@@ -1778,6 +1782,8 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
@@ -1813,7 +1819,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2221873B19DAB91B00F08CCE /* MacUIDebug.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -1821,7 +1826,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2221873D19DAB91B00F08CCE /* MacUIRelease.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1829,7 +1833,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2221873C19DAB91B00F08CCE /* MacUIDebugStatic.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -1837,7 +1840,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2221873E19DAB91B00F08CCE /* MacUIReleaseStatic.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1874,7 +1876,6 @@
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
 			name = Debug;
@@ -1884,7 +1885,6 @@
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
 			name = Release;
@@ -1894,10 +1894,8 @@
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ECLoggingMacTestsStatic;
 			};
 			name = Debug;
 		};
@@ -1906,10 +1904,8 @@
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ECLoggingMacTestsStatic;
 			};
 			name = Release;
 		};
@@ -1921,7 +1917,6 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Debug;
 		};
@@ -1933,7 +1928,6 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Release;
 		};

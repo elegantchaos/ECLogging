@@ -5,3 +5,7 @@
 // --------------------------------------------------------------------------
 
 GCC_PREFIX_HEADER = Source/Prefix/ECLoggingUI$(CONFIGURATION).pch
+
+PRODUCT_BUNDLE_IDENTIFIER = com.elegantchaos.frameworks.eclogging.ui
+
+PRODUCT_NAME = $(TARGET_NAME)
