@@ -78,7 +78,7 @@
 	return [linesToReturn componentsJoinedByString:@"\n"];
 }
 
-- (BOOL)matchesString:(NSString*)string divergingAfter:(NSString**)prefix atIndex:(NSUInteger*)index divergentChar:(UniChar*)divergentChar expectedChar:(UniChar*)expectedChar
+- (BOOL)matchesString:(NSString*)string divergingAfter:(NSString* __autoreleasing *)prefix atIndex:(NSUInteger*)index divergentChar:(UniChar*)divergentChar expectedChar:(UniChar*)expectedChar
 {
 	BOOL result = [self isEqualToString:string];
 	if (!result)
@@ -100,7 +100,7 @@
 	return result;
 }
 
-- (BOOL)matchesString:(NSString*)string divergingAtLine:(NSUInteger*)divergingLine after:(NSString**)after diverged:(NSString**)diverged expected:(NSString**)expected
+- (BOOL)matchesString:(NSString*)string divergingAtLine:(NSUInteger*)divergingLine after:(NSString* __autoreleasing *)after diverged:(NSString* __autoreleasing*)diverged expected:(NSString* __autoreleasing*)expected
 {
 	BOOL result = [self isEqualToString:string];
 	if (!result)
@@ -150,12 +150,12 @@
 	return result;
 }
 
-- (BOOL)matchesString:(NSString*)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString**)diverged expected:(NSString**)expected
+- (BOOL)matchesString:(NSString*)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString*__autoreleasing *)diverged expected:(NSString* __autoreleasing *)expected
 {
 	return [self matchesString:string divergingAtLine1:line1 andLine2:line2 diverged:diverged expected:expected window:5];
 }
 
-- (BOOL)matchesString:(NSString*)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString**)diverged expected:(NSString**)expected window:(NSInteger)window
+- (BOOL)matchesString:(NSString*)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString*__autoreleasing*)diverged expected:(NSString*__autoreleasing*)expected window:(NSInteger)window
 {
 	BOOL result = [self isEqualToString:string];
 	if (!result)
