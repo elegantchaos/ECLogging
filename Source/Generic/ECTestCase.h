@@ -302,14 +302,14 @@
 
 - (NSURL*)writeOutputText:(NSString*)data name:(NSString*)name extension:(NSString*)extension asReference:(BOOL)asReference;
 
-/** 
+
+#if !TARGET_OS_IPHONE
+
+/**
  Write an image as an output file.
  */
 
 - (NSURL*)writeOutputImage:(NSBitmapImageRep*)image name:(NSString*)name asReference:(BOOL)asReference;
-
-
-#if !TARGET_OS_IPHONE
 
 /**
  Compare two bitmap images as PNGs and report whether they are equal.
