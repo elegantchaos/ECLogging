@@ -110,6 +110,10 @@ def commit_for_ref(ref):
         if len(words) > 0:
             return words[0]
 
+def top_level():
+    (result, output) = shell.call_output_and_result(["git", "rev-parse", "--show-toplevel"])
+    return output.strip()
+
 def cleanup_local_branch(branch, forced = False):
 	if not ((branch == "develop") or (branch == "HEAD") or ("(detached from" in branch)):
 		localCommit = commit_for_ref(branch)
@@ -122,14 +126,14 @@ def cleanup_local_branch(branch, forced = False):
 
 def enumerate_submodules(cmd, args = None):
     currentDir = os.getcwd()
-    basePath = os.path.realpath(shell.script_relative("../../.."))
+    basePath = top_level()
     modules = submodules()
     for module in modules.keys():
     	modulePath = os.path.join(basePath, module)
     	os.chdir(modulePath)
         cmd(module, modules[module], args)
 
-    os.chdir(basePath)
+    os.chdir(currentDir)
 
 
 def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "feature"):
@@ -158,3 +162,11 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
         	break
 
     return branch
+
+
+def enumerate_test(module, ref, args):
+    print module, ref, args
+
+if __name__ == "__main__":
+    print top_level()
+    enumerate_submodules(enumerate_test, "arguments")
