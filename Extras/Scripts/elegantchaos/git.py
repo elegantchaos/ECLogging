@@ -9,6 +9,8 @@ import os
 
 RE_ENTRIES = re.compile("^.(\w+) (.*) .*$", re.MULTILINE)
 RE_BRANCH = re.compile("^[\* ] (.*)$", re.MULTILINE)
+RE_REMOTE = re.compile("^(.*)\t(.*) (.*)$", re.MULTILINE)
+RE_GITHUB_REMOTE = re.compile("^(.*)\tgit@github.com\:(.*?)\/(.*) (.*)$", re.MULTILINE)
 
 def status():
     status = subprocess.check_output(["git", "status", "--porcelain"])
@@ -114,6 +116,35 @@ def top_level():
     (result, output) = shell.call_output_and_result(["git", "rev-parse", "--show-toplevel"])
     return output.strip()
 
+def remote_url():
+    (result, output) = shell.call_output_and_result(["git", "remote", "-v"])
+    if result == 0:
+        match = RE_REMOTE.search(output)
+        if match:
+            return match.group(2)
+
+def github_info():
+    (result, output) = shell.call_output_and_result(["git", "remote", "-v"])
+    if result == 0:
+        remotes = {}
+        for match in RE_GITHUB_REMOTE.findall(output):
+            remote = match[0]
+            info = remotes.get(remote)
+            if not info:
+                info = {}
+            info["owner"] = match[1]
+            info["name"] =  os.path.splitext(match[2])[0]
+            info[match[3]] = os.path.join(match[1], match[2])
+            remotes[remote] = info
+        return remotes
+
+def main_github_info():
+    info = github_info()
+    result = info.get("origin")
+    if not result:
+        result = info.values()[0]
+    return result
+
 def cleanup_local_branch(branch, forced = False):
 	if not ((branch == "develop") or (branch == "HEAD") or ("(detached from" in branch)):
 		localCommit = commit_for_ref(branch)
@@ -169,4 +200,7 @@ def enumerate_test(module, ref, args):
 
 if __name__ == "__main__":
     print top_level()
-    enumerate_submodules(enumerate_test, "arguments")
+    # enumerate_submodules(enumerate_test, "arguments")
+    print remote_url()
+    print github_info()
+    print main_github_info()
