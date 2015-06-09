@@ -731,7 +731,7 @@
 				pixelDiff += abs(imageLoc->g - referenceLoc->g) / 255.0;
 				pixelDiff += abs(imageLoc->b - referenceLoc->b) / 255.0;
 				pixelDiff += abs(imageLoc->a - referenceLoc->a) / 255.0;
-				if (pixelDiff)
+				if (pixelDiff != 0)
 				{
 					if (pixelDiff > maxPixelDiff)
 						maxPixelDiff = pixelDiff;
