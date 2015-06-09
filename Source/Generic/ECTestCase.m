@@ -370,7 +370,7 @@
 {
 	NSUInteger result;
 
-	if ([item respondsToSelector:@selector(length)])
+	if ([item respondsToSelector:@selector((length))])
 	{
 		result = [(NSString*)item length]; // NB doesn't have to be a string, the cast is just there to stop xcode complaining about multiple method signatures
 	}
