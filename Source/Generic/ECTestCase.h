@@ -106,10 +106,6 @@
 */
 
 @interface ECTestCase : XCTestCase
-{
-@private
-	BOOL _exitRunLoop;
-}
 
 /**
  Perform some more detailed checking of two bits of text.
@@ -262,8 +258,39 @@
 - (NSURL*)exampleBundleURL;
 - (NSString*)exampleBundlePath;
 
+/**
+ Prepare for some code which is going to run asynchronously and will call
+ timeToExitRunLoop and runUntilTimeToExit.
+ 
+ Calling this method signals that we want to use an XCTestExpectation
+ to do the timing.
+ 
+ If we just call runUntilTimeToExit without first calling this, we'll do the
+ synchronisation the old way (with a boolean flag).
+ */
+
+- (void)prepareForRunLoopTest;
+
+/**
+ Pause in this thread until something calls timeToExitRunLoop.
+ */
+
 - (void)runUntilTimeToExit;
+
+/**
+ Pause in this thread until something calls timeToExitRunLoop,
+ or we time out.
+ */
+
+- (void)runUntilTimeToExitOrTimeout:(NSTimeInterval)timeout;
+
+
+/**
+ Indicate that our asynchronous task is finished, and it's now time to return from the runUntilTimeToExit call.
+ */
+
 - (void)timeToExitRunLoop;
+
 
 /**
  Compare two files and output a diff.
