@@ -46,6 +46,9 @@ def checkout_recursive(ref, pullIfSafe = False):
     submodule_update()
     enumerate_submodules(checkout_recursive_helper, ref)
 
+def commit(path, message):
+    return subprocess.check_output(["git", "commit", path, "-m", message])
+    
 def submodule_update():
     return subprocess.check_output(["git", "submodule", "update"])
 
