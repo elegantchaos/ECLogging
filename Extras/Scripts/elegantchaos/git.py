@@ -170,13 +170,13 @@ def enumerate_submodules(cmd, args = None):
 def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "feature"):
     remotePrefix = ""
     if remote:
-        remotePrefix = "remotes/origin/"
+        remotePrefix = "origin/"
     	gitType = "remote"
     else:
     	gitType = "local"
 
     gitBranches = branches(gitType)
-
+    
     # if there's a branch that just has the passed issue number
     # as it's whole name, reutrn it
     # (this allows things like 'develop' to be passed in, instead of an issue number)
