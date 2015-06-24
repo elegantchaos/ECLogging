@@ -56,13 +56,15 @@ def checkout_and_update(ref):
 def submodule():
     return subprocess.check_output(["git", "submodule"])
 
-
-def merge(ref, options = None):
+def merge(ref, options = None, fastForwardOnly = False):
     cmd = ["git", "merge"]
-    if options:
+    if not options:
+        options = []
+    if fastForwardOnly:
+        options += ['--ff-only']
         cmd += options
     cmd += [ref]
-    return subprocess.check_output(cmd)
+    return shell.call_output_and_result(cmd)
 
 def submodules():
     raw = subprocess.check_output(["git", "submodule"])
@@ -95,12 +97,6 @@ def delete_branch(branch):
 
 def pull(fastForwardOnly = False):
     cmd = ["git", "pull"]
-    if fastForwardOnly:
-        cmd += ["--ff-only"]
-    return shell.call_output_and_result(cmd)
-
-def merge(fastForwardOnly = False):
-    cmd = ["git", "merge"]
     if fastForwardOnly:
         cmd += ["--ff-only"]
     return shell.call_output_and_result(cmd)
