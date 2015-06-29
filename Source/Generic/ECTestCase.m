@@ -15,11 +15,8 @@
 
 @interface ECTestCase ()
 
-#if USE_EXPECTATIONS
 @property (strong, nonatomic) XCTestExpectation* defaultExpectation;
-#else
 @property (assign, atomic) BOOL exitRunLoop;
-#endif
 
 @end
 
@@ -50,10 +47,6 @@
 	NSURL* url = [self URLForTemporaryFolder];
 	NSError* error;
 	[fm removeItemAtURL:url error:&error];
-
-#if USE_EXPECTATIONS
-	self.defaultExpectation = [self expectationWithDescription:@"runUntil"];
-#endif
 }
 
 - (NSURL*)URLForTemporaryFolder
@@ -481,35 +474,39 @@
 	return bundle;
 }
 
-// --------------------------------------------------------------------------
-/// Some tests need the run loop to run for a while, for example
-/// to perform an asynchronous network request.
-/// This method runs until something external (such as a
-/// delegate method) sets the exitRunLoop flag.
-// --------------------------------------------------------------------------
+- (void)prepareForRunLoopTest
+{
+	XCTAssertNil(self.defaultExpectation);
+	self.defaultExpectation = [self expectationWithDescription:@"runUntil"];
+}
 
 - (void)runUntilTimeToExit
 {
-#if USE_EXPECTATIONS
-	[self waitForExpectationsWithTimeout:60.0 handler:^(NSError* error) {
-		self.defaultExpectation = [self expectationWithDescription:@"runUntil"];
-	}];
-#else
-	while (!self.exitRunLoop)
+	[self runUntilTimeToExitOrTimeout:60.0];
+}
+
+- (void)runUntilTimeToExitOrTimeout:(NSTimeInterval)timeout
+{
+	if (self.defaultExpectation)
 	{
-		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate date]];
+		// do it the modern way, with expectations
+		[self waitForExpectationsWithTimeout:timeout handler:nil];
+		self.defaultExpectation = nil;
 	}
-	self.exitRunLoop = NO;
-#endif
+	else
+	{
+		while (!self.exitRunLoop)
+		{
+			[[NSRunLoop currentRunLoop] runUntilDate:[NSDate date]];
+		}
+		self.exitRunLoop = NO;
+	}
 }
 
 - (void)timeToExitRunLoop
 {
-#if USE_EXPECTATIONS
 	[self.defaultExpectation fulfill];
-#else
 	self.exitRunLoop = YES;
-#endif
 }
 
 - (void)diffAsPlistObject:(id)object1 againstObject:(id)object2
