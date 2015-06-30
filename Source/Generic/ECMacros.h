@@ -48,3 +48,10 @@
 #define ECCastTo(_class_, _expression_) ((_class_*)(_expression_))
 
 #endif
+
+#ifndef __MAC_10_10_3 // TEMPORARY SUPPORT FOR XC6.2, which doesn't know about some of these
+#define nullable
+#define nonnull
+#define __nonnull
+#define SELECTOR_DOUBLE(x) @selector((x))
+#endif
