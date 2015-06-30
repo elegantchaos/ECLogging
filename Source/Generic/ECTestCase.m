@@ -609,7 +609,8 @@
 	NSURL* desktop = [self URLForOutputAsReference:asReference];
 	NSURL* file = [[desktop URLByAppendingPathComponent:name] URLByAppendingPathExtension:@"png"];
 	NSData* data = [image representationUsingType:NSPNGFileType properties:@{NSImageInterlaced: @YES}];
-	ECTestAssertTrueFormat([data writeToURL:file atomically:YES], @"failed to write data");
+	BOOL written = [data writeToURL:file atomically:YES];
+	ECTestAssertTrueFormat(written, @"failed to write data");
 	return file;
 }
 
