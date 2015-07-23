@@ -47,7 +47,7 @@ def checkout_recursive(ref, pullIfSafe = False):
     enumerate_submodules(checkout_recursive_helper, ref)
 
 def submodule_update():
-    return subprocess.check_output(["git", "submodule", "update"])
+    return shell.call_output_and_result(["git", "submodule", "update"])
 
 def checkout_and_update(ref):
     (result, output) = checkout(ref)    
