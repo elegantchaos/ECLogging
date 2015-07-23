@@ -14,6 +14,10 @@ def exit_with_message(message, error):
     print(message)
     exit(error)
 
+def exit_if_failed_with_message(result, output, message):
+    if result != 0:
+        exit_with_message(message, result)
+
 def getopt_options_from_options(options):
     global PROCESSED_OPTIONS
     options["debug-args"] = { "default" : False }
