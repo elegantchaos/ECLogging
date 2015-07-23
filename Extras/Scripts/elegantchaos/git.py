@@ -50,8 +50,11 @@ def submodule_update():
     return subprocess.check_output(["git", "submodule", "update"])
 
 def checkout_and_update(ref):
-    checkout(ref)
-    submodule_update()
+    (result, output) = checkout(ref)    
+    if result == 0:
+        (result, output) = submodule_update()
+        
+    return (result, output)
 
 def submodule():
     return subprocess.check_output(["git", "submodule"])
