@@ -128,6 +128,11 @@ sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Library/QuickLook"
 
 # Sign bundled tools
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Resources/bin"
+BUNDLED_BINARY_PATHS="${CODESIGNING_FOLDER_PATH}/Contents/Resources/*/bin"
+for BUNDLED_BINARY_PATH in $BUNDLED_BINARY_PATHS 
+do
+  sign_folder "${BUNDLED_BINARY_PATH}"
+done
 
 
 echo ""
