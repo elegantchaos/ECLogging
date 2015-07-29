@@ -86,7 +86,10 @@ def tags():
         tags = output.strip().split('\n')
     
     return tags
- 
+
+def add_tag(tag, ref):
+    return shell.call_output_and_result(['git', 'tag', tag, ref])
+     
 def delete_tag(tag, fromRemote = True):
     (result, output) = shell.call_output_and_result(['git', 'tag', '-d', tag])
     if (result == 0) and fromRemote:
