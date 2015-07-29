@@ -96,7 +96,10 @@ def delete_tag(tag, fromRemote = True):
         (result, output) = shell.call_output_and_result(['git', 'push', 'origin', ':refs/tags/' + tag])
         
     return (result, output)
-       
+ 
+def push_tags():
+    return shell.call_output_and_result(['git', 'push', '--tags'])
+          
 def make_branch(name, ref = None):
     cmd = ["git", "checkout", "-b", name]
     if ref:
