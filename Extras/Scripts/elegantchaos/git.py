@@ -79,6 +79,21 @@ def submodules():
 
     return result
 
+def tags():
+    tags = []
+    (result, output) = shell.call_output_and_result(['git', 'tag'])
+    if result == 0:
+        tags = output.strip().split('\n')
+    
+    return tags
+ 
+def delete_tag(tag, fromRemote = True):
+    (result, output) = shell.call_output_and_result(['git', 'tag', '-d', tag])
+    if (result == 0) and fromRemote:
+        (result, output) = shell.call_output_and_result(['git', 'push', 'origin', ':refs/tags/' + tag])
+        
+    return (result, output)
+       
 def make_branch(name, ref = None):
     cmd = ["git", "checkout", "-b", name]
     if ref:
