@@ -40,20 +40,29 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
 
 
 def checkout_recursive(ref, pullIfSafe = False):
-    checkout(ref)
-    if pullIfSafe:
-        pull(fastForwardOnly = True)
-    submodule_update()
-    enumerate_submodules(checkout_recursive_helper, ref)
+    (result, output) = checkout(ref)
+    if (result == 0) and pullIfSafe:
+        (result, moreOutput) = pull(fastForwardOnly = True)
+        output += moreOutput
+
+    if result == 0:
+        (result, moreOutput) = submodule_update()
+        output += moreOutput
+
+    if result == 0:
+        enumerate_submodules(checkout_recursive_helper, ref)
+
+    return (result, output)
+
 
 def submodule_update():
     return shell.call_output_and_result(["git", "submodule", "update"])
 
 def checkout_and_update(ref):
-    (result, output) = checkout(ref)    
+    (result, output) = checkout(ref)
     if result == 0:
         (result, output) = submodule_update()
-        
+
     return (result, output)
 
 def submodule():
@@ -84,22 +93,22 @@ def tags():
     (result, output) = shell.call_output_and_result(['git', 'tag'])
     if result == 0:
         tags = output.strip().split('\n')
-    
+
     return tags
 
 def add_tag(tag, ref):
     return shell.call_output_and_result(['git', 'tag', tag, ref])
-     
+
 def delete_tag(tag, fromRemote = True):
     (result, output) = shell.call_output_and_result(['git', 'tag', '-d', tag])
     if (result == 0) and fromRemote:
         (result, output) = shell.call_output_and_result(['git', 'push', 'origin', ':refs/tags/' + tag])
-        
+
     return (result, output)
- 
+
 def push_tags():
     return shell.call_output_and_result(['git', 'push', '--tags'])
-          
+
 def make_branch(name, ref = None):
     cmd = ["git", "checkout", "-b", name]
     if ref:
@@ -197,7 +206,7 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
     	gitType = "local"
 
     gitBranches = branches(gitType)
-    
+
     # if there's a branch that just has the passed issue number
     # as it's whole name, reutrn it
     # (this allows things like 'develop' to be passed in, instead of an issue number)
@@ -216,7 +225,7 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
     if remote and stripPrefix:
         if branch.startswith(remotePrefix):
             branch = branch[len(remotePrefix):]
-             
+
     return branch
 
 
