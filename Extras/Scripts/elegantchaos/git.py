@@ -207,20 +207,30 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
 
     gitBranches = branches(gitType)
 
-    # if there's a branch that just has the passed issue number
-    # as it's whole name, reutrn it
-    # (this allows things like 'develop' to be passed in, instead of an issue number)
+    # if there's a branch that just has the passed issue number as its whole name, return it
+    # similarly if there's a release or hotfix
+    # (this allows things like 'develop', '3,4', '3.3.3' to be passed in, instead of an issue number)
     simpleBranch = remotePrefix + issueNumber
-    if simpleBranch in gitBranches:
-        return simpleBranch
+    releaseBranch = remotePrefix + "release" + "/" + issueNumber
+    hotFixBranch = remotePrefix + "hotfix" + "/" + issueNumber
 
-    # otherwise try to match a branch with the number and type, eg feature/1234
-    branch = remotePrefix + branchType + "/" + issueNumber
-    niceBranchStart = branch + "-"
-    for possibleBranch in gitBranches:
-        if possibleBranch.startswith(niceBranchStart):
-        	branch = possibleBranch
-        	break
+    if simpleBranch in gitBranches:
+        branch = simpleBranch
+
+    elif releaseBranch in gitBranches:
+        branch = releaseBranch
+
+    elif hotFixBranch in gitBranches:
+        branch = hotFixBranch
+
+    else:
+        # otherwise try to match a branch with the number and type, eg feature/1234
+        branch = remotePrefix + branchType + "/" + issueNumber
+        niceBranchStart = branch + "-"
+        for possibleBranch in gitBranches:
+            if possibleBranch.startswith(niceBranchStart):
+            	branch = possibleBranch
+            	break
 
     if remote and stripPrefix:
         if branch.startswith(remotePrefix):
