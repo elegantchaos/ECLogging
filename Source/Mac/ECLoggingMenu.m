@@ -366,7 +366,7 @@
 
 - (void)revealLogFiles
 {
-	[[NSWorkspace sharedWorkspace] selectFile:[[self logFolder] path] inFileViewerRootedAtPath:nil];
+	[[NSWorkspace sharedWorkspace] selectFile:[[self logFolder] path] inFileViewerRootedAtPath:@""];
 }
 
 - (void)revealSettings
@@ -377,7 +377,7 @@
 	NSURL* preferencesFolder = [libraryFolder URLByAppendingPathComponent:@"Preferences"];
 	NSURL* preferencesFile = [[preferencesFolder URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] URLByAppendingPathExtension:@"plist"];
 
-	[[NSWorkspace sharedWorkspace] selectFile:[preferencesFile path] inFileViewerRootedAtPath:nil];
+	[[NSWorkspace sharedWorkspace] selectFile:[preferencesFile path] inFileViewerRootedAtPath:@""];
 }
 
 @end
