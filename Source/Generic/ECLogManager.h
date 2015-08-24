@@ -78,7 +78,7 @@
 
 @end
 
-@interface ECLogManager(PlatformSpecific)
+@interface ECLogManager (PlatformSpecific)
 
 @end
 
@@ -86,4 +86,4 @@
 // Notifications
 // --------------------------------------------------------------------------
 
-extern NSString *const LogChannelsChanged;
+extern NSString* const LogChannelsChanged;

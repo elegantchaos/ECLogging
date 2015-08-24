@@ -6,8 +6,16 @@
 
 #import <UIKit/UIKit.h>
 
-@class ECLogViewHandler;
+@class ECLogTranscriptViewController;
+@class ECLogSettingsViewController;
 
-@interface ECLogViewController : UITableViewController
+typedef void (^ECLoggingSettingsViewControllerDoneBlock) ();
+
+@interface ECLogViewController : UIViewController
+
+@property (strong, nonatomic) IBOutlet ECLogSettingsViewController* oSettingsController;
+@property (strong, nonatomic) IBOutlet ECLogTranscriptViewController* oTranscriptController;
+
+- (void)showInController:(UIViewController*)controller doneBlock:(ECLoggingSettingsViewControllerDoneBlock)doneBlock;
 
 @end

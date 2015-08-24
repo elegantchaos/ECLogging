@@ -9,3 +9,4 @@
 
 #include "ECMacDebug.xcconfig"
 #include "ECUnitTests.xcconfig"
+#include "UnitTestShared.xcconfig"

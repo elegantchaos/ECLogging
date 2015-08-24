@@ -26,4 +26,4 @@
 
 @end
 
-extern NSString *const LogItemsUpdated;
+extern NSString* const LogItemsUpdated;

@@ -4,7 +4,7 @@
 //  liberal license:http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLoggingSettingsViewController.h"
+#import "ECLogSettingsViewController.h"
 #import "ECDebugChannelsViewController.h"
 #import "ECDebugHandlersViewController.h"
 
@@ -12,13 +12,13 @@
 #import "ECLogManager.h"
 #import "ECLoggingMacros.h"
 
-@interface ECLoggingSettingsViewController()
+@interface ECLogSettingsViewController ()
 
 @property (strong, nonatomic) UIFont* settingsFont;
 
 @end
 
-@implementation ECLoggingSettingsViewController
+@implementation ECLogSettingsViewController
 
 // --------------------------------------------------------------------------
 // Log Channels
@@ -35,40 +35,39 @@ ECDefineDebugChannel(DebugViewChannel);
 // --------------------------------------------------------------------------
 
 
-typedef enum 
+typedef enum
 {
-    kShowChannelsCommand,
+	kShowChannelsCommand,
 	kShowHandlersCommand,
-    kEnableAllChannelsCommand,
-    kDisableAllChannelsCommand,
-    kResetAllSettingsCommand
+	kEnableAllChannelsCommand,
+	kDisableAllChannelsCommand,
+	kResetAllSettingsCommand
 } Command;
 
-typedef struct 
+typedef struct
 {
-    NSString *const __unsafe_unretained name;
-    UITableViewCellAccessoryType    accessory;
-    Command                         command;
+	NSString* const __unsafe_unretained name;
+	UITableViewCellAccessoryType accessory;
+	Command command;
 } Item;
 
-Item kItems[] = 
-{
-    { @"Configure Channels", UITableViewCellAccessoryDisclosureIndicator, kShowChannelsCommand },
-    { @"Default Handlers", UITableViewCellAccessoryDisclosureIndicator, kShowHandlersCommand },
-    { @"Enable All", UITableViewCellAccessoryNone, kEnableAllChannelsCommand },
-    { @"Disable All", UITableViewCellAccessoryNone, kDisableAllChannelsCommand },
-    { @"Reset All", UITableViewCellAccessoryNone, kResetAllSettingsCommand }
+Item kItems[] = {
+	{ @"Configure Channels", UITableViewCellAccessoryDisclosureIndicator, kShowChannelsCommand },
+	{ @"Default Handlers", UITableViewCellAccessoryDisclosureIndicator, kShowHandlersCommand },
+	{ @"Enable All", UITableViewCellAccessoryNone, kEnableAllChannelsCommand },
+	{ @"Disable All", UITableViewCellAccessoryNone, kDisableAllChannelsCommand },
+	{ @"Reset All", UITableViewCellAccessoryNone, kResetAllSettingsCommand }
 };
 
 // --------------------------------------------------------------------------
 
 - (id)initWithFrame:(CGRect)frame
 {
-    if ((self = [super initWithStyle:UITableViewStyleGrouped])!= nil)
-    {
-    }
-    
-    return self;
+	if ((self = [super initWithStyle:UITableViewStyleGrouped]) != nil)
+	{
+	}
+
+	return self;
 }
 
 // --------------------------------------------------------------------------
@@ -78,7 +77,7 @@ Item kItems[] =
 - (void)viewDidLoad
 {
 	ECDebug(DebugViewChannel, @"setting up view");
-    self.title = @"Debug";
+	self.title = @"Debug";
 	self.settingsFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
 	[super viewDidLoad];
 }
@@ -89,9 +88,9 @@ Item kItems[] =
 
 - (void)showChannels
 {
-    ECDebugChannelsViewController* controller = [[ECDebugChannelsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    controller.debugViewController = self;
-    [self pushViewController:controller];
+	ECDebugChannelsViewController* controller = [[ECDebugChannelsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	controller.settingsViewController = self;
+	[self pushViewController:controller];
 }
 
 // --------------------------------------------------------------------------
@@ -100,9 +99,9 @@ Item kItems[] =
 
 - (void)showHandlers
 {
-    ECDebugHandlersViewController* controller = [[ECDebugHandlersViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    controller.debugViewController = self;
-    [self pushViewController:controller];
+	ECDebugHandlersViewController* controller = [[ECDebugHandlersViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	controller.settingsViewController = self;
+	[self pushViewController:controller];
 }
 
 // --------------------------------------------------------------------------
@@ -111,13 +110,13 @@ Item kItems[] =
 
 - (void)pushViewController:(UIViewController*)controller
 {
-    UINavigationController* nav = self.navController;
-    if (!nav)
-    {
-        nav = self.navigationController;
-    }
-    
-    [nav pushViewController:controller animated:TRUE];
+	UINavigationController* nav = self.navController;
+	if (!nav)
+	{
+		nav = self.navigationController;
+	}
+
+	[nav pushViewController:controller animated:TRUE];
 }
 
 #pragma mark UITableViewDataSource methods
@@ -128,7 +127,7 @@ Item kItems[] =
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
 {
-    return 1;
+	return 1;
 }
 
 // --------------------------------------------------------------------------
@@ -137,7 +136,7 @@ Item kItems[] =
 
 - (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Settings";
+	return @"Settings";
 }
 
 // --------------------------------------------------------------------------
@@ -146,7 +145,7 @@ Item kItems[] =
 
 - (NSInteger)tableView:(UITableView*)table numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return sizeof(kItems)/ sizeof(Item);
+	return sizeof(kItems) / sizeof(Item);
 }
 
 
@@ -161,12 +160,12 @@ Item kItems[] =
 	{
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DebugViewCell"];
 	}
-	
-    Item* item = &kItems[indexPath.row];
-    cell.textLabel.text = item->name;
+
+	Item* item = &kItems[indexPath.row];
+	cell.textLabel.text = item->name;
 	cell.textLabel.font = self.settingsFont;
 	cell.accessoryType = item->accessory;
-    
+
 	return cell;
 }
 
@@ -177,31 +176,31 @@ Item kItems[] =
 
 - (void)tableView:(UITableView*)table didSelectRowAtIndexPath:(NSIndexPath*)path
 {
-    Item* item = &kItems[path.row];
+	Item* item = &kItems[path.row];
 	switch (item->command)
-    {
-        case kShowChannelsCommand:
-            [self showChannels];
-            break;
+	{
+		case kShowChannelsCommand:
+			[self showChannels];
+			break;
 
 		case kShowHandlersCommand:
 			[self showHandlers];
 			break;
 
-        case kEnableAllChannelsCommand:
-            [[ECLogManager sharedInstance] enableAllChannels];
-            break;
-            
-        case kDisableAllChannelsCommand:
-            [[ECLogManager sharedInstance] disableAllChannels];
-            break;
-            
-        case kResetAllSettingsCommand:
-            [[ECLogManager sharedInstance] resetAllSettings];
-            break;
-    }
-    
-    [table deselectRowAtIndexPath:path animated:YES];
+		case kEnableAllChannelsCommand:
+			[[ECLogManager sharedInstance] enableAllChannels];
+			break;
+
+		case kDisableAllChannelsCommand:
+			[[ECLogManager sharedInstance] disableAllChannels];
+			break;
+
+		case kResetAllSettingsCommand:
+			[[ECLogManager sharedInstance] resetAllSettings];
+			break;
+	}
+
+	[table deselectRowAtIndexPath:path animated:YES];
 }
 
 @end

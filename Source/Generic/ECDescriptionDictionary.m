@@ -2,13 +2,13 @@
 //
 //  Created by Sam Deane on 11/08/2010.
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #import "ECDescriptionDictionary.h"
 
-@implementation NSObject(DescriptionDictionary)
+@implementation NSObject (DescriptionDictionary)
 
 - (id)descriptionDictionary
 {
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation NSArray(DescriptionDictionary)
+@implementation NSArray (DescriptionDictionary)
 
 - (id)descriptionDictionary
 {
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation NSDictionary(DescriptionDictionary)
+@implementation NSDictionary (DescriptionDictionary)
 
 - (id)descriptionDictionary
 {

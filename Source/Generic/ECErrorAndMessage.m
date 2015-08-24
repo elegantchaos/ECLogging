@@ -19,7 +19,7 @@
 	{
 		result = self.message;
 	}
-	
+
 	return result;
 }
 @end

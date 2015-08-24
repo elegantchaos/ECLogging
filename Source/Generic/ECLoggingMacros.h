@@ -4,7 +4,7 @@
 //! Logging utilities.
 //
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -24,23 +24,42 @@
 #define ECDeclareLogChannel(channel) \
 	extern ECLogChannel* getChannel##channel(void)
 
-#define ECDefineLogChannel(channel) \
-	extern ECLogChannel* getChannel##channel(void); \
-	ECLogChannel* getChannel##channel(void) \
-	{ \
-		static dispatch_once_t onceToken; \
-		static ECLogChannel* instance = nil; \
-		dispatch_once(&onceToken, ^{ \
-			instance = registerChannel(#channel); \
-		}); \
-		return instance; \
+#define ECDefineLogChannel(channel)                                            \
+	extern ECLogChannel* getChannel##channel(void);                            \
+	ECLogChannel* getChannel##channel(void)                                    \
+	{                                                                          \
+		static dispatch_once_t onceToken;                                      \
+		static ECLogChannel* instance = nil;                                   \
+		dispatch_once(&onceToken, ^{ instance = registerChannel(#channel); }); \
+		return instance;                                                       \
 	}
 
 #pragma mark - Logging Macros
 
-#define ECLog(channel, ...) do { ECLogChannel* __c = getChannel##channel(); if (channelEnabled(__c)) { ECMakeContext(); logToChannel(__c, &ecLogContext, __VA_ARGS__); } } while (0)
+#define ECLog(channel, ...)                                \
+	do                                                     \
+	{                                                      \
+		ECLogChannel* __c = getChannel##channel();         \
+		if (channelEnabled(__c))                           \
+		{                                                  \
+			ECMakeContext();                               \
+			logToChannel(__c, &ecLogContext, __VA_ARGS__); \
+		}                                                  \
+	} while (0)
 
-#define ECLogIf(test, channel, ...) do { if (test) { ECLogChannel* __c = getChannel##channel(); ECMakeContext(); if (channelEnabled(__c)) { logToChannel(__c, &ecLogContext, __VA_ARGS__); } } } while (0)
+#define ECLogIf(test, channel, ...)                            \
+	do                                                         \
+	{                                                          \
+		if (test)                                              \
+		{                                                      \
+			ECLogChannel* __c = getChannel##channel();         \
+			ECMakeContext();                                   \
+			if (channelEnabled(__c))                           \
+			{                                                  \
+				logToChannel(__c, &ecLogContext, __VA_ARGS__); \
+			}                                                  \
+		}                                                      \
+	} while (0)
 
 #define ECGetChannel(channel) getChannel##channel()
 
@@ -67,7 +86,7 @@
 
 #else
 
-#define ECDebug(...) 
+#define ECDebug(...)
 #define ECDebugIf(...)
 #define ECDefineDebugChannel(...)
 #define ECDeclareDebugChannel(...)

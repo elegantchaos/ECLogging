@@ -1,0 +1,8 @@
+Language:        Cpp
+BasedOnStyle:  WebKit
+IndentCaseLabels: true
+MaxEmptyLinesToKeep: 3
+TabWidth:        4
+UseTab:          ForIndentation
+BreakBeforeBraces: Allman
+SpacesInContainerLiterals: false

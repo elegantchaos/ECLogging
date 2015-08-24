@@ -8,4 +8,4 @@
 
 #include "ECIOSDebug.xcconfig"
 #include "ECPseudoFramework.xcconfig"
-
+#include "Shared.xcconfig"

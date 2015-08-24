@@ -11,6 +11,8 @@
 // --------------------------------------------------------------------------
 
 RUN_CLANG_STATIC_ANALYZER = YES
+ENABLE_TESTABILITY = YES
+ENABLE_NS_ASSERTIONS = YES
 
 // --------------------------------------------------------------------------
 // Architectures

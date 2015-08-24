@@ -4,6 +4,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-@interface ECLogManagerMacUISupport : NSObject<ECLogManagerDelegate>
+@interface ECLogManagerMacUISupport : NSObject <ECLogManagerDelegate>
 
 @end

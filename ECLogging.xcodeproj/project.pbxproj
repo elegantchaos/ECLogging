@@ -23,8 +23,7 @@
 		2204C6B615E15E4000F71E15 /* ECErrorPresenterHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2204C6B715E15E4000F71E15 /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */; };
 		2204C6BC15E160DA00F71E15 /* ECLoggingUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 2204C6BB15E160DA00F71E15 /* ECLoggingUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		220D699D15DC510900CCC17C /* ECLogging.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
-		221E215B16E7867100B65B1F /* ECLoggingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2258586A16E7670500E2DDD4 /* ECLoggingViewController.xib */; };
+		220D699D15DC510900CCC17C /* ECLogging.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		222186B919DAB5F300F08CCE /* ECDescriptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */; };
 		222186C419DAB5F300F08CCE /* ECOptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 224E84D617AAB98F002EB661 /* ECOptionsMenu.m */; };
 		222186C619DAB5F300F08CCE /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */; };
@@ -127,21 +126,19 @@
 		2251BA9915DBDC3F00F2FE40 /* ECDebugChannelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45714F53BCC009142F7 /* ECDebugChannelsViewController.m */; };
 		2251BA9A15DBDC3F00F2FE40 /* ECDebugChannelViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45814F53BCC009142F7 /* ECDebugChannelViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2251BA9B15DBDC3F00F2FE40 /* ECDebugChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45914F53BCC009142F7 /* ECDebugChannelViewController.m */; };
-		2251BA9C15DBDC3F00F2FE40 /* ECLoggingSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45A14F53BCC009142F7 /* ECLoggingSettingsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2251BA9D15DBDC3F00F2FE40 /* ECLoggingSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45B14F53BCC009142F7 /* ECLoggingSettingsViewController.m */; };
-		2251BA9E15DBDC3F00F2FE40 /* ECDebugViewPopoverController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45C14F53BCC009142F7 /* ECDebugViewPopoverController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2251BA9F15DBDC3F00F2FE40 /* ECDebugViewPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45D14F53BCC009142F7 /* ECDebugViewPopoverController.m */; };
-		2251BAA015DBDC3F00F2FE40 /* ECLogViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45E14F53BCC009142F7 /* ECLogViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2251BAA115DBDC3F00F2FE40 /* ECLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45F14F53BCC009142F7 /* ECLogViewController.m */; };
+		2251BA9C15DBDC3F00F2FE40 /* ECLogSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45A14F53BCC009142F7 /* ECLogSettingsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2251BA9D15DBDC3F00F2FE40 /* ECLogSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45B14F53BCC009142F7 /* ECLogSettingsViewController.m */; };
+		2251BA9E15DBDC3F00F2FE40 /* ECLogViewPopoverController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45C14F53BCC009142F7 /* ECLogViewPopoverController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2251BA9F15DBDC3F00F2FE40 /* ECLogViewPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45D14F53BCC009142F7 /* ECLogViewPopoverController.m */; };
+		2251BAA015DBDC3F00F2FE40 /* ECLogTranscriptViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A45E14F53BCC009142F7 /* ECLogTranscriptViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2251BAA115DBDC3F00F2FE40 /* ECLogTranscriptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A45F14F53BCC009142F7 /* ECLogTranscriptViewController.m */; };
 		2251BAA215DBDC3F00F2FE40 /* ECLogViewHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A46014F53BCC009142F7 /* ECLogViewHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2251BAA315DBDC3F00F2FE40 /* ECLogViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46114F53BCC009142F7 /* ECLogViewHandler.m */; };
 		2251BAA415DBDC3F00F2FE40 /* ECLogViewHandlerItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A46214F53BCC009142F7 /* ECLogViewHandlerItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2251BAA515DBDC3F00F2FE40 /* ECLogViewHandlerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46314F53BCC009142F7 /* ECLogViewHandlerItem.m */; };
 		2251BAE515DBEA2D00F2FE40 /* ECLoggingMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2251BAE315DBEA2C00F2FE40 /* ECLoggingMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2258586816E765DD00E2DDD4 /* ECLoggingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2258586616E765DD00E2DDD4 /* ECLoggingViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2258586916E765DD00E2DDD4 /* ECLoggingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2258586716E765DD00E2DDD4 /* ECLoggingViewController.m */; };
-		2258587016E76DF100E2DDD4 /* ECLoggingViewController.xib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2258586A16E7670500E2DDD4 /* ECLoggingViewController.xib */; };
-		226889DA1AEE4B49005510E5 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22ECE86D16DC009E00F9C782 /* Test.bundle */; };
+		2258586816E765DD00E2DDD4 /* ECLogViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2258586616E765DD00E2DDD4 /* ECLogViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2258586916E765DD00E2DDD4 /* ECLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2258586716E765DD00E2DDD4 /* ECLogViewController.m */; };
 		226889DC1AEE4B49005510E5 /* ComparisonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6A24A183E0CA800873C05 /* ComparisonTests.m */; };
 		226889DD1AEE4B49005510E5 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA575F1AB085E10045A364 /* StringTests.m */; };
 		226889DE1AEE4B49005510E5 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2251BA6115DBD93700F2FE40 /* BasicTests.m */; };
@@ -207,10 +204,33 @@
 		22B6A248183E0C5400873C05 /* ECTestComparisons.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6A244183E0C5400873C05 /* ECTestComparisons.m */; };
 		22B6A24C183E0CA800873C05 /* ComparisonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6A24A183E0CA800873C05 /* ComparisonTests.m */; };
 		22B6A24E183E0CA800873C05 /* ComparisonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6A24A183E0CA800873C05 /* ComparisonTests.m */; };
-		22ECE86E16DC009E00F9C782 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22ECE86D16DC009E00F9C782 /* Test.bundle */; };
-		22ECE86F16DC009E00F9C782 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22ECE86D16DC009E00F9C782 /* Test.bundle */; };
+		22D6EF4C1B0218EA004F9FC7 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF4B1B0218EA004F9FC7 /* Test.bundle */; };
+		22D6EF4D1B0218EA004F9FC7 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF4B1B0218EA004F9FC7 /* Test.bundle */; };
+		22D6EF4E1B0218EA004F9FC7 /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF4B1B0218EA004F9FC7 /* Test.bundle */; };
+		22D6EF511B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
+		22D6EF521B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
+		22D6EF531B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
+		22D6EF541B021900004F9FC7 /* RunLoopExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF501B021900004F9FC7 /* RunLoopExample.m */; };
+		22D6EF551B021900004F9FC7 /* RunLoopExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF501B021900004F9FC7 /* RunLoopExample.m */; };
+		22D6EF561B021900004F9FC7 /* RunLoopExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF501B021900004F9FC7 /* RunLoopExample.m */; };
+		22D6EF5A1B021952004F9FC7 /* HierarchicalExample.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */; };
+		22D6EF5B1B021952004F9FC7 /* HierarchicalExample.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */; };
+		22D6EF5C1B021952004F9FC7 /* HierarchicalExample.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */; };
+		22D6EF5D1B021952004F9FC7 /* Included.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF581B021952004F9FC7 /* Included.testsuite */; };
+		22D6EF5E1B021952004F9FC7 /* Included.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF581B021952004F9FC7 /* Included.testsuite */; };
+		22D6EF5F1B021952004F9FC7 /* Included.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF581B021952004F9FC7 /* Included.testsuite */; };
+		22D6EF601B021952004F9FC7 /* ParameterisedTestsExample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */; };
+		22D6EF611B021952004F9FC7 /* ParameterisedTestsExample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */; };
+		22D6EF621B021952004F9FC7 /* ParameterisedTestsExample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */; };
+		22D6EF641B021982004F9FC7 /* HierarchicalExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF631B021982004F9FC7 /* HierarchicalExample.m */; };
+		22D6EF651B021982004F9FC7 /* HierarchicalExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF631B021982004F9FC7 /* HierarchicalExample.m */; };
+		22D6EF661B021982004F9FC7 /* HierarchicalExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF631B021982004F9FC7 /* HierarchicalExample.m */; };
 		22F2FEF4164142A600CD3C7C /* ECLogManagerIOSUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */; };
+		22F861271B029BFF00586780 /* ECParameterisedTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */; };
+		22F861281B029C0100586780 /* ECParameterisedTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */; };
+		22F861291B029C0F00586780 /* ECParameterisedTestSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22F8612A1B029C1200586780 /* ECParameterisedTestSuite.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FA57601AB085E10045A364 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA575F1AB085E10045A364 /* StringTests.m */; };
 		22FA57611AB085EB0045A364 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA575F1AB085E10045A364 /* StringTests.m */; };
 		22FF8E5016F1E418008FC10D /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2277CE4716D6B2B900835964 /* ECTestCase.m */; };
@@ -292,7 +312,6 @@
 			dstPath = Versions/A/Resources;
 			dstSubfolderSpec = 1;
 			files = (
-				2258587016E76DF100E2DDD4 /* ECLoggingViewController.xib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +372,7 @@
 		223C3B201AAB61F8003CCFFC /* MacTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacTests.pch; sourceTree = "<group>"; };
 		224E84D517AAB98F002EB661 /* ECOptionsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECOptionsMenu.h; sourceTree = "<group>"; };
 		224E84D617AAB98F002EB661 /* ECOptionsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECOptionsMenu.m; sourceTree = "<group>"; };
+		22507DB81B249C8E00C86559 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/ECLogViewController.xib; sourceTree = SOURCE_ROOT; };
 		2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECLogging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2251BA1215DBCC4A00F2FE40 /* ECLogging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLogging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSDebug.xcconfig; sourceTree = "<group>"; };
@@ -366,14 +386,12 @@
 		2251BA6115DBD93700F2FE40 /* BasicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicTests.m; sourceTree = "<group>"; };
 		2251BA6C15DBDA5100F2FE40 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2251BAE315DBEA2C00F2FE40 /* ECLoggingMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingMacros.h; sourceTree = "<group>"; };
-		2258586616E765DD00E2DDD4 /* ECLoggingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingViewController.h; sourceTree = "<group>"; };
-		2258586716E765DD00E2DDD4 /* ECLoggingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLoggingViewController.m; sourceTree = "<group>"; };
-		2258586B16E7670500E2DDD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ECLoggingViewController.xib; sourceTree = "<group>"; };
+		2258586616E765DD00E2DDD4 /* ECLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogViewController.h; sourceTree = "<group>"; };
+		2258586716E765DD00E2DDD4 /* ECLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogViewController.m; sourceTree = "<group>"; };
 		225C51511642DC3600794DD2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.md; sourceTree = "<group>"; };
 		225C51521642DC3600794DD2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; wrapsLines = 1; };
 		225EC67211EBAA4800A97AEA /* ECLoggingMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		226889E71AEE4B49005510E5 /* ECLoggingMacTestsStatic.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingMacTestsStatic.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		226889E81AEE4B49005510E5 /* ECLoggingMacTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ECLoggingMacTests copy-Info.plist"; path = "/Users/sam/Work/clients/bohemian/Projects/Sketch/Modules/ECLogging/ECLoggingMacTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		22696F111630342E006AE56D /* ECDebugMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugMenu.h; sourceTree = "<group>"; };
 		22696F121630342E006AE56D /* ECDebugMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugMenu.m; sourceTree = "<group>"; };
 		2274B37814F56679003B8A0B /* ECLoggingTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ECLoggingTests.plist; sourceTree = "<group>"; };
@@ -429,12 +447,12 @@
 		2283A45714F53BCC009142F7 /* ECDebugChannelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugChannelsViewController.m; sourceTree = "<group>"; };
 		2283A45814F53BCC009142F7 /* ECDebugChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugChannelViewController.h; sourceTree = "<group>"; };
 		2283A45914F53BCC009142F7 /* ECDebugChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugChannelViewController.m; sourceTree = "<group>"; };
-		2283A45A14F53BCC009142F7 /* ECLoggingSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingSettingsViewController.h; sourceTree = "<group>"; };
-		2283A45B14F53BCC009142F7 /* ECLoggingSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLoggingSettingsViewController.m; sourceTree = "<group>"; };
-		2283A45C14F53BCC009142F7 /* ECDebugViewPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugViewPopoverController.h; sourceTree = "<group>"; };
-		2283A45D14F53BCC009142F7 /* ECDebugViewPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugViewPopoverController.m; sourceTree = "<group>"; };
-		2283A45E14F53BCC009142F7 /* ECLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogViewController.h; sourceTree = "<group>"; };
-		2283A45F14F53BCC009142F7 /* ECLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogViewController.m; sourceTree = "<group>"; };
+		2283A45A14F53BCC009142F7 /* ECLogSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogSettingsViewController.h; sourceTree = "<group>"; };
+		2283A45B14F53BCC009142F7 /* ECLogSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogSettingsViewController.m; sourceTree = "<group>"; };
+		2283A45C14F53BCC009142F7 /* ECLogViewPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogViewPopoverController.h; sourceTree = "<group>"; };
+		2283A45D14F53BCC009142F7 /* ECLogViewPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogViewPopoverController.m; sourceTree = "<group>"; };
+		2283A45E14F53BCC009142F7 /* ECLogTranscriptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogTranscriptViewController.h; sourceTree = "<group>"; };
+		2283A45F14F53BCC009142F7 /* ECLogTranscriptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogTranscriptViewController.m; sourceTree = "<group>"; };
 		2283A46014F53BCC009142F7 /* ECLogViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogViewHandler.h; sourceTree = "<group>"; };
 		2283A46114F53BCC009142F7 /* ECLogViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogViewHandler.m; sourceTree = "<group>"; };
 		2283A46214F53BCC009142F7 /* ECLogViewHandlerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogViewHandlerItem.h; sourceTree = "<group>"; };
@@ -458,7 +476,12 @@
 		22B6A244183E0C5400873C05 /* ECTestComparisons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ECTestComparisons.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		22B6A24A183E0CA800873C05 /* ComparisonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ComparisonTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECUnitTests.modulemap; sourceTree = "<group>"; };
-		22ECE86D16DC009E00F9C782 /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Test.bundle; sourceTree = "<group>"; };
+		22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParameterisedTestsExample.m; path = Tests/ParameterisedTestsExample.m; sourceTree = SOURCE_ROOT; };
+		22D6EF501B021900004F9FC7 /* RunLoopExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RunLoopExample.m; path = Tests/RunLoopExample.m; sourceTree = SOURCE_ROOT; };
+		22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HierarchicalExample.testsuite; path = Tests/HierarchicalExample.testsuite; sourceTree = SOURCE_ROOT; };
+		22D6EF581B021952004F9FC7 /* Included.testsuite */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Included.testsuite; path = Tests/Included.testsuite; sourceTree = SOURCE_ROOT; };
+		22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ParameterisedTestsExample.plist; path = Tests/ParameterisedTestsExample.plist; sourceTree = SOURCE_ROOT; };
+		22D6EF631B021982004F9FC7 /* HierarchicalExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HierarchicalExample.m; path = Tests/HierarchicalExample.m; sourceTree = SOURCE_ROOT; };
 		22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
 		22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorAndMessage.h; sourceTree = "<group>"; };
@@ -469,6 +492,9 @@
 		22F2FEEF1641418600CD3C7C /* ECLogManagerMacUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerMacUISupport.m; sourceTree = "<group>"; };
 		22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerIOSUISupport.h; sourceTree = "<group>"; };
 		22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerIOSUISupport.m; sourceTree = "<group>"; };
+		22F861241B02956300586780 /* .clang-format */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".clang-format"; sourceTree = "<group>"; };
+		22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECParameterisedTestSuite.h; sourceTree = "<group>"; };
+		22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECParameterisedTestSuite.m; sourceTree = "<group>"; };
 		22FA575F1AB085E10045A364 /* StringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTests.m; sourceTree = "<group>"; };
 		22FF8E7E16F1E418008FC10D /* ECUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -585,11 +611,11 @@
 			isa = PBXGroup;
 			children = (
 				22BBB10114F646D20086974D /* Source */,
+				2251BA6015DBD93700F2FE40 /* Tests */,
 				2274B37714F56679003B8A0B /* Resources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				22F2FEEC164140E700CD3C7C /* Extras */,
-				226889E81AEE4B49005510E5 /* ECLoggingMacTests copy-Info.plist */,
 			);
 			indentWidth = 4;
 			name = ECFoundation;
@@ -602,6 +628,36 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22507DB51B2499A800C86559 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2283A45E14F53BCC009142F7 /* ECLogTranscriptViewController.h */,
+				2283A45F14F53BCC009142F7 /* ECLogTranscriptViewController.m */,
+				2258586616E765DD00E2DDD4 /* ECLogViewController.h */,
+				2258586716E765DD00E2DDD4 /* ECLogViewController.m */,
+				22507DB71B249C8E00C86559 /* ECLogViewController.xib */,
+				2283A45C14F53BCC009142F7 /* ECLogViewPopoverController.h */,
+				2283A45D14F53BCC009142F7 /* ECLogViewPopoverController.m */,
+				22507DB61B249B0800C86559 /* Settings */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		22507DB61B249B0800C86559 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2283A45614F53BCC009142F7 /* ECDebugChannelsViewController.h */,
+				2283A45714F53BCC009142F7 /* ECDebugChannelsViewController.m */,
+				2283A45814F53BCC009142F7 /* ECDebugChannelViewController.h */,
+				2283A45914F53BCC009142F7 /* ECDebugChannelViewController.m */,
+				229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */,
+				229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */,
+				2283A45A14F53BCC009142F7 /* ECLogSettingsViewController.h */,
+				2283A45B14F53BCC009142F7 /* ECLogSettingsViewController.m */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		2251BA4215DBCD3900F2FE40 /* Configuration */ = {
@@ -619,14 +675,19 @@
 				2251BA6115DBD93700F2FE40 /* BasicTests.m */,
 				22FA575F1AB085E10045A364 /* StringTests.m */,
 				22B6A24A183E0CA800873C05 /* ComparisonTests.m */,
+				22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */,
+				22D6EF501B021900004F9FC7 /* RunLoopExample.m */,
+				22D6EF631B021982004F9FC7 /* HierarchicalExample.m */,
+				22D6EF671B02198A004F9FC7 /* Resources */,
 			);
-			path = Tests;
+			name = Tests;
+			path = Source/Tests;
 			sourceTree = "<group>";
 		};
 		2274B37714F56679003B8A0B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				22ECE86D16DC009E00F9C782 /* Test.bundle */,
+				22D6EF4B1B0218EA004F9FC7 /* Test.bundle */,
 				2251BA6C15DBDA5100F2FE40 /* Info.plist */,
 				22381E161A6C35BF000AD60A /* ECLogging.modulemap */,
 				223C3B1D1AAB5A7F003CCFFC /* ECLoggingUI.modulemap */,
@@ -639,6 +700,7 @@
 		2277CE2916D6ABE900835964 /* for ECLogging itself */ = {
 			isa = PBXGroup;
 			children = (
+				224ACF311B27271700F620D6 /* Shared.xcconfig */,
 				2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */,
 				2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */,
 				2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */,
@@ -654,6 +716,7 @@
 				2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */,
 				2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */,
 				2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */,
+				224ACF321B2727E300F620D6 /* UnitTestShared.xcconfig */,
 			);
 			name = "for ECLogging itself";
 			sourceTree = "<group>";
@@ -748,12 +811,14 @@
 				227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */,
 				2277CE4416D6B2B900835964 /* ECParameterisedTestCase.h */,
 				2277CE4516D6B2B900835964 /* ECParameterisedTestCase.m */,
-				2285B5EC1899855400919FA7 /* ECTestPerformanceCounter.h */,
-				2285B5ED1899855400919FA7 /* ECTestPerformanceCounter.m */,
+				22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */,
+				22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */,
 				2277CE4616D6B2B900835964 /* ECTestCase.h */,
+				2277CE4716D6B2B900835964 /* ECTestCase.m */,
 				22B6A243183E0C5400873C05 /* ECTestComparisons.h */,
 				22B6A244183E0C5400873C05 /* ECTestComparisons.m */,
-				2277CE4716D6B2B900835964 /* ECTestCase.m */,
+				2285B5EC1899855400919FA7 /* ECTestPerformanceCounter.h */,
+				2285B5ED1899855400919FA7 /* ECTestPerformanceCounter.m */,
 				2277CE4816D6B2B900835964 /* ECUnitTests.h */,
 			);
 			name = Testing;
@@ -789,26 +854,12 @@
 		2283A45514F53BCC009142F7 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				2258586616E765DD00E2DDD4 /* ECLoggingViewController.h */,
-				2258586716E765DD00E2DDD4 /* ECLoggingViewController.m */,
-				2258586A16E7670500E2DDD4 /* ECLoggingViewController.xib */,
 				22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */,
 				22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */,
 				2204C6BB15E160DA00F71E15 /* ECLoggingUI.h */,
 				2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */,
 				2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */,
-				2283A45614F53BCC009142F7 /* ECDebugChannelsViewController.h */,
-				2283A45714F53BCC009142F7 /* ECDebugChannelsViewController.m */,
-				2283A45814F53BCC009142F7 /* ECDebugChannelViewController.h */,
-				2283A45914F53BCC009142F7 /* ECDebugChannelViewController.m */,
-				229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */,
-				229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */,
-				2283A45A14F53BCC009142F7 /* ECLoggingSettingsViewController.h */,
-				2283A45B14F53BCC009142F7 /* ECLoggingSettingsViewController.m */,
-				2283A45C14F53BCC009142F7 /* ECDebugViewPopoverController.h */,
-				2283A45D14F53BCC009142F7 /* ECDebugViewPopoverController.m */,
-				2283A45E14F53BCC009142F7 /* ECLogViewController.h */,
-				2283A45F14F53BCC009142F7 /* ECLogViewController.m */,
+				22507DB51B2499A800C86559 /* View Controllers */,
 				2283A46014F53BCC009142F7 /* ECLogViewHandler.h */,
 				2283A46114F53BCC009142F7 /* ECLogViewHandler.m */,
 				2283A46214F53BCC009142F7 /* ECLogViewHandlerItem.h */,
@@ -860,14 +911,24 @@
 				2283A45514F53BCC009142F7 /* iOS */,
 				2283A46414F53BCC009142F7 /* Mac */,
 				2283A4C814F53C6F009142F7 /* Prefix */,
-				2251BA6015DBD93700F2FE40 /* Tests */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		22D6EF671B02198A004F9FC7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */,
+				22D6EF581B021952004F9FC7 /* Included.testsuite */,
+				22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		22F2FEEC164140E700CD3C7C /* Extras */ = {
 			isa = PBXGroup;
 			children = (
+				22F861241B02956300586780 /* .clang-format */,
 				22F2FEEB164140D800CD3C7C /* .appledoc.plist */,
 				225C51511642DC3600794DD2 /* LICENSE.md */,
 				225C51521642DC3600794DD2 /* README.md */,
@@ -963,9 +1024,9 @@
 				2251BA9615DBDC3600F2FE40 /* ECLogHandlerStdout.h in Headers */,
 				2251BA9815DBDC3F00F2FE40 /* ECDebugChannelsViewController.h in Headers */,
 				2251BA9A15DBDC3F00F2FE40 /* ECDebugChannelViewController.h in Headers */,
-				2251BA9C15DBDC3F00F2FE40 /* ECLoggingSettingsViewController.h in Headers */,
-				2251BA9E15DBDC3F00F2FE40 /* ECDebugViewPopoverController.h in Headers */,
-				2251BAA015DBDC3F00F2FE40 /* ECLogViewController.h in Headers */,
+				2251BA9C15DBDC3F00F2FE40 /* ECLogSettingsViewController.h in Headers */,
+				2251BA9E15DBDC3F00F2FE40 /* ECLogViewPopoverController.h in Headers */,
+				2251BAA015DBDC3F00F2FE40 /* ECLogTranscriptViewController.h in Headers */,
 				2251BAA215DBDC3F00F2FE40 /* ECLogViewHandler.h in Headers */,
 				2251BAA415DBDC3F00F2FE40 /* ECLogViewHandlerItem.h in Headers */,
 				2251BAE515DBEA2D00F2FE40 /* ECLoggingMacros.h in Headers */,
@@ -978,7 +1039,7 @@
 				2277CE5816D6B99E00835964 /* ECLoggingRelease.pch in Headers */,
 				2277CE5A16D6B9A500835964 /* ECLoggingShared.pch in Headers */,
 				2277CE5B16D6B9BB00835964 /* ECMacros.h in Headers */,
-				2258586816E765DD00E2DDD4 /* ECLoggingViewController.h in Headers */,
+				2258586816E765DD00E2DDD4 /* ECLogViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1012,6 +1073,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F8612A1B029C1200586780 /* ECParameterisedTestSuite.h in Headers */,
 				22FF8E6C16F1E418008FC10D /* ECLogManagerIOSUISupport.h in Headers */,
 				22FF8E6D16F1E418008FC10D /* ECDebugHandlersViewController.h in Headers */,
 				22FF8E7216F1E418008FC10D /* ECParameterisedTestCase.h in Headers */,
@@ -1028,6 +1090,7 @@
 			files = (
 				22FF8EB716F1E5EB008FC10D /* ECParameterisedTestCase.h in Headers */,
 				22FF8EB816F1E5EB008FC10D /* ECTestCase.h in Headers */,
+				22F861291B029C0F00586780 /* ECParameterisedTestSuite.h in Headers */,
 				22FF8EB916F1E5EB008FC10D /* ECUnitTests.h in Headers */,
 				22B6A245183E0C5400873C05 /* ECTestComparisons.h in Headers */,
 				2285B5EE1899855400919FA7 /* ECTestPerformanceCounter.h in Headers */,
@@ -1255,7 +1318,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Elegant Chaos";
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ECLogging" */;
@@ -1296,7 +1359,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				221E215B16E7867100B65B1F /* ECLoggingViewController.xib in Resources */,
+				22507DBA1B249C8E00C86559 /* ECLogViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1325,7 +1388,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22ECE86E16DC009E00F9C782 /* Test.bundle in Resources */,
+				22D6EF5D1B021952004F9FC7 /* Included.testsuite in Resources */,
+				22D6EF5A1B021952004F9FC7 /* HierarchicalExample.testsuite in Resources */,
+				22D6EF601B021952004F9FC7 /* ParameterisedTestsExample.plist in Resources */,
+				22D6EF4C1B0218EA004F9FC7 /* Test.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1333,7 +1399,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				226889DA1AEE4B49005510E5 /* Test.bundle in Resources */,
+				22D6EF5E1B021952004F9FC7 /* Included.testsuite in Resources */,
+				22D6EF5B1B021952004F9FC7 /* HierarchicalExample.testsuite in Resources */,
+				22D6EF611B021952004F9FC7 /* ParameterisedTestsExample.plist in Resources */,
+				22D6EF4D1B0218EA004F9FC7 /* Test.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1341,8 +1410,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22D6EF5C1B021952004F9FC7 /* HierarchicalExample.testsuite in Resources */,
 				2228691B19124FCA00957E95 /* ECUnitTests.framework in Resources */,
-				22ECE86F16DC009E00F9C782 /* Test.bundle in Resources */,
+				22D6EF5F1B021952004F9FC7 /* Included.testsuite in Resources */,
+				22D6EF4E1B0218EA004F9FC7 /* Test.bundle in Resources */,
+				22D6EF621B021952004F9FC7 /* ParameterisedTestsExample.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1552,15 +1624,15 @@
 				2251BA9915DBDC3F00F2FE40 /* ECDebugChannelsViewController.m in Sources */,
 				2251BA9B15DBDC3F00F2FE40 /* ECDebugChannelViewController.m in Sources */,
 				227C02A317C4D3340011ABB5 /* ECDescriptionDictionary.m in Sources */,
-				2251BA9D15DBDC3F00F2FE40 /* ECLoggingSettingsViewController.m in Sources */,
-				2251BA9F15DBDC3F00F2FE40 /* ECDebugViewPopoverController.m in Sources */,
-				2251BAA115DBDC3F00F2FE40 /* ECLogViewController.m in Sources */,
+				2251BA9D15DBDC3F00F2FE40 /* ECLogSettingsViewController.m in Sources */,
+				2251BA9F15DBDC3F00F2FE40 /* ECLogViewPopoverController.m in Sources */,
+				2251BAA115DBDC3F00F2FE40 /* ECLogTranscriptViewController.m in Sources */,
 				2251BAA315DBDC3F00F2FE40 /* ECLogViewHandler.m in Sources */,
 				2251BAA515DBDC3F00F2FE40 /* ECLogViewHandlerItem.m in Sources */,
 				2204C6B715E15E4000F71E15 /* ECErrorPresenterHandler.m in Sources */,
 				22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */,
 				229EDCEC16442DB00087B26E /* ECDebugHandlersViewController.m in Sources */,
-				2258586916E765DD00E2DDD4 /* ECLoggingViewController.m in Sources */,
+				2258586916E765DD00E2DDD4 /* ECLogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1571,6 +1643,9 @@
 				22B6A24C183E0CA800873C05 /* ComparisonTests.m in Sources */,
 				22FA57601AB085E10045A364 /* StringTests.m in Sources */,
 				2251BA6215DBD93700F2FE40 /* BasicTests.m in Sources */,
+				22D6EF541B021900004F9FC7 /* RunLoopExample.m in Sources */,
+				22D6EF511B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */,
+				22D6EF641B021982004F9FC7 /* HierarchicalExample.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1581,6 +1656,9 @@
 				226889DC1AEE4B49005510E5 /* ComparisonTests.m in Sources */,
 				226889DD1AEE4B49005510E5 /* StringTests.m in Sources */,
 				226889DE1AEE4B49005510E5 /* BasicTests.m in Sources */,
+				22D6EF551B021900004F9FC7 /* RunLoopExample.m in Sources */,
+				22D6EF521B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */,
+				22D6EF651B021982004F9FC7 /* HierarchicalExample.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1591,6 +1669,9 @@
 				22B6A24E183E0CA800873C05 /* ComparisonTests.m in Sources */,
 				22FA57611AB085EB0045A364 /* StringTests.m in Sources */,
 				2251BA6315DBD93700F2FE40 /* BasicTests.m in Sources */,
+				22D6EF561B021900004F9FC7 /* RunLoopExample.m in Sources */,
+				22D6EF531B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */,
+				22D6EF661B021982004F9FC7 /* HierarchicalExample.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1618,6 +1699,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F861281B029C0100586780 /* ECParameterisedTestSuite.m in Sources */,
 				22B6A248183E0C5400873C05 /* ECTestComparisons.m in Sources */,
 				22FF8E5016F1E418008FC10D /* ECTestCase.m in Sources */,
 				22FF8E5116F1E418008FC10D /* ECParameterisedTestCase.m in Sources */,
@@ -1629,6 +1711,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F861271B029BFF00586780 /* ECParameterisedTestSuite.m in Sources */,
 				22B6A247183E0C5400873C05 /* ECTestComparisons.m in Sources */,
 				22FF8E9A16F1E5EB008FC10D /* ECParameterisedTestCase.m in Sources */,
 				22FF8E9B16F1E5EB008FC10D /* ECTestCase.m in Sources */,
@@ -1667,13 +1750,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2258586A16E7670500E2DDD4 /* ECLoggingViewController.xib */ = {
+		22507DB71B249C8E00C86559 /* ECLogViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2258586B16E7670500E2DDD4 /* en */,
+				22507DB81B249C8E00C86559 /* en */,
 			);
-			name = ECLoggingViewController.xib;
-			path = ../../Resources;
+			name = ECLogViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1695,7 +1777,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				WRAPPER_EXTENSION = bundle;
@@ -1706,7 +1787,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2277CE1F16D6AB9500835964 /* ECIOSRelease.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				WRAPPER_EXTENSION = bundle;
@@ -1717,7 +1797,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2221873B19DAB91B00F08CCE /* MacUIDebug.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -1725,7 +1804,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2221873D19DAB91B00F08CCE /* MacUIRelease.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1733,7 +1811,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2221873C19DAB91B00F08CCE /* MacUIDebugStatic.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -1741,7 +1818,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2221873E19DAB91B00F08CCE /* MacUIReleaseStatic.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1777,9 +1853,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PREFIX_HEADER = Source/Prefix/MacTests.pch;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
 			name = Debug;
@@ -1788,8 +1861,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
 			name = Release;
@@ -1799,10 +1870,8 @@
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ECLoggingMacTestsStatic;
 			};
 			name = Debug;
 		};
@@ -1811,11 +1880,8 @@
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PREFIX_HEADER = Source/Prefix/MacTests.pch;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ECLoggingMacTestsStatic;
 			};
 			name = Release;
 		};
@@ -1823,12 +1889,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PREFIX_HEADER = Source/Prefix/IOSTests.pch;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Debug;
 		};
@@ -1836,12 +1896,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PREFIX_HEADER = Source/Prefix/IOSTests.pch;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Release;
 		};
@@ -1895,8 +1949,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Debug;
@@ -1905,8 +1957,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4615DBCD3900F2FE40 /* MacRelease.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Release;

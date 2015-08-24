@@ -10,18 +10,17 @@
 @class ECLogChannel;
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 	
     typedef NS_ENUM(NSUInteger, ECLogContextFlags)
     {
-        ECLogContextNone        = 0x0000,
-        ECLogContextFile        = 0x0001,
-        ECLogContextDate        = 0x0002,
-        ECLogContextFunction    = 0x0004,
-        ECLogContextMessage     = 0x0008,
-        ECLogContextName        = 0x0010,
+	ECLogContextNone = 0x0000,
+	ECLogContextFile = 0x0001,
+	ECLogContextDate = 0x0002,
+	ECLogContextFunction = 0x0004,
+	ECLogContextMessage = 0x0008,
+	ECLogContextName = 0x0010,
         
         ECLogContextFullPath    = 0x1000,
         ECLogContextDefault     = 0x8000
@@ -41,11 +40,11 @@ extern "C"
     extern BOOL channelEnabled(ECLogChannel* channel);
     extern ECLogChannel* registerChannel(const char* name);
     extern ECLogChannel* registerChannelWithOptions(const char* name, id options);
-    extern void	logToChannel(ECLogChannel* channel, ECLogContext* context, id object, ...);
+extern void logToChannel(ECLogChannel* channel, ECLogContext* context, id object, ...);
     
 #ifdef __cplusplus
 }
 #endif
-
-#define ECMakeContext() ECLogContext ecLogContext; makeContext(&ecLogContext, __FILE__, __LINE__, __DATE__, __PRETTY_FUNCTION__)
-
+#define ECMakeContext()        \
+	ECLogContext ecLogContext; \
+	makeContext(&ecLogContext, __FILE__, __LINE__, __DATE__, __PRETTY_FUNCTION__)

@@ -1,16 +1,16 @@
 // --------------------------------------------------------------------------
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #import "ECTestCase.h"
 
-extern NSString *const DataURLKey;
-extern NSString *const IncludesKey;
-extern NSString *const SettingsKey;
-extern NSString *const TestItemsKey;
-extern NSString *const SuiteItemsKey;
+extern NSString* const DataURLKey;
+extern NSString* const IncludesKey;
+extern NSString* const SettingsKey;
+extern NSString* const TestItemsKey;
+extern NSString* const SuiteItemsKey;
 
 /**
  
@@ -109,9 +109,9 @@ extern NSString *const SuiteItemsKey;
 
 @property (strong, nonatomic) id parameterisedTestDataItem;
 @property (strong, nonatomic) NSString* parameterisedTestName;
+@property (strong, nonatomic) NSString* parameterisedBaseName;
 
-+ (id)testCaseWithSelector:(SEL)selector param:(id)param;
-+ (id)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
++ (instancetype)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
 
 + (NSDictionary*)parameterisedTestData;
 + (NSDictionary*)parameterisedTestDataFromFolder:(NSURL*)folder settings:(NSDictionary*)settings;

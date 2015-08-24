@@ -8,3 +8,4 @@
 
 #include "ECMacRelease.xcconfig"
 #include "ECStaticLibrary.xcconfig"
+#include "Shared.xcconfig"

@@ -32,7 +32,7 @@
 
 - (NSComparisonResult)caseInsensitiveCompare:(ECLogHandler*)other
 {
-	return [self.name caseInsensitiveCompare: other.name];
+	return [self.name caseInsensitiveCompare:other.name];
 }
 
 // --------------------------------------------------------------------------
@@ -55,7 +55,7 @@
         if ([object isKindOfClass:[NSString class]])
         {
             NSString* format = object;
-            result = [[NSString alloc] initWithFormat:format arguments: arguments];
+			result = [[NSString alloc] initWithFormat:format arguments:arguments];
         }
         else
         {
@@ -79,7 +79,7 @@
 //! By default we just log the fact to the channel.
 // --------------------------------------------------------------------------
 
-- (void)wasEnabledForChannel:(ECLogChannel *)channel
+- (void)wasEnabledForChannel:(ECLogChannel*)channel
 {
 	ECMakeContext();
     logToChannel(channel, &ecLogContext, @"Enabled handler %@", self.name);
@@ -90,7 +90,7 @@
 //! By default we just log the fact to the channel.
 // --------------------------------------------------------------------------
 
-- (void)wasDisabledForChannel:(ECLogChannel *)channel
+- (void)wasDisabledForChannel:(ECLogChannel*)channel
 {
 	ECMakeContext();
     logToChannel(channel, &ecLogContext, @"Disabled handler %@", self.name);

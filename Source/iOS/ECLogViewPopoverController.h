@@ -6,6 +6,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ECDebugViewPopoverController : UIViewController
+@interface ECLogViewPopoverController : UIViewController
 
 @end

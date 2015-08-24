@@ -83,6 +83,8 @@ sign_folder()
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Resources/Info.plist"`
       elif [ -e "$f/Info.plist" ]; then
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Info.plist"`
+      elif [[ (-f "$f" ) && (-x "$f") ]]; then
+        BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /dev/stdin <<< $(otool -X -s __TEXT __info_plist -v "$f")`
       fi
 
       # now sign this bundle
@@ -123,6 +125,14 @@ sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices"
 
 # Sign Quicklook
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Library/QuickLook"
+
+# Sign bundled tools
+sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Resources/bin"
+BUNDLED_BINARY_PATHS="${CODESIGNING_FOLDER_PATH}/Contents/Resources/*/bin"
+for BUNDLED_BINARY_PATH in $BUNDLED_BINARY_PATHS 
+do
+  sign_folder "${BUNDLED_BINARY_PATH}"
+done
 
 
 echo ""

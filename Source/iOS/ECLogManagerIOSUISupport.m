@@ -5,11 +5,21 @@
 // --------------------------------------------------------------------------
 
 #import "ECLogManagerIOSUISupport.h"
-#import "ECLoggingViewController.h"
+#import "ECLogViewController.h"
 
-@interface ECLogManagerIOSUISupport()
+@interface Test : UILongPressGestureRecognizer
+@end
+@implementation Test
 
-@property (strong, nonatomic) ECLoggingViewController* viewController;
+- (void)dealloc
+{
+	NSLog(@"deallocing");
+}
+@end
+
+@interface ECLogManagerIOSUISupport ()
+
+@property (strong, nonatomic) ECLogViewController* viewController;
 @property (assign, nonatomic) BOOL uiShowing;
 
 @end
@@ -33,7 +43,8 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 	return gSharedInstance;
 }
 
-+ (void)load {
++ (void)load
+{
 	// we want to register with the log manager as early as possible, so that we
 	// get the startup and shutdown notifications
 	[ECLogManager sharedInstance].delegate = [self sharedInstance];
@@ -47,18 +58,17 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 	return root;
 }
 
-- (void)logManagerDidStartup:(ECLogManager *)manager
+- (void)logManagerDidStartup:(ECLogManager*)manager
 {
-	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self selector:@selector(installGestureRecognizer) name:UIApplicationDidFinishLaunchingNotification object:nil];
+#if EC_DEBUG
+	[self installGestureRecognizer];
+#endif
 }
 
 - (void)installGestureRecognizer
 {
 	UIWindow* window = [UIApplication sharedApplication].windows[0];
-	//	UISwipeGestureRecognizer* recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showUI)];
-	//	recognizer.numberOfTouchesRequired = 4;
-	UILongPressGestureRecognizer* recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showUI)];
+	UILongPressGestureRecognizer* recognizer = [[Test alloc] initWithTarget:self action:@selector(showUI)];
 	recognizer.numberOfTouchesRequired = 2;
 	[window addGestureRecognizer:recognizer];
 }
@@ -70,30 +80,22 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 
 - (void)showUI
 {
-		if (!self.viewController)
-		{
-			NSURL* url = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"bundle"];
-			NSBundle* bundle = [NSBundle bundleWithURL:url];
-			ECLoggingViewController* controller = [[ECLoggingViewController alloc] initWithNibName:@"ECLoggingViewController" bundle:bundle];
-			self.viewController = controller;
-		}
-
-	if (!self.viewController.parentViewController)
+	if (!self.viewController)
 	{
+		NSURL* url = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"bundle"];
+		NSBundle* bundle = [NSBundle bundleWithURL:url];
+		ECLogViewController* controller = [[ECLogViewController alloc] initWithNibName:@"ECLogViewController" bundle:bundle];
+		self.viewController = controller;
+	}
 
+	if (!self.uiShowing)
+	{
 		UIViewController* root = [self rootViewController];
 		UIViewController* modal = [root presentedViewController];
-		UIViewController* viewToDoPresenting = modal ? modal : root;
-		UINavigationController* nav = [viewToDoPresenting navigationController];
-		if (nav)
-		{
-			[nav pushViewController:self.viewController animated:YES];
-		}
-		else
-		{
-			[self.viewController showModallyWithController:viewToDoPresenting];
-			[self installGestureRecognizer];
-		}
+		[self.viewController showInController:(modal ?: root) doneBlock:^{
+			self.uiShowing = NO;
+		}];
+		self.uiShowing = YES;
 	}
 }
 

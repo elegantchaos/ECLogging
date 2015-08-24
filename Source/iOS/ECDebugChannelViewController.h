@@ -6,8 +6,8 @@
 
 @class ECLogChannel;
 
-@interface ECDebugChannelViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate> 
+@interface ECDebugChannelViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property( retain, nonatomic) ECLogChannel* channel;
+@property (retain, nonatomic) ECLogChannel* channel;
 
 @end
