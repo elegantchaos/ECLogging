@@ -40,20 +40,32 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
 
 
 def checkout_recursive(ref, pullIfSafe = False):
-    checkout(ref)
-    if pullIfSafe:
-        pull(fastForwardOnly = True)
-    submodule_update()
-    enumerate_submodules(checkout_recursive_helper, ref)
+    (result, output) = checkout(ref)
+    if (result == 0) and pullIfSafe:
+        (result, moreOutput) = pull(fastForwardOnly = True)
+        output += moreOutput
 
+    if result == 0:
+        (result, moreOutput) = submodule_update()
+        output += moreOutput
+
+    if result == 0:
+        enumerate_submodules(checkout_recursive_helper, ref)
+
+    return (result, output)
+
+
+def commit(path, message):
+    return subprocess.check_output(["git", "commit", path, "-m", message])
+    
 def submodule_update():
     return shell.call_output_and_result(["git", "submodule", "update"])
 
 def checkout_and_update(ref):
-    (result, output) = checkout(ref)    
+    (result, output) = checkout(ref)
     if result == 0:
         (result, output) = submodule_update()
-        
+
     return (result, output)
 
 def submodule():
@@ -84,22 +96,22 @@ def tags():
     (result, output) = shell.call_output_and_result(['git', 'tag'])
     if result == 0:
         tags = output.strip().split('\n')
-    
+
     return tags
 
 def add_tag(tag, ref):
     return shell.call_output_and_result(['git', 'tag', tag, ref])
-     
+
 def delete_tag(tag, fromRemote = True):
     (result, output) = shell.call_output_and_result(['git', 'tag', '-d', tag])
     if (result == 0) and fromRemote:
         (result, output) = shell.call_output_and_result(['git', 'push', 'origin', ':refs/tags/' + tag])
-        
+
     return (result, output)
- 
+
 def push_tags():
     return shell.call_output_and_result(['git', 'push', '--tags'])
-          
+
 def make_branch(name, ref = None):
     cmd = ["git", "checkout", "-b", name]
     if ref:
@@ -125,6 +137,9 @@ def pull(fastForwardOnly = False):
     if fastForwardOnly:
         cmd += ["--ff-only"]
     return shell.call_output_and_result(cmd)
+
+def push():
+    return shell.call_output_and_result(['git', 'push'])
 
 def commit_for_ref(ref):
     (result, output) = shell.call_output_and_result(["git", "log", "-1", "--oneline", "--no-abbrev-commit", ref])
@@ -197,26 +212,36 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
     	gitType = "local"
 
     gitBranches = branches(gitType)
-    
-    # if there's a branch that just has the passed issue number
-    # as it's whole name, reutrn it
-    # (this allows things like 'develop' to be passed in, instead of an issue number)
-    simpleBranch = remotePrefix + issueNumber
-    if simpleBranch in gitBranches:
-        return simpleBranch
 
-    # otherwise try to match a branch with the number and type, eg feature/1234
-    branch = remotePrefix + branchType + "/" + issueNumber
-    niceBranchStart = branch + "-"
-    for possibleBranch in gitBranches:
-        if possibleBranch.startswith(niceBranchStart):
-        	branch = possibleBranch
-        	break
+    # if there's a branch that just has the passed issue number as its whole name, return it
+    # similarly if there's a release or hotfix
+    # (this allows things like 'develop', '3,4', '3.3.3' to be passed in, instead of an issue number)
+    simpleBranch = remotePrefix + issueNumber
+    releaseBranch = remotePrefix + "release" + "/" + issueNumber
+    hotFixBranch = remotePrefix + "hotfix" + "/" + issueNumber
+
+    if simpleBranch in gitBranches:
+        branch = simpleBranch
+
+    elif releaseBranch in gitBranches:
+        branch = releaseBranch
+
+    elif hotFixBranch in gitBranches:
+        branch = hotFixBranch
+
+    else:
+        # otherwise try to match a branch with the number and type, eg feature/1234
+        branch = remotePrefix + branchType + "/" + issueNumber
+        niceBranchStart = branch + "-"
+        for possibleBranch in gitBranches:
+            if possibleBranch.startswith(niceBranchStart):
+            	branch = possibleBranch
+            	break
 
     if remote and stripPrefix:
         if branch.startswith(remotePrefix):
             branch = branch[len(remotePrefix):]
-             
+
     return branch
 
 
