@@ -37,6 +37,11 @@ def private_history_request(user, token, maxResults = 200):
     request = hipchat_request(history_command, token, None, "max-results={0}".format(maxResults))
     return request
 
+def private_history_request2(user, token, startIndex = 0, maxResults = 200):
+    history_command = "user/{0}/history".format(user)
+    request = hipchat_request(history_command, token, None, "reverse=false&start-index={0}&max-results={1}&date=2015-06-16T15:33:30".format(startIndex, maxResults))
+    return request
+
 if __name__ == '__main__':
     (user, token) = get_token()
     request = private_history_request("ale@bohemiancoding.com", token)
