@@ -32,9 +32,9 @@ def hipchat_message(message, colour, room, token, mode):
     response = urllib2.urlopen(request)
     return response.read()
 
-def private_history_request(user, token):
+def private_history_request(user, token, maxResults = 200):
     history_command = "user/{0}/history/latest".format(user)
-    request = hipchat_request(history_command, token, None, "max-results=10")
+    request = hipchat_request(history_command, token, None, "max-results={0}".format(maxResults))
     return request
 
 if __name__ == '__main__':
