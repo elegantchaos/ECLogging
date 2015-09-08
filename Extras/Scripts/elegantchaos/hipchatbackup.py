@@ -9,7 +9,7 @@ import dateutil.parser
 import shell
 import os
 import datetime
-
+import time
 
 def text_transcript(messages):
     transcript = u""
@@ -17,7 +17,7 @@ def text_transcript(messages):
         person = item["from"]
         dateString = item["date"]
         date = dateutil.parser.parse(dateString)
-        transcript += u"{0} {1}: {2}\n".format(date.strftime('%H:%m.%S'), person["name"], item["message"])
+        transcript = u"{0} {1}: {2}\n".format(date.strftime('%H:%m.%S'), person["name"], item["message"]) + transcript
 
     return transcript
 
@@ -27,6 +27,7 @@ def process_person_date(person, token, startDate, outputPath):
     endDate = startDate - datetime.timedelta(1)
     messages = []
     while True:
+        time.sleep(4) # requests are rate limited, so pause for a bit
         request = hipchat.private_history_request2(person, token, startIndex = startIndex, maxResults = pageSize, startDate = startDate, endDate = endDate)
         try:
             response = urllib2.urlopen(request)
@@ -45,7 +46,7 @@ def process_person_date(person, token, startDate, outputPath):
             break
 
     messageCount = len(messages)
-    key = startDate.strftime('%Y-%m-%d')
+    key = endDate.strftime('%Y-%m-%d')
     print "Found {0} messages for {1}".format(messageCount, key)
     if messageCount > 0:
         encoded = json.dumps(messages, indent=1)

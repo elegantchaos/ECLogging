@@ -40,12 +40,12 @@ def private_history_request(user, token, maxResults = 200):
 
 def private_history_request2(user, token, startIndex = 0, maxResults = 200, startDate = datetime.datetime.now(), endDate = None):
     history_command = "user/{0}/history".format(user)
-    startDateString = startDate.strftime('%Y-%m-%dT%H:%M')
+    startDateString = startDate.strftime('%Y-%m-%dT%H:%M:%S') + '+00:00'
     if endDate:
-        endDateString = endDate.strftime('%Y-%m-%dT%H:%M')
+        endDateString = endDate.strftime('%Y-%m-%dT%H:%M:%S') + '+00:00'
     else:
         endDateString = "null"
 
-    parameters = "reverse=false&start-index={0}&max-results={1}&date={2}&end-date={3}".format(startIndex, maxResults, startDateString, endDateString) #
+    parameters = "reverse=false&start-index={0}&max-results={1}&date={2}&end-date={3}&timezone=GB".format(startIndex, maxResults, startDateString, endDateString) #
     request = hipchat_request(history_command, token, None, parameters)
     return request
