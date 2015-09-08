@@ -5,6 +5,7 @@ import urllib
 import urllib2
 import keychain
 import json
+import datetime
 
 def set_token(token):
     keychain.set_internet_password("hipchat-script", token, "api.hipchat.com")
@@ -37,19 +38,15 @@ def private_history_request(user, token, maxResults = 200):
     request = hipchat_request(history_command, token, None, "max-results={0}".format(maxResults))
     return request
 
-def private_history_request2(user, token, startIndex = 0, maxResults = 200):
+def private_history_request2(user, token, startIndex = 0, maxResults = 200, startDate = datetime.datetime.now(), endDate = None):
     history_command = "user/{0}/history".format(user)
-    request = hipchat_request(history_command, token, None, "reverse=false&start-index={0}&max-results={1}&date=2015-06-16T15:33:30".format(startIndex, maxResults))
-    return request
+    startDateString = startDate.strftime('%Y-%m-%dT%H:%M')
+    if endDate:
+        endDateString = endDate.strftime('%Y-%m-%dT%H:%M')
+    else:
+        endDateString = "null"
 
-if __name__ == '__main__':
-    (user, token) = get_token()
-    request = private_history_request("ale@bohemiancoding.com", token)
-    response = urllib2.urlopen(request)
-    output = response.read()
-    info = json.loads(output)
-    print info.keys()
-    print info['startIndex']
-    items = info['items']
-    for item in items:
-        print item["message"]
+    parameters = "reverse=false&start-index={0}&max-results={1}&date={2}&end-date={3}".format(startIndex, maxResults, startDateString, endDateString)
+    print parameters
+    request = hipchat_request(history_command, token, None, parameters)
+    return request
