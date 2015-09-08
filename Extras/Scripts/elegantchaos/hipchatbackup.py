@@ -17,7 +17,7 @@ def text_transcript(messages):
         person = item["from"]
         dateString = item["date"]
         date = dateutil.parser.parse(dateString)
-        transcript += u"{0} {1}: {2}\n".format(date.strftime('%H:%m.%s'), person["name"], item["message"])
+        transcript += u"{0} {1}: {2}\n".format(date.strftime('%H:%m.%S'), person["name"], item["message"])
 
     return transcript
 
@@ -45,9 +45,9 @@ def process_person_date(person, token, startDate, outputPath):
             break
 
     messageCount = len(messages)
+    key = startDate.strftime('%Y-%m-%d')
+    print "Found {0} messages for {1}".format(messageCount, key)
     if messageCount > 0:
-        key = startDate.strftime('%Y-%m-%d')
-        print "Found {0} messages for {1}".format(messageCount, key)
         encoded = json.dumps(messages, indent=1)
         path = os.path.join(outputPath, key + ".json")
         shell.write_text(path, encoded)
