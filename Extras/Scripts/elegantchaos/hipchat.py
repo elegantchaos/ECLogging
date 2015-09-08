@@ -49,3 +49,19 @@ def private_history_request2(user, token, startIndex = 0, maxResults = 200, star
     parameters = "reverse=false&start-index={0}&max-results={1}&date={2}&end-date={3}&timezone=GB".format(startIndex, maxResults, startDateString, endDateString) #
     request = hipchat_request(history_command, token, None, parameters)
     return request
+
+def user_request(user, token):
+    user_command = "user/{0}".format(user)
+    print user_command
+    request = hipchat_request(user_command, token, None, None)
+    return request
+
+def users_request(token):
+    request = hipchat_request('user', token, None, None)
+    return request
+
+def fetch_as_json(request):
+    response = urllib2.urlopen(request)
+    output = response.read()
+    processed = json.loads(output)
+    return processed
