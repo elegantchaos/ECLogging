@@ -46,7 +46,6 @@ def private_history_request2(user, token, startIndex = 0, maxResults = 200, star
     else:
         endDateString = "null"
 
-    parameters = "reverse=false&start-index={0}&max-results={1}&date={2}&end-date={3}".format(startIndex, maxResults, startDateString, endDateString)
-    print parameters
+    parameters = "reverse=false&start-index={0}&max-results={1}&date={2}&end-date={3}".format(startIndex, maxResults, startDateString, endDateString) #
     request = hipchat_request(history_command, token, None, parameters)
     return request

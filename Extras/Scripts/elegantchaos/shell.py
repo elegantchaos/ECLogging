@@ -109,7 +109,7 @@ def read_text(path):
 
 def write_text(path, text):
 	with open(path, "w") as outputFile:
-	    outputFile.write(text)
+	    outputFile.write(text.encode('utf8'))
 
 def view_file(path):
     subprocess.call(["open", path])
