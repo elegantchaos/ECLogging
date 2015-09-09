@@ -82,10 +82,11 @@ def process_person(person, token):
         else:
             consecutiveFailureCount += 1
 
-        # if we get more than a given number of days with no messages, we assume we've hit the
-        # earliest message and give up
-        if consecutiveFailureCount > DAYS_WITHOUT_MESSAGE_BEFORE_GIVING_UP:
-            exit
+        # # if we get more than a given number of days with no messages, we assume we've hit the
+        # # earliest message and give up
+        # if consecutiveFailureCount > DAYS_WITHOUT_MESSAGE_BEFORE_GIVING_UP:
+        #     print "{0} days without messages: giving up...".format(DAYS_WITHOUT_MESSAGE_BEFORE_GIVING_UP)
+        #     break
 
         startDate = startDate - datetime.timedelta(1)
 
