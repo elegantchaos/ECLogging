@@ -14,27 +14,30 @@ import time
 DAYS_WITHOUT_MESSAGE_BEFORE_GIVING_UP = 30
 PAGE_SIZE = 1000
 
-def text_transcript(messages):
+def text_transcript(messages, dateFormat='%H:%m.%S'):
     transcript = u""
+    datesort=lambda x,y: cmp(dateutil.parser.parse(x['date']), dateutil.parser.parse(y['date']))
+    messages.sort(datesort)
     for item in messages:
         person = item["from"]
         dateString = item["date"]
         date = dateutil.parser.parse(dateString)
-        transcript = u"{0} {1}: {2}\n".format(date.strftime('%H:%m.%S'), person["name"], item["message"]) + transcript
+        transcript = transcript + u"{0} {1}: {2}\n".format(date.strftime(dateFormat), person["name"], item["message"])
 
     return transcript
 
 def process_person_date(person, token, startDate, outputPath):
     startIndex = 0
     endDate = startDate - datetime.timedelta(1)
+    key = endDate.strftime('%Y-%m-%d')
+
     messages = []
     while True:
         time.sleep(4) # requests are rate limited, so pause for a bit
-        request = hipchat.private_history_request2(person, token, startIndex = startIndex, maxResults = PAGE_SIZE, startDate = startDate, endDate = endDate)
+        request = hipchat.private_history_request(person, token, startIndex = startIndex, maxResults = PAGE_SIZE, startDate = startDate, endDate = endDate)
+
         try:
-            response = urllib2.urlopen(request)
-            output = response.read()
-            info = json.loads(output)
+            info = hipchat.fetch_as_json(request)
             items = info['items']
             itemCount = len(items)
             if itemCount == 0:
@@ -47,7 +50,6 @@ def process_person_date(person, token, startDate, outputPath):
             break
 
     messageCount = len(messages)
-    key = endDate.strftime('%Y-%m-%d')
     print "Found {0} messages for {1}".format(messageCount, key)
     if messageCount > 0:
         encoded = json.dumps(messages, indent=1)
@@ -55,6 +57,26 @@ def process_person_date(person, token, startDate, outputPath):
         shell.write_text(path, encoded)
 
         transcript = text_transcript(messages)
+        path = os.path.join(outputPath, key + ".txt")
+        shell.write_text(path, transcript)
+
+    return messageCount
+
+def process_person_recent(person, token, outputPath):
+    startIndex = 0
+    key = "recent"
+    time.sleep(4) # requests are rate limited, so pause for a bit
+    request = hipchat.private_history_latest_request(person, token, maxResults = PAGE_SIZE)
+    info = hipchat.fetch_as_json(request)
+    messages = info['items']
+    messageCount = len(messages)
+    print "Found {0} messages for {1}".format(messageCount, key)
+    if messageCount > 0:
+        encoded = json.dumps(messages, indent=1)
+        path = os.path.join(outputPath, key + ".json")
+        shell.write_text(path, encoded)
+
+        transcript = text_transcript(messages, dateFormat='%Y-%m-%d %H:%m.%S')
         path = os.path.join(outputPath, key + ".txt")
         shell.write_text(path, transcript)
 
@@ -72,22 +94,11 @@ def process_person(person, token):
 
     startDate = datetime.datetime.now() + datetime.timedelta(1)
     startDate = datetime.datetime(startDate.year, startDate.month, startDate.day)
-    earliestDate = datetime.datetime(2014, 10, 1)
+    earliestDate = datetime.datetime(2015, 9, 1)
 
-    consecutiveFailureCount = 0
+    process_person_recent(personID, token, outputPath)
     while startDate > earliestDate:
-        messageCount = process_person_date(personID, token, startDate, outputPath)
-        if messageCount > 0:
-            consecutiveFailureCount = 0
-        else:
-            consecutiveFailureCount += 1
-
-        # # if we get more than a given number of days with no messages, we assume we've hit the
-        # # earliest message and give up
-        # if consecutiveFailureCount > DAYS_WITHOUT_MESSAGE_BEFORE_GIVING_UP:
-        #     print "{0} days without messages: giving up...".format(DAYS_WITHOUT_MESSAGE_BEFORE_GIVING_UP)
-        #     break
-
+        process_person_date(personID, token, startDate, outputPath)
         startDate = startDate - datetime.timedelta(1)
 
 def get_user(user, token):

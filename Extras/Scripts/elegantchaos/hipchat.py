@@ -33,18 +33,22 @@ def hipchat_message(message, colour, room, token, mode):
     response = urllib2.urlopen(request)
     return response.read()
 
-def private_history_request(user, token, maxResults = 200):
+def private_history_latest_request(user, token, maxResults = 200):
     history_command = "user/{0}/history/latest".format(user)
-    request = hipchat_request(history_command, token, None, "max-results={0}".format(maxResults))
+    request = hipchat_request(history_command, token, None, "max-results={0}&timezone=GB".format(maxResults))
     return request
 
-def private_history_request2(user, token, startIndex = 0, maxResults = 200, startDate = datetime.datetime.now(), endDate = None):
+def private_history_request(user, token, startIndex = 0, maxResults = 200, startDate = datetime.datetime.now(), endDate = None):
     history_command = "user/{0}/history".format(user)
-    startDateString = startDate.strftime('%Y-%m-%dT%H:%M:%S') + '+00:00'
-    if endDate:
-        endDateString = endDate.strftime('%Y-%m-%dT%H:%M:%S') + '+00:00'
+    if startDate == 'recent':
+        startDateString = startDate
     else:
-        endDateString = "null"
+        startDateString = startDate.strftime('%Y-%m-%dT%H:%M:%S+00:00')
+
+    if endDate:
+        endDateString = endDate.strftime('%Y-%m-%dT%H:%M:%S+00:00')
+    else:
+        endDateString = 'null'
 
     parameters = "reverse=false&start-index={0}&max-results={1}&date={2}&end-date={3}&timezone=GB".format(startIndex, maxResults, startDateString, endDateString) #
     request = hipchat_request(history_command, token, None, parameters)
