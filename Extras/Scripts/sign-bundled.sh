@@ -53,7 +53,9 @@ sign()
   # check if we need to resign (resigning can be slow, so we check first)
   if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
     echo "Resigning $NAME as $CODE_SIGN_IDENTITY with id $BUNDLEID"
-    echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
+    if [[ ("$CURRENT_IDENTIFIER" != "") || ("$CURRENT_AUTHORITY" != "") ]]; then
+        echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
+    fi
     codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
     #codesign --verbose=2 -d "${FILE}"
   else
@@ -120,7 +122,7 @@ sign_binaries()
 
 # Pull out the application's bundle id
 BUILT_INFO_PLIST="${CODESIGNING_FOLDER_PATH}/Contents/Info.plist"
-APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" \"${BUILT_INFO_PLIST}\"`
+APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "${BUILT_INFO_PLIST}"`
 echo "Resigning bundled items."
 echo "App bundle is $APPID."
 
