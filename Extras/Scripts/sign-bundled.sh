@@ -86,7 +86,7 @@ sign_folder()
       elif [ -e "$f/Info.plist" ]; then
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Info.plist"`
       elif [ -f "$f" ]; then
-        if [[ (-x "$f") && ( "$f" != *.sh ) ]]; then
+        if [[ (-x "$f") ]]; then
             # it's a standalone executable, so sign it
             BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /dev/stdin <<< $(otool -X -s __TEXT __info_plist -v "$f")`
         else
@@ -111,10 +111,13 @@ sign_binaries()
     for cf in "$FOLDER/"*
     do
         if [[ -e "$cf/bin" ]]; then
-            echo "Resigning tools ${cf/bin}"
-            sign_folder "$cf/bin"
+          echo "Resigning tools ${cf/bin}"
+          sign_folder "$cf/bin"
         elif [[ -d "$cf" ]]; then
           sign_binaries "$cf"
+        elif [[ (-x "$cf") && ( "$cf" == *.sh )  ]]; then
+          echo "Resigning script ${cf}"
+          sign "" "${CODE_SIGN_IDENTITY}" "$cf"
         fi
     done
 }
@@ -157,7 +160,7 @@ sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Library/QuickLook"
 
 # Sign bundled tools
 echo "Resigning tools"
-sign_binaries "${CODESIGNING_FOLDER_PATH}/Contents/Resources"
+sign_binaries "${CODESIGNING_FOLDER_PATH}/Contents"
 
 
 echo ""
