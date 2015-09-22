@@ -83,8 +83,15 @@ sign_folder()
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Resources/Info.plist"`
       elif [ -e "$f/Info.plist" ]; then
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Info.plist"`
-      elif [[ (-f "$f" ) && (-x "$f") ]]; then
-        BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /dev/stdin <<< $(otool -X -s __TEXT __info_plist -v "$f")`
+      elif [ -f "$f" ]; then
+        if [[ (-x "$f") && ( "$f" != *.sh ) ]]; then
+            # it's a standalone executable, so sign it
+            BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /dev/stdin <<< $(otool -X -s __TEXT __info_plist -v "$f")`
+        else
+            # it's not an executable, so skip it
+            #echo "Skipping $f as it's not an executable..."
+            continue
+        fi
       fi
 
       # now sign this bundle
@@ -95,10 +102,26 @@ sign_folder()
 
 }
 
+sign_binaries()
+{
+    local FOLDER="$1"
+    local cf
+    for cf in "$FOLDER/"*
+    do
+        if [[ -e "$cf/bin" ]]; then
+            echo "Resigning tools ${cf/bin}"
+            sign_folder "$cf/bin"
+        elif [[ -d "$cf" ]]; then
+          sign_binaries "$cf"
+        fi
+    done
+}
+
+
 # Pull out the application's bundle id
 BUILT_INFO_PLIST="${CODESIGNING_FOLDER_PATH}/Contents/Info.plist"
-APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" ${BUILT_INFO_PLIST}`
-echo "Resigning bundles items."
+APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" \"${BUILT_INFO_PLIST}\"`
+echo "Resigning bundled items."
 echo "App bundle is $APPID."
 
 if [[ "$CODE_SIGN_IDENTITY" == "" ]] ; then
@@ -115,24 +138,24 @@ fi
 echo "Using identity $CODE_SIGN_IDENTITY"
 
 # Sign Plugins
+echo "Resigning plugins"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns"
 
 # Sign Frameworks
+echo "Resigning frameworks"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks"
 
 # Sign XPCServices
+echo "Resigning XCP services"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices"
 
 # Sign Quicklook
+echo "Resigning Quicklook plugins"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Library/QuickLook"
 
 # Sign bundled tools
-sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Resources/bin"
-BUNDLED_BINARY_PATHS="${CODESIGNING_FOLDER_PATH}/Contents/Resources/*/bin"
-for BUNDLED_BINARY_PATH in $BUNDLED_BINARY_PATHS 
-do
-  sign_folder "${BUNDLED_BINARY_PATH}"
-done
+echo "Resigning tools"
+sign_binaries "${CODESIGNING_FOLDER_PATH}/Contents/Resources"
 
 
 echo ""
