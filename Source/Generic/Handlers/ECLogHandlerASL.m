@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------
 //
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's 
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
@@ -11,16 +11,11 @@
 #import <asl.h>
 
 @interface ECLogHandlerASL()
-
 @property (assign, nonatomic) aslclient aslClient;
 @property (strong, nonatomic) NSMutableDictionary*  aslMsgs;
-
 @end
 
 @implementation ECLogHandlerASL
-
-@synthesize aslClient;
-@synthesize aslMsgs;
 
 #pragma mark - Lifecycle
 
@@ -28,7 +23,7 @@
 //! Initialise.
 // --------------------------------------------------------------------------
 
-- (id) init 
+- (instancetype) init 
 {
     if ((self = [super init]) != nil) 
     {
@@ -48,10 +43,7 @@
     {
         asl_free([msg pointerValue]);
     }
-    [aslMsgs release];
     asl_close(self.aslClient);
-    
-    [super dealloc];
 }
 
 #pragma mark - Logging

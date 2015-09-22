@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------
 //
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's 
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
@@ -21,18 +21,13 @@
 
 @implementation ECLogHandlerFile
 
-#pragma mark - Properties
-
-@synthesize files;
-@synthesize logFolder;
-
 #pragma mark - Lifecycle
 
 // --------------------------------------------------------------------------
 //! Initialise.
 // --------------------------------------------------------------------------
 
-- (id) init 
+- (instancetype) init 
 {
     if ((self = [super init]) != nil) 
     {
@@ -48,18 +43,6 @@
     }
     
     return self;
-}
-
-// --------------------------------------------------------------------------
-//! Cleanup.
-// --------------------------------------------------------------------------
-
-- (void)dealloc
-{
-    [files release];
-    [logFolder release];
-    
-    [super dealloc];
 }
 
 #pragma mark - Logging

@@ -1,7 +1,7 @@
 // --------------------------------------------------------------------------
 //
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@
 
 static ECASLClient* gSharedInstance = nil;
 
-@interface ECASLClient()
+@interface ECASLClient ()
 
 #pragma mark - Private Properties
 
@@ -23,9 +23,6 @@ static ECASLClient* gSharedInstance = nil;
 
 @implementation ECASLClient
 
-@synthesize client;
-@synthesize msg;
-
 #pragma mark - Object Lifecycle
 
 // --------------------------------------------------------------------------
@@ -36,43 +33,47 @@ static ECASLClient* gSharedInstance = nil;
 
 + (ECASLClient*)sharedInstance
 {
-    return gSharedInstance;
+	return gSharedInstance;
 }
 
 // --------------------------------------------------------------------------
 //! Set up ASL connection etc.
 // --------------------------------------------------------------------------
 
-- (id)initWithName:(NSString*)name
+- (instancetype)init
 {
-    if ((self = [super init]) != nil)
-    {
-        const char* name_c = [name UTF8String];
-        self.client = asl_open(name_c, "log", ASL_OPT_STDERR);
-        self.msg = asl_new(ASL_TYPE_MSG);
-        if (gSharedInstance == nil)
-        {
-            gSharedInstance = self;
-        }
-    }
-    
-    return self;
+	self = [self initWithName:@"Untitled"];
+	return self;
+}
+
+- (instancetype)initWithName:(NSString*)name
+{
+	if ((self = [super init]) != nil)
+	{
+		const char* name_c = [name UTF8String];
+		self.client = asl_open(name_c, "log", ASL_OPT_STDERR);
+		self.msg = asl_new(ASL_TYPE_MSG);
+		if (gSharedInstance == nil)
+		{
+			gSharedInstance = self;
+		}
+	}
+
+	return self;
 }
 
 // --------------------------------------------------------------------------
 //! Cleanup.
 // --------------------------------------------------------------------------
 
-- (void)dealloc 
+- (void)dealloc
 {
-    asl_free(self.msg);
-    asl_close(self.client);
-    if (gSharedInstance == self)
-    {
-        gSharedInstance = nil;
-    }
-    
-    [super dealloc];
+	asl_free(self.msg);
+	asl_close(self.client);
+	if (gSharedInstance == self)
+	{
+		gSharedInstance = nil;
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -81,9 +82,8 @@ static ECASLClient* gSharedInstance = nil;
 
 - (void)logAtLevel:(int)level withFormat:(NSString*)format args:(va_list)args
 {
-    NSString* text = [[NSString alloc] initWithFormat:format arguments:args];
-    asl_log(self.client, self.msg, level, "%s", [text UTF8String]);
-    [text release];
+	NSString* text = [[NSString alloc] initWithFormat:format arguments:args];
+	asl_log(self.client, self.msg, level, "%s", [text UTF8String]);
 }
 
 
@@ -91,12 +91,12 @@ static ECASLClient* gSharedInstance = nil;
 //! Log to ASL. at a given level
 // --------------------------------------------------------------------------
 
-- (void)logAtLevel:(int)level withFormat:(NSString *)format, ...
+- (void)logAtLevel:(int)level withFormat:(NSString*)format, ...
 {
-    va_list args;
-    va_start(args, format);
-    [self logAtLevel:level withFormat:format args:args];
-    va_end(args);
+	va_list args;
+	va_start(args, format);
+	[self logAtLevel:level withFormat:format args:args];
+	va_end(args);
 }
 
 // --------------------------------------------------------------------------
@@ -105,22 +105,22 @@ static ECASLClient* gSharedInstance = nil;
 
 - (void)log:(NSString*)format, ...
 {
-    va_list args;
-    va_start(args, format);
-    [self logAtLevel:ASL_LEVEL_INFO withFormat:format args:args];
-    va_end(args);
+	va_list args;
+	va_start(args, format);
+	[self logAtLevel:ASL_LEVEL_INFO withFormat:format args:args];
+	va_end(args);
 }
 
 // --------------------------------------------------------------------------
 //! Log error to ASL.
 // --------------------------------------------------------------------------
 
-- (void)error:(NSString*)format, ... 
+- (void)error:(NSString*)format, ...
 {
-    va_list args;
-    va_start(args, format);
-    [self logAtLevel:ASL_LEVEL_INFO withFormat:format args:args];
-    va_end(args);
+	va_list args;
+	va_start(args, format);
+	[self logAtLevel:ASL_LEVEL_INFO withFormat:format args:args];
+	va_end(args);
 }
 
 

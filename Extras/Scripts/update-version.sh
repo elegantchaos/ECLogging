@@ -16,10 +16,16 @@ fi
 VERSION=`git log --oneline | wc -l`
 COMMIT=`git rev-parse HEAD`
 
+SHORT_VERSION="$2"
+
 # update the plist in the built app
-/usr/libexec/PlistBuddy -c "Add :ECVersionCommit string commit" "$PLIST"
+/usr/libexec/PlistBuddy -c "Add :ECVersionCommit string commit" "$PLIST" >& /dev/null
 /usr/libexec/PlistBuddy -c "Set :ECVersionCommit $COMMIT" "$PLIST"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$PLIST"
+if [[ "$SHORT_VERSION" != "" ]]
+then
+    /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $SHORT_VERSION" "$PLIST"
+fi
 
 echo "Bumped build number to $VERSION ($COMMIT) in $PLIST"
 
@@ -30,9 +36,13 @@ echo "*${DSYM_PLIST}*"
 if [[ -e "${DSYM_PLIST}" ]] ; then
 
     # update the plist in the dSYM file too so that the build numbers match
-    /usr/libexec/PlistBuddy -c "Add :ECVersionCommit string commit" "$DSYM_PLIST"
+    /usr/libexec/PlistBuddy -c "Add :ECVersionCommit string commit" "$DSYM_PLIST" >& /dev/null
     /usr/libexec/PlistBuddy -c "Set :ECVersionCommit $COMMIT" "$DSYM_PLIST"
     /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$DSYM_PLIST"
+    if [[ "$SHORT_VERSION" != "" ]]
+    then
+        /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $SHORT_VERSION" "$DSYM_PLIST"
+    fi
 
     echo "Also updated dSYM build number"
 

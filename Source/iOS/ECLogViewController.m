@@ -1,116 +1,70 @@
 // --------------------------------------------------------------------------
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #import "ECLogViewController.h"
-#import "ECLogViewHandler.h"
-#import "ECLogViewHandlerItem.h"
-#import "ECLogChannel.h"
+#import "ECLogSettingsViewController.h"
+#import "ECLoggingMacros.h"
+#import "ECLogManager.h"
+#import "ECLogTranscriptViewController.h"
+#import "ECLogManagerIOSUISupport.h"
 
-@interface ECLogViewController()
-
-@property (nonatomic, strong) NSArray* items;
-@property (strong, nonatomic) UIFont* messageFont;
-@property (strong, nonatomic) UIFont* contextFont;
-
+@interface ECLogViewController ()
+@property (copy, nonatomic) ECLoggingSettingsViewControllerDoneBlock doneBlock;
 @end
 
 @implementation ECLogViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    if ((self = [super initWithStyle:style]) != nil)
-    {
-    }
-    
-    return self;
-}
+#pragma mark - Channels
 
-- (void)dealloc
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:LogItemsUpdated object:nil];
-
-    [_contextFont release];
-    [_items release];
-    [_messageFont release];
-
-    [super dealloc];
-}
-
-#pragma mark - Notifications
-
-- (void)logItemsUpdated:(NSNotification*)notification
-{
-	self.items = notification.object;
-	[self.tableView reloadData];
-}
+ECDefineDebugChannel(ECLoggingViewControllerChannel);
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-
-    self.messageFont = [UIFont systemFontOfSize:14];
-    self.contextFont = [UIFont systemFontOfSize:10];
-
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logItemsUpdated:) name:LogItemsUpdated object:nil];
-}
-
-#pragma mark - Table view data source
-
-- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-	return @"Log";
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self.items count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-    // Configure the cell...
-    ECLogViewHandlerItem* item = [self.items objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = item.message;
-    cell.textLabel.font = self.messageFont;
-    cell.textLabel.numberOfLines = 0;
-    
-    cell.detailTextLabel.text = item.context;
-    cell.detailTextLabel.font = self.contextFont;
-    cell.detailTextLabel.numberOfLines = 0;
-    //    cell.detailTextLabel.textAlignment = UITextAlignmentRight;
-    
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    ECLogViewHandlerItem* item = [self.items objectAtIndex:indexPath.row];
-
-#ifdef __IPHONE_6_0
-	NSLineBreakMode mode = NSLineBreakByWordWrapping;
-#else
-	UILineBreakMode mode = UILineBreakModeWordWrap;
-#endif
+	[self.oTranscriptController setupInitialLogItems];
+	[super viewWillAppear:animated];
 	
-    CGSize constraint = CGSizeMake(tableView.frame.size.width, 10000.0);
-    CGSize messageSize = [item.message sizeWithFont:self.messageFont constrainedToSize:constraint lineBreakMode:mode];
-    CGSize contextSize = [item.context sizeWithFont:self.contextFont constrainedToSize:constraint lineBreakMode:mode];
-    
-    return messageSize.height + contextSize.height;
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	self.oSettingsController.navController = self.navigationController;
+	[[ECLogManager sharedInstance] saveChannelSettings];
 }
 
+- (void)showInController:(UIViewController*)controller doneBlock:(ECLoggingSettingsViewControllerDoneBlock)doneBlock
+{
+	self.edgesForExtendedLayout = UIRectEdgeNone;
+	self.doneBlock = doneBlock;
+	UINavigationController* nav = [controller navigationController];
+	if (nav)
+	{
+		[nav pushViewController:self animated:YES];
+	}
+	else
+	{
+		UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:self];
+		self.title = @"ECLogging";
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneModal)];
+		
+		[controller presentViewController:navigation animated:YES completion:^{
+			
+		}];
+	}
+}
+
+- (void)doneModal
+{
+	[self dismissViewControllerAnimated:YES completion:^{
+		[[ECLogManager sharedInstance] saveChannelSettings];
+		[self removeFromParentViewController];
+		if (self.doneBlock)
+			self.doneBlock();
+	}];
+}
 
 @end

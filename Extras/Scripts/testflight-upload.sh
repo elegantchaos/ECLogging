@@ -10,6 +10,8 @@
 ## The second parameter should be the name of a TestFlight distribution list. All users in the list will be notified
 ## when the target has been uploaded.
 
+say "uploading to test flight"
+
 TMP=/tmp/testflight-upload
 LOG="${TMP}/upload.log"
 ERROR_LOG="${TMP}/error.log"
@@ -27,6 +29,7 @@ APITOKEN=`defaults read com.elegantchaos.testflight-upload API_TOKEN`
 if [[ "${APITOKEN}" == "" ]]; then
     echo "Need to set the TestFlight API token using 'defaults write com.elegantchaos.testflight-upload API_TOKEN <token>'" >> "${ERROR_LOG}"
     open "${ERROR_LOG}"
+    say "API token missing"
     exit 1
 fi
 
@@ -50,7 +53,7 @@ MESSAGE=""
 if $DEFAULT_MESSAGE_IS_GIT_LOG; then
     # use the git log since the last upload as the upload message
     # any unused shell arguments are passed to git to allow us to filter the log to certain directories (ie to avoid commit messages for unrelated targets)
-    MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline origin/testflight/latest..HEAD $@`
+    MESSAGE=`cd "$PROJECT_DIR"; $GIT log --oneline origin/testflight/latest..HEAD "$@"`
     if [[ $? != 0 ]]; then
         MESSAGE="first upload"
     fi
@@ -93,6 +96,7 @@ XCRUN="$XCROOT/usr/bin/xcrun"
 if [[ $? == 0 ]] ; then
 
         CURLLOG="${TMP}/curl.log"
+        CURLERR="${TMP}/curlerr.log"
 
         echo "Uploading to Test Flight with notes:" >> "${LOG}"
         echo "\"${MESSAGE}\"" >> "${LOG}"
@@ -102,10 +106,13 @@ if [[ $? == 0 ]] ; then
 
         zip -q -r "${DSYM}.zip" "${DSYM}"
         rm "$CURLLOG"
-        curl http://testflightapp.com/api/builds.json --form file="@${IPA}" --form dsym="@${DSYM}.zip" --form api_token="${APITOKEN}" --form team_token="${TEAMTOKEN}" --form notes="${MESSAGE}" --form notify=True --form distribution_lists="${DISTRIBUTION}" -o "${CURLLOG}"
+        CURL_OPTIONS="--connect-timeout 60 --max-time 600 --retry 10 --retry-delay 1 --retry-max-time 600 --verbose"
+        #CURL_OPTIONS="--connect-timeout 60 --max-time 600 --retry 10 --retry-delay 1 --trace-ascii"
+        curl http://testflightapp.com/api/builds.json $CURL_OPTIONS --form file="@${IPA}" --form dsym="@${DSYM}.zip" --form api_token="${APITOKEN}" --form team_token="${TEAMTOKEN}" --form notes="${MESSAGE}" --form notify="true" --form distribution_lists="${DISTRIBUTION}" -o "${CURLLOG}" &> "${CURLERR}"
         CONFIG_URL=`"${SCRIPT_DIR}/testflight-extract-url.py" < "${CURLLOG}"`
 
         if [[ $? == 0 ]] ; then
+            say "upload done"
             echo "Upload done." >> "${LOG}"
             open "${CONFIG_URL}"
 
@@ -119,13 +126,17 @@ if [[ $? == 0 ]] ; then
             rm "${IPA}"
 
         else
+            say "upload failed"
             echo "Test Flight returned error:" > "${ERROR_LOG}"
             cat "${CURLLOG}" >> "${ERROR_LOG}"
+            echo "Curl errors:" >> "${ERROR_LOG}"
+            cat "${CURLERR}" >> "${ERROR_LOG}"
+
             open "${ERROR_LOG}"
 
         fi
 else
-
+    say "upload failed - couldn't make IPA"
     echo "Failed to build IPA"  >> "${ERROR_LOG}"
     echo "Profile was: ${PROVISIONING_PROFILE}" >> "${TMP}/xcrun.log"
     echo "Identity was: ${CODE_SIGN_IDENTITY}" >> "${TMP}/xcrun.log"

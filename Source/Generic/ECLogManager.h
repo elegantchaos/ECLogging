@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
@@ -9,6 +9,13 @@
 
 @class ECLogChannel;
 @class ECLogHandler;
+@class ECLogManager;
+
+@protocol ECLogManagerDelegate <NSObject>
+@optional
+- (void)logManagerDidStartup:(ECLogManager*)manager;
+- (void)logManagerWillShutdown:(ECLogManager*)manager;
+@end
 
 /**
  * Singleton which keeps track of all the log channels and log handlers, and mediates the logging process.
@@ -20,14 +27,12 @@
 
 @interface ECLogManager : NSObject
 
-{
-@private
-	NSMutableDictionary* _channels;
-	NSMutableDictionary* _handlers;
-	NSMutableArray* _defaultHandlers;
-	NSMutableDictionary* _settings;
-    ECLogContextFlags _defaultContextFlags;
-}
+
+/**
+ * Return the shared log manager.
+ */
+
++ (ECLogManager*)sharedInstance;
 
 // --------------------------------------------------------------------------
 // Public Properties
@@ -37,7 +42,9 @@
 @property (strong, nonatomic) NSMutableDictionary* handlers;
 @property (strong, nonatomic) NSMutableArray* defaultHandlers;
 @property (assign, nonatomic) ECLogContextFlags defaultContextFlags;
-@property (strong, nonatomic)NSMutableDictionary* settings;
+@property (strong, nonatomic) NSMutableDictionary* settings;
+@property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
+@property (assign, nonatomic) BOOL showMenu;
 
 // --------------------------------------------------------------------------
 // Public Methods
@@ -68,15 +75,11 @@
 - (BOOL)handlerIsDefault:(ECLogHandler*)handler;
 - (void)handler:(ECLogHandler*)handler setDefault:(BOOL)value;
 
+- (NSDictionary*)optionsSettings;
+
 @end
 
-@interface ECLogManager(PlatformSpecific)
-
-/** 
- * Return the shared log manager.
- */
-
-+ (ECLogManager*)sharedInstance;
+@interface ECLogManager (PlatformSpecific)
 
 @end
 
@@ -84,4 +87,4 @@
 // Notifications
 // --------------------------------------------------------------------------
 
-extern NSString *const LogChannelsChanged;
+extern NSString* const LogChannelsChanged;

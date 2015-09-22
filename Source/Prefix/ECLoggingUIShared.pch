@@ -1,0 +1,37 @@
+// --------------------------------------------------------------------------
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
+
+
+/**
+ * Standard definitions for all libraries.
+ */
+
+#ifdef __OBJC__
+
+#import <ECLogging/ECLogging.h>
+
+// --------------------------------------------------------------------------
+// iOS Settings
+// --------------------------------------------------------------------------
+
+#if TARGET_OS_IPHONE
+
+#import <UIKit/UIKit.h>
+
+
+// --------------------------------------------------------------------------
+// Mac Settings
+// --------------------------------------------------------------------------
+
+#elif TARGET_OS_MAC
+
+#import <AppKit/AppKit.h>
+
+#endif
+
+
+#endif
+

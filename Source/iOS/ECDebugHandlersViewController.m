@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license:http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
@@ -7,7 +7,7 @@
 #import "ECDebugHandlersViewController.h"
 
 #import "ECDebugChannelViewController.h"
-#import "ECLoggingSettingsViewController.h"
+#import "ECLogSettingsViewController.h"
 
 #import "ECLogHandler.h"
 #import "ECLogManager.h"
@@ -16,7 +16,7 @@
 // Private Methods
 // --------------------------------------------------------------------------
 
-static NSString *const DebugHandlersViewCell = @"DebugHandlersViewCell";
+static NSString* const DebugHandlersViewCell = @"DebugHandlersViewCell";
 
 @implementation ECDebugHandlersViewController
 
@@ -27,44 +27,17 @@ static NSString *const DebugHandlersViewCell = @"DebugHandlersViewCell";
 ECDefineDebugChannel(DebugHandlersViewChannel);
 
 // --------------------------------------------------------------------------
-// Properties
-// --------------------------------------------------------------------------
-
-@synthesize handlers = _handlers;
-@synthesize debugViewController = _debugViewController;
-
-// --------------------------------------------------------------------------
-//! Clean up.
-// --------------------------------------------------------------------------
-
-- (void)dealloc
-{
-    [_handlers release];
-    [_debugViewController release];
-    
-    [super dealloc];
-}
-
-// --------------------------------------------------------------------------
 //! Finish setting up the view.
 // --------------------------------------------------------------------------
 
-- (void) viewDidLoad
+- (void)viewDidLoad
 {
 	ECDebug(DebugHandlersViewChannel, @"setting up view");
 
-    self.handlers = [[ECLogManager sharedInstance] handlersSortedByName];
-    [super viewDidLoad];
+	self.handlers = [[ECLogManager sharedInstance] handlersSortedByName];
+	[super viewDidLoad];
 }
 
-// --------------------------------------------------------------------------
-//! Support any orientation.
-// --------------------------------------------------------------------------
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
 
 #pragma mark UITableViewDataSource methods
 
@@ -74,16 +47,16 @@ ECDefineDebugChannel(DebugHandlersViewChannel);
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
 {
-    return 1;
+	return 1;
 }
 
 // --------------------------------------------------------------------------
 //! Return the header title for a section.
 // --------------------------------------------------------------------------
 
-- (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger) section
+- (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Default Handlers";
+	return @"Default Handlers";
 }
 
 // --------------------------------------------------------------------------
@@ -92,16 +65,16 @@ ECDefineDebugChannel(DebugHandlersViewChannel);
 
 - (NSString*)tableView:(UITableView*)tableView titleForFooterInSection:(NSInteger)section
 {
-    return @"Messages for any channel set to use the default handlers will be sent to all ticked items.";
+	return @"Messages for any channel set to use the default handlers will be sent to all ticked items.";
 }
 
 // --------------------------------------------------------------------------
 //! Return the number of rows in a section.
 // --------------------------------------------------------------------------
 
-- (NSInteger)tableView:(UITableView*)table numberOfRowsInSection:(NSInteger) sectionIndex
+- (NSInteger)tableView:(UITableView*)table numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return [self.handlers count];
+	return [self.handlers count];
 }
 
 
@@ -111,16 +84,16 @@ ECDefineDebugChannel(DebugHandlersViewChannel);
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    ECLogHandler* handler = [self.handlers objectAtIndex:indexPath.row];
-    
+	ECLogHandler* handler = [self.handlers objectAtIndex:indexPath.row];
+
 	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:DebugHandlersViewCell];
 	if (cell == nil)
 	{
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:DebugHandlersViewCell] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:DebugHandlersViewCell];
 	}
-	
-    cell.textLabel.text = handler.name;
-    cell.accessoryType = [[ECLogManager sharedInstance] handlerIsDefault:handler] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+
+	cell.textLabel.text = handler.name;
+	cell.accessoryType = [[ECLogManager sharedInstance] handlerIsDefault:handler] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 
 	return cell;
 }
@@ -130,13 +103,13 @@ ECDefineDebugChannel(DebugHandlersViewChannel);
 //! Handle selecting a table row.
 // --------------------------------------------------------------------------
 
-- (void) tableView:(UITableView*) table didSelectRowAtIndexPath:(NSIndexPath*)path
+- (void)tableView:(UITableView*)table didSelectRowAtIndexPath:(NSIndexPath*)path
 {
-    ECLogHandler* handler = [self.handlers objectAtIndex:path.row];
+	ECLogHandler* handler = [self.handlers objectAtIndex:path.row];
 	ECLogManager* lm = [ECLogManager sharedInstance];
 	BOOL isDefault = [lm handlerIsDefault:handler];
 	[lm handler:handler setDefault:!isDefault];
-    [self.tableView reloadData];
+	[self.tableView reloadData];
 }
 
 @end

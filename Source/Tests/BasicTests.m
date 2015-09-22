@@ -1,172 +1,159 @@
 // --------------------------------------------------------------------------
 //
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECTestCase.h"
-#import "NSString+ECLogging.h"
+#import <ECLogging/ECLogging.h>
+#import <ECUnitTests/ECUnitTests.h>
 
-@interface StringTests : ECTestCase
-{
-}
+ECDefineLogChannel(TestChannel);
 
+@interface ECLogManager (PrivateTestAccessOnly)
+- (void)loadChannelSettings;
+- (void)processForcedChannels;
 @end
 
-@implementation StringTests
+@interface TestHandler : ECLogHandler
+@property (strong, nonatomic) NSMutableString* logged;
+@end
+
+@implementation TestHandler
+
+- (instancetype)init
+{
+	if ((self = [super init]) != nil)
+	{
+		self.logged = [NSMutableString new];
+		self.name = @"Test Handler";
+	}
+
+	return self;
+}
+- (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context
+{
+	NSString* output = [self simpleOutputStringForChannel:channel withObject:object arguments:arguments context:context];
+	[self.logged appendString:output];
+}
+@end
+
+@interface BasicTests : ECTestCase
+@property (strong, nonatomic) TestHandler* handler; // test handler we install in order to capture output of the channel
+@property (strong, nonatomic) ECLogChannel* channel; // normally we wouldn't interact with a channel object directly, but having a reference is handy for the tests
+@end
+
+@implementation BasicTests
+
+- (void)clearLoggedOutput
+{
+	self.handler.logged.string = @"";
+}
+
+- (void)setUp
+{
+	// grab a reference to the test channel - only something we need to do for test purposes
+	ECLogChannel* channel = ECGetChannel(TestChannel);
+	self.channel = channel;
+
+	// install a custom handler and make the test channel use it, so that we can capture anything that was sent to it
+	TestHandler* handler = [TestHandler new];
+	[channel enableHandler:handler];
+	[channel enable];
+
+	// restore the default settings for the channel - again, not something we'd have to do in normal use, but in this case previous tests might have messed with it
+	channel.context = ECLogContextDefault;
+	self.handler = handler;
+
+	// enabling the handler and the channel will have produced some output, so lets clear it to prevent it interfering with the tests
+	[self clearLoggedOutput];
+}
+
+- (void)tearDown
+{
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	[defaults removeObjectForKey:@"ECLogging"];
+	[defaults removeObjectForKey:@"ECLoggingEnableChannel"];
+	[defaults removeObjectForKey:@"ECLoggingDisableChannel"];
+}
 
 #pragma mark - Tests
 
-- (void)testStringBySplittingMixedCaps
+- (void)testLogging
 {
-	ECTestAssertStringIsEqual([@"mixedCapTest" stringBySplittingMixedCaps], @"mixed Cap Test");
-	ECTestAssertStringIsEqual([@"alllowercaseoneword" stringBySplittingMixedCaps], @"alllowercaseoneword");
-	ECTestAssertStringIsEqual([@"" stringBySplittingMixedCaps], @"");
-	ECTestAssertStringIsEqual([@"all lower case multiple words" stringBySplittingMixedCaps], @"all lower case multiple words");
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «Test»");
 }
 
-- (void)testLastLines
+- (void)testDisabling
 {
-	NSString* threeLines = [@[@"line1", @"line2", @"line3"] componentsJoinedByString:@"\n"];
-	NSString* lastTwoLines = [@[@"line2", @"line3"] componentsJoinedByString:@"\n"];
-
-	ECTestAssertStringIsEqual([threeLines lastLines:0], @"");
-	ECTestAssertStringIsEqual([threeLines lastLines:1], @"line3");
-	ECTestAssertStringIsEqual([threeLines lastLines:2], lastTwoLines);
-	ECTestAssertStringIsEqual([threeLines lastLines:3], threeLines);
-	ECTestAssertStringIsEqual([threeLines lastLines:4], threeLines);
+	ECDisableChannel(TestChannel);
+	[self clearLoggedOutput];
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"");
 }
 
-- (void)testFirstLines
+- (void)testContextFlags
 {
-	NSString* threeLines = [@[@"line1", @"line2", @"line3"] componentsJoinedByString:@"\n"];
-	NSString* firstTwoLines = [@[@"line1", @"line2"] componentsJoinedByString:@"\n"];
+	self.channel.context = ECLogContextNone;
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"");
 
-	ECTestAssertStringIsEqual([threeLines firstLines:0], @"");
-	ECTestAssertStringIsEqual([threeLines firstLines:1], @"line1");
-	ECTestAssertStringIsEqual([threeLines firstLines:2], firstTwoLines);
-	ECTestAssertStringIsEqual([threeLines firstLines:3], threeLines);
-	ECTestAssertStringIsEqual([threeLines firstLines:4], threeLines);
+	[self clearLoggedOutput];
+	self.channel.context = ECLogContextMessage;
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world");
+
+	[self clearLoggedOutput];
+	self.channel.context = ECLogContextMessage | ECLogContextName;
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «Test»");
+
+	[self clearLoggedOutput];
+	self.channel.context = ECLogContextMessage | ECLogContextFunction;
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «-[BasicTests testContextFlags]»");
+
+	[self clearLoggedOutput];
+	self.channel.context = ECLogContextMessage | ECLogContextName | ECLogContextFunction | ECLogContextFile | ECLogContextDate;
+	ECLog(TestChannel, @"hello world");
+	NSError* error;
+
+	// line number can obviously change in the output (when we change the code!), so match with a regexp
+	NSRegularExpression* exp = [NSRegularExpression regularExpressionWithPattern:@"hello world «Test BasicTests.m, \\d+ -\\[BasicTests testContextFlags\\] ... +\\d+ \\d+»" options:NSRegularExpressionCaseInsensitive error:&error];
+	__block NSUInteger matches = 0;
+	[exp enumerateMatchesInString:self.handler.logged options:0 range:NSMakeRange(0, [self.handler.logged length]) usingBlock:^(NSTextCheckingResult* result, NSMatchingFlags flags, BOOL* stop) {
+		ECTestAssertIntegerIsEqual(result.range.location, 0);
+		++matches;
+	}];
+	ECTestAssertIntegerIsEqual(matches, 1);
+	if (matches != 1)
+	{
+		NSLog(@"failed with %ld matches, output was '%@'", matches, self.handler.logged);
+	}
 }
 
-- (void)testMatchesString1
+- (void)testForceEnableFromCommandLine
 {
-	NSString* test1 = @"This is a test string";
-	NSString* test2 = @"This is a different string";
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
-	NSString* after;
-	NSUInteger index;
-	UniChar divergent, expected;
-	BOOL result = [test1 matchesString:test2 divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 10);
-	ECTestAssertIntegerIsEqual(divergent, 't');
-	ECTestAssertIntegerIsEqual(expected, 'd');
-
-	result = [test1 matchesString:test1 divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertTrue(result);
-
-	result = [@"" matchesString:@"" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertTrue(result);
-
-	result = [test1 matchesString:@"" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 0);
-
-	result = [@"" matchesString:test1 divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 0);
-
-	result = [@"" matchesString:nil divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 0);
-
-	result = [@"AAA" matchesString:@"BBB" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(index, 0);
-	ECTestAssertIntegerIsEqual(divergent, 'A');
-	ECTestAssertIntegerIsEqual(expected, 'B');
+	ECDisableChannel(TestChannel);
+	[defaults setObject:@"Test" forKey:@"ECLoggingEnableChannel"];
+	[[ECLogManager sharedInstance] processForcedChannels]; // TODO: this forces the log manager to re-processes the command line options, so it's a bit fragile; a better test would be to actually launch a test executable which used ECLogging
+	[self clearLoggedOutput];
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «Test»");
 }
 
-- (void)testMatchesString2
+- (void)testForceDisableFromCommandLine
 {
-	NSString* test1 = @"This is a\ntest string";
-	NSString* test2 = @"This is a\ndifferent string";
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
-	NSString *diverged, *expected;
-	NSUInteger line1, line2;
-	BOOL result = [test1 matchesString:test2 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 1);
-	ECTestAssertIntegerIsEqual(line2, 1);
-	ECTestAssertStringIsEqual(diverged, @"test string");
-	ECTestAssertStringIsEqual(expected, @"different string");
-
-	result = [test1 matchesString:test1 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertTrue(result);
-
-	result = [@"" matchesString:@"" divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertTrue(result);
-
-	result = [test1 matchesString:@"" divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 0);
-	ECTestAssertIntegerIsEqual(line2, 0);
-
-	result = [@"" matchesString:test1 divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 0);
-	ECTestAssertIntegerIsEqual(line2, 0);
-
-	result = [@"" matchesString:nil divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 0);
-	ECTestAssertIntegerIsEqual(line2, 0);
-
-	result = [@"AAA" matchesString:@"BBB" divergingAtLine1:&line1 andLine2:&line2 diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line1, 0);
-	ECTestAssertIntegerIsEqual(line2, 0);
-	ECTestAssertStringIsEqual(diverged, @"AAA");
-	ECTestAssertStringIsEqual(expected, @"BBB");
-}
-
-- (void)testMatchesString3
-{
-	NSString* test1 = @"This is a\ntest string";
-	NSString* test2 = @"This is a\ndifferent string";
-
-	NSString *after, *diverged, *expected;
-	NSUInteger line;
-	BOOL result = [test1 matchesString:test2 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 1);
-	ECTestAssertStringIsEqual(after, @"This is a\n");
-	ECTestAssertStringIsEqual(diverged, @"test string");
-	ECTestAssertStringIsEqual(expected, @"different string");
-
-	result = [test1 matchesString:test1 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertTrue(result);
-
-	result = [@"" matchesString:@"" divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertTrue(result);
-
-	result = [test1 matchesString:@"" divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 0);
-
-	result = [@"" matchesString:test1 divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 0);
-
-	result = [@"" matchesString:nil divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 0);
-
-	result = [@"AAA" matchesString:@"BBB" divergingAtLine:&line after:&after diverged:&diverged expected:&expected];
-	ECTestAssertFalse(result);
-	ECTestAssertIntegerIsEqual(line, 0);
+	[defaults setObject:@"Test" forKey:@"ECLoggingDisableChannel"];
+	[[ECLogManager sharedInstance] processForcedChannels]; // TODO: this forces the log manager to re-processes the command line options, so it's a bit fragile; a better test would be to actually launch a test executable which used ECLogging
+	[self clearLoggedOutput];
+	ECLog(TestChannel, @"hello world");
+	ECTestAssertStringIsEqual(self.handler.logged, @"");
 }
 
 @end

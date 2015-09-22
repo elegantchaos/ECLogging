@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
@@ -10,12 +10,16 @@
 
 GCC_VERSION = com.apple.compilers.llvm.clang.1_0
 GCC_C_LANGUAGE_STANDARD = gnu99
+CLANG_CXX_LANGUAGE_STANDARD = gnu++0x
+CLANG_CXX_LIBRARY = libc++
 
 // --------------------------------------------------------------------------
 // Objective C stuff
 // --------------------------------------------------------------------------
 
+CLANG_ENABLE_OBJC_ARC = YES
 GCC_ENABLE_OBJC_EXCEPTIONS = YES
+CLANG_ENABLE_MODULES = YES
 
 // --------------------------------------------------------------------------
 // Resources
@@ -36,6 +40,13 @@ GCC_SYMBOLS_PRIVATE_EXTERN = NO
 
 SKIP_INSTALL = YES
 PRODUCT_NAME = $(TARGET_NAME)
+
+// --------------------------------------------------------------------------
+// Code Signing
+// --------------------------------------------------------------------------
+
+//OTHER_CODE_SIGN_FLAGS = $(inherited) --timestamp=none
+// enable this if you're trying to build offline and the timestamp is failing
 
 // --------------------------------------------------------------------------
 // Search Paths
@@ -60,6 +71,11 @@ WARNING_CFLAGS = -Wall -Wextra -Wno-unused-macros -Wno-unused-parameter
 GCC_TREAT_WARNINGS_AS_ERRORS = YES
 CLANG_WARN_DOCUMENTATION_COMMENTS = YES
 
+CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR
+CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR
+
+CLANG_WARN_UNREACHABLE_CODE = YES
+CLANG_WARN_BOOL_CONVERSION = YES
 GCC_WARN_CHECK_SWITCH_STATEMENTS = YES
 GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES
 CLANG_WARN_EMPTY_BODY = YES
@@ -71,7 +87,7 @@ CLANG_WARN_ENUM_CONVERSION = YES
 CLANG_WARN_INT_CONVERSION = YES
 CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO
 GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES
-GCC_WARN_ABOUT_RETURN_TYPE = YES
+GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR
 GCC_WARN_MISSING_PARENTHESES = YES
 GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES
 GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES
@@ -82,7 +98,7 @@ CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES
 GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES
 GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES
-GCC_WARN_UNINITIALIZED_AUTOS = YES
+GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE
 GCC_WARN_UNKNOWN_PRAGMAS = YES
 GCC_WARN_UNUSED_FUNCTION = YES
 GCC_WARN_UNUSED_LABEL = YES
@@ -98,6 +114,27 @@ CLANG_WARN_OBJC_RECEIVER_WEAK = YES
 GCC_WARN_STRICT_SELECTOR_MATCH = YES
 GCC_WARN_UNDECLARED_SELECTOR = YES
 
+GCC_ENABLE_BUILTIN_FUNCTIONS = YES
+GCC_SHORT_ENUMS = NO
+GCC_WARN_INHIBIT_ALL_WARNINGS = NO
+GCC_WARN_PEDANTIC = NO
+
+CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES
+GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES
+GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES
+GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = YES
+CLANG_WARN_CXX0X_EXTENSIONS = YES
+GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES
+GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO
+CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES
+CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES
+CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES
+CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES
+
+ASSETCATALOG_WARNINGS = YES
+
+IBSC_WARNINGS = YES
+
 // --------------------------------------------------------------------------
 // Custom settings
 // --------------------------------------------------------------------------
@@ -108,8 +145,7 @@ ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
 // Unit Testing
 // --------------------------------------------------------------------------
 
-/// Since all of the targets link against SenTestKit, we need to be able to find it.
-/// It's in a different location on the Mac and iOS, but luckily our standard xcconfig
-/// files define a setting UNIT_TEST_FRAMEWORK_PATH with its location:
+/// Since all of the unit test targets link against XCTest, we need to be able to find it.
 
-FRAMEWORK_SEARCH_PATHS = "$(UNIT_TEST_FRAMEWORK_PATH)"
+UNIT_TEST_FRAMEWORK_PATH = "$(PLATFORM_DIR)/Developer/Library/Frameworks"
+FRAMEWORK_SEARCH_PATHS = $inherited $(UNIT_TEST_FRAMEWORK_PATH)
