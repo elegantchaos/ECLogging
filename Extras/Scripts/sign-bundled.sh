@@ -52,7 +52,7 @@ sign()
 
   # check if we need to resign (resigning can be slow, so we check first)
   if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
-    echo "Resigning $NAME as $CODE_SIGN_IDENTITY with id $BUNDLEID"
+    echo "Resigning $NAME as $CODE_SIGN_IDENTITY with id '$BUNDLEID'"
     if [[ ("$CURRENT_IDENTIFIER" != "") || ("$CURRENT_AUTHORITY" != "") ]]; then
         echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
     fi
@@ -86,7 +86,7 @@ sign_folder()
       elif [ -e "$f/Info.plist" ]; then
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Info.plist"`
       elif [ -f "$f" ]; then
-        if [[ (-x "$f") ]]; then
+        if [[ (-x "$f") && ( "$cf" != *.sh ) ]]; then
             # it's a standalone executable, so sign it
             BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /dev/stdin <<< $(otool -X -s __TEXT __info_plist -v "$f")`
         else
@@ -111,13 +111,13 @@ sign_binaries()
     for cf in "$FOLDER/"*
     do
         if [[ -e "$cf/bin" ]]; then
-          echo "Resigning tools ${cf/bin}"
+          echo "Resigning tools ${cf}/bin"
           sign_folder "$cf/bin"
         elif [[ -d "$cf" ]]; then
           sign_binaries "$cf"
         elif [[ (-x "$cf") && ( "$cf" == *.sh )  ]]; then
           echo "Resigning script ${cf}"
-          sign "" "${CODE_SIGN_IDENTITY}" "$cf"
+          sign "$APPID" "${CODE_SIGN_IDENTITY}" "$cf"
         fi
     done
 }
