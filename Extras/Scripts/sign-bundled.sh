@@ -7,6 +7,14 @@
 ## (C) 2013 Sam Deane, Elegant Chaos.
 ## Feel free to use and abuse this script - I'd love to hear of improvements.
 
+SHOW_VERBOSE=false
+
+verbose()
+{
+    if $SHOW_VERBOSE; then
+        echo $@
+    fi
+}
 
 sign()
 {
@@ -15,12 +23,14 @@ sign()
   local FILE="$3"
   local NAME=`basename "$FILE"`
 
+  verbose "Sign called with BUNDLEID:'$BUNDLEID'"
+  verbose "IDENTITY:'$CODE_SIGN_IDENTITY'"
+  verbose "FILE:'$FILE'"
+
   # get current signing details
   local CURRENT=`codesign --verbose=2 -d "${FILE}" 2>&1`
+
   if [ $? == 0 ]; then
-
-    #echo "current:$CURRENT"
-
     # get current id
     local PATTERN="Identifier=([a-zA-Z0-9.]*)"
     [[ "$CURRENT" =~ $PATTERN ]]
@@ -36,8 +46,8 @@ sign()
       BUNDLEID="$CURRENT_IDENTIFIER"
     fi
 
-    #    echo "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
-    #    echo "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
+    verbose "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
+    verbose "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
 
   else
 
@@ -56,10 +66,10 @@ sign()
     if [[ ("$CURRENT_IDENTIFIER" != "") || ("$CURRENT_AUTHORITY" != "") ]]; then
         echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
     fi
-    codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
-    #codesign --verbose=2 -d "${FILE}"
+    SIGN_OUTPUT=$(codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}" 2>&1)
+    verbose "$SIGN_OUTPUT"
   else
-    echo "Didn't need to sign $NAME - already signed correctly as $CURRENT_IDENTIFIER $CURRENT_AUTHORITY"
+    verbose "Didn't need to sign $NAME - already signed correctly as $CURRENT_IDENTIFIER $CURRENT_AUTHORITY"
   fi
 }
 
@@ -91,7 +101,7 @@ sign_folder()
             BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /dev/stdin <<< $(otool -X -s __TEXT __info_plist -v "$f")`
         else
             # it's not an executable, so skip it
-            #echo "Skipping $f as it's not an executable..."
+            verbose "Skipping $f as it's not an executable..."
             continue
         fi
       fi
@@ -107,19 +117,25 @@ sign_folder()
 sign_binaries()
 {
     local FOLDER="$1"
+    local RECURSIVE="$2"
+
+    verbose "Signing binaries for: $1 (recursive:$RECURSIVE)"
+
     local cf
-    for cf in "$FOLDER/"*
+    for cf in "$FOLDER"/*
     do
-        if [[ -e "$cf/bin" ]]; then
-          echo "Resigning tools ${cf}/bin"
-          sign_folder "$cf/bin"
-        elif [[ -d "$cf" ]]; then
-          sign_binaries "$cf"
-        elif [[ (-x "$cf") && ( "$cf" == *.sh )  ]]; then
-          echo "Resigning script ${cf}"
+        verbose "Checking $cf"
+        if [[ -d "$cf" ]]; then
+            if [[ $RECURSIVE == true ]]; then
+                verbose "Recursing for $cf"
+                sign_binaries "$cf" "$MODE"
+            fi
+        elif [[ (-x "$cf") ]]; then
+          verbose "Resigning script ${cf}"
           sign "$APPID" "${CODE_SIGN_IDENTITY}" "$cf"
         fi
     done
+    verbose "Done signing binaries for: $1"
 }
 
 
@@ -143,24 +159,25 @@ fi
 echo "Using identity $CODE_SIGN_IDENTITY"
 
 # Sign Plugins
-echo "Resigning plugins"
+verbose "Resigning plugins"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns"
 
 # Sign Frameworks
-echo "Resigning frameworks"
+verbose "Resigning frameworks"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks"
 
 # Sign XPCServices
-echo "Resigning XCP services"
+verbose "Resigning XCP services"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices"
 
 # Sign Quicklook
-echo "Resigning Quicklook plugins"
+verbose "Resigning Quicklook plugins"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Library/QuickLook"
 
 # Sign bundled tools
-echo "Resigning tools"
-sign_binaries "${CODESIGNING_FOLDER_PATH}/Contents"
+verbose "Resigning tools"
+sign_binaries "${CODESIGNING_FOLDER_PATH}/Contents" false
+sign_binaries "${CODESIGNING_FOLDER_PATH}/Contents/Resources" true
 
 
 echo ""
