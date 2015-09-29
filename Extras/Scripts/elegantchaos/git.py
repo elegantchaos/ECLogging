@@ -35,8 +35,11 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
         if checkoutCommit != expectedCommit:
             print "Branch {0} for submodule {1} wasn't at the commit that the parent repo expected: {2} instead of {3}.".format(checkoutRef, module, checkoutCommit, expectedCommit)
         else:
-            checkout(checkoutRef)
-            merge(fastForwardOnly = True)
+            (result, output) = checkout(checkoutRef)
+            if result == 0:
+                merge(fastForwardOnly = True)
+            else:
+                print "Error checking out {0}: {1}".format(module, output)
 
 
 def checkout_recursive(ref, pullIfSafe = False):
@@ -57,7 +60,7 @@ def checkout_recursive(ref, pullIfSafe = False):
 
 def commit(path, message):
     return subprocess.check_output(["git", "commit", path, "-m", message])
-    
+
 def submodule_update():
     return shell.call_output_and_result(["git", "submodule", "update"])
 
