@@ -129,7 +129,7 @@ ECDefineLogChannel(TestChannel);
 	ECTestAssertIntegerIsEqual(matches, 1);
 	if (matches != 1)
 	{
-		NSLog(@"failed with %ld matches, output was '%@'", matches, self.handler.logged);
+		NSLog(@"failed with %ld matches, output was '%@'", (unsigned long)matches, self.handler.logged);
 	}
 }
 
