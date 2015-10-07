@@ -689,7 +689,7 @@
 		return NO;
 	}
 
-	// TODO: need to deal with greyscale images differently? currently we convert them to RGBA, we could just conver them to 8-bit grey.
+	// TODO #6455 - need to deal with greyscale images differently? currently we convert them to RGBA, we could just conver them to 8-bit grey.
 	NSBitmapImageRep* reference32 = nil;
 	NSBitmapImageRep* image32 = nil;
 	if (reference && image)
