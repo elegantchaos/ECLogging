@@ -154,12 +154,12 @@ def pull(fastForwardOnly = False):
 
 def push(branch = None, upstream = None):
     cmd = ['git', 'push']
-    if setUpstream:
+    if upstream:
         cmd += ['--set-upstream', upstream]
     if branch:
         cmd += [branch]
 
-    return shell.call_output_and_result(args)
+    return shell.call_output_and_result(cmd)
 
 def commit_for_ref(ref):
     (result, output) = shell.call_output_and_result(["git", "log", "-1", "--oneline", "--no-abbrev-commit", ref])
