@@ -135,6 +135,10 @@ def branches(type="all"):
 def delete_branch(branch):
     return shell.call_output_and_result(["git", "branch", "-d", branch])
 
+def fetch():
+    cmd = ["git", "fetch"]
+    return shell.call_output_and_result(cmd)
+
 def pull(fastForwardOnly = False):
     cmd = ["git", "pull"]
     if fastForwardOnly:
