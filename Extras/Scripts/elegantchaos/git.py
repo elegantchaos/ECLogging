@@ -135,14 +135,35 @@ def branches(type="all"):
 def delete_branch(branch):
     return shell.call_output_and_result(["git", "branch", "-d", branch])
 
+def set_branch(branch, commit = None, forced = False):
+    cmd = ["git", "branch"]
+    if forced:
+        cmd += ['-f']
+
+    cmd += [branch]
+    if commit:
+        cmd += [commit]
+
+    return shell.call_output_and_result(cmd)
+
+def fetch():
+    cmd = ["git", "fetch"]
+    return shell.call_output_and_result(cmd)
+
 def pull(fastForwardOnly = False):
     cmd = ["git", "pull"]
     if fastForwardOnly:
         cmd += ["--ff-only"]
     return shell.call_output_and_result(cmd)
 
-def push():
-    return shell.call_output_and_result(['git', 'push'])
+def push(branch = None, upstream = None):
+    cmd = ['git', 'push']
+    if upstream:
+        cmd += ['--set-upstream', upstream]
+    if branch:
+        cmd += [branch]
+
+    return shell.call_output_and_result(cmd)
 
 def commit_for_ref(ref):
     (result, output) = shell.call_output_and_result(["git", "log", "-1", "--oneline", "--no-abbrev-commit", ref])
