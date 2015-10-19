@@ -11,6 +11,7 @@ RE_ENTRIES = re.compile("^.(\w+) (.*) .*$", re.MULTILINE)
 RE_BRANCH = re.compile("^[\* ] (.*)$", re.MULTILINE)
 RE_REMOTE = re.compile("^(.*)\t(.*) (.*)$", re.MULTILINE)
 RE_GITHUB_REMOTE = re.compile("^(.*)\tgit@github.com\:(.*?)\/(.*) (.*)$", re.MULTILINE)
+RE_ISSUE_NUMBER = re.compile("^.*feature/(\d+).*$", re.MULTILINE)
 
 def status():
     status = subprocess.check_output(["git", "status", "--porcelain"])
@@ -21,7 +22,7 @@ def got_changes():
 
 def exit_if_changes():
     if got_changes():
-    	shell.exit_with_message("You have changes. Commit them first.", errors.ERROR_GIT_CHANGES_PENDING)
+        shell.exit_with_message("You have changes. Commit them first.", errors.ERROR_GIT_CHANGES_PENDING)
 
 def checkout(ref):
     return shell.call_output_and_result(["git", "checkout", ref])
@@ -171,6 +172,8 @@ def commit_for_ref(ref):
         words = output.split(" ")
         if len(words) > 0:
             return words[0]
+    # else:
+    #     print output
 
 def top_level():
     (result, output) = shell.call_output_and_result(["git", "rev-parse", "--show-toplevel"])
@@ -182,6 +185,8 @@ def remote_url():
         match = RE_REMOTE.search(output)
         if match:
             return match.group(2)
+    else:
+        print result, output
 
 def github_info():
     (result, output) = shell.call_output_and_result(["git", "remote", "-v"])
@@ -206,22 +211,32 @@ def main_github_info():
     return result
 
 def cleanup_local_branch(branch, forced = False):
-	if not ((branch == "develop") or (branch == "HEAD") or ("(detached from" in branch)):
-		localCommit = commit_for_ref(branch)
-		remoteCommit = commit_for_ref("remotes/origin/" + branch)
-		possibleIssueNumber = os.path.basename(branch)
-		deletedCommit = commit_for_ref("issues/closed/" + possibleIssueNumber)
-		if (localCommit == remoteCommit) or (localCommit == deletedCommit) or forced:
-			(result, output) = delete_branch(branch)
-			print output
+    if not ((branch == "develop") or (branch == "HEAD") or ("(detached from" in branch)):
+        localCommit = commit_for_ref(branch)
+        remoteCommit = commit_for_ref("remotes/origin/" + branch)
+        if not remoteCommit:
+            remoteCommit = commit_for_ref("origin/" + branch)
+
+        match = RE_ISSUE_NUMBER.search(branch)
+        if match:
+            closedTag = "refs/tags/issues/closed/" + match.group(1)
+            deletedCommit = commit_for_ref(closedTag)
+        else:
+            deletedCommit = None
+
+        if (localCommit == remoteCommit) or (localCommit == deletedCommit) or forced:
+            (result, output) = delete_branch(branch)
+            print output
+        # else:
+        #     print "Local commit {0} didn't match remote commit {1} or deleted commit {2} for branch {3}".format(localCommit, remoteCommit, deletedCommit, branch)
 
 def enumerate_submodules(cmd, args = None):
     currentDir = os.getcwd()
     basePath = top_level()
     modules = submodules()
     for module in modules.keys():
-    	modulePath = os.path.join(basePath, module)
-    	os.chdir(modulePath)
+        modulePath = os.path.join(basePath, module)
+        os.chdir(modulePath)
         cmd(module, modules[module], args)
 
     os.chdir(currentDir)
@@ -231,9 +246,9 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
     remotePrefix = ""
     if remote:
         remotePrefix = "origin/"
-    	gitType = "remote"
+        gitType = "remote"
     else:
-    	gitType = "local"
+        gitType = "local"
 
     gitBranches = branches(gitType)
 
@@ -259,8 +274,8 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
         niceBranchStart = branch + "-"
         for possibleBranch in gitBranches:
             if possibleBranch.startswith(niceBranchStart):
-            	branch = possibleBranch
-            	break
+                branch = possibleBranch
+                break
 
     if remote and stripPrefix:
         if branch.startswith(remotePrefix):
