@@ -561,26 +561,48 @@
 #endif
 }
 
-+ (NSString*)testModuleName {
++ (NSString*)testModuleName
+{
 	return [[[[NSBundle bundleForClass:self] bundleURL] lastPathComponent] stringByDeletingPathExtension];
 }
 
-- (NSURL*)URLForOutputAsReference:(BOOL)asReference {
+- (NSURL*)URLForOutputAsReference:(BOOL)asReference
+{
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	NSString* moduleName = [[self class] testModuleName];
+
+	// If there's a defaults setting for the output of this particular test module, use it
 	NSString* outputKey = [NSString stringWithFormat:@"%@Output", moduleName];
-	NSString* outputPath = [[NSUserDefaults standardUserDefaults] stringForKey:outputKey];
+	NSString* outputPath = [defaults stringForKey:outputKey];
 	if (!outputPath)
+	{
+		// otherwise if there's a setting for all tests, use it, appending the module name
+		outputPath = [defaults stringForKey:@"ECTestOutput"];
+		if (outputPath)
+		{
+			outputPath = [outputPath stringByAppendingPathComponent:moduleName];
+		}
+	}
+
+	// if no path has been specified at all, default to putting things on the desktop
+	if (!outputPath)
+	{
 		outputPath = [NSString stringWithFormat:@"~/Desktop/Unit Test Output/%@/", moduleName];
+	}
+
+	// append the test class name to the path, so that each set of tests has its own folder
 	NSURL* url = [NSURL fileURLWithPath:[outputPath stringByExpandingTildeInPath]];
 	url = [url URLByAppendingPathComponent:[self className]];
-	NSError* error;
-	NSFileManager* fm = [NSFileManager defaultManager];
-	[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+
+	// use reference or generated, depending on the type
 	if (asReference)
 		url = [url URLByAppendingPathComponent:@"Reference"];
 	else
 		url = [url URLByAppendingPathComponent:@"Generated"];
-	
+
+	// make sure that the folder and all sub-folders exist
+	NSError* error;
+	NSFileManager* fm = [NSFileManager defaultManager];
 	[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
 	
 	return url;
