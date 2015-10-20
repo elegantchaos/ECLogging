@@ -572,6 +572,7 @@
 	if (!outputPath)
 		outputPath = [NSString stringWithFormat:@"~/Desktop/Unit Test Output/%@/", moduleName];
 	NSURL* url = [NSURL fileURLWithPath:[outputPath stringByExpandingTildeInPath]];
+	url = [url URLByAppendingPathComponent:[self className]];
 	NSError* error;
 	NSFileManager* fm = [NSFileManager defaultManager];
 	[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
