@@ -566,6 +566,13 @@
 	return [[[[NSBundle bundleForClass:self] bundleURL] lastPathComponent] stringByDeletingPathExtension];
 }
 
++ (NSArray*)URLsForTestResourcesWithExtension:(NSString*)extension {
+	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+	NSString *className = NSStringFromClass([self class]);
+	NSArray *urls = [bundle URLsForResourcesWithExtension:extension subdirectory:className];
+	return urls;
+}
+
 - (NSURL*)URLForOutputAsReference:(BOOL)asReference
 {
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];

@@ -251,6 +251,13 @@
 
 - (NSURL*)URLForTemporaryFileNamed:(NSString*)name withExtension:(NSString*)ext;
 
+/**
+ Return a list of URLs of all files in a folder with the test class's name, inside the test bundle's Resource folder, which match the extension.
+ */
+
++ (NSArray*)URLsForTestResourcesWithExtension:(NSString*)extension;
+
+
 - (NSURL*)URLForTestResource:(NSString*)name withExtension:(NSString*)ext;
 - (NSURL*)URLForTestResource:(NSString*)name withExtension:(NSString*)ext subdirectory:(NSString*)subpath;
 
