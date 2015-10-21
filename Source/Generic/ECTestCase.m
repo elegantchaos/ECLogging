@@ -430,7 +430,14 @@
 - (NSURL*)URLForTestResource:(NSString*)name withExtension:(NSString*)ext
 {
 	NSBundle* bundle = [NSBundle bundleForClass:[self class]];
-	return [bundle URLForResource:name withExtension:ext];
+
+	// we look first in a subfolder with the name of this test class
+	// if we can't find anything there, we look in the test bundle's root resource folder
+	NSURL* result = [bundle URLForResource:name withExtension:ext subdirectory:[self className]];
+	if (!result)
+		result = [bundle URLForResource:name withExtension:ext];
+
+	return result;
 }
 
 - (NSURL*)URLForTestResource:(NSString*)name withExtension:(NSString*)ext subdirectory:(NSString*)subpath
