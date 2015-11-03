@@ -71,10 +71,12 @@ cleanoutput()
     logdir="$build/logs/$2-$1"
     mkdir -p "$logdir"
     testout="$logdir/out.log"
+    testpretty="$logdir/pretty.log"
     testerr="$logdir/err.log"
 
     # make empty output files
     echo "" > "$testout"
+    echo "" > "$testpretty"
     echo "" > "$testerr"
 }
 
@@ -107,14 +109,14 @@ commonbuildxctool()
     reportdir="$build/reports/$PLATFORM-$SCHEME"
     mkdir -p "$reportdir"
 
-    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" "$@" OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" CACHE_ROOT="$cache" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testout" 2>> "$testerr"
+    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" "$@" OBJROOT="$obj" SYMROOT="$sym" DSTROOT="$dst" CACHE_ROOT="$cache" SHARED_PRECOMPS_DIR="$precomp" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testpretty" -reporter "plain:$testout" 2>> "$testerr"
     result=$?
 
     if [[ $result != 0 ]]
     then
         echo "Build Failed:"
         cat "$testerr" >&2
-        tail "$testout"
+        tail -n 20 "$testout"
         echo
         echo $'\n** BUILD FAILURES **\n'
         echo "Build failed for scheme $SCHEME (xctool returned $result)"
