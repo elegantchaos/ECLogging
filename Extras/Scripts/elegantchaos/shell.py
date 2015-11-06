@@ -10,6 +10,10 @@ import getopt
 PROCESSED_ARGUMENTS = []
 PROCESSED_OPTIONS = {}
 
+def system_version():
+    (result, output) = call_output_and_result(['sw_vers', '-productVersion'])
+    return output
+
 def exit_with_message(message, error):
     print(message)
     exit(error)
