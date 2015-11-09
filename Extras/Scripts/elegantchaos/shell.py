@@ -6,9 +6,27 @@ import subprocess
 import sys
 import errors
 import getopt
+import re
+
+RE_XCODE_VERSION = re.compile('Xcode ([\d.]+).*')
+
+
 
 PROCESSED_ARGUMENTS = []
 PROCESSED_OPTIONS = {}
+
+def system_version():
+    (result, output) = call_output_and_result(['sw_vers', '-productVersion'])
+    return output.strip()
+
+def xcode_version():
+    (result, output) = call_output_and_result(['xcodebuild', '-version'])
+    match = RE_XCODE_VERSION.match(output)
+    if match:
+        return match.group(1)
+    else:
+        return output.strip()
+
 
 def exit_with_message(message, error):
     print(message)
