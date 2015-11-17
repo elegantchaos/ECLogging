@@ -175,6 +175,10 @@ def commit_for_ref(ref):
     # else:
     #     print output
 
+def ref_exists(ref):
+    commit = commit_for_ref(ref)
+    return commit != None
+
 def top_level():
     (result, output) = shell.call_output_and_result(["git", "rev-parse", "--show-toplevel"])
     return output.strip()
