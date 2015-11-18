@@ -1219,7 +1219,6 @@
 				225EC66E11EBAA4800A97AEA /* Sources */,
 				225EC66F11EBAA4800A97AEA /* Frameworks */,
 				2251BBA015DC183000F2FE40 /* CopyFiles */,
-				225EC67011EBAA4800A97AEA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1238,7 +1237,6 @@
 				226889DB1AEE4B49005510E5 /* Sources */,
 				226889DF1AEE4B49005510E5 /* Frameworks */,
 				226889E21AEE4B49005510E5 /* CopyFiles */,
-				226889E31AEE4B49005510E5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1473,34 +1471,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"Extras/Scripts/package-pseudo-framework.sh\"";
-			showEnvVarsInLog = 0;
-		};
-		225EC67011EBAA4800A97AEA /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-			showEnvVarsInLog = 0;
-		};
-		226889E31AEE4B49005510E5 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2274B38B14F56896003B8A0B /* ShellScript */ = {
@@ -1887,7 +1857,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 			};
@@ -1897,7 +1866,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 			};
