@@ -13,12 +13,31 @@ RE_REMOTE = re.compile("^(.*)\t(.*) (.*)$", re.MULTILINE)
 RE_GITHUB_REMOTE = re.compile("^(.*)\tgit@github.com\:(.*?)\/(.*) (.*)$", re.MULTILINE)
 RE_ISSUE_NUMBER = re.compile("^.*feature/(\d+).*$", re.MULTILINE)
 
+def repo_root_path():
+    (result, output) = shell.call_output_and_result(['git', 'rev-parse',  '--show-toplevel'])
+    if result == 0:
+        return output.strip()
+
+def repo_name():
+    path = repo_root_path()
+    if path:
+        name = os.path.basename(path)
+        return name
+
 def status():
     status = subprocess.check_output(["git", "status", "--porcelain"])
     return status
 
 def got_changes():
     return status() != ""
+
+def ensure_running_at_root_of_repo(root):
+    name = repo_name()
+    if name != root:
+        message = "You need to run this command from the root of the {0} repo.".format(root)
+        shell.exit_with_message(message, errors.ERROR_NOT_AT_ROOT)
+    else:
+        os.chdir(repo_root_path())
 
 def exit_if_changes():
     if got_changes():
