@@ -234,7 +234,7 @@ def main_github_info():
     return result
 
 def cleanup_local_branch(branch, forced = False):
-    if not ((branch == "develop") or (branch == "HEAD") or ("(detached from" in branch)):
+    if not ((branch == "develop") or (branch == "HEAD") or ("detached " in branch)):
         localCommit = commit_for_ref(branch)
         remoteCommit = commit_for_ref("remotes/origin/" + branch)
         if not remoteCommit:
