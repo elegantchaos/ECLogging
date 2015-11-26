@@ -265,7 +265,7 @@ def enumerate_submodules(cmd, args = None):
     os.chdir(currentDir)
 
 
-def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "feature", stripPrefix = False):
+def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "feature", stripPrefix = False, preferStable = False):
     remotePrefix = ""
     if remote:
         remotePrefix = "origin/"
@@ -300,9 +300,19 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
                 branch = possibleBranch
                 break
 
-    if remote and stripPrefix:
-        if branch.startswith(remotePrefix):
-            branch = branch[len(remotePrefix):]
+    stripped = branch
+    if remote and branch.startswith(remotePrefix):
+        stripped = branch[len(remotePrefix):]
+
+    if preferStable:
+        stableStripped = "stable/" + stripped
+        stable = remotePrefix + stableStripped
+        if stable in gitBranches:
+            branch = stable
+            stripped = stableStripped
+
+    if stripPrefix:
+        branch = stripped
 
     return branch
 
