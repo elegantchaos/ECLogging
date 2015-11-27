@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 
 import subprocess
+import shutil
 import shell
 import re
 import errors
@@ -10,13 +11,17 @@ import os
 def root_path():
     return os.path.join(os.getcwd(), 'build')
 
-def log_paths():
+def log_paths(jobName):
     root = root_path()
     logs = ['output', 'errors', 'pretty']
+    if jobName:
+        prefix = jobName + '-'
+    else:
+        prefix = ''
 
     full = {}
     for log in logs:
-        full[log] = os.path.join(root, 'logs', "{0}.log".format(log))
+        full[log] = os.path.join(root, 'logs', "{0}{1}.log".format(prefix, log))
 
     return full
 
@@ -36,8 +41,12 @@ def build_paths():
 
     return full
 
-def build(workspace, scheme, platform = 'macosx', actions = ['build']):
+def build(workspace, scheme, platform = 'macosx', actions = ['build'], jobName = None, cleanAll = True):
     args = ['xctool', '-workspace', workspace, '-scheme', scheme, '-sdk', platform]
+
+    if cleanAll:
+        root = root_path()
+        shutil.rmtree(root)
 
     paths = build_paths()
     pathArgs = []
@@ -47,7 +56,7 @@ def build(workspace, scheme, platform = 'macosx', actions = ['build']):
     args += actions
     args += pathArgs
 
-    logPaths = log_paths()
+    logPaths = log_paths(jobName)
     args += ['-reporter', "pretty:{0}".format(logPaths['pretty'])]
     args += ['-reporter', "plain:{0}".format(logPaths['output'])]
 
@@ -56,6 +65,5 @@ def build(workspace, scheme, platform = 'macosx', actions = ['build']):
 
 
 if __name__ == "__main__":
-    print build_paths()
-    print log_paths()
-    print build('Sketch.xcworkspace', 'ECLogging Mac')
+    print build('Sketch.xcworkspace', 'ECLogging Mac', jobName = 'framework')
+    print build('Sketch.xcworkspace', 'ECLogging Mac Static', jobName = 'static', cleanAll = False)
