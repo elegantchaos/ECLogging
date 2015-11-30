@@ -7,6 +7,59 @@ import shell
 import re
 import errors
 import os
+import fnmatch
+
+# tagBuildInGit() {
+#     if [[ -e "test-build/dst/Applications" ]]
+#     then
+#         echo "Tagging build"
+#         APPTOTAG="$1"
+#         VARIANT="$2"
+#         VERSION_NO=`/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "test-build/dst/Applications/$APPTOTAG.app/Contents/Info.plist"`
+#         BUILD_NO=`/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "test-build/dst/Applications/$APPTOTAG.app/Contents/Info.plist"`
+#         git tag -a -f "builds/$VARIANT/$VERSION_NO/$BUILD_NO" -m "Automatic build of $APPTOTAG"
+#         git push --force origin "builds/$VARIANT/$VERSION_NO/$BUILD_NO"
+#     fi
+# }
+#
+
+
+# copyAppToDrobox() {
+#     DEBUG_PATH="$1"
+#     APPTOCOPY="$2"
+#     DROPBOXFOLDER="$3"
+#     LONGNAME="$4"
+#
+#     if [[ -e "$DEBUG_PATH/$APPTOCOPY" ]]
+#     then
+#         echo "Copying $APPTOCOPY to upload folder"
+#         BUILD_NO=`/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "${DEBUG_PATH}/$APPTOCOPY/Contents/Info.plist"`
+#         ZIP_NAME="$LONGNAME $BUILD_NO.zip"
+#         APP_NAME="$LONGNAME $BUILD_NO.app"
+#         LATEST_FOLDER="$DROPBOXFOLDER/Builds/Latest"
+#         mkdir -p "${LATEST_FOLDER}"
+#         rm -rf "${LATEST_FOLDER}/${ZIP_NAME}"
+#         pushd "${DEBUG_PATH}"
+#         mv "$APPTOCOPY" "$APP_NAME"
+#         zip -q -r "$LATEST_FOLDER/$ZIP_NAME" "$APP_NAME"
+#         popd
+#     fi
+# }
+#
+# copyToDropbox() {
+#     DROPBOXFOLDER="$1"
+#     DEBUGAPPNAME="$2"
+#     LONGAPPNAME="$3"
+#
+#     if [[ -e "$DROPBOXFOLDER" ]]
+#
+#     then
+#         copyAppToDrobox "test-build/sym/Debug" "$DEBUGAPPNAME" "$DROPBOXFOLDER" "$LONGAPPNAME Debug"
+#         copyAppToDrobox "test-build/dst/Applications" "SketchApp.app" "$DROPBOXFOLDER" "$LONGAPPNAME"
+#     fi
+# }
+
+
 
 def root_path():
     return os.path.join(os.getcwd(), 'build')
@@ -41,10 +94,31 @@ def build_paths():
 
     return full
 
+
+def zip_built_application():
+    paths = build_paths()
+    appFolder = os.path.join(paths['DSTROOT'], 'Applications')
+    (result, output) = (errors.ERROR_FILE_NOT_FOUND, "can't find built application")
+    if os.path.exists(appFolder):
+        for app in os.listdir(appFolder):
+            (name,ext) = os.path.splitext(app)
+            if ext == ".app":
+                appPath = os.path.join(appFolder, app)
+                zipPath = os.path.join(appFolder, "{0}.zip".format(name))
+                (result, output) = shell.zip(appPath, zipPath)
+                if result == 0:
+                    symPath = os.path.join(paths['SYMROOT'], 'Release', "{0}.app.dSYM".format(name))
+                    symZipPath = os.path.join(appFolder, "{0}.dSYM.zip".format(name))
+                    (result, output) = shell.zip(symPath, symZipPath)
+                break
+
+    return (result, output)
+
+
 def build_variant(variant, actions = ['archive']):
     configsPath = shell.script_relative('../../../Sketch/Configs')
     configPath = os.path.join(configsPath, "{0}.xcconfig".format(variant))
-    extraArgs = [ "CONFIG_PATH={0}".format(configPath) ]
+    extraArgs = [ '-xcconfig', configPath ]
     return build('Sketch.xcworkspace', 'Sketch', actions = actions, jobName = variant, extraArgs = extraArgs)
 
 def build(workspace, scheme, platform = 'macosx', actions = ['build'], jobName = None, cleanAll = True, extraArgs = []):
