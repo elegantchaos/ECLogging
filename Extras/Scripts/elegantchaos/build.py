@@ -41,12 +41,21 @@ def build_paths():
 
     return full
 
-def build(workspace, scheme, platform = 'macosx', actions = ['build'], jobName = None, cleanAll = True):
+def build_variant(variant, actions = ['archive']):
+    configsPath = shell.script_relative('../../../Sketch/Configs')
+    configPath = os.path.join(configsPath, "{0}.xcconfig".format(variant))
+    extraArgs = [ "CONFIG_PATH={0}".format(configPath) ]
+    return build('Sketch.xcworkspace', 'Sketch', actions = actions, jobName = variant, extraArgs = extraArgs)
+
+def build(workspace, scheme, platform = 'macosx', actions = ['build'], jobName = None, cleanAll = True, extraArgs = []):
     args = ['xctool', '-workspace', workspace, '-scheme', scheme, '-sdk', platform]
 
     if cleanAll:
         root = root_path()
-        shutil.rmtree(root)
+        try:
+            shutil.rmtree(root)
+        except Exception as e:
+            pass
 
     paths = build_paths()
     pathArgs = []
@@ -59,6 +68,7 @@ def build(workspace, scheme, platform = 'macosx', actions = ['build'], jobName =
     logPaths = log_paths(jobName)
     args += ['-reporter', "pretty:{0}".format(logPaths['pretty'])]
     args += ['-reporter', "plain:{0}".format(logPaths['output'])]
+    args += extraArgs
 
     (result, output) = shell.call_output_and_result(args)
     return (result, output)
