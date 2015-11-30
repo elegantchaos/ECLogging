@@ -160,6 +160,11 @@ def script_base():
 def script_relative(path):
     return os.path.join(script_base(), path)
 
+def zip(source, destination):
+    args = ['ditto', '-c', '-k', '--sequesterRsrc', '--keepParent', source, destination]
+    result = call_output_and_result(args)
+    return result
+
 def call_output_and_result(cmd):
     try:
         return (0, subprocess.check_output(cmd, stderr = subprocess.STDOUT))
