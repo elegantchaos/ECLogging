@@ -128,9 +128,15 @@ def tags():
 
     return tags
 
-def add_tag(tag, ref, shouldPush = False):
-    (result, output) = shell.call_output_and_result(['git', 'tag', tag, ref])
-    if shouldPush and (result == 0):
+def add_tag(tag, ref, push = False, force = False, message = None):
+    cmd = ['git', 'tag']
+    if force:
+        cmd += ['-f']
+    cmd += [tag, ref]
+    if message:
+        cmd += ['-m', message]
+    (result, output) = shell.call_output_and_result(cmd)
+    if push and (result == 0):
         (result, output) = shell.call_output_and_result(['git', 'push', 'origin', tag])
 
     return (result, output)
