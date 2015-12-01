@@ -33,6 +33,9 @@ def xcode_version():
     else:
         return output.strip()
 
+def log_verbose(message):
+	if get_option('verbose'):
+		print message
 
 def exit_with_message(message, error):
     print(message)
@@ -76,7 +79,7 @@ def exit_if_too_few_arguments(args, count, usage):
 
 def check_arguments_docopt(main):
     global DOCOPT_ARGUMENTS
-	
+
     DOCOPT_ARGUMENTS = docopt(main, version="1.0")
     return DOCOPT_ARGUMENTS
 
