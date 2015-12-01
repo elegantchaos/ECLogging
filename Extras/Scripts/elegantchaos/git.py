@@ -78,8 +78,14 @@ def checkout_recursive(ref, pullIfSafe = False):
     return (result, output)
 
 
-def commit(path, message):
+def add(path):
+    return shell.call_output_and_result(["git", "add", path])
+
+def commit(path, message): # TODO: is anything using this? remove it and rename commit2
     return subprocess.check_output(["git", "commit", path, "-m", message])
+
+def commit2(path, message):
+    return shell.call_output_and_result(["git", "commit", path, "-m", message])
 
 def submodule_update():
     return shell.call_output_and_result(["git", "submodule", "update"])
