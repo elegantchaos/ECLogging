@@ -60,6 +60,17 @@ import fnmatch
 # }
 
 
+def application_build_number(applicationPath):
+    plistPath = os.path.join(applicationPath, 'Contents', 'Info.plist')
+    (result, output) = shell.call_output_and_result(['/usr/libexec/PlistBuddy', '-c', 'Print :CFBundleVersion', plistPath])
+    if result == 0:
+        return output.strip()
+
+def application_version_number(applicationPath):
+    plistPath = os.path.join(applicationPath, 'Contents', 'Info.plist')
+    (result, output) = shell.call_output_and_result(['/usr/libexec/PlistBuddy', '-c', 'Print :CFBundleShortVersionString', plistPath])
+    if result == 0:
+        return output.strip()
 
 def root_path():
     return os.path.join(os.getcwd(), 'build')
@@ -94,11 +105,20 @@ def build_paths():
 
     return full
 
+def first_built_application():
+    paths = build_paths()
+    appFolder = os.path.join(paths['DSTROOT'], 'Applications')
+    if os.path.exists(appFolder):
+        for app in os.listdir(appFolder):
+            (name,ext) = os.path.splitext(app)
+            if ext == ".app":
+                appPath = os.path.join(appFolder, app)
+                return appPath
 
 def zip_built_application():
     paths = build_paths()
     appFolder = os.path.join(paths['DSTROOT'], 'Applications')
-    (result, output) = (errors.ERROR_FILE_NOT_FOUND, "can't find built application")
+    (result, output) = (errors.ERROR_FILE_NOT_FOUND, "Can't find built application.")
     if os.path.exists(appFolder):
         for app in os.listdir(appFolder):
             (name,ext) = os.path.splitext(app)
@@ -110,9 +130,11 @@ def zip_built_application():
                     symPath = os.path.join(paths['SYMROOT'], 'Release', "{0}.app.dSYM".format(name))
                     symZipPath = os.path.join(appFolder, "{0}.dSYM.zip".format(name))
                     (result, output) = shell.zip(symPath, symZipPath)
-                break
+                    if result == 0:
+                        return (zipPath, symZipPath)
 
-    return (result, output)
+    if result != 0:
+        shell.log_verbose(output)
 
 
 def build_variant(variant, actions = ['archive']):
