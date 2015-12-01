@@ -8,12 +8,18 @@ import errors
 import getopt
 import re
 
+try:
+    from docopt import docopt
+except:
+    exit_with_message("This script requires docopt. You can install it with: pip install docopt.", errors.ERROR_REQUIRED_MODULE_MISSING)
+
 RE_XCODE_VERSION = re.compile('Xcode ([\d.]+).*')
 
 
 
 PROCESSED_ARGUMENTS = []
 PROCESSED_OPTIONS = {}
+DOCOPT_ARGUMENTS = None
 
 def system_version():
     (result, output) = call_output_and_result(['sw_vers', '-productVersion'])
@@ -68,6 +74,12 @@ def exit_if_too_few_arguments(args, count, usage):
             message = message.format(name) # usage can contain {0} itself
             exit_with_message(message, errors.ERROR_WRONG_ARGUMENTS)
 
+def check_arguments_docopt(main):
+    global DOCOPT_ARGUMENTS
+	
+    DOCOPT_ARGUMENTS = docopt(main, version="1.0")
+    return DOCOPT_ARGUMENTS
+
 def process_options(options):
     global PROCESSED_OPTIONS
     argv = sys.argv
@@ -79,7 +91,7 @@ def process_options(options):
             cleanName = option_name_from_getopt_name(optname)
 
             if optvalue:
-            	PROCESSED_OPTIONS[cleanName]=optvalue
+                PROCESSED_OPTIONS[cleanName]=optvalue
             else:
                 defaultValue = options[cleanName].get("default")
                 if (defaultValue == True) or (defaultValue == False):
@@ -110,12 +122,15 @@ def get_argument(index):
     return PROCESSED_ARGUMENTS[index - 1]
 
 def get_option(key):
-    return PROCESSED_OPTIONS.get(key)
+    result = DOCOPT_ARGUMENTS.get("--{0}".format(key))
+    if not result:
+        result = PROCESSED_OPTIONS.get(key)
+    return result
 
 def expand_directory(path):
     path = os.path.expanduser(path)
     if not os.path.exists(path):
-	   	os.makedirs(path)
+           os.makedirs(path)
 
     return path
 
@@ -126,8 +141,8 @@ def read_text(path):
     return text
 
 def write_text(path, text):
-	with open(path, "w") as outputFile:
-	    outputFile.write(text)
+    with open(path, "w") as outputFile:
+        outputFile.write(text)
 
 def view_file(path):
     subprocess.call(["open", path])
