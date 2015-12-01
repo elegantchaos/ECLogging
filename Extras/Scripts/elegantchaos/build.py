@@ -9,58 +9,9 @@ import errors
 import os
 import fnmatch
 
-# tagBuildInGit() {
-#     if [[ -e "test-build/dst/Applications" ]]
-#     then
-#         echo "Tagging build"
-#         APPTOTAG="$1"
-#         VARIANT="$2"
-#         VERSION_NO=`/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "test-build/dst/Applications/$APPTOTAG.app/Contents/Info.plist"`
-#         BUILD_NO=`/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "test-build/dst/Applications/$APPTOTAG.app/Contents/Info.plist"`
-#         git tag -a -f "builds/$VARIANT/$VERSION_NO/$BUILD_NO" -m "Automatic build of $APPTOTAG"
-#         git push --force origin "builds/$VARIANT/$VERSION_NO/$BUILD_NO"
-#     fi
-# }
-#
-
-
-# copyAppToDrobox() {
-#     DEBUG_PATH="$1"
-#     APPTOCOPY="$2"
-#     DROPBOXFOLDER="$3"
-#     LONGNAME="$4"
-#
-#     if [[ -e "$DEBUG_PATH/$APPTOCOPY" ]]
-#     then
-#         echo "Copying $APPTOCOPY to upload folder"
-#         BUILD_NO=`/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "${DEBUG_PATH}/$APPTOCOPY/Contents/Info.plist"`
-#         ZIP_NAME="$LONGNAME $BUILD_NO.zip"
-#         APP_NAME="$LONGNAME $BUILD_NO.app"
-#         LATEST_FOLDER="$DROPBOXFOLDER/Builds/Latest"
-#         mkdir -p "${LATEST_FOLDER}"
-#         rm -rf "${LATEST_FOLDER}/${ZIP_NAME}"
-#         pushd "${DEBUG_PATH}"
-#         mv "$APPTOCOPY" "$APP_NAME"
-#         zip -q -r "$LATEST_FOLDER/$ZIP_NAME" "$APP_NAME"
-#         popd
-#     fi
-# }
-#
-# copyToDropbox() {
-#     DROPBOXFOLDER="$1"
-#     DEBUGAPPNAME="$2"
-#     LONGAPPNAME="$3"
-#
-#     if [[ -e "$DROPBOXFOLDER" ]]
-#
-#     then
-#         copyAppToDrobox "test-build/sym/Debug" "$DEBUGAPPNAME" "$DROPBOXFOLDER" "$LONGAPPNAME Debug"
-#         copyAppToDrobox "test-build/dst/Applications" "SketchApp.app" "$DROPBOXFOLDER" "$LONGAPPNAME"
-#     fi
-# }
 
 def root_path():
-    return os.path.join(os.getcwd(), 'build')
+    return os.path.join(os.getcwd(), 'test-build')
 
 def log_paths(jobName):
     root = root_path()
