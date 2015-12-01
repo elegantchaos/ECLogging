@@ -128,8 +128,12 @@ def tags():
 
     return tags
 
-def add_tag(tag, ref):
-    return shell.call_output_and_result(['git', 'tag', tag, ref])
+def add_tag(tag, ref, shouldPush = False):
+    (result, output) = shell.call_output_and_result(['git', 'tag', tag, ref])
+    if shouldPush and (result == 0):
+        (result, output) = shell.call_output_and_result(['git', 'push', 'origin', tag])
+
+    return (result, output)
 
 def delete_tag(tag, fromRemote = True):
     (result, output) = shell.call_output_and_result(['git', 'tag', '-d', tag])
