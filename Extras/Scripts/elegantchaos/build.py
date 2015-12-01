@@ -100,25 +100,21 @@ def first_built_application():
             (name,ext) = os.path.splitext(app)
             if ext == ".app":
                 appPath = os.path.join(appFolder, app)
-                return appPath
+                symPath = os.path.join(paths['SYMROOT'], 'Release', "{0}.app.dSYM".format(name))
+                return (appPath, symPath)
 
-def zip_built_application():
-    paths = build_paths()
-    appFolder = os.path.join(paths['DSTROOT'], 'Applications')
+def zip_built_application(appPath, symPath):
     (result, output) = (errors.ERROR_FILE_NOT_FOUND, "Can't find built application.")
-    if os.path.exists(appFolder):
-        for app in os.listdir(appFolder):
-            (name,ext) = os.path.splitext(app)
-            if ext == ".app":
-                appPath = os.path.join(appFolder, app)
-                zipPath = os.path.join(appFolder, "{0}.zip".format(name))
-                (result, output) = shell.zip(appPath, zipPath)
-                if result == 0:
-                    symPath = os.path.join(paths['SYMROOT'], 'Release', "{0}.app.dSYM".format(name))
-                    symZipPath = os.path.join(appFolder, "{0}.dSYM.zip".format(name))
-                    (result, output) = shell.zip(symPath, symZipPath)
-                    if result == 0:
-                        return (zipPath, symZipPath)
+    if os.path.exists(appPath):
+        (appFolder, app) = os.path.split(appPath)
+        (name,ext) = os.path.splitext(app)
+        zipPath = os.path.join(appFolder, "{0}.zip".format(name))
+        (result, output) = shell.zip(appPath, zipPath)
+        if result == 0:
+            symZipPath = os.path.join(appFolder, "{0}.dSYM.zip".format(name))
+            (result, output) = shell.zip(symPath, symZipPath)
+            if result == 0:
+                return (zipPath, symZipPath)
 
     if result != 0:
         shell.log_verbose(output)
