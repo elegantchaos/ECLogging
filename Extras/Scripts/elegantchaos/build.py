@@ -59,19 +59,6 @@ import fnmatch
 #     fi
 # }
 
-
-def application_build_number(applicationPath):
-    plistPath = os.path.join(applicationPath, 'Contents', 'Info.plist')
-    (result, output) = shell.call_output_and_result(['/usr/libexec/PlistBuddy', '-c', 'Print :CFBundleVersion', plistPath])
-    if result == 0:
-        return output.strip()
-
-def application_version_number(applicationPath):
-    plistPath = os.path.join(applicationPath, 'Contents', 'Info.plist')
-    (result, output) = shell.call_output_and_result(['/usr/libexec/PlistBuddy', '-c', 'Print :CFBundleShortVersionString', plistPath])
-    if result == 0:
-        return output.strip()
-
 def root_path():
     return os.path.join(os.getcwd(), 'build')
 

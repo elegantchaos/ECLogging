@@ -21,6 +21,26 @@ PROCESSED_ARGUMENTS = []
 PROCESSED_OPTIONS = {}
 DOCOPT_ARGUMENTS = None
 
+def application_info(applicationPath):
+	return {
+	'version' : application_version_number(applicationPath),
+	'build' : application_build_number(applicationPath)
+	}
+
+def application_info_for_key(applicationPath, key):
+    plistPath = os.path.join(applicationPath, 'Contents', 'Info.plist')
+    (result, output) = call_output_and_result(['/usr/libexec/PlistBuddy', '-c', "Print :{0}".format(key), plistPath])
+    if result == 0:
+        return output.strip()
+
+
+def application_build_number(applicationPath):
+    return application_info_for_key(applicationPath, 'CFBundleVersion')
+
+def application_version_number(applicationPath):
+    return application_info_for_key(applicationPath, 'CFBundleShortVersionString')
+
+
 def system_version():
     (result, output) = call_output_and_result(['sw_vers', '-productVersion'])
     return output.strip()
