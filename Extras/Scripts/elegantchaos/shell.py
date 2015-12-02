@@ -29,7 +29,8 @@ def application_info(applicationPath):
     'xcode' : application_info_for_key(applicationPath, 'DTXcode'),
     'xcode build' : application_info_for_key(applicationPath, 'DTXcodeBuild'),
     'sdk' : application_info_for_key(applicationPath, 'DTSDKName'),
-    'sdk build' : application_info_for_key(applicationPath, 'DTSDKBuild')
+    'sdk build' : application_info_for_key(applicationPath, 'DTSDKBuild'),
+    'commit' : application_info_for_key(applicationPath, 'ECVersionCommit')
 	}
 
 def application_info_for_key(applicationPath, key):
