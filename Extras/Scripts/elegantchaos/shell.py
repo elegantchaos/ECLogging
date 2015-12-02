@@ -19,7 +19,7 @@ RE_XCODE_VERSION = re.compile('Xcode ([\d.]+).*')
 
 PROCESSED_ARGUMENTS = []
 PROCESSED_OPTIONS = {}
-DOCOPT_ARGUMENTS = None
+DOCOPT_ARGUMENTS = {}
 
 def application_info(applicationPath):
 	return {
@@ -146,8 +146,11 @@ def check_arguments(count, usage, options = {}):
         print "Arguments: {0}".format(PROCESSED_ARGUMENTS)
         print "Options: {0}".format(PROCESSED_OPTIONS)
 
-def get_argument(index):
-    return PROCESSED_ARGUMENTS[index - 1]
+def get_argument(key):
+    if isinstance(key, String):
+        return DOCOPT_ARGUMENTS.get(key)
+    else:
+        return PROCESSED_ARGUMENTS[key - 1]
 
 def get_option(key):
     result = DOCOPT_ARGUMENTS.get("--{0}".format(key))
