@@ -147,7 +147,7 @@ def check_arguments(count, usage, options = {}): # TODO: old API; remove
         print "Options: {0}".format(PROCESSED_OPTIONS)
 
 def get_argument(key):
-    if isinstance(key, String):
+    if isinstance(key, basestring):
         return DOCOPT_ARGUMENTS.get("<{0}>".format(key))
     else:
         return PROCESSED_ARGUMENTS[key - 1]
