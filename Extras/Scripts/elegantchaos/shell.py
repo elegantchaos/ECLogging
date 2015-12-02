@@ -204,7 +204,8 @@ def script_base():
     return path
 
 def script_relative(path):
-    return os.path.join(script_base(), path)
+    result = os.path.join(script_base(), path)
+    return os.path.abspath(result)
 
 def zip(source, destination):
     args = ['ditto', '-c', '-k', '--sequesterRsrc', '--keepParent', source, destination]
