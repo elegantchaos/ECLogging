@@ -211,6 +211,19 @@ def zip(source, destination):
     result = call_output_and_result(args)
     return result
 
+def archive_repo_path():
+    path = script_relative('../../../../Archive') # TODO read this from an environment variable?
+    return path
+
+def archive_path():
+    path = os.path.join(archive_repo_path(), 'archive')
+    return path
+
+def staging_path():
+    path = os.path.join(archive_repo_path(), 'staging')
+    return path
+
+
 def call_output_and_result(cmd):
     try:
         return (0, subprocess.check_output(cmd, stderr = subprocess.STDOUT))
