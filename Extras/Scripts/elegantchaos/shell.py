@@ -70,7 +70,7 @@ def exit_if_failed_with_message(result, output, message):
     if result != 0:
         exit_with_message(message, result)
 
-def getopt_options_from_options(options):
+def getopt_options_from_options(options): # TODO: old API; remove
     global PROCESSED_OPTIONS
     options["debug-args"] = { "default" : False }
     optkeys = []
@@ -84,7 +84,7 @@ def getopt_options_from_options(options):
 
     return optkeys
 
-def option_name_from_getopt_name(optname):
+def option_name_from_getopt_name(optname): # TODO: old API; remove
     if optname[:2] == "--":
         cleanName = optname[2:]
     elif optname[0] == "-":
@@ -94,7 +94,7 @@ def option_name_from_getopt_name(optname):
 
     return cleanName
 
-def exit_if_too_few_arguments(args, count, usage):
+def exit_if_too_few_arguments(args, count, usage): # TODO: old API; remove
         argc = len(args)
         if (argc < count):
             name = os.path.basename(sys.argv[0])
@@ -108,7 +108,7 @@ def check_arguments_docopt(main):
     DOCOPT_ARGUMENTS = docopt(main, version="1.0")
     return DOCOPT_ARGUMENTS
 
-def process_options(options):
+def process_options(options): # TODO: old API; remove
     global PROCESSED_OPTIONS
     argv = sys.argv
     try:
@@ -131,7 +131,7 @@ def process_options(options):
         print "Error: {0}".format(e)
         exit(errors.ERROR_UNKNOWN_OPTION)
 
-def check_arguments(count, usage, options = {}):
+def check_arguments(count, usage, options = {}): # TODO: old API; remove
     global PROCESSED_ARGUMENTS
 
     if options:
@@ -147,8 +147,8 @@ def check_arguments(count, usage, options = {}):
         print "Options: {0}".format(PROCESSED_OPTIONS)
 
 def get_argument(key):
-    if isinstance(key, String):
-        return DOCOPT_ARGUMENTS.get(key)
+    if isinstance(key, basestring):
+        return DOCOPT_ARGUMENTS.get("<{0}>".format(key))
     else:
         return PROCESSED_ARGUMENTS[key - 1]
 
