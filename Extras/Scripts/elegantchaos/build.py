@@ -10,7 +10,7 @@ import os
 import fnmatch
 
 RE_TEST_RAN = re.compile("(.) -\[(\w+) (\w+)\] \((\d+) ms\)")
-RE_WARNINGS = re.compile("(\w+\.\w+):(\d+):(\d+): warning: (.*)")
+RE_WARNINGS = re.compile("\n(.*):(\d+):(\d+): warning: (.*?)( \[-(.*)\])*\n(.*)\n")
 RE_ERRORS = re.compile("\n(.*):(\d+):(\d+):( fatal)* error: (.*)\n(.*)\n")
 RE_LINKER_WARNINGS = re.compile("ld: warning: (.*)")
 RE_LINKER_WARNINGS2 = re.compile("WARNING: (.*)")
@@ -88,6 +88,16 @@ def build_variant(variant, actions = ['archive']):
     extraArgs = [ '-xcconfig', configPath ]
     return build('Sketch.xcworkspace', 'Sketch', actions = actions, jobName = variant, extraArgs = extraArgs)
 
+def summarise_warnings(log):
+    result = {}
+    errors = RE_WARNINGS.findall(log)
+    for (file, line, length, warning, switch, switchInner, text) in errors:
+        key = file+line+length
+        result[key] = {'file' : file, 'line' : line, 'length' : length, 'warning' : warning, 'text' : text, 'switch' : switchInner}
+
+    return result.values()
+
+
 def summarise_errors(log):
     result = {}
     errors = RE_ERRORS.findall(log)
@@ -155,6 +165,7 @@ def summarise_build_log(result, jobName):
 
     summary['tests'] = summarise_test_runs(log)
     summary['errors'] = summarise_errors(log)
+    summary['warnings'] = summarise_warnings(log)
 
     summary['status'] = status
     return summary
