@@ -68,6 +68,9 @@ def exit_with_message(message, error):
 
 def exit_if_failed_with_message(result, output, message):
     if result != 0:
+        if get_argument('verbose'):
+            message = "{0}\n\n{1}".format(message, output)
+            
         exit_with_message(message, result)
 
 def getopt_options_from_options(options): # TODO: old API; remove
