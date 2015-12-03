@@ -9,6 +9,16 @@ import errors
 import os
 import fnmatch
 
+RE_TEST_RAN = re.compile("~ -\[(\w+) (\w+)\] \((\d+) ms\)")
+RE_TEST_FAILED = re.compile("TEST FAILED: (\d+) passed, (\d+) failed, (\d+) errored, (\d+) total \*\*.*?\((\d+)", re.DOTALL)
+RE_WARNINGS = re.compile("(\w+\.\w+):(\d+):(\d+): warning: (.*)")
+RE_LINKER_WARNINGS = re.compile("ld: warning: (.*)")
+RE_LINKER_WARNINGS2 = re.compile("WARNING: (.*)")
+RE_ERRORS = re.compile(":( fatal)* error:", re.DOTALL)
+RE_CODESIGNING = re.compile("codesign failed with exit code", re.DOTALL)
+RE_PLATFORM_SCHEME = re.compile("(.*)-(.*)")
+RE_ARCHIVE_FAILED = re.compile("ARCHIVE FAILED", re.DOTALL)
+RE_IB_WARNINGS = re.compile("ibtoold\[\d*:\d*]", re.DOTALL)
 
 def root_path():
     return os.path.join(os.getcwd(), 'test-build')
@@ -70,6 +80,8 @@ def zip_built_application(appPath, symPath):
     if result != 0:
         shell.log_verbose(output)
 
+def run_unit_tests(scheme = 'Sketch Jenkins', jobName = 'tests'):
+    return build('Sketch.xcworkspace', scheme, actions = ['test'], jobName = jobName, cleanAll = False)
 
 def build_variant(variant, actions = ['archive']):
     configsPath = shell.script_relative('../../../Sketch/Configs')
@@ -77,8 +89,37 @@ def build_variant(variant, actions = ['archive']):
     extraArgs = [ '-xcconfig', configPath ]
     return build('Sketch.xcworkspace', 'Sketch', actions = actions, jobName = variant, extraArgs = extraArgs)
 
-def build(workspace, scheme, platform = 'macosx', actions = ['build'], jobName = None, cleanAll = True, extraArgs = []):
-    args = ['xctool', '-workspace', workspace, '-scheme', scheme, '-sdk', platform]
+def summarise_test_runs(log):
+    suites = {}
+    tests = RE_TEST_RAN.findall(log)
+    for (suite, test, time) in tests:
+        suiteSummary = suites.get(suite)
+        if not suiteSummary:
+            suiteSummary = {}
+            suites[suite] = suiteSummary
+
+        suiteSummary[test] = time
+
+    return suites
+
+def summarise_build_log(result, jobName):
+    logPaths = log_paths(jobName)
+    log = shell.read_text(logPaths['output'])
+
+    summary = { 'result' : result}
+
+    if result != 0:
+        status = 'failed'
+    else:
+        status = 'succeeded'
+
+    summary['tests'] = summarise_test_runs(log)
+
+    summary['status'] = status
+    return summary
+
+def build(workspace, scheme, platform = 'macosx', configuration = 'Release', actions = ['build'], jobName = None, cleanAll = True, extraArgs = []):
+    args = ['xctool', '-workspace', workspace, '-scheme', scheme, '-sdk', platform, '-configuration', configuration]
 
     if cleanAll:
         root = root_path()
