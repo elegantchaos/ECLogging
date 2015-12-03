@@ -79,14 +79,16 @@ def zip_built_application(appPath, symPath):
     if result != 0:
         shell.log_verbose(output)
 
-def run_unit_tests(scheme = 'Sketch Jenkins', jobName = 'tests'):
-    return build('Sketch.xcworkspace', scheme, actions = ['test'], jobName = jobName, cleanAll = False)
+def run_unit_tests(workspace, scheme, jobName = 'tests'):
+    return build(workspace, scheme, actions = ['test'], jobName = jobName, cleanAll = False)
 
-def build_variant(variant, actions = ['archive']):
+def build_variant(variant, workspace, scheme, actions = ['archive'], jobName = None):
     configsPath = shell.script_relative('../../../Sketch/Configs')
     configPath = os.path.join(configsPath, "{0}.xcconfig".format(variant))
     extraArgs = [ '-xcconfig', configPath ]
-    return build('Sketch.xcworkspace', 'Sketch', actions = actions, jobName = variant, extraArgs = extraArgs)
+    if not jobName:
+        jobName = variant
+    return build(workspace, scheme, actions = actions, jobName = jobName, extraArgs = extraArgs)
 
 def summarise_warnings(log):
     result = {}
