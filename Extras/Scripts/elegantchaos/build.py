@@ -11,7 +11,7 @@ import fnmatch
 
 RE_TEST_RAN = re.compile("(.) -\[(\w+) (\w+)\] \((\d+) ms\)")
 RE_WARNINGS = re.compile("(\w+\.\w+):(\d+):(\d+): warning: (.*)")
-RE_ERRORS = re.compile("(\w+\.\w+):(\d+):(\d+):( fatal)* error: (.*)", re.DOTALL)
+RE_ERRORS = re.compile("\n(.*):(\d+):(\d+):( fatal)* error: (.*)\n(.*)\n")
 RE_LINKER_WARNINGS = re.compile("ld: warning: (.*)")
 RE_LINKER_WARNINGS2 = re.compile("WARNING: (.*)")
 RE_CODESIGNING = re.compile("codesign failed with exit code", re.DOTALL)
@@ -88,6 +88,16 @@ def build_variant(variant, actions = ['archive']):
     extraArgs = [ '-xcconfig', configPath ]
     return build('Sketch.xcworkspace', 'Sketch', actions = actions, jobName = variant, extraArgs = extraArgs)
 
+def summarise_errors(log):
+    result = {}
+    errors = RE_ERRORS.findall(log)
+    for (file, line, length, fatal, error, text) in errors:
+        isFatal = fatal != ''
+        key = file+line+length
+        result[key] = {'file' : file, 'line' : line, 'length' : length, 'fatal' : isFatal, 'error' : error, 'text' : text}
+
+    return result.values()
+
 def summarise_test_runs(log):
     passes = []
     failures = []
@@ -144,6 +154,7 @@ def summarise_build_log(result, jobName):
         status = 'succeeded'
 
     summary['tests'] = summarise_test_runs(log)
+    summary['errors'] = summarise_errors(log)
 
     summary['status'] = status
     return summary

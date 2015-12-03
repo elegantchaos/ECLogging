@@ -9,8 +9,9 @@
 
 #import "NSString+ECLogging.h"
 
-#define TEST_ERROR 0 // enable this to deliberately crash a test
+#define TEST_CRASH 0 // enable this to deliberately crash a test
 #define TEST_FAILURE 0 // enable this to deliberately fail a test
+#define TEST_ERROR 0 // enable this for a deliberate compiler error (handy when testing build reporting scripts)
 
 @interface StringTests : ECTestCase
 {
@@ -22,6 +23,11 @@
 
 #pragma mark - Tests
 
+#if TEST_ERROR
+xyz
+#endif
+
+
 #if TEST_FAILURE
 - (void)testFailure
 {
@@ -29,7 +35,7 @@
 }
 #endif
 
-#if TEST_ERROR
+#if TEST_CRASH
 - (void)testError
 {
 	*((char*)123) = 10;
