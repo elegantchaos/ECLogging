@@ -9,7 +9,7 @@ import errors
 import os
 import fnmatch
 
-RE_TEST_RAN = re.compile("~ -\[(\w+) (\w+)\] \((\d+) ms\)")
+RE_TEST_RAN = re.compile("(.) -\[(\w+) (\w+)\] \((\d+) ms\)")
 RE_TEST_FAILED = re.compile("TEST FAILED: (\d+) passed, (\d+) failed, (\d+) errored, (\d+) total \*\*.*?\((\d+)", re.DOTALL)
 RE_WARNINGS = re.compile("(\w+\.\w+):(\d+):(\d+): warning: (.*)")
 RE_LINKER_WARNINGS = re.compile("ld: warning: (.*)")
@@ -90,17 +90,45 @@ def build_variant(variant, actions = ['archive']):
     return build('Sketch.xcworkspace', 'Sketch', actions = actions, jobName = variant, extraArgs = extraArgs)
 
 def summarise_test_runs(log):
+    passes = 0
+    failures = 0
+    errors = 0
     suites = {}
     tests = RE_TEST_RAN.findall(log)
-    for (suite, test, time) in tests:
+    for (type, suite, test, time) in tests:
         suiteSummary = suites.get(suite)
         if not suiteSummary:
             suiteSummary = {}
             suites[suite] = suiteSummary
+        suitePasses = suiteSummary.get('passes') or 0
+        suiteFailures = suiteSummary.get('failures') or 0
+        suiteErrors = suiteSummary.get('errors') or 0
+        if type == '~':
+            passes += 1
+            suitePasses += 1
+            status = 'passed'
 
-        suiteSummary[test] = time
+        elif type == 'x':
+            failures += 1
+            suiteFailures += 1
+            status = 'failed'
 
-    return suites
+        else:
+            errors += 1
+            suiteErrors += 1
+            status = 'error'
+
+        suiteTests = suiteSummary.get('tests')
+        if not suiteTests:
+            suiteTests = {}
+            suiteSummary['tests'] = suiteTests
+        suiteTests[test] = {'time' : time, 'status' : status}
+        suiteSummary['passes'] = suitePasses
+        suiteSummary['failures'] = suiteFailures
+        suiteSummary['errors'] = suiteErrors
+        suiteSummary['runs'] = len(suiteTests)
+
+    return { 'passes' : passes, 'failures' : failures, 'errors' : errors, 'runs' : len(tests), 'suites' : suites }
 
 def summarise_build_log(result, jobName):
     logPaths = log_paths(jobName)
