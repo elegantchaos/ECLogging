@@ -90,9 +90,9 @@ def build_variant(variant, actions = ['archive']):
     return build('Sketch.xcworkspace', 'Sketch', actions = actions, jobName = variant, extraArgs = extraArgs)
 
 def summarise_test_runs(log):
-    passes = 0
-    failures = 0
-    errors = 0
+    passes = []
+    failures = []
+    errors = []
     suites = {}
     tests = RE_TEST_RAN.findall(log)
     for (type, suite, test, time) in tests:
@@ -104,17 +104,17 @@ def summarise_test_runs(log):
         suiteFailures = suiteSummary.get('failures') or 0
         suiteErrors = suiteSummary.get('errors') or 0
         if type == '~':
-            passes += 1
+            passes += [(suite, test)]
             suitePasses += 1
             status = 'passed'
 
         elif type == 'x':
-            failures += 1
+            failures += [(suite, test)]
             suiteFailures += 1
             status = 'failed'
 
         elif type == 'X':
-            errors += 1
+            errors += [(suite, test)]
             suiteErrors += 1
             status = 'error'
 
