@@ -12,6 +12,7 @@
 #define TEST_CRASH 0 // enable this to deliberately crash a test
 #define TEST_FAILURE 0 // enable this to deliberately fail a test
 #define TEST_ERROR 0 // enable this for a deliberate compiler error (handy when testing build reporting scripts)
+#define TEST_WARNING 0 // enable this for a deliberate compiler warning (handy when testing build reporting scripts)
 
 @interface StringTests : ECTestCase
 {
@@ -44,6 +45,9 @@ xyz
 
 - (void)testStringBySplittingMixedCaps
 {
+#if TEST_WARNING
+	int x = 10;
+#endif
 	ECTestAssertStringIsEqual([@"mixedCapTest" stringBySplittingMixedCaps], @"mixed Cap Test");
 	ECTestAssertStringIsEqual([@"alllowercaseoneword" stringBySplittingMixedCaps], @"alllowercaseoneword");
 	ECTestAssertStringIsEqual([@"" stringBySplittingMixedCaps], @"");

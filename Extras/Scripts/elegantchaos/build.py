@@ -11,7 +11,7 @@ import fnmatch
 
 RE_TEST_RAN = re.compile("(.) -\[(\w+) (\w+)\] \((\d+) ms\)")
 RE_WARNINGS = re.compile("\n(.*):(\d+):(\d+): warning: (.*?)( \[-(.*)\])*\n(.*)\n")
-RE_ERRORS = re.compile("\n(.*):(\d+):(\d+):( fatal)* error: (.*)\n(.*)\n")
+RE_ERRORS = re.compile("\n(.*):(\d+):(\d+):( fatal)* error: (.*?)( \[-(.*)\])*\n(.*)\n")
 RE_LINKER_WARNINGS = re.compile("ld: warning: (.*)")
 RE_LINKER_WARNINGS2 = re.compile("WARNING: (.*)")
 RE_CODESIGNING = re.compile("codesign failed with exit code", re.DOTALL)
@@ -93,7 +93,7 @@ def summarise_warnings(log):
     errors = RE_WARNINGS.findall(log)
     for (file, line, length, warning, switch, switchInner, text) in errors:
         key = file+line+length
-        result[key] = {'file' : file, 'line' : line, 'length' : length, 'warning' : warning, 'text' : text, 'switch' : switchInner}
+        result[key] = {'file' : file, 'line' : line, 'length' : length, 'fatal' : False, 'reason' : warning, 'text' : text, 'switch' : switchInner}
 
     return result.values()
 
@@ -101,10 +101,10 @@ def summarise_warnings(log):
 def summarise_errors(log):
     result = {}
     errors = RE_ERRORS.findall(log)
-    for (file, line, length, fatal, error, text) in errors:
+    for (file, line, length, fatal, error, switch, switchInner, text) in errors:
         isFatal = fatal != ''
         key = file+line+length
-        result[key] = {'file' : file, 'line' : line, 'length' : length, 'fatal' : isFatal, 'error' : error, 'text' : text}
+        result[key] = {'file' : file, 'line' : line, 'length' : length, 'fatal' : isFatal, 'reason' : error, 'text' : text, 'switch' : switchInner}
 
     return result.values()
 
