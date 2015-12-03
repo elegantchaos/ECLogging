@@ -10,11 +10,10 @@ import os
 import fnmatch
 
 RE_TEST_RAN = re.compile("(.) -\[(\w+) (\w+)\] \((\d+) ms\)")
-RE_TEST_FAILED = re.compile("TEST FAILED: (\d+) passed, (\d+) failed, (\d+) errored, (\d+) total \*\*.*?\((\d+)", re.DOTALL)
 RE_WARNINGS = re.compile("(\w+\.\w+):(\d+):(\d+): warning: (.*)")
+RE_ERRORS = re.compile("(\w+\.\w+):(\d+):(\d+):( fatal)* error: (.*)", re.DOTALL)
 RE_LINKER_WARNINGS = re.compile("ld: warning: (.*)")
 RE_LINKER_WARNINGS2 = re.compile("WARNING: (.*)")
-RE_ERRORS = re.compile(":( fatal)* error:", re.DOTALL)
 RE_CODESIGNING = re.compile("codesign failed with exit code", re.DOTALL)
 RE_PLATFORM_SCHEME = re.compile("(.*)-(.*)")
 RE_ARCHIVE_FAILED = re.compile("ARCHIVE FAILED", re.DOTALL)
