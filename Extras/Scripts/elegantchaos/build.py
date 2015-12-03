@@ -113,10 +113,13 @@ def summarise_test_runs(log):
             suiteFailures += 1
             status = 'failed'
 
-        else:
+        elif type == 'X':
             errors += 1
             suiteErrors += 1
             status = 'error'
+
+        else:
+            status = 'unknown'
 
         suiteTests = suiteSummary.get('tests')
         if not suiteTests:
