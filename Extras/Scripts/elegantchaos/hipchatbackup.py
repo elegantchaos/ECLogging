@@ -14,7 +14,7 @@ import time
 DAYS_WITHOUT_MESSAGE_BEFORE_GIVING_UP = 30
 PAGE_SIZE = 1000
 
-def text_transcript(messages, dateFormat='%H:%m.%S'):
+def text_transcript(messages, dateFormat='%H:%M.%S'):
     transcript = u""
     datesort=lambda x,y: cmp(dateutil.parser.parse(x['date']), dateutil.parser.parse(y['date']))
     messages.sort(datesort)
@@ -51,16 +51,18 @@ def process_person_date(person, token, startDate, outputPath):
 
     messageCount = len(messages)
     print "Found {0} messages for {1}".format(messageCount, key)
+
+    path = os.path.join(outputPath, key + ".json")
+    fileExisted = os.path.exists(path)
     if messageCount > 0:
         encoded = json.dumps(messages, indent=1)
-        path = os.path.join(outputPath, key + ".json")
         shell.write_text(path, encoded)
 
         transcript = text_transcript(messages)
         path = os.path.join(outputPath, key + ".txt")
         shell.write_text(path, transcript)
 
-    return messageCount
+    return (messageCount, fileExisted)
 
 def process_person_recent(person, token, outputPath):
     startIndex = 0
@@ -98,8 +100,10 @@ def process_person(person, token):
 
     process_person_recent(personID, token, outputPath)
     while startDate > earliestDate:
-        process_person_date(personID, token, startDate, outputPath)
+        (messageCount, fileExisted) = process_person_date(personID, token, startDate, outputPath)
         startDate = startDate - datetime.timedelta(1)
+        if fileExisted:
+            break
 
 def get_user(user, token):
     request = hipchat.user_request(user, token)
