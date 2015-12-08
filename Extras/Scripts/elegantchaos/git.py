@@ -32,8 +32,9 @@ def got_changes():
     return status() != ""
 
 def ensure_running_at_root_of_repo(root):
-    name = repo_name()
-    if name != root:
+    path = repo_root_path()
+    workspace = os.path.join(path, "{0}.xcworkspace".format(root))
+    if not os.path.exists(workspace):
         message = "You need to run this command from the root of the {0} repo.".format(root)
         shell.exit_with_message(message, errors.ERROR_NOT_AT_ROOT)
     else:
