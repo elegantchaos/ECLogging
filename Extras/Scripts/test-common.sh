@@ -48,6 +48,7 @@ report()
 cleanbuild()
 {
     # ensure a clean build every time
+    rm -rfd "~/Library/Developer/Xcode/DerivedData"
     rm -rfd "$derived" 2> /dev/null
 }
 
