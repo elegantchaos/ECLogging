@@ -77,8 +77,18 @@ setup()
     local PLATFORM="$1"
     shift
 
+    ARCHIVE_PATH=""
+    if [[ "$1" == "archive" ]]
+    then
+      echo "Archiving"
+      shift
+      ACTIONS=(archive -archivePath "$build/archive" $@)
+    else
+      ACTIONS="$@"
+    fi
+
     echo "Building $SCHEME for $PLATFORM with $TOOL"
-    echo "Actions: $@"
+    echo "Actions: $ACTIONS"
     cleanoutput "$SCHEME" "$PLATFORM"
 }
 
@@ -95,7 +105,8 @@ commonbuild()
     reportdir="$build/reports/$PLATFORM-$SCHEME"
     mkdir -p "$reportdir"
 
-    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" "$@" -derivedDataPath "$derived" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testpretty" -reporter "plain:$testout" 2>> "$testerr"
+
+    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" "$ACTIONS" $ARCHIVE_PATH -derivedDataPath "$derived" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testpretty" -reporter "plain:$testout" 2>> "$testerr"
     result=$?
 
     if [[ $result != 0 ]]
