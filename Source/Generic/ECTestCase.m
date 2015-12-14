@@ -628,7 +628,8 @@
 	NSError* error;
 	NSData* data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:(NSPropertyListFormat)kCFPropertyListBinaryFormat_v1_0 options:0 error:&error];
 	[[NSFileManager defaultManager] createDirectoryAtURL:[file URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:@{} error:nil];
-	ECTestAssertTrue([data writeToURL:file atomically:YES]);
+	BOOL written = [data writeToURL:file options:NSDataWritingAtomic error:&error];
+	ECTestAssertTrueFormat(written, @"failed to write data to %@: %@", file, error);
 	return file;
 }
 
@@ -637,7 +638,8 @@
 	NSURL* file = [[container URLByAppendingPathComponent:name] URLByAppendingPathExtension:extension];
 	NSError* error;
 	[[NSFileManager defaultManager] createDirectoryAtURL:[file URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:@{} error:nil];
-	ECTestAssertTrue([data writeToURL:file atomically:YES encoding:NSUTF8StringEncoding error:&error]);
+	BOOL written = [data writeToURL:file atomically:YES encoding:NSUTF8StringEncoding error:&error];
+	ECTestAssertTrueFormat(written, @"failed to write text to %@: %@", file, error);
 	return file;
 }
 
@@ -649,8 +651,9 @@
 	NSURL* file = [[desktop URLByAppendingPathComponent:name] URLByAppendingPathExtension:@"png"];
 	NSData* data = [image representationUsingType:NSPNGFileType properties:@{NSImageInterlaced: @YES}];
 	[[NSFileManager defaultManager] createDirectoryAtURL:[file URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:@{} error:nil];
-	BOOL written = [data writeToURL:file atomically:YES];
-	ECTestAssertTrueFormat(written, @"failed to write data");
+	NSError* error = nil;
+	BOOL written = [data writeToURL:file options:NSDataWritingAtomic error:&error];
+	ECTestAssertTrueFormat(written, @"failed to write image to %@: %@", file, error);
 	return file;
 }
 
