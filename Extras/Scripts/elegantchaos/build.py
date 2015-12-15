@@ -44,6 +44,17 @@ def archive_path():
     root = root_path()
     return os.path.join(root, 'archive.xcarchive')
 
+def built_archive():
+    archive = archive_path()
+    appFolder = os.path.join(archive, 'Products', 'Applications')
+    if os.path.exists(appFolder):
+        for item in os.listdir(appFolder):
+            (itemName,itemExt) = os.path.splitext(item)
+            if itemExt == ".app":
+                app = os.path.join(appFolder, item)
+                sym = os.path.join(archive, 'dSYMS', "{0}.dSYM".format(item))
+                return (archive, app, sym)
+
 def first_built_application(name, configuration):
     derived = derived_path()
     appFolder = os.path.join(derived, 'Build', 'Products', configuration)
