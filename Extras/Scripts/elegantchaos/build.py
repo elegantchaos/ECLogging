@@ -24,7 +24,7 @@ def root_path():
 
 def log_paths(jobName):
     root = root_path()
-    logs = ['output', 'errors', 'pretty']
+    logs = ['output', 'errors', 'pretty', 'compilation']
     if jobName:
         prefix = jobName + '-'
     else:
@@ -36,31 +36,23 @@ def log_paths(jobName):
 
     return full
 
-def build_paths():
+def derived_path():
     root = root_path()
-    paths = {
-        'SYMROOT' : 'sym',
-        'OBJROOT' : 'obj',
-        'DSTROOT' : 'dst',
-        'CACHE_ROOT' : 'cache',
-        'SHARED_PRECOMPS_DIR' : 'precomp'
-    }
+    return os.path.join(root, 'derived')
 
-    full = {}
-    for key in paths:
-        full[key] = os.path.join(root, paths[key])
+def archive_path():
+    root = root_path()
+    return os.path.join(root, 'archive.xcarchive')
 
-    return full
-
-def first_built_application():
-    paths = build_paths()
-    appFolder = os.path.join(paths['DSTROOT'], 'Applications')
+def first_built_application(name, configuration):
+    derived = derived_path()
+    appFolder = os.path.join(derived, 'Build', 'Products', configuration)
     if os.path.exists(appFolder):
-        for app in os.listdir(appFolder):
-            (name,ext) = os.path.splitext(app)
-            if ext == ".app":
-                appPath = os.path.join(appFolder, app)
-                symPath = os.path.join(paths['SYMROOT'], 'Release', "{0}.app.dSYM".format(name))
+        for item in os.listdir(appFolder):
+            (itemName,itemExt) = os.path.splitext(item)
+            if (itemExt == ".app") and (name in itemName):
+                appPath = os.path.join(appFolder, item)
+                symPath = os.path.join(appFolder, "{0}.dSYM".format(item))
                 return (appPath, symPath)
 
 def zip_built_application(appPath, symPath):
@@ -182,18 +174,20 @@ def build(workspace, scheme, platform = 'macosx', configuration = 'Release', act
         except Exception as e:
             pass
 
-    paths = build_paths()
-    pathArgs = []
-    for key in paths:
-        pathArgs += ["{0}={1}".format(key, paths[key])]
+    for action in actions:
+        args += [action]
+        if action == 'archive':
+            args += ["-archivePath", archive_path()]
 
-    args += actions
-    args += pathArgs
+    args += ['-derivedDataPath', derived_path()]
 
     logPaths = log_paths(jobName)
     args += ['-reporter', "pretty:{0}".format(logPaths['pretty'])]
     args += ['-reporter', "plain:{0}".format(logPaths['output'])]
+    args += ['-reporter', "json-compilation-database:{0}".format(logPaths['compilation'])]
     args += extraArgs
+
+    shell.log_verbose(args)
 
     (result, output) = shell.call_output_and_result(args)
     return (result, output)
