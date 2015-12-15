@@ -23,6 +23,7 @@ ocunit2junit="$wd/ocunit2junit/bin/ocunit2junit"
 popd > /dev/null
 
 derived="$build/derived"
+archive="$build/archive"
 
 rm -rfd "$build" 2> /dev/null
 mkdir -p "$build"
@@ -50,6 +51,7 @@ cleanbuild()
     # ensure a clean build every time
     rm -rfd "~/Library/Developer/Xcode/DerivedData"
     rm -rfd "$derived" 2> /dev/null
+    rm -rfd "$archive" 2> /dev/null
 }
 
 cleanoutput()
@@ -82,7 +84,7 @@ setup()
     then
       echo "Archiving"
       shift
-      ACTIONS=(archive -archivePath "$build/archive" $@)
+      ACTIONS="archive -archivePath $archive $@"
     else
       ACTIONS="$@"
     fi
@@ -106,7 +108,7 @@ commonbuild()
     mkdir -p "$reportdir"
 
 
-    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" "$ACTIONS" $ARCHIVE_PATH -derivedDataPath "$derived" -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testpretty" -reporter "plain:$testout" 2>> "$testerr"
+    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" -derivedDataPath "$derived" $ACTIONS -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testpretty" -reporter "plain:$testout" 2>> "$testerr"
     result=$?
 
     if [[ $result != 0 ]]
