@@ -47,6 +47,13 @@ def exit_if_changes():
 def checkout(ref):
     return shell.call_output_and_result(["git", "checkout", ref])
 
+def clone(repo, name = None):
+    args = ['git', 'clone', repo]
+    if name:
+        args += [name]
+
+    return shell.call_output_and_result(args)
+
 def checkout_detached():
     return shell.call_output_and_result(["git", "checkout", "--detach"])
 
