@@ -198,8 +198,6 @@ def build(workspace, scheme, platform = 'macosx', configuration = 'Release', act
     args += ['-reporter', "json-compilation-database:{0}".format(logPaths['compilation'])]
     args += extraArgs
 
-    shell.log_verbose(args)
-
     (result, output) = shell.call_output_and_result(args)
     return (result, output)
 
