@@ -271,7 +271,7 @@ def branches_containing(ref, remote = False):
         args += ['-r']
     args += ['--contains', ref]
     (result, output) = shell.call_output_and_result(args)
-    if result:
+    if result == 0:
         return output.strip().split('\n')
     else:
         shell.log_verbose(output)
@@ -282,7 +282,7 @@ def cleanup_local_branch(branch, tags, forced = False):
         print branch
         remoteBranches = branches_containing(branch, remote = True)
         print remoteBranches
-        isPushed = ('origin/' + branch) in remoteBranches
+        isPushed = (remoteBranches != None) and (('origin/' + branch) in remoteBranches)
         print isPushed
 
         # is this branch closed?
