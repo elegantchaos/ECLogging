@@ -41,7 +41,7 @@ def ensure_running_at_root_of_repo(root):
         os.chdir(repo_root_path())
 
 def exit_if_changes():
-    if got_changes():
+    if got_changes() and (not shell.get_option('force')):
         shell.exit_with_message("You have changes. Commit them first.", errors.ERROR_GIT_CHANGES_PENDING)
 
 def checkout(ref):
