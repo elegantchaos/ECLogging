@@ -133,9 +133,12 @@ def submodules():
 
     return result
 
-def tags():
+def tags(pattern = None):
     tags = []
-    (result, output) = shell.call_output_and_result(['git', 'tag'])
+    args = ['git', 'tag']
+    if pattern:
+        args += ['--list', pattern]
+    (result, output) = shell.call_output_and_result(args)
     if result == 0:
         tags = output.strip().split('\n')
 
@@ -262,7 +265,7 @@ def main_github_info():
         result = info.values()[0]
     return result
 
-def cleanup_local_branch(branch, forced = False):
+def cleanup_local_branch(branch, tags, forced = False):
     if not ((branch == "develop") or (branch == "HEAD") or ("detached " in branch)):
         localCommit = commit_for_ref(branch)
         remoteCommit = commit_for_ref("remotes/origin/" + branch)
@@ -271,17 +274,19 @@ def cleanup_local_branch(branch, forced = False):
 
         match = RE_ISSUE_NUMBER.search(branch)
         if match:
-            closedTag = "refs/tags/issues/closed/" + match.group(1)
-            deletedCommit = commit_for_ref(closedTag)
+            closedTag = "issues/closed/" + match.group(1)
+            isClosed = closedTag in tags
         else:
-            deletedCommit = None
+            isClosed = False
 
-        if (localCommit == remoteCommit) or (localCommit == deletedCommit) or forced: # TODO: should really check if remoteCommit or deletedCommit *contain* the localCommit, rather than just if they are equal
+        if (localCommit == remoteCommit) or isClosed or forced: # TODO: should really check if remoteCommit or deletedCommit *contain* the localCommit, rather than just if they are equal
             (result, output) = delete_branch(branch)
-            print output
-        # else:
-        #     print "Local commit {0} didn't match remote commit {1} or deleted commit {2} for branch {3}".format(localCommit, remoteCommit, deletedCommit, branch)
+            if result != 0:
+                print output
+            else:
+                shell.log_verbose(output)
 
+                
 def enumerate_submodules(cmd, args = None):
     currentDir = os.getcwd()
     basePath = top_level()
