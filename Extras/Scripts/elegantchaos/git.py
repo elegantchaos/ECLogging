@@ -272,7 +272,8 @@ def branches_containing(ref, remote = False):
     args += ['--contains', ref]
     (result, output) = shell.call_output_and_result(args)
     if result == 0:
-        return output.strip().split('\n')
+        items = output.split('\n')
+        return [item.strip() for item in items]
     else:
         shell.log_verbose(output)
 
