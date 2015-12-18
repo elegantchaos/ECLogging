@@ -265,7 +265,7 @@ def main_github_info():
         result = info.values()[0]
     return result
 
-def branches_containing(ref, remote == False):
+def branches_containing(ref, remote = False):
     args = ['git', 'branch']
     if remote:
         args += ['-r']
