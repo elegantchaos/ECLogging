@@ -285,7 +285,7 @@ def branches_containing(ref, remote = False):
         shell.log_verbose(output)
 
 def cleanup_local_branch(branch, filter, filterArgs = [], forced = False):
-    if not ((branch == "develop") or (branch == "HEAD") or ("detached " in branch)):
+    if not ((branch == "develop") or ("HEAD" in branch) or ("detached " in branch)):
         deleteBranch = forced
         if deleteBranch:
             shell.log_verbose("Deleting {0}.".format(branch))
