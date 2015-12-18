@@ -279,22 +279,32 @@ def branches_containing(ref, remote = False):
 
 def cleanup_local_branch(branch, filter, filterArgs = [], forced = False):
     if not ((branch == "develop") or (branch == "HEAD") or ("detached " in branch)):
-        # is this branch fully pushed?
-        remoteBranches = branches_containing(branch, remote = True)
-        isPushed = (remoteBranches != None) and (('origin/' + branch) in remoteBranches)
+        deleteBranch = forced
+        if deleteBranch:
+            shell.log_verbose("Deleting {0}.".format(branch))
 
-        # does this branch pass the filter?
-        isFiltered = filter(branch, filterArgs)
+        if not deleteBranch:
+            # is this branch fully pushed?
+            remoteBranches = branches_containing(branch, remote = True)
+            deleteBranch = (remoteBranches != None) and (('origin/' + branch) in remoteBranches)
+            if deleteBranch:
+                shell.log_verbose("Deleting {0} as its fully pushed to the server.".format(branch))
+
+        if not deleteBranch:
+            # does this branch pass the filter?
+            deleteBranch = filter(branch, filterArgs)
+            if deleteBranch:
+                shell.log_verbose("Deleting {0} as it passed the filter.".format(branch))
 
         # try to delete it if it's pushed or closed, or forced
-        if isPushed or isFiltered or forced: # TODO: should really check if remoteCommit or deletedCommit *contain* the localCommit, rather than just if they are equal
+        if deleteBranch:
             (result, output) = delete_branch(branch)
             if result != 0:
                 print output
             else:
                 shell.log_verbose(output)
-        elif not isPushed:
-            shell.log_verbose("Skipped {0} as it's not fully pushed to the server.".format(branch))
+            else:
+                shell.log_verbose("Skipping {0} as it isn't fully pushed or a closed issue.".format(branch))
 
 
 
