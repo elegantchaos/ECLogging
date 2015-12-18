@@ -184,8 +184,15 @@ def branches(type="all"):
     branches = RE_BRANCH.findall(output)
     return branches
 
-def delete_branch(branch):
-    return shell.call_output_and_result(["git", "branch", "-d", branch])
+def delete_branch(branch, forced = False):
+    args = ["git", "branch"]
+    if forced:
+        args += ['-D']
+    else:
+        args += ['-d']
+    args += [branch]
+
+    return shell.call_output_and_result(args)
 
 def set_branch(branch, commit = None, forced = False):
     cmd = ["git", "branch"]
@@ -298,7 +305,7 @@ def cleanup_local_branch(branch, filter, filterArgs = [], forced = False):
 
         # try to delete it if it's pushed or closed, or forced
         if deleteBranch:
-            (result, output) = delete_branch(branch)
+            (result, output) = delete_branch(branch, forced = forced)
             if result != 0:
                 print output
             else:
