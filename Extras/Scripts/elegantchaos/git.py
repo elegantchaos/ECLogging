@@ -11,7 +11,6 @@ RE_ENTRIES = re.compile("^.(\w+) (.*) .*$", re.MULTILINE)
 RE_BRANCH = re.compile("^[\* ] (.*)$", re.MULTILINE)
 RE_REMOTE = re.compile("^(.*)\t(.*) (.*)$", re.MULTILINE)
 RE_GITHUB_REMOTE = re.compile("^(.*)\tgit@github.com\:(.*?)\/(.*) (.*)$", re.MULTILINE)
-RE_ISSUE_NUMBER = re.compile("^.*feature/(\d+).*$", re.MULTILINE)
 
 def repo_root_path():
     (result, output) = shell.call_output_and_result(['git', 'rev-parse',  '--show-toplevel'])
@@ -278,7 +277,7 @@ def branches_containing(ref, remote = False):
     else:
         shell.log_verbose(output)
 
-def cleanup_local_branch(branch, filter, forced = False):
+def cleanup_local_branch(branch, filter, filterArgs = [], forced = False):
     if not ((branch == "develop") or (branch == "HEAD") or ("detached " in branch)):
         # is this branch fully pushed?
         print branch
@@ -288,7 +287,7 @@ def cleanup_local_branch(branch, filter, forced = False):
         print isPushed
 
         # does this branch pass the filter?
-        isFiltered = filter(branch)
+        isFiltered = filter(branch, filterArgs)
         # match = RE_ISSUE_NUMBER.search(branch)
         # if match:
         #     issue = match.group(1)
