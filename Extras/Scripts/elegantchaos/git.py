@@ -279,8 +279,11 @@ def branches_containing(ref, remote = False):
 def cleanup_local_branch(branch, tags, forced = False):
     if not ((branch == "develop") or (branch == "HEAD") or ("detached " in branch)):
         # is this branch fully pushed?
+        print branch
         remoteBranches = branches_containing(branch, remote = True)
+        print remoteBranches
         isPushed = ('origin/' + branch) in remoteBranches
+        print isPushed
 
         # is this branch closed?
         match = RE_ISSUE_NUMBER.search(branch)
@@ -289,7 +292,8 @@ def cleanup_local_branch(branch, tags, forced = False):
             isClosed = closedTag in tags
         else:
             isClosed = False
-
+        print isClosed
+        
         # try to delete it if it's pushed or closed, or forced
         if isPushed or isClosed or forced: # TODO: should really check if remoteCommit or deletedCommit *contain* the localCommit, rather than just if they are equal
             (result, output) = delete_branch(branch)
