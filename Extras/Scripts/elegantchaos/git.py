@@ -285,8 +285,11 @@ def cleanup_local_branch(branch, tags, forced = False):
                 print output
             else:
                 shell.log_verbose(output)
+        elif (localCommit != remoteCommit):
+            shell.log_verbose("Skipped {0} as it's not fully pushed to the server.")
+            
 
-                
+
 def enumerate_submodules(cmd, args = None):
     currentDir = os.getcwd()
     basePath = top_level()
