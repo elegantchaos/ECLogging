@@ -18,29 +18,37 @@ def hockey_request(command, token):
     request.add_header('X-HockeyAppToken', token)
     return request
 
-def get_apps(token):
-    request = hockey_request('apps', token)
+def response_as_json(request):
     response = urllib2.urlopen(request)
     outputJSON = response.read()
     output = json.loads(outputJSON)
     return output
+
+def get_apps(token):
+    request = hockey_request('apps', token)
+    return response_as_json(request)
 
 def get_app_versions(token, appid):
     request = hockey_request('apps/' + appid + "/app_versions", token)
-    response = urllib2.urlopen(request)
-    outputJSON = response.read()
-    output = json.loads(outputJSON)
-    return output
+    return response_as_json(request)
 
 def get_app_statistics(token, appid):
     request = hockey_request('apps/' + appid + "/statistics", token)
-    response = urllib2.urlopen(request)
-    outputJSON = response.read()
-    output = json.loads(outputJSON)
-    return output
+    return response_as_json(request)
+
+def upload_version(token, appid, appZip, dsymZip):
+    parameters = {
+    'ipa' : '',
+    'dsym' : ''
+    }
+
+    request = hockey_request('apps/' + appid + '/app_versions/upload')
+    request.set_method('POST')
+    request.set_data(json.dumps(parameters))
+    return response_as_json(request)
 
 if __name__ == '__main__':
     (user, token) = get_token()
 
-    print get_app_statistics(token, '1ee03b2c845f45f7b7564123f5283409')
+    print upload_version(token, '1ee03b2c845f45f7b7564123f5283409')
     # print [(a['title'], a['id']) for a in get_apps(token).get('apps')]
