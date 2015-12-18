@@ -286,8 +286,8 @@ def cleanup_local_branch(branch, tags, forced = False):
             else:
                 shell.log_verbose(output)
         elif (localCommit != remoteCommit):
-            shell.log_verbose("Skipped {0} as it's not fully pushed to the server.")
-            
+            shell.log_verbose("Skipped {0} as it's not fully pushed to the server.".format(branch))
+
 
 
 def enumerate_submodules(cmd, args = None):
