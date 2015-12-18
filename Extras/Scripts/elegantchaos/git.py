@@ -265,13 +265,24 @@ def main_github_info():
         result = info.values()[0]
     return result
 
+def branches_containing(ref, remote == False):
+    args = ['git', 'branch']
+    if remote:
+        args += ['-r']
+    args += [ref]
+    (result, output) = shell.call_output_and_result(args)
+    if result:
+        return output.strip().split('\n')
+    else:
+        shell.log_verbose(output)
+
 def cleanup_local_branch(branch, tags, forced = False):
     if not ((branch == "develop") or (branch == "HEAD") or ("detached " in branch)):
-        localCommit = commit_for_ref(branch)
-        remoteCommit = commit_for_ref("remotes/origin/" + branch)
-        if not remoteCommit:
-            remoteCommit = commit_for_ref("origin/" + branch)
+        # is this branch fully pushed?
+        remoteBranches = branches_containing(branch, remote = True)
+        isPushed = ('origin/' + branch) in remoteBranches
 
+        # is this branch closed?
         match = RE_ISSUE_NUMBER.search(branch)
         if match:
             closedTag = "issues/closed/" + match.group(1)
@@ -279,13 +290,14 @@ def cleanup_local_branch(branch, tags, forced = False):
         else:
             isClosed = False
 
-        if (localCommit == remoteCommit) or isClosed or forced: # TODO: should really check if remoteCommit or deletedCommit *contain* the localCommit, rather than just if they are equal
+        # try to delete it if it's pushed or closed, or forced
+        if isPushed or isClosed or forced: # TODO: should really check if remoteCommit or deletedCommit *contain* the localCommit, rather than just if they are equal
             (result, output) = delete_branch(branch)
             if result != 0:
                 print output
             else:
                 shell.log_verbose(output)
-        elif (localCommit != remoteCommit):
+        elif not isPushed:
             shell.log_verbose("Skipped {0} as it's not fully pushed to the server.".format(branch))
 
 
