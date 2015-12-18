@@ -140,7 +140,8 @@ def tags(pattern = None):
         args += ['--list', pattern]
     (result, output) = shell.call_output_and_result(args)
     if result == 0:
-        tags = output.strip().split('\n')
+        items = output.strip().split('\n')
+        tags = [item.strip() for item in items]
 
     return tags
 
@@ -272,7 +273,7 @@ def branches_containing(ref, remote = False):
     args += ['--contains', ref]
     (result, output) = shell.call_output_and_result(args)
     if result == 0:
-        items = output.split('\n')
+        items = output.strip().split('\n')
         return [item.strip() for item in items]
     else:
         shell.log_verbose(output)
@@ -289,7 +290,9 @@ def cleanup_local_branch(branch, tags, forced = False):
         # is this branch closed?
         match = RE_ISSUE_NUMBER.search(branch)
         if match:
-            closedTag = "issues/closed/" + match.group(1)
+            issue = match.group(1)
+            print issue
+            closedTag = "issues/closed/" + issue
             isClosed = closedTag in tags
         else:
             isClosed = False
