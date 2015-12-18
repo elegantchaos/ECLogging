@@ -269,7 +269,7 @@ def branches_containing(ref, remote = False):
     args = ['git', 'branch']
     if remote:
         args += ['-r']
-    args += [ref]
+    args += ['--contains', ref]
     (result, output) = shell.call_output_and_result(args)
     if result:
         return output.strip().split('\n')
@@ -293,7 +293,7 @@ def cleanup_local_branch(branch, tags, forced = False):
         else:
             isClosed = False
         print isClosed
-        
+
         # try to delete it if it's pushed or closed, or forced
         if isPushed or isClosed or forced: # TODO: should really check if remoteCommit or deletedCommit *contain* the localCommit, rather than just if they are equal
             (result, output) = delete_branch(branch)
