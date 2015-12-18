@@ -303,8 +303,8 @@ def cleanup_local_branch(branch, filter, filterArgs = [], forced = False):
                 print output
             else:
                 shell.log_verbose(output)
-            else:
-                shell.log_verbose("Skipping {0} as it isn't fully pushed or a closed issue.".format(branch))
+        else:
+            shell.log_verbose("Skipping {0} as it isn't fully pushed or a closed issue.".format(branch))
 
 
 
