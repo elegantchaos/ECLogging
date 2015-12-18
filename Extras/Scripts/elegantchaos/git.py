@@ -24,6 +24,11 @@ def repo_name():
         name = os.path.basename(path)
         return name
 
+def current_branch():
+    (result, output) = shell.call_output_and_result(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
+    if result == 0:
+        return output.strip()
+
 def status():
     status = subprocess.check_output(["git", "status", "--porcelain"])
     return status
