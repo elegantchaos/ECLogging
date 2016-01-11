@@ -11,7 +11,6 @@ RE_ENTRIES = re.compile("^.(\w+) (.*) .*$", re.MULTILINE)
 RE_BRANCH = re.compile("^[\* ] (.*)$", re.MULTILINE)
 RE_REMOTE = re.compile("^(.*)\t(.*) (.*)$", re.MULTILINE)
 RE_GITHUB_REMOTE = re.compile("^(.*)\tgit@github.com\:(.*?)\/(.*) (.*)$", re.MULTILINE)
-RE_ISSUE_NUMBER = re.compile("^.*feature/(\d+).*$", re.MULTILINE)
 
 def repo_root_path():
     (result, output) = shell.call_output_and_result(['git', 'rev-parse',  '--show-toplevel'])
@@ -23,6 +22,11 @@ def repo_name():
     if path:
         name = os.path.basename(path)
         return name
+
+def current_branch():
+    (result, output) = shell.call_output_and_result(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
+    if result == 0:
+        return output.strip()
 
 def status():
     status = subprocess.check_output(["git", "status", "--porcelain"])
@@ -41,7 +45,7 @@ def ensure_running_at_root_of_repo(root):
         os.chdir(repo_root_path())
 
 def exit_if_changes():
-    if got_changes():
+    if got_changes() and (not shell.get_option('force')):
         shell.exit_with_message("You have changes. Commit them first.", errors.ERROR_GIT_CHANGES_PENDING)
 
 def checkout(ref):
@@ -128,11 +132,15 @@ def submodules():
 
     return result
 
-def tags():
+def tags(pattern = None):
     tags = []
-    (result, output) = shell.call_output_and_result(['git', 'tag'])
+    args = ['git', 'tag']
+    if pattern:
+        args += ['--list', pattern]
+    (result, output) = shell.call_output_and_result(args)
     if result == 0:
-        tags = output.strip().split('\n')
+        items = output.strip().split('\n')
+        tags = [item.strip() for item in items]
 
     return tags
 
@@ -176,8 +184,15 @@ def branches(type="all"):
     branches = RE_BRANCH.findall(output)
     return branches
 
-def delete_branch(branch):
-    return shell.call_output_and_result(["git", "branch", "-d", branch])
+def delete_branch(branch, forced = False):
+    args = ["git", "branch"]
+    if forced:
+        args += ['-D']
+    else:
+        args += ['-d']
+    args += [branch]
+
+    return shell.call_output_and_result(args)
 
 def set_branch(branch, commit = None, forced = False):
     cmd = ["git", "branch"]
@@ -257,25 +272,48 @@ def main_github_info():
         result = info.values()[0]
     return result
 
-def cleanup_local_branch(branch, forced = False):
-    if not ((branch == "develop") or (branch == "HEAD") or ("detached " in branch)):
-        localCommit = commit_for_ref(branch)
-        remoteCommit = commit_for_ref("remotes/origin/" + branch)
-        if not remoteCommit:
-            remoteCommit = commit_for_ref("origin/" + branch)
+def branches_containing(ref, remote = False):
+    args = ['git', 'branch']
+    if remote:
+        args += ['-r']
+    args += ['--contains', ref]
+    (result, output) = shell.call_output_and_result(args)
+    if result == 0:
+        items = output.strip().split('\n')
+        return [item.strip() for item in items]
+    else:
+        shell.log_verbose(output)
 
-        match = RE_ISSUE_NUMBER.search(branch)
-        if match:
-            closedTag = "refs/tags/issues/closed/" + match.group(1)
-            deletedCommit = commit_for_ref(closedTag)
+def cleanup_local_branch(branch, filter, filterArgs = [], forced = False):
+    if not ((branch == "develop") or ("HEAD" in branch) or ("detached " in branch)):
+        deleteBranch = forced
+        if deleteBranch:
+            shell.log_verbose("Deleting {0}.".format(branch))
+
+        if not deleteBranch:
+            # is this branch fully pushed?
+            remoteBranches = branches_containing(branch, remote = True)
+            deleteBranch = (remoteBranches != None) and (('origin/' + branch) in remoteBranches)
+            if deleteBranch:
+                shell.log_verbose("Deleting {0} as its fully pushed to the server.".format(branch))
+
+        if not deleteBranch:
+            # does this branch pass the filter?
+            deleteBranch = filter(branch, filterArgs)
+            if deleteBranch:
+                shell.log_verbose("Deleting {0} as it passed the filter.".format(branch))
+
+        # try to delete it if it's pushed or closed, or forced
+        if deleteBranch:
+            (result, output) = delete_branch(branch, forced = forced)
+            if result != 0:
+                print output
+            else:
+                shell.log_verbose(output)
         else:
-            deletedCommit = None
+            shell.log_verbose("Skipping {0} as it isn't fully pushed or a closed issue.".format(branch))
 
-        if (localCommit == remoteCommit) or (localCommit == deletedCommit) or forced: # TODO: should really check if remoteCommit or deletedCommit *contain* the localCommit, rather than just if they are equal
-            (result, output) = delete_branch(branch)
-            print output
-        # else:
-        #     print "Local commit {0} didn't match remote commit {1} or deleted commit {2} for branch {3}".format(localCommit, remoteCommit, deletedCommit, branch)
+
 
 def enumerate_submodules(cmd, args = None):
     currentDir = os.getcwd()
