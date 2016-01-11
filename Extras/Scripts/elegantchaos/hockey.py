@@ -3,7 +3,7 @@
 
 import os
 import keychain
-import urllib2
+import requests
 import json
 
 def set_token(token):
@@ -12,15 +12,17 @@ def set_token(token):
 def get_token():
     return keychain.get_internet_password("api.hockeyapp.net")
 
-def hockey_request(command, token):
+def hockey_request(command, token, data = None):
     url = "https://rink.hockeyapp.net/api/2/" + command
-    request = urllib2.Request(url)
-    request.add_header('X-HockeyAppToken', token)
+    headers = { 'X-HockeyAppToken' : token }
+    if data:
+        request = requests.post(url, data = data, headers = headers)
+    else:
+        request = requests.get(url, headers = headers)
     return request
 
 def response_as_json(request):
-    response = urllib2.urlopen(request)
-    outputJSON = response.read()
+    outputJSON = request.text
     output = json.loads(outputJSON)
     return output
 
@@ -37,18 +39,16 @@ def get_app_statistics(token, appid):
     return response_as_json(request)
 
 def upload_version(token, appid, appZip, dsymZip):
+    appData = open(appZip, 'rb')
+    dsymData = open(dsymZip, 'rb')
     parameters = {
-    'ipa' : '',
-    'dsym' : ''
+    'ipa' : appData,
+    'dsym' : dsymData
     }
-
-    request = hockey_request('apps/' + appid + '/app_versions/upload')
-    request.set_method('POST')
-    request.set_data(json.dumps(parameters))
+    request = hockey_request('apps/' + appid + '/app_versions/upload', token, parameters)
     return response_as_json(request)
 
 if __name__ == '__main__':
     (user, token) = get_token()
 
-    print upload_version(token, '1ee03b2c845f45f7b7564123f5283409')
-    # print [(a['title'], a['id']) for a in get_apps(token).get('apps')]
+    print upload_version(token, '1ee03b2c845f45f7b7564123f5283409', 'Vault/staging/sketch-3.5-18401.zip', 'Vault/staging/sketch-3.5-18401.dSYM.zip')
