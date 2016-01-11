@@ -58,7 +58,9 @@ if __name__ == '__main__':
 
     print get_apps(token)
 
-    appID = '1ee03b2c845f45f7b7564123f5283409'
-#    print get_app_versions(token, appID)
-    # Test upload for app version: https://rink.hockeyapp.net/manage/apps/258698/app_versions
-    #print upload_version(token, , 'fake.zip', 'fake.app.dSYM.zip')
+    # # Test list versions (https://rink.hockeyapp.net/manage/apps/258698/app_versions)
+    # appID = '1ee03b2c845f45f7b7564123f5283409'
+    # print get_app_versions(token, appID)
+
+    # # Test upload for app version:
+    # print upload_version(token, , 'fake.zip', 'fake.app.dSYM.zip')
