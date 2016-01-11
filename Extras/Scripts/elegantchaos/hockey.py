@@ -3,7 +3,7 @@
 
 import os
 import keychain
-import requests
+import requests  # see http://docs.python-requests.org/en/latest/user/quickstart/#quickstart for docs
 import json
 
 def set_token(token):
@@ -12,18 +12,17 @@ def set_token(token):
 def get_token():
     return keychain.get_internet_password("api.hockeyapp.net")
 
-def hockey_request(command, token, data = None):
+def hockey_request(command, token, data = None, files = None):
     url = "https://rink.hockeyapp.net/api/2/" + command
     headers = { 'X-HockeyAppToken' : token }
     if data:
-        request = requests.post(url, data = data, headers = headers)
+        request = requests.post(url, data = data, headers = headers, files = files)
     else:
         request = requests.get(url, headers = headers)
     return request
 
 def response_as_json(request):
-    outputJSON = request.text
-    output = json.loads(outputJSON)
+    output = request.json()
     return output
 
 def get_apps(token):
@@ -38,17 +37,28 @@ def get_app_statistics(token, appid):
     request = hockey_request('apps/' + appid + "/statistics", token)
     return response_as_json(request)
 
-def upload_version(token, appid, appZip, dsymZip):
-    appData = open(appZip, 'rb')
-    dsymData = open(dsymZip, 'rb')
+def upload_version(token, appid, appZip, dsymZip, notes = "", notes_type = 1, notify = False, status = 1):
+    # http://support.hockeyapp.net/kb/api/api-versions#upload-version
+
     parameters = {
-    'ipa' : appData,
-    'dsym' : dsymData
+    'status' : status,
+    'notify' : notify,
+    'notes' : notes,
+    'notes_type' : notes_type
     }
-    request = hockey_request('apps/' + appid + '/app_versions/upload', token, parameters)
+    files = {
+    'ipa' : open(appZip, 'rb'),
+    'dsym' : open(dsymZip, 'rb'),
+    }
+    request = hockey_request('apps/' + appid + '/app_versions/upload', token, data = parameters, files = files)
     return response_as_json(request)
 
 if __name__ == '__main__':
     (user, token) = get_token()
 
-    print upload_version(token, '1ee03b2c845f45f7b7564123f5283409', 'Vault/staging/sketch-3.5-18401.zip', 'Vault/staging/sketch-3.5-18401.dSYM.zip')
+    print get_apps(token)
+
+    appID = '1ee03b2c845f45f7b7564123f5283409'
+#    print get_app_versions(token, appID)
+    # Test upload for app version: https://rink.hockeyapp.net/manage/apps/258698/app_versions
+    #print upload_version(token, , 'fake.zip', 'fake.app.dSYM.zip')
