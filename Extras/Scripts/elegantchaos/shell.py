@@ -21,6 +21,9 @@ PROCESSED_ARGUMENTS = []
 PROCESSED_OPTIONS = {}
 DOCOPT_ARGUMENTS = {}
 
+def open_url(url):
+    return call_output_and_result('open', url)
+    
 def application_info(applicationPath):
 	return {
 	'version' : application_version_number(applicationPath),
@@ -71,7 +74,7 @@ def exit_if_failed_with_message(result, output, message):
     if result != 0:
         if get_argument('verbose'):
             message = "{0}\n\n{1}".format(message, output)
-            
+
         exit_with_message(message, result)
 
 def getopt_options_from_options(options): # TODO: old API; remove
