@@ -22,8 +22,8 @@ PROCESSED_OPTIONS = {}
 DOCOPT_ARGUMENTS = {}
 
 def open_url(url):
-    return call_output_and_result('open', url)
-    
+    return call_output_and_result(['open', url])
+
 def application_info(applicationPath):
 	return {
 	'version' : application_version_number(applicationPath),
