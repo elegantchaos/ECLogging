@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
+# --------------------------------------------------------------------------
+#  Copyright 2015-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
+
 ERROR_WRONG_ARGUMENTS = 1
 ERROR_GIT_CHANGES_PENDING = 2
 ERROR_UNKNOWN_OPTION = 3
