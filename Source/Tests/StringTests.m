@@ -9,6 +9,9 @@
 
 #import "NSString+ECLogging.h"
 
+#define TEST_CRASH 0 // enable this to deliberately crash a test
+#define TEST_FAILURE 0 // enable this to deliberately fail a test
+
 @interface StringTests : ECTestCase
 {
 }
@@ -18,6 +21,20 @@
 @implementation StringTests
 
 #pragma mark - Tests
+
+#if TEST_FAILURE
+- (void)testFailure
+{
+	ECTestFail("deliberate failure");
+}
+#endif
+
+#if TEST_CRASH
+- (void)testError
+{
+	*((char*)123) = 10;
+}
+#endif
 
 - (void)testStringBySplittingMixedCaps
 {

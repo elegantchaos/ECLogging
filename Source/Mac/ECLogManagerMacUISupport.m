@@ -114,7 +114,7 @@
 
 - (void)crashNow:(id)sender
 {
-	strcpy((char*)0x1, "I gotta bad feeling about this");
+	*((char*)0x1) = 123;
 }
 
 /// --------------------------------------------------------------------------

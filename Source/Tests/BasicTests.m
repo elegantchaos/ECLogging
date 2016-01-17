@@ -129,7 +129,7 @@ ECDefineLogChannel(TestChannel);
 	ECTestAssertIntegerIsEqual(matches, 1);
 	if (matches != 1)
 	{
-		NSLog(@"failed with %ld matches, output was '%@'", matches, self.handler.logged);
+		NSLog(@"failed with %ld matches, output was '%@'", (unsigned long)matches, self.handler.logged);
 	}
 }
 
@@ -139,7 +139,7 @@ ECDefineLogChannel(TestChannel);
 
 	ECDisableChannel(TestChannel);
 	[defaults setObject:@"Test" forKey:@"ECLoggingEnableChannel"];
-	[[ECLogManager sharedInstance] processForcedChannels]; // TODO: this forces the log manager to re-processes the command line options, so it's a bit fragile; a better test would be to actually launch a test executable which used ECLogging
+	[[ECLogManager sharedInstance] processForcedChannels]; // TODO #4348 - this forces the log manager to re-processes the command line options, so it's a bit fragile; a better test would be to actually launch a test executable which used ECLogging
 	[self clearLoggedOutput];
 	ECLog(TestChannel, @"hello world");
 	ECTestAssertStringIsEqual(self.handler.logged, @"hello world «Test»");
@@ -150,7 +150,7 @@ ECDefineLogChannel(TestChannel);
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
 	[defaults setObject:@"Test" forKey:@"ECLoggingDisableChannel"];
-	[[ECLogManager sharedInstance] processForcedChannels]; // TODO: this forces the log manager to re-processes the command line options, so it's a bit fragile; a better test would be to actually launch a test executable which used ECLogging
+	[[ECLogManager sharedInstance] processForcedChannels]; // TODO #4348 - this forces the log manager to re-processes the command line options, so it's a bit fragile; a better test would be to actually launch a test executable which used ECLogging
 	[self clearLoggedOutput];
 	ECLog(TestChannel, @"hello world");
 	ECTestAssertStringIsEqual(self.handler.logged, @"");

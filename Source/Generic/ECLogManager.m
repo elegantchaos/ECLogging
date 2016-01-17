@@ -83,6 +83,15 @@ const ContextFlagInfo kContextFlagInfo[] = {
 	{ ECLogContextName, @"Name" }
 };
 
+#define TEST_ERROR 0 // enable this for a deliberate compiler error (handy when testing build reporting scripts)
+#define TEST_WARNING 0 // enable this for a deliberate compiler warning (handy when testing build reporting scripts)
+#define TEST_ANALYZER 0 // enable this for a deliberate analyser warning (handy when testing build reporting scripts)
+
+#if TEST_ERROR
+xyz
+#endif
+
+
 // --------------------------------------------------------------------------
 // Properties
 // --------------------------------------------------------------------------
@@ -95,6 +104,14 @@ static ECLogManager* gSharedInstance = nil;
 
 + (ECLogManager*)sharedInstance
 {
+#if TEST_WARNING
+	int x = 10;
+#endif
+#if TEST_ANALYZER
+	NSString* string = @"blah";
+	string = @"doodah";
+#endif
+
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		gSharedInstance = [ECLogManager new];

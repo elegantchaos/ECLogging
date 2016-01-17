@@ -61,7 +61,14 @@ ALWAYS_SEARCH_USER_PATHS = NO
 GCC_PREFIX_HEADER = Source/Prefix/$(PROJECT_NAME)$(CONFIGURATION).pch
 GCC_PRECOMPILE_PREFIX_HEADER = YES
 PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES
-HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/include" "$(PROJECT_TEMP_DIR)/../UninstalledProducts/include"
+
+// Under normal circumstances, the headers for frameworks and libraries are built into TARGET_BUILD_DIR/include.
+// However, when archiving, any libraries that are set not to be part of the archive (which should be most if not all of them)
+// get built instead into an include/ folder in the UninstalledProducts directory. This is Xcode's behaviour and appears not
+// to be something we can change, so we need to look there too for headers.
+// Just to complicate things further, from Xcode 7 onwards it would appear that this folder is actually inside a folder named with
+// the SDK (eg macosx). Whilst we're also supporting Xcode 7, we need to check both with and without this extra folder.
+HEADER_SEARCH_PATHS = "${TARGET_BUILD_DIR}/include" "${PROJECT_TEMP_DIR}/../UninstalledProducts/include" "${PROJECT_TEMP_DIR}/../UninstalledProducts/$(PLATFORM_NAME)/include"
 
 // --------------------------------------------------------------------------
 // Standard Warnings
@@ -130,6 +137,29 @@ CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES
 CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES
 CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES
 CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES
+
+RUN_CLANG_STATIC_ANALYZER = NO
+CLANG_STATIC_ANALYZER_MODE_ON_ANALYZE_ACTION = deep
+
+CLANG_ANALYZER_DEADCODE_DEADSTORES = YES
+CLANG_ANALYZER_MEMORY_MANAGEMENT = YES
+CLANG_ANALYZER_GCD = YES
+CLANG_ANALYZER_OBJC_ATSYNC = YES
+CLANG_ANALYZER_OBJC_NSCFERROR = YES
+CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = YES
+CLANG_ANALYZER_OBJC_COLLECTIONS = YES
+CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES
+CLANG_ANALYZER_OBJC_SELF_INIT = YES
+CLANG_ANALYZER_OBJC_RETAIN_COUNT = YES
+CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = NO
+CLANG_ANALYZER_SECURITY_KEYCHAIN_API = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_UNCHECKEDRETURN = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_GETPW_GETS = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_MKSTEMP = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_VFORK = YES
+
 
 ASSETCATALOG_WARNINGS = YES
 

@@ -400,6 +400,7 @@
 		225C51511642DC3600794DD2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.md; sourceTree = "<group>"; };
 		225C51521642DC3600794DD2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; wrapsLines = 1; };
 		225EC67211EBAA4800A97AEA /* ECLoggingMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2268865E1BBD38010074277B /* IOSResourcesInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = IOSResourcesInfo.plist; sourceTree = "<group>"; };
 		226889E71AEE4B49005510E5 /* ECLoggingMacTestsStatic.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingMacTestsStatic.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22696F111630342E006AE56D /* ECDebugMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugMenu.h; sourceTree = "<group>"; };
 		22696F121630342E006AE56D /* ECDebugMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugMenu.m; sourceTree = "<group>"; };
@@ -698,6 +699,7 @@
 			children = (
 				22D6EF4B1B0218EA004F9FC7 /* Test.bundle */,
 				2251BA6C15DBDA5100F2FE40 /* Info.plist */,
+				2268865E1BBD38010074277B /* IOSResourcesInfo.plist */,
 				2274B37814F56679003B8A0B /* ECLoggingTests.plist */,
 			);
 			path = Resources;
@@ -1217,7 +1219,6 @@
 				225EC66E11EBAA4800A97AEA /* Sources */,
 				225EC66F11EBAA4800A97AEA /* Frameworks */,
 				2251BBA015DC183000F2FE40 /* CopyFiles */,
-				225EC67011EBAA4800A97AEA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1236,7 +1237,6 @@
 				226889DB1AEE4B49005510E5 /* Sources */,
 				226889DF1AEE4B49005510E5 /* Frameworks */,
 				226889E21AEE4B49005510E5 /* CopyFiles */,
-				226889E31AEE4B49005510E5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1328,7 +1328,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Elegant Chaos";
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ECLogging" */;
@@ -1471,34 +1471,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"Extras/Scripts/package-pseudo-framework.sh\"";
-			showEnvVarsInLog = 0;
-		};
-		225EC67011EBAA4800A97AEA /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-			showEnvVarsInLog = 0;
-		};
-		226889E31AEE4B49005510E5 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2274B38B14F56896003B8A0B /* ShellScript */ = {
@@ -1793,7 +1765,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_FILE = Resources/IOSResourcesInfo.plist;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -1803,7 +1775,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2277CE1F16D6AB9500835964 /* ECIOSRelease.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_FILE = Resources/IOSResourcesInfo.plist;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -1885,7 +1857,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 			};
@@ -1895,7 +1866,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 			};

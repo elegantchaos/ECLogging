@@ -12,6 +12,22 @@ RE_BRANCH = re.compile("^[\* ] (.*)$", re.MULTILINE)
 RE_REMOTE = re.compile("^(.*)\t(.*) (.*)$", re.MULTILINE)
 RE_GITHUB_REMOTE = re.compile("^(.*)\tgit@github.com\:(.*?)\/(.*) (.*)$", re.MULTILINE)
 
+def repo_root_path():
+    (result, output) = shell.call_output_and_result(['git', 'rev-parse',  '--show-toplevel'])
+    if result == 0:
+        return output.strip()
+
+def repo_name():
+    path = repo_root_path()
+    if path:
+        name = os.path.basename(path)
+        return name
+
+def current_branch():
+    (result, output) = shell.call_output_and_result(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
+    if result == 0:
+        return output.strip()
+
 def status():
     status = subprocess.check_output(["git", "status", "--porcelain"])
     return status
@@ -19,12 +35,28 @@ def status():
 def got_changes():
     return status() != ""
 
+def ensure_running_at_root_of_repo(root):
+    path = repo_root_path()
+    workspace = os.path.join(path, "{0}.xcworkspace".format(root))
+    if not os.path.exists(workspace):
+        message = "You need to run this command from the root of the {0} repo.".format(root)
+        shell.exit_with_message(message, errors.ERROR_NOT_AT_ROOT)
+    else:
+        os.chdir(repo_root_path())
+
 def exit_if_changes():
-    if got_changes():
-    	shell.exit_with_message("You have changes. Commit them first.", errors.ERROR_GIT_CHANGES_PENDING)
+    if got_changes() and (not shell.get_option('force')):
+        shell.exit_with_message("You have changes. Commit them first.", errors.ERROR_GIT_CHANGES_PENDING)
 
 def checkout(ref):
     return shell.call_output_and_result(["git", "checkout", ref])
+
+def clone(repo, name = None):
+    args = ['git', 'clone', repo]
+    if name:
+        args += [name]
+
+    return shell.call_output_and_result(args)
 
 def checkout_detached():
     return shell.call_output_and_result(["git", "checkout", "--detach"])
@@ -35,8 +67,11 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
         if checkoutCommit != expectedCommit:
             print "Branch {0} for submodule {1} wasn't at the commit that the parent repo expected: {2} instead of {3}.".format(checkoutRef, module, checkoutCommit, expectedCommit)
         else:
-            checkout(checkoutRef)
-            merge(fastForwardOnly = True)
+            (result, output) = checkout(checkoutRef)
+            if result == 0:
+                merge(fastForwardOnly = True)
+            else:
+                print "Error checking out {0}: {1}".format(module, output)
 
 
 def checkout_recursive(ref, pullIfSafe = False):
@@ -55,9 +90,15 @@ def checkout_recursive(ref, pullIfSafe = False):
     return (result, output)
 
 
-def commit(path, message):
+def add(path):
+    return shell.call_output_and_result(["git", "add", path])
+
+def commit(path, message): # TODO: is anything using this? remove it and rename commit2
     return subprocess.check_output(["git", "commit", path, "-m", message])
-    
+
+def commit2(path, message):
+    return shell.call_output_and_result(["git", "commit", path, "-m", message])
+
 def submodule_update():
     return shell.call_output_and_result(["git", "submodule", "update"])
 
@@ -91,16 +132,30 @@ def submodules():
 
     return result
 
-def tags():
+def tags(pattern = None):
     tags = []
-    (result, output) = shell.call_output_and_result(['git', 'tag'])
+    args = ['git', 'tag']
+    if pattern:
+        args += ['--list', pattern]
+    (result, output) = shell.call_output_and_result(args)
     if result == 0:
-        tags = output.strip().split('\n')
+        items = output.strip().split('\n')
+        tags = [item.strip() for item in items]
 
     return tags
 
-def add_tag(tag, ref):
-    return shell.call_output_and_result(['git', 'tag', tag, ref])
+def add_tag(tag, ref, push = False, force = False, message = None):
+    cmd = ['git', 'tag']
+    if force:
+        cmd += ['-f']
+    cmd += [tag, ref]
+    if message:
+        cmd += ['-m', message]
+    (result, output) = shell.call_output_and_result(cmd)
+    if push and (result == 0):
+        (result, output) = shell.call_output_and_result(['git', 'push', 'origin', tag])
+
+    return (result, output)
 
 def delete_tag(tag, fromRemote = True):
     (result, output) = shell.call_output_and_result(['git', 'tag', '-d', tag])
@@ -129,8 +184,30 @@ def branches(type="all"):
     branches = RE_BRANCH.findall(output)
     return branches
 
-def delete_branch(branch):
-    return shell.call_output_and_result(["git", "branch", "-d", branch])
+def delete_branch(branch, forced = False):
+    args = ["git", "branch"]
+    if forced:
+        args += ['-D']
+    else:
+        args += ['-d']
+    args += [branch]
+
+    return shell.call_output_and_result(args)
+
+def set_branch(branch, commit = None, forced = False):
+    cmd = ["git", "branch"]
+    if forced:
+        cmd += ['-f']
+
+    cmd += [branch]
+    if commit:
+        cmd += [commit]
+
+    return shell.call_output_and_result(cmd)
+
+def fetch():
+    cmd = ["git", "fetch"]
+    return shell.call_output_and_result(cmd)
 
 def pull(fastForwardOnly = False):
     cmd = ["git", "pull"]
@@ -138,8 +215,14 @@ def pull(fastForwardOnly = False):
         cmd += ["--ff-only"]
     return shell.call_output_and_result(cmd)
 
-def push():
-    return shell.call_output_and_result(['git', 'push'])
+def push(branch = None, upstream = None):
+    cmd = ['git', 'push']
+    if upstream:
+        cmd += ['--set-upstream', upstream]
+    if branch:
+        cmd += [branch]
+
+    return shell.call_output_and_result(cmd)
 
 def commit_for_ref(ref):
     (result, output) = shell.call_output_and_result(["git", "log", "-1", "--oneline", "--no-abbrev-commit", ref])
@@ -147,6 +230,12 @@ def commit_for_ref(ref):
         words = output.split(" ")
         if len(words) > 0:
             return words[0]
+    # else:
+    #     print output
+
+def ref_exists(ref):
+    commit = commit_for_ref(ref)
+    return commit != None
 
 def top_level():
     (result, output) = shell.call_output_and_result(["git", "rev-parse", "--show-toplevel"])
@@ -158,6 +247,8 @@ def remote_url():
         match = RE_REMOTE.search(output)
         if match:
             return match.group(2)
+    else:
+        print result, output
 
 def github_info():
     (result, output) = shell.call_output_and_result(["git", "remote", "-v"])
@@ -181,35 +272,68 @@ def main_github_info():
         result = info.values()[0]
     return result
 
-def cleanup_local_branch(branch, forced = False):
-	if not ((branch == "develop") or (branch == "HEAD") or ("(detached from" in branch)):
-		localCommit = commit_for_ref(branch)
-		remoteCommit = commit_for_ref("remotes/origin/" + branch)
-		possibleIssueNumber = os.path.basename(branch)
-		deletedCommit = commit_for_ref("issues/closed/" + possibleIssueNumber)
-		if (localCommit == remoteCommit) or (localCommit == deletedCommit) or forced:
-			(result, output) = delete_branch(branch)
-			print output
+def branches_containing(ref, remote = False):
+    args = ['git', 'branch']
+    if remote:
+        args += ['-r']
+    args += ['--contains', ref]
+    (result, output) = shell.call_output_and_result(args)
+    if result == 0:
+        items = output.strip().split('\n')
+        return [item.strip() for item in items]
+    else:
+        shell.log_verbose(output)
+
+def cleanup_local_branch(branch, filter, filterArgs = [], forced = False):
+    if not ((branch == "develop") or ("HEAD" in branch) or ("detached " in branch)):
+        deleteBranch = forced
+        if deleteBranch:
+            shell.log_verbose("Deleting {0}.".format(branch))
+
+        if not deleteBranch:
+            # is this branch fully pushed?
+            remoteBranches = branches_containing(branch, remote = True)
+            deleteBranch = (remoteBranches != None) and (('origin/' + branch) in remoteBranches)
+            if deleteBranch:
+                shell.log_verbose("Deleting {0} as its fully pushed to the server.".format(branch))
+
+        if not deleteBranch:
+            # does this branch pass the filter?
+            deleteBranch = filter(branch, filterArgs)
+            if deleteBranch:
+                shell.log_verbose("Deleting {0} as it passed the filter.".format(branch))
+
+        # try to delete it if it's pushed or closed, or forced
+        if deleteBranch:
+            (result, output) = delete_branch(branch, forced = forced)
+            if result != 0:
+                print output
+            else:
+                shell.log_verbose(output)
+        else:
+            shell.log_verbose("Skipping {0} as it isn't fully pushed or a closed issue.".format(branch))
+
+
 
 def enumerate_submodules(cmd, args = None):
     currentDir = os.getcwd()
     basePath = top_level()
     modules = submodules()
     for module in modules.keys():
-    	modulePath = os.path.join(basePath, module)
-    	os.chdir(modulePath)
+        modulePath = os.path.join(basePath, module)
+        os.chdir(modulePath)
         cmd(module, modules[module], args)
 
     os.chdir(currentDir)
 
 
-def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "feature", stripPrefix = False):
+def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "feature", stripPrefix = False, preferStable = False):
     remotePrefix = ""
     if remote:
         remotePrefix = "origin/"
-    	gitType = "remote"
+        gitType = "remote"
     else:
-    	gitType = "local"
+        gitType = "local"
 
     gitBranches = branches(gitType)
 
@@ -235,12 +359,22 @@ def first_matching_branch_for_issue(issueNumber, remote = False, branchType = "f
         niceBranchStart = branch + "-"
         for possibleBranch in gitBranches:
             if possibleBranch.startswith(niceBranchStart):
-            	branch = possibleBranch
-            	break
+                branch = possibleBranch
+                break
 
-    if remote and stripPrefix:
-        if branch.startswith(remotePrefix):
-            branch = branch[len(remotePrefix):]
+    stripped = branch
+    if remote and branch.startswith(remotePrefix):
+        stripped = branch[len(remotePrefix):]
+
+    if preferStable:
+        stableStripped = "stable/" + stripped
+        stable = remotePrefix + stableStripped
+        if stable in gitBranches:
+            branch = stable
+            stripped = stableStripped
+
+    if stripPrefix:
+        branch = stripped
 
     return branch
 

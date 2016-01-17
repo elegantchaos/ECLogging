@@ -6,9 +6,65 @@ import subprocess
 import sys
 import errors
 import getopt
+import re
+
+try:
+    from docopt import docopt
+except:
+    exit_with_message("This script requires docopt. You can install it with: pip install docopt.", errors.ERROR_REQUIRED_MODULE_MISSING)
+
+RE_XCODE_VERSION = re.compile('Xcode ([\d.]+).*')
+
+
 
 PROCESSED_ARGUMENTS = []
 PROCESSED_OPTIONS = {}
+DOCOPT_ARGUMENTS = {}
+
+def open_url(url):
+    return call_output_and_result(['open', url])
+
+def application_info(applicationPath):
+	return {
+	'version' : application_version_number(applicationPath),
+	'build' : application_build_number(applicationPath),
+    'variant' : application_info_for_key(applicationPath, 'Sketch Variant'),
+    'xcode' : application_info_for_key(applicationPath, 'DTXcode'),
+    'xcode build' : application_info_for_key(applicationPath, 'DTXcodeBuild'),
+    'sdk' : application_info_for_key(applicationPath, 'DTSDKName'),
+    'sdk build' : application_info_for_key(applicationPath, 'DTSDKBuild'),
+    'commit' : application_info_for_key(applicationPath, 'ECVersionCommit')
+	}
+
+def application_info_for_key(applicationPath, key):
+    plistPath = os.path.join(applicationPath, 'Contents', 'Info.plist')
+    (result, output) = call_output_and_result(['/usr/libexec/PlistBuddy', '-c', "Print :'{0}'".format(key), plistPath])
+    if result == 0:
+        return output.strip()
+
+
+def application_build_number(applicationPath):
+    return application_info_for_key(applicationPath, 'CFBundleVersion')
+
+def application_version_number(applicationPath):
+    return application_info_for_key(applicationPath, 'CFBundleShortVersionString')
+
+
+def system_version():
+    (result, output) = call_output_and_result(['sw_vers', '-productVersion'])
+    return output.strip()
+
+def xcode_version():
+    (result, output) = call_output_and_result(['xcodebuild', '-version'])
+    match = RE_XCODE_VERSION.match(output)
+    if match:
+        return match.group(1)
+    else:
+        return output.strip()
+
+def log_verbose(message):
+	if get_option('verbose'):
+		print message
 
 def exit_with_message(message, error):
     print(message)
@@ -16,9 +72,12 @@ def exit_with_message(message, error):
 
 def exit_if_failed_with_message(result, output, message):
     if result != 0:
+        if get_argument('verbose'):
+            message = "{0}\n\n{1}".format(message, output)
+
         exit_with_message(message, result)
 
-def getopt_options_from_options(options):
+def getopt_options_from_options(options): # TODO: old API; remove
     global PROCESSED_OPTIONS
     options["debug-args"] = { "default" : False }
     optkeys = []
@@ -32,7 +91,7 @@ def getopt_options_from_options(options):
 
     return optkeys
 
-def option_name_from_getopt_name(optname):
+def option_name_from_getopt_name(optname): # TODO: old API; remove
     if optname[:2] == "--":
         cleanName = optname[2:]
     elif optname[0] == "-":
@@ -42,7 +101,7 @@ def option_name_from_getopt_name(optname):
 
     return cleanName
 
-def exit_if_too_few_arguments(args, count, usage):
+def exit_if_too_few_arguments(args, count, usage): # TODO: old API; remove
         argc = len(args)
         if (argc < count):
             name = os.path.basename(sys.argv[0])
@@ -50,7 +109,13 @@ def exit_if_too_few_arguments(args, count, usage):
             message = message.format(name) # usage can contain {0} itself
             exit_with_message(message, errors.ERROR_WRONG_ARGUMENTS)
 
-def process_options(options):
+def check_arguments_docopt(main):
+    global DOCOPT_ARGUMENTS
+
+    DOCOPT_ARGUMENTS = docopt(main, version="1.0")
+    return DOCOPT_ARGUMENTS
+
+def process_options(options): # TODO: old API; remove
     global PROCESSED_OPTIONS
     argv = sys.argv
     try:
@@ -73,7 +138,7 @@ def process_options(options):
         print "Error: {0}".format(e)
         exit(errors.ERROR_UNKNOWN_OPTION)
 
-def check_arguments(count, usage, options = {}):
+def check_arguments(count, usage, options = {}): # TODO: old API; remove
     global PROCESSED_ARGUMENTS
 
     if options:
@@ -88,11 +153,17 @@ def check_arguments(count, usage, options = {}):
         print "Arguments: {0}".format(PROCESSED_ARGUMENTS)
         print "Options: {0}".format(PROCESSED_OPTIONS)
 
-def get_argument(index):
-    return PROCESSED_ARGUMENTS[index - 1]
+def get_argument(key):
+    if isinstance(key, basestring):
+        return DOCOPT_ARGUMENTS.get("<{0}>".format(key))
+    else:
+        return PROCESSED_ARGUMENTS[key - 1]
 
 def get_option(key):
-    return PROCESSED_OPTIONS.get(key)
+    result = DOCOPT_ARGUMENTS.get("--{0}".format(key))
+    if not result:
+        result = PROCESSED_OPTIONS.get(key)
+    return result
 
 def expand_directory(path):
     path = os.path.expanduser(path)
@@ -140,7 +211,13 @@ def script_base():
     return path
 
 def script_relative(path):
-    return os.path.join(script_base(), path)
+    result = os.path.join(script_base(), path)
+    return os.path.abspath(result)
+
+def zip(source, destination):
+    args = ['ditto', '-c', '-k', '--sequesterRsrc', '--keepParent', source, destination]
+    result = call_output_and_result(args)
+    return result
 
 def call_output_and_result(cmd):
     try:
