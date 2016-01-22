@@ -62,7 +62,8 @@ def checkout_detached():
     return shell.call_output_and_result(["git", "checkout", "--detach"])
 
 def short_ref(ref):
-    result = shell.call_output_and_result(['git', 'log', '--short', ref])
+    args = ['git', 'rev-parse', '--short', ref]
+    (result, output) = shell.call_output_and_result(args)
     if result == 0:
         return output.strip()
     else:
@@ -73,7 +74,10 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
     if checkoutCommit:
         if checkoutCommit != expectedCommit:
             moduleName = os.path.basename(module)
-            print "Branch {0} is using commit {2} of submodule {1}, which doesn't match {1}'s {0} branch (which is at commit {3}).".format(checkoutRef, moduleName, short_ref(checkoutCommit), short_ref(expectedCommit))
+            modulePath = os.path.join(repo_root_path(), module)
+            checkoutShort = short_ref(checkoutCommit)
+            expectedShort = short_ref(expectedCommit)
+            print "Branch {0} is using commit {2} of submodule {1}, but {1}'s {0} branch is at commit {3}.".format(checkoutRef, moduleName, checkoutShort, expectedShort)
         else:
             (result, output) = checkout(checkoutRef)
             if result == 0:
