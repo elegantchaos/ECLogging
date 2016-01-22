@@ -65,7 +65,7 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
     checkoutCommit = commit_for_ref("origin/" + checkoutRef)
     if checkoutCommit:
         if checkoutCommit != expectedCommit:
-            print "Branch {0} for submodule {1} wasn't at the commit that the parent repo expected: {2} instead of {3}.".format(checkoutRef, module, checkoutCommit, expectedCommit)
+            print "Branch {0} is using commit {2} of submodule {1}, which doesn't match {1}'s {0} branch (which is at commit {3}).".format(checkoutRef, module, checkoutCommit, expectedCommit)
         else:
             (result, output) = checkout(checkoutRef)
             if result == 0:
