@@ -61,11 +61,19 @@ def clone(repo, name = None):
 def checkout_detached():
     return shell.call_output_and_result(["git", "checkout", "--detach"])
 
+def short_ref(ref):
+    result = shell.call_output_and_result(['git', 'log', '--short', ref])
+    if result == 0:
+        return output.strip()
+    else:
+        return ref
+
 def checkout_recursive_helper(module, expectedCommit, checkoutRef):
     checkoutCommit = commit_for_ref("origin/" + checkoutRef)
     if checkoutCommit:
         if checkoutCommit != expectedCommit:
-            print "Branch {0} is using commit {2} of submodule {1}, which doesn't match {1}'s {0} branch (which is at commit {3}).".format(checkoutRef, module, checkoutCommit, expectedCommit)
+            moduleName = os.path.basename(module)
+            print "Branch {0} is using commit {2} of submodule {1}, which doesn't match {1}'s {0} branch (which is at commit {3}).".format(checkoutRef, moduleName, short_ref(checkoutCommit), short_ref(expectedCommit))
         else:
             (result, output) = checkout(checkoutRef)
             if result == 0:
