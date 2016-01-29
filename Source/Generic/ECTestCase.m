@@ -56,7 +56,7 @@
 	NSUInteger length = [self.name length];
 	if (length > 2)
 	{
-		NSString* name = [self.name substringWithRange:NSMakeRange(2, length - 3)];
+		NSString* name = [NSString stringWithFormat:@"%@ - %f", [self.name substringWithRange:NSMakeRange(2, length - 3)], [NSDate timeIntervalSinceReferenceDate]];
 		url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:name];
 		NSFileManager* fm = [NSFileManager defaultManager];
 		[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
