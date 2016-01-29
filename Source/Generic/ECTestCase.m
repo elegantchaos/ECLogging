@@ -821,4 +821,27 @@
 
 #endif
 
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments {
+	NSTask *task = [[NSTask alloc] init];
+	task.launchPath = command;
+	task.qualityOfService = NSQualityOfServiceUserInitiated;
+	if (arguments)
+		[task setArguments:arguments];
+
+	NSPipe *pipe = [NSPipe pipe];
+	[task setStandardOutput: pipe];
+	NSFileHandle *file = [pipe fileHandleForReading];
+
+	NSData* result = nil;
+	@try {
+		[task launch];
+		result = [file readDataToEndOfFile];
+	}
+	@catch (NSException *exception) {
+		NSLog(@"Failed to launch %@ %@", command, arguments);
+	}
+
+	return result;
+}
+
 @end
