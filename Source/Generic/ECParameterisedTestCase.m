@@ -18,10 +18,6 @@ NSString* const DataURLKey = @"ECTestSuiteDataURL";
 
 NSString* const SuiteExtension = @"testsuite";
 
-NSString* const ParameterisedTestMethodPrefix = @"parameterisedTest";
-NSString* const ParameterisedTestShortPrefix = @"test";
-NSString* const ParameterisedTestSeparator = @"__";
-
 @interface XCTestSuite (ProbeExtensions)
 - (void)removeTestsWithNames:(NSArray*)names;
 @end
@@ -52,51 +48,6 @@ NSString* const ParameterisedTestSeparator = @"__";
 	{
 		return [super resolveInstanceMethod:sel];
 	}
-}
-
-// --------------------------------------------------------------------------
-//! Make a test case with a given selector, parameter and a custom name.
-// --------------------------------------------------------------------------
-
-+ (instancetype)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name
-{
-	NSString* originalSelector = NSStringFromSelector(selector);
-	NSString* stub = [originalSelector substringFromIndex:[ParameterisedTestMethodPrefix length]];
-	NSString* newSelectorName = [NSString stringWithFormat:@"%@%@%@%@", ParameterisedTestShortPrefix, stub, ParameterisedTestSeparator, name];
-	SEL newSelector = NSSelectorFromString(newSelectorName);
-	ECParameterisedTestCase* tc = [self testCaseWithSelector:newSelector];
-	tc.parameterisedTestDataItem = param;
-	tc.parameterisedTestName = name;
-	tc.parameterisedBaseName = [NSString stringWithFormat:@"-[%@ %@]", [self class], originalSelector];
-
-	return tc;
-}
-
-// --------------------------------------------------------------------------
-//! Return a cleaned up version of the name, as a CamelCase string.
-// --------------------------------------------------------------------------
-
-+ (NSString*)cleanedName:(NSString*)name
-{
-	NSMutableCharacterSet* separators = [NSMutableCharacterSet whitespaceCharacterSet];
-	[separators formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
-	NSString* result = name;
-	NSArray* words = [result componentsSeparatedByCharactersInSet:separators];
-	if ([words count] > 1)
-	{
-		NSMutableString* cleaned = [NSMutableString stringWithCapacity:[result length]];
-		for (NSString* word in words)
-		{
-			if ([word length] > 0)
-			{
-				[cleaned appendString:[[word uppercaseString] substringToIndex:1]];
-				[cleaned appendString:[word substringFromIndex:1]];
-			}
-		}
-		result = cleaned;
-	}
-
-	return result;
 }
 
 // --------------------------------------------------------------------------
@@ -280,81 +231,52 @@ NSString* const ParameterisedTestSeparator = @"__";
 }
 
 // --------------------------------------------------------------------------
-//! Build a test suite for a given selector and data set.
-//! The data set can contain individual data items, and also
-//! sub-suites of items.
-// --------------------------------------------------------------------------
-
-+ (ECParameterisedTestSuite*)suiteForSelector:(SEL)selector name:(NSString*)name data:(NSDictionary*)data
-{
-	ECParameterisedTestSuite* result = [[ECParameterisedTestSuite alloc] initWithName:name];
-
-	// add items to the suite as tests
-	NSDictionary* items = data[TestItemsKey];
-	for (NSString* testName in items)
-	{
-		NSString* cleanName = [self cleanedName:testName];
-		NSDictionary* testData = items[testName];
-		[result addTest:[self testCaseWithSelector:selector param:testData name:cleanName]];
-	}
-
-	// add child suites to the test
-	NSDictionary* suites = data[SuiteItemsKey];
-	for (NSString* suiteName in suites)
-	{
-		NSDictionary* suiteData = suites[suiteName];
-		ECParameterisedTestSuite* suite = [self suiteForSelector:selector name:suiteName data:suiteData];
-		[result addTest:suite];
-	}
-
-	return result;
-}
-
-// --------------------------------------------------------------------------
 //! Return the tests.
-//! We iterate through our instance methods looking for ones
-//! that begin with "parameterisedTest".
-//! For each one that we find, we add a subsuite or suites of
-//! tests applying each item of test data in turn.
 // --------------------------------------------------------------------------
 
 + (id)defaultTestSuite
 {
-	NSUInteger methodPrefixLength = [ParameterisedTestMethodPrefix length];
-
-	XCTestSuite* result = nil;
+	XCTestSuite* suite = [super defaultTestSuite];
 	if (self != [ECParameterisedTestCase class])
 	{
-		result = [super defaultTestSuite];
-		NSDictionary* data = [self parameterisedTestData];
-		if (data)
-		{
-			unsigned int methodCount;
-			Method* methods = class_copyMethodList([self class], &methodCount);
-			if ((methodCount > 0) && !result)
-			{
-				result = [[ECParameterisedTestSuite alloc] initWithName:NSStringFromClass(self)];
-			}
+		//! We iterate through our instance methods looking for ones
+		//! that begin with "parameterisedTest".
+		//! For each one that we find, we add a subsuite or suites of
+		//! tests applying each item of test data in turn.
+		
+		NSUInteger methodPrefixLength = [ParameterisedTestMethodPrefix length];
+		unsigned int methodCount;
+		Method* methods = class_copyMethodList([self class], &methodCount);
 
-			for (NSUInteger n = 0; n < methodCount; ++n)
+		// If we had no normal tests there will be no default suite. We might need one though, in
+		// order to add some parameterised tests, so make one.
+		BOOL noDefaultSuite = suite == nil;
+		if (noDefaultSuite) {
+			suite = [[XCTestSuite alloc] initWithName:NSStringFromClass(self)];
+		}
+
+		BOOL addedTests = NO;
+		for (NSUInteger n = 0; n < methodCount; ++n)
+		{
+			SEL selector = method_getName(methods[n]);
+			NSString* name = NSStringFromSelector(selector);
+			if ([name rangeOfString:ParameterisedTestMethodPrefix].location == 0)
 			{
-				SEL selector = method_getName(methods[n]);
-				NSString* name = NSStringFromSelector(selector);
-				if ([name rangeOfString:ParameterisedTestMethodPrefix].location == 0)
-				{
-					NSString* suiteName = [name substringFromIndex:methodPrefixLength];
-					ECParameterisedTestSuite* subSuite = [self suiteForSelector:selector name:suiteName data:data];
-					[result addTest:subSuite];
-				}
+				NSString* suiteName = [name substringFromIndex:methodPrefixLength];
+				ECParameterisedTestSuite* subSuite = [ECParameterisedTestSuite suiteForSelector:selector class:self name:suiteName data:nil];
+				[suite addTest:subSuite];
+				addedTests = YES;
 			}
 		}
-		else
-		{
-			NSLog(@"couldn't build test data for %@", NSStringFromClass(self));
+
+		// If we added an empty suite, but there turned out to be no parameterised tests
+		// we can remove it again.
+		if (noDefaultSuite && !addedTests) {
+			suite = nil;
 		}
 	}
 
-	return result;
+	return suite;
 }
 
 @end
