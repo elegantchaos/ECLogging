@@ -236,6 +236,11 @@ NSString* const SuiteExtension = @"testsuite";
 
 + (id)defaultTestSuite
 {
+	NSDictionary* data = nil;
+#if !ECTEST_DEFER_LOADING_DATA
+	data = [self parameterisedTestData];
+#endif
+
 	XCTestSuite* suite = [super defaultTestSuite];
 	if (self != [ECParameterisedTestCase class])
 	{
@@ -263,7 +268,7 @@ NSString* const SuiteExtension = @"testsuite";
 			if ([name rangeOfString:ParameterisedTestMethodPrefix].location == 0)
 			{
 				NSString* suiteName = [name substringFromIndex:methodPrefixLength];
-				ECParameterisedTestSuite* subSuite = [ECParameterisedTestSuite suiteForSelector:selector class:self name:suiteName data:nil];
+				ECParameterisedTestSuite* subSuite = [ECParameterisedTestSuite suiteForSelector:selector class:self name:suiteName data:data];
 				[suite addTest:subSuite];
 				addedTests = YES;
 			}

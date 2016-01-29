@@ -85,7 +85,7 @@ static NSMutableDictionary* dataIndex;
 	ECParameterisedTestSuite* result = [[ECParameterisedTestSuite alloc] initWithName:name];
 	result.testClass = class;
 	result.testSelector = selector;
-	if (!data) {
+	if (data) {
 		[result addTestsForData:data];
 	}
 
@@ -113,23 +113,23 @@ static NSMutableDictionary* dataIndex;
 	}
 }
 
-- (NSDictionary*)data {
+- (void)setupDataIfNecessary {
 	NSString* key = [self.testClass className];
 	NSDictionary* data = dataIndex[key];
 	if (!data) {
 		data = [self.testClass parameterisedTestData];
 		dataIndex[key] = data;
 		NSLog(@"initialised data for %@", key);
+		[self addTestsForData:data];
 	}
-
-	return data;
 }
 
 - (void)removeTestsWithNames:(NSArray*)names
 {
-	NSDictionary* data = [self data];
-	[self addTestsForData:data];
-
+#if ECTEST_DEFER_LOADING_DATA
+	[self setupDataIfNecessary];
+#endif
+	
 	// the names we're asked to remove may not actually match the parameterised test names,
 	// because we mess around with them slightly
 	// as a result, we scan the tests and if we find any parameterised ones where the base

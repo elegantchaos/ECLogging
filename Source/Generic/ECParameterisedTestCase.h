@@ -105,6 +105,8 @@ extern NSString* const SuiteItemsKey;
 
  */
 
+#define ECTEST_DEFER_LOADING_DATA 0
+
 @interface ECParameterisedTestCase : ECTestCase
 
 @property (strong, nonatomic) id parameterisedTestDataItem;
