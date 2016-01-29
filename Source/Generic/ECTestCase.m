@@ -822,6 +822,10 @@
 #endif
 
 - (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments {
+	return [self runCommand:command arguments:arguments status:NULL];
+}
+
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status {
 	NSTask *task = [[NSTask alloc] init];
 	task.launchPath = command;
 	task.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -838,7 +842,12 @@
 		result = [file readDataToEndOfFile];
 	}
 	@catch (NSException *exception) {
-		NSLog(@"Failed to launch %@ %@", command, arguments);
+		ECTestFail(@"Failed to run %@ %@", command, arguments);
+	}
+
+	if (status) {
+		[task waitUntilExit];
+		*status = task.terminationStatus;
 	}
 
 	return result;

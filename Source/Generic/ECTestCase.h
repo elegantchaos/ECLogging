@@ -342,6 +342,12 @@
 
 - (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments;
 
+/**
+ Run a command line tool and return its output.
+ */
+
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status;
+
 #if !TARGET_OS_IPHONE
 
 /**
