@@ -56,7 +56,7 @@
 	NSUInteger length = [self.name length];
 	if (length > 2)
 	{
-		NSString* name = [self.name substringWithRange:NSMakeRange(2, length - 3)];
+		NSString* name = [NSString stringWithFormat:@"%@ - %f", [self.name substringWithRange:NSMakeRange(2, length - 3)], [NSDate timeIntervalSinceReferenceDate]];
 		url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:name];
 		NSFileManager* fm = [NSFileManager defaultManager];
 		[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
@@ -820,5 +820,37 @@
 }
 
 #endif
+
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments {
+	return [self runCommand:command arguments:arguments status:NULL];
+}
+
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status {
+	NSTask *task = [[NSTask alloc] init];
+	task.launchPath = command;
+	task.qualityOfService = NSQualityOfServiceUserInitiated;
+	if (arguments)
+		[task setArguments:arguments];
+
+	NSPipe *pipe = [NSPipe pipe];
+	[task setStandardOutput: pipe];
+	NSFileHandle *file = [pipe fileHandleForReading];
+
+	NSData* result = nil;
+	@try {
+		[task launch];
+		result = [file readDataToEndOfFile];
+	}
+	@catch (NSException *exception) {
+		ECTestFail(@"Failed to run %@ %@", command, arguments);
+	}
+
+	if (status) {
+		[task waitUntilExit];
+		*status = task.terminationStatus;
+	}
+
+	return result;
+}
 
 @end
