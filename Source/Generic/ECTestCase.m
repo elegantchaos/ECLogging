@@ -805,17 +805,19 @@
 
 - (NSImage*)imageNamed:(NSString*)name
 {
+	NSImage* image = nil;
 	NSArray* extensions = @[@"png", @"jpg", @"pdf", @"eps", @"tiff"];
 	NSURL* url = nil;
 	for (NSString* extension in extensions)
 	{
 		url = [self URLForTestResource:name withExtension:extension];
-		if (url)
+		if (url) {
+			NSData* data = [NSData dataWithContentsOfURL:url];
+			image = [[NSImage alloc] initWithData:data];
 			break;
+		}
 	}
 
-	NSData* data = [NSData dataWithContentsOfURL:url];
-	NSImage* image = [[NSImage alloc] initWithData:data];
 	return image;
 }
 

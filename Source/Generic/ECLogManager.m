@@ -402,7 +402,11 @@ static ECLogManager* gSharedInstance = nil;
 		}
 	}
 
-	NSDictionary* result = [NSDictionary dictionaryWithContentsOfURL:url];
+	NSDictionary* result = nil;
+	if (url) {
+		result = [NSDictionary dictionaryWithContentsOfURL:url];
+	}
+
 	if (![result count])
 	{
 #if EC_DEBUG
