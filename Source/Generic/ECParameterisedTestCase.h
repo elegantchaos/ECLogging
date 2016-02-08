@@ -105,13 +105,15 @@ extern NSString* const SuiteItemsKey;
 
  */
 
+#define ECTEST_DEFER_LOADING_DATA 0
+
 @interface ECParameterisedTestCase : ECTestCase
 
 @property (strong, nonatomic) id parameterisedTestDataItem;
 @property (strong, nonatomic) NSString* parameterisedTestName;
 @property (strong, nonatomic) NSString* parameterisedBaseName;
 
-+ (instancetype)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
+//+ (instancetype)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
 
 + (NSDictionary*)parameterisedTestData;
 + (NSDictionary*)parameterisedTestDataFromFolder:(NSURL*)folder settings:(NSDictionary*)settings;

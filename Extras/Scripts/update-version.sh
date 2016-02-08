@@ -19,12 +19,36 @@ COMMIT=`git rev-parse HEAD`
 SHORT_VERSION="$2"
 
 # update the plist in the built app
-/usr/libexec/PlistBuddy -c "Add :ECVersionCommit string commit" "$PLIST" >& /dev/null
-/usr/libexec/PlistBuddy -c "Set :ECVersionCommit $COMMIT" "$PLIST"
-/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$PLIST"
+
+PLB=/usr/libexec/PlistBuddy
+
+EXISTING_COMMIT=`$PLB -c "Print :ECVersionCommit" "$PLIST" 2> /dev/null`
+if [[ "$EXISTING_COMMIT" == "$COMMIT" ]]
+then
+    echo "Commit is unchanged - no need to bump build number."
+    exit 0
+fi
+
+if [[ "$EXISTING_COMMIT" == "" ]]
+then
+    $PLB -c "Add :ECVersionCommit string $COMMIT" "$PLIST"
+else
+    $PLB -c "Set :ECVersionCommit $COMMIT" "$PLIST"
+fi
+$PLB -c "Set :CFBundleVersion $VERSION" "$PLIST"
+
+# set any other keys that have been passed in
+while [[ ("$3" != "") && ("$4" != "") ]]
+do
+  echo "$3 $4"
+  $PLB -c "Set $3 $4" "$PLIST"
+  shift
+  shift
+done
+
 if [[ "$SHORT_VERSION" != "" ]]
 then
-    /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $SHORT_VERSION" "$PLIST"
+    $PLB -c "Set :CFBundleShortVersionString $SHORT_VERSION" "$PLIST"
 fi
 
 echo "Bumped build number to $VERSION ($COMMIT) in $PLIST"
@@ -36,14 +60,16 @@ echo "*${DSYM_PLIST}*"
 if [[ -e "${DSYM_PLIST}" ]] ; then
 
     # update the plist in the dSYM file too so that the build numbers match
-    /usr/libexec/PlistBuddy -c "Add :ECVersionCommit string commit" "$DSYM_PLIST" >& /dev/null
-    /usr/libexec/PlistBuddy -c "Set :ECVersionCommit $COMMIT" "$DSYM_PLIST"
-    /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" "$DSYM_PLIST"
+    $PLB -c "Add :ECVersionCommit string commit" "$DSYM_PLIST" >& /dev/null
+    $PLB -c "Set :ECVersionCommit $COMMIT" "$DSYM_PLIST"
+    $PLB -c "Set :CFBundleVersion $VERSION" "$DSYM_PLIST"
     if [[ "$SHORT_VERSION" != "" ]]
     then
-        /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $SHORT_VERSION" "$DSYM_PLIST"
+        $PLB -c "Set :CFBundleShortVersionString $SHORT_VERSION" "$DSYM_PLIST"
     fi
 
     echo "Also updated dSYM build number"
 
 fi
+
+
