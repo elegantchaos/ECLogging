@@ -18,20 +18,19 @@
 // --------------------------------------------------------------------------
 //! This is an example of a test that does something which requires
 //! the run loop.
-//! We schedule a block on a timer, then wait until it has run.
+//! We schedule a block on a background queue, then wait until it has run.
 // --------------------------------------------------------------------------
 
 - (void)testTimer
 {
-	__block BOOL timerRan = NO;
-	
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+	__block BOOL asyncBlockRan = NO;
+	dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
 		[self timeToExitRunLoop];
-		timerRan = YES;
+		asyncBlockRan = YES;
 	});
-	
+
 	[self runUntilTimeToExit];
-	ECTestAssertTrue(timerRan);
+	ECTestAssertTrue(asyncBlockRan);
 }
 
 @end

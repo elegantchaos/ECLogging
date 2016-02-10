@@ -56,7 +56,7 @@
 	NSUInteger length = [self.name length];
 	if (length > 2)
 	{
-		NSString* name = [self.name substringWithRange:NSMakeRange(2, length - 3)];
+		NSString* name = [NSString stringWithFormat:@"%@ - %f", [self.name substringWithRange:NSMakeRange(2, length - 3)], [NSDate timeIntervalSinceReferenceDate]];
 		url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:name];
 		NSFileManager* fm = [NSFileManager defaultManager];
 		[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
@@ -628,7 +628,8 @@
 	NSError* error;
 	NSData* data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:(NSPropertyListFormat)kCFPropertyListBinaryFormat_v1_0 options:0 error:&error];
 	[[NSFileManager defaultManager] createDirectoryAtURL:[file URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:@{} error:nil];
-	ECTestAssertTrue([data writeToURL:file atomically:YES]);
+	BOOL written = [data writeToURL:file options:NSDataWritingAtomic error:&error];
+	ECTestAssertTrueFormat(written, @"failed to write data to %@: %@", file, error);
 	return file;
 }
 
@@ -637,7 +638,8 @@
 	NSURL* file = [[container URLByAppendingPathComponent:name] URLByAppendingPathExtension:extension];
 	NSError* error;
 	[[NSFileManager defaultManager] createDirectoryAtURL:[file URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:@{} error:nil];
-	ECTestAssertTrue([data writeToURL:file atomically:YES encoding:NSUTF8StringEncoding error:&error]);
+	BOOL written = [data writeToURL:file atomically:YES encoding:NSUTF8StringEncoding error:&error];
+	ECTestAssertTrueFormat(written, @"failed to write text to %@: %@", file, error);
 	return file;
 }
 
@@ -649,8 +651,9 @@
 	NSURL* file = [[desktop URLByAppendingPathComponent:name] URLByAppendingPathExtension:@"png"];
 	NSData* data = [image representationUsingType:NSPNGFileType properties:@{NSImageInterlaced: @YES}];
 	[[NSFileManager defaultManager] createDirectoryAtURL:[file URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:@{} error:nil];
-	BOOL written = [data writeToURL:file atomically:YES];
-	ECTestAssertTrueFormat(written, @"failed to write data");
+	NSError* error = nil;
+	BOOL written = [data writeToURL:file options:NSDataWritingAtomic error:&error];
+	ECTestAssertTrueFormat(written, @"failed to write image to %@: %@", file, error);
 	return file;
 }
 
@@ -820,5 +823,37 @@
 }
 
 #endif
+
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments {
+	return [self runCommand:command arguments:arguments status:NULL];
+}
+
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status {
+	NSTask *task = [[NSTask alloc] init];
+	task.launchPath = command;
+	task.qualityOfService = NSQualityOfServiceUserInitiated;
+	if (arguments)
+		[task setArguments:arguments];
+
+	NSPipe *pipe = [NSPipe pipe];
+	[task setStandardOutput: pipe];
+	NSFileHandle *file = [pipe fileHandleForReading];
+
+	NSData* result = nil;
+	@try {
+		[task launch];
+		result = [file readDataToEndOfFile];
+	}
+	@catch (NSException *exception) {
+		ECTestFail(@"Failed to run %@ %@", command, arguments);
+	}
+
+	if (status) {
+		[task waitUntilExit];
+		*status = task.terminationStatus;
+	}
+
+	return result;
+}
 
 @end
