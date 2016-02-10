@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
+# --------------------------------------------------------------------------
+#  Copyright 2015-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
+
 # pytest tests: run with py.test (install pytest with: pip install pytest) 
 
 import keychain

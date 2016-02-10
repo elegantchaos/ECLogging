@@ -13,6 +13,7 @@
 #define ECAssertNilBase(expression, imp) imp((expression) == nil)
 #define ECAssertCountAtLeastBase(container, countMinimum, imp) imp([(container)count] >= (countMinimum))
 #define ECAssertEmptyBase(object, imp)
+#define ECAssertIsMainThreadBase(imp) imp(([NSThread isMainThread]))
 
 #if EC_DEBUG
 
@@ -81,6 +82,9 @@ ECDeclareDebugChannel(AssertionChannel);
 
 #define ECAssertIsKindOfClassDynamic(o, dc) ECAssert(((o) == nil) || [o isKindOfClass:dc])
 #define ECAssertIsMemberOfClassDynamic(o, dc) ECAssert(((o) == nil) || [o isMemberOfClass:dc])
+
+#define ECAssertIsMainThread() ECAssertIsMainThreadBase(ECAssert)
+#define ECAssertIsMainThreadC() ECAssertIsMainThreadBase(ECAssertC)
 
 @interface ECAssertion : NSObject
 

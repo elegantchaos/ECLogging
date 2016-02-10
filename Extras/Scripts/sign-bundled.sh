@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# --------------------------------------------------------------------------
+#  Copyright 2013-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
+
 ## Re-sign every plugin and framework using the bundle id and code signing identity of the target
 ##
 ## You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.
