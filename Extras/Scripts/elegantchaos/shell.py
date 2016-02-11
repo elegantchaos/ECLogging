@@ -68,6 +68,9 @@ def xcode_version():
     else:
         return output.strip()
 
+def log(message):
+    print message
+    
 def log_verbose(message):
 	if get_option('verbose'):
 		print message
