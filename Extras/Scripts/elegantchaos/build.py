@@ -37,7 +37,8 @@ def log_paths(jobName):
         prefix = ''
 
     logsPath = os.path.join(root, 'logs')
-    os.makedirs(logsPath)
+    if not os.path.exists(logsPath):
+        os.makedirs(logsPath)
 
     full = {}
     for log in logs:
