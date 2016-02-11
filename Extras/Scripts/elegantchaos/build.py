@@ -72,15 +72,17 @@ def first_built_application(name, configuration):
                 symPath = os.path.join(appFolder, "{0}.dSYM".format(item))
                 return (appPath, symPath)
 
-def zip_built_application(appPath, symPath):
+def zip_built_application(appPath, symPath, zipRoot = None):
     (result, output) = (errors.ERROR_FILE_NOT_FOUND, "Can't find built application.")
     if os.path.exists(appPath):
         (appFolder, app) = os.path.split(appPath)
         (name,ext) = os.path.splitext(app)
-        zipPath = os.path.join(appFolder, "{0}.zip".format(name))
+        if not zipRoot:
+            zipRoot = appFolder
+        zipPath = os.path.join(zipRoot, "{0}.zip".format(name))
         (result, output) = shell.zip(appPath, zipPath)
         if result == 0:
-            symZipPath = os.path.join(appFolder, "{0}.dSYM.zip".format(name))
+            symZipPath = os.path.join(zipRoot, "{0}.dSYM.zip".format(name))
             (result, output) = shell.zip(symPath, symZipPath)
             if result == 0:
                 return (zipPath, symZipPath)

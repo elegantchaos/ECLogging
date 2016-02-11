@@ -51,7 +51,12 @@ def upload_version(token, appid, appZip, dsymZip, notes = "", notes_type = 1, no
     'dsym' : open(dsymZip, 'rb'),
     }
     request = hockey_request('apps/' + appid + '/app_versions/upload', token, data = parameters, files = files)
-    return response_as_json(request)
+    response = response_as_json(request)
+    result = 0
+    if response.get('errors'):
+        result = 1
+
+    return (result, response)
 
 if __name__ == '__main__':
     (user, token) = get_token()
