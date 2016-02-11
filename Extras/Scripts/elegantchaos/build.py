@@ -36,9 +36,13 @@ def log_paths(jobName):
     else:
         prefix = ''
 
+    logsPath = os.path.join(root, 'logs')
+    os.makedirs(logsPath)
+
     full = {}
     for log in logs:
-        full[log] = os.path.join(root, 'logs', "{0}{1}.log".format(prefix, log))
+        path = os.path.join(logsPath, "{0}{1}.log".format(prefix, log))
+        full[log] = path
 
     return full
 
