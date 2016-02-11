@@ -39,6 +39,7 @@ def application_info(applicationPath):
     'xcode build' : application_info_for_key(applicationPath, 'DTXcodeBuild'),
     'sdk' : application_info_for_key(applicationPath, 'DTSDKName'),
     'sdk build' : application_info_for_key(applicationPath, 'DTSDKBuild'),
+    'sdks supported' : application_info_for_key(applicationPath, 'Supported SDKs'),
     'commit' : application_info_for_key(applicationPath, 'ECVersionCommit')
 	}
 
@@ -70,7 +71,7 @@ def xcode_version():
 
 def log(message):
     print message
-    
+
 def log_verbose(message):
 	if get_option('verbose'):
 		print message
