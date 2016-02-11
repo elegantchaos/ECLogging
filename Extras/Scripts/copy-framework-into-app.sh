@@ -1,3 +1,9 @@
+# --------------------------------------------------------------------------
+#  Copyright 2013-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
+
 # copy the correct version of ECLogging.framework into the app
 echo "Copying ECLogging framework"
 ECLOGGING_NAME="ECLogging.framework"

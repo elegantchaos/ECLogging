@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# --------------------------------------------------------------------------
+#  Copyright 2013-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
+
 ## Script which takes the line count of the git log and sets it as the CFBundleVersion number in the target's Info.plist
 ##
 ## The script also adds a ECVersionCommit key to the Info.plist with the full SHA1 hash of the current commit.

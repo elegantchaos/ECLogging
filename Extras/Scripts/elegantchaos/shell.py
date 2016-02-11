@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
+# --------------------------------------------------------------------------
+#  Copyright 2015-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
+
 import os
 import subprocess
 import sys
@@ -130,7 +136,7 @@ def process_options(options): # TODO: old API; remove
             cleanName = option_name_from_getopt_name(optname)
 
             if optvalue:
-                PROCESSED_OPTIONS[cleanName]=optvalue
+            	PROCESSED_OPTIONS[cleanName]=optvalue
             else:
                 defaultValue = options[cleanName].get("default")
                 if (defaultValue == True) or (defaultValue == False):
@@ -172,7 +178,7 @@ def get_option(key):
 def expand_directory(path):
     path = os.path.expanduser(path)
     if not os.path.exists(path):
-           os.makedirs(path)
+	   	os.makedirs(path)
 
     return path
 
@@ -183,8 +189,8 @@ def read_text(path):
     return text
 
 def write_text(path, text):
-    with open(path, "w") as outputFile:
-        outputFile.write(text)
+	with open(path, "w") as outputFile:
+	    outputFile.write(text.encode('utf8'))
 
 def view_file(path):
     subprocess.call(["open", path])
