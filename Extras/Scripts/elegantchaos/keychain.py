@@ -18,6 +18,12 @@ def find_key(fn, out):
     return match and match.group(1)
 
 
+
+def set_token(token, server):
+    set_internet_password('api-token', token, server)
+
+
+
 def set_internet_password(user, password, server):
     cmd = [
         'security',
@@ -33,7 +39,17 @@ def set_internet_password(user, password, server):
     except:
         print "set password failed"
 
-def get_internet_password(server):
+
+
+def get_token(server):
+    result = get_internet_password(server)
+    if result:
+        (user, result) = result
+
+    return result
+
+
+def get_internet_password(server, prompt = None):
     cmd = [
        'security',
        'find-internet-password',
@@ -49,4 +65,30 @@ def get_internet_password(server):
         result = None
 
     return result
-   
+
+
+
+def get_or_set_token(server, prompt = None):
+    result = get_or_set_password('api-token', server, prompt)
+    if result:
+        (user, result) = result
+
+    return result
+
+
+
+def get_or_set_password(user, server, prompt):
+    result = get_internet_password(server)
+    if not result:
+        print "{0}:".format(prompt)
+        password = raw_input()
+        set_internet_password(user, password, server)
+        result = (user, password)
+
+    return result
+
+
+
+if __name__ == "__main__":
+    #print get_or_set_password('sam', 'test-api', "Test prompt")
+    print get_or_set_token('test-api2', "Test prompt")
