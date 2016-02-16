@@ -80,8 +80,7 @@ def get_or_set_token(server, prompt = None):
 def get_or_set_password(user, server, prompt):
     result = get_internet_password(server)
     if not result:
-        print "{0}:".format(prompt)
-        password = raw_input()
+        password = raw_input("{0}:\n".format(prompt))
         set_internet_password(user, password, server)
         result = (user, password)
 
@@ -91,4 +90,4 @@ def get_or_set_password(user, server, prompt):
 
 if __name__ == "__main__":
     #print get_or_set_password('sam', 'test-api', "Test prompt")
-    print get_or_set_token('test-api2', "Test prompt")
+    print get_or_set_token('test-api4', "Test prompt")
