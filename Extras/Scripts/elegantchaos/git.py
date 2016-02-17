@@ -76,6 +76,7 @@ def short_ref(ref):
         return ref
 
 def checkout_recursive_helper(module, expectedCommit, checkoutRef):
+    print module
     checkoutCommit = commit_for_ref("origin/" + checkoutRef)
     if checkoutCommit:
         if checkoutCommit != expectedCommit:
@@ -96,6 +97,10 @@ def checkout_recursive(ref, pullIfSafe = False):
     (result, output) = checkout(ref)
     if (result == 0) and pullIfSafe:
         (result, moreOutput) = pull(fastForwardOnly = True)
+        # it's ok for the pull to fail if there's not a tracking branch set up
+        if (result != 0) and ("There is no tracking information for the current branch." in moreOutput):
+            moreOutput = "Skipping pull - no remote branch yet.\n" 
+            result = 0
         output += moreOutput
 
     if result == 0:
