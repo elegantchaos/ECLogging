@@ -72,3 +72,9 @@ def fetch_as_json(request):
     output = response.read()
     processed = json.loads(output)
     return processed
+
+
+
+
+if __name__ == '__main__':
+    print get_token()
