@@ -7,7 +7,7 @@ import requests  # see http://docs.python-requests.org/en/latest/user/quickstar
 import json
 
 def get_token():
-    return keychain.get_or_set_token("api.hockeyapp.net", "Please enter your Hockey API token:")
+    return keychain.get_or_set_token("api.hockeyapp.net", "Please enter your Hockey API token")
 
 def hockey_request(command, token, data = None, files = None):
     url = "https://rink.hockeyapp.net/api/2/" + command

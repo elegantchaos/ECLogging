@@ -14,7 +14,7 @@ import json
 import datetime
 
 def get_token():
-    return keychain.get_or_set_token("api.hipchat.com", "Please enter your hipchat token:")
+    return keychain.get_or_set_token("api.hipchat.com", "Please enter your hipchat token")
 
 def hipchat_request(command, token, data, parameters = None):
     url = "https://api.hipchat.com/v2/" + command + "?auth_token=" + token
