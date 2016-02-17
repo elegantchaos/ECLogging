@@ -17,9 +17,11 @@ except:
     exit(1)
 
 def login_using_keychain():
-    (user, password) = keychain.get_internet_password("github.com")
-    gh = github3.login(user, password=password)
-    return gh
+    info = keychain.get_or_set_internet_password("github.com")
+    if info:
+        (user, password) = info
+        gh = github3.login(user, password=password)
+        return gh
 
 
 if __name__ == '__main__':
