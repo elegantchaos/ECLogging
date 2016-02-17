@@ -81,7 +81,11 @@ def get_or_set_token(server, prompt = None):
 def get_or_set_password(user, server, prompt):
     result = get_internet_password(server)
     if (not result) and sys.__stdin__.isatty():
-        password = raw_input("{0}:\n".format(prompt))
+        if not user:
+            user = raw_input("{0}.\nuser:".format(prompt))
+            password = raw_input("password:")
+        else:
+            password = raw_input("{0}\n".format(prompt))
         set_internet_password(user, password, server)
         result = (user, password)
 
