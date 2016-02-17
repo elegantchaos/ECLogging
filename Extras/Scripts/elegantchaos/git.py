@@ -96,6 +96,9 @@ def checkout_recursive(ref, pullIfSafe = False):
     (result, output) = checkout(ref)
     if (result == 0) and pullIfSafe:
         (result, moreOutput) = pull(fastForwardOnly = True)
+        # it's ok for the pull to fail if there's not a tracking branch set up
+        if (result != 0) and ("There is no tracking information for the current branch." in output):
+            result = 0
         output += moreOutput
 
     if result == 0:
