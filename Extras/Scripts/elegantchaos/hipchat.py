@@ -13,11 +13,8 @@ import keychain
 import json
 import datetime
 
-def set_token(token):
-    keychain.set_internet_password("hipchat-script", token, "api.hipchat.com")
-
 def get_token():
-    return keychain.get_internet_password("api.hipchat.com")
+    return keychain.get_or_set_token("api.hipchat.com", "Please enter your hipchat token:")
 
 def hipchat_request(command, token, data, parameters = None):
     url = "https://api.hipchat.com/v2/" + command + "?auth_token=" + token

@@ -24,8 +24,8 @@ def login_using_keychain():
 
 if __name__ == '__main__':
 
-    gh = login_using_keychain()    
-    
+    gh = login_using_keychain()
+
     issue = gh.issue("BohemianCoding", "Sketch", "3444")
     print issue.as_dict().keys()
     print issue.title
