@@ -70,7 +70,7 @@ def get_internet_password(server, prompt = None):
 
 
 def get_or_set_token(server, prompt = None):
-    result = get_or_set_password('api-token', server, prompt)
+    result = get_or_set_password(server, prompt, 'api-token')
     if result:
         (user, result) = result
 
@@ -78,7 +78,7 @@ def get_or_set_token(server, prompt = None):
 
 
 
-def get_or_set_password(user, server, prompt):
+def get_or_set_password(server, prompt, user = None):
     result = get_internet_password(server)
     if (not result) and sys.__stdin__.isatty():
         if not user:
@@ -94,5 +94,5 @@ def get_or_set_password(user, server, prompt):
 
 
 if __name__ == "__main__":
-    #print get_or_set_password('sam', 'test-api', "Test prompt")
+    #print get_or_set_password('test-api', "Test prompt", 'sam')
     print get_or_set_token('test-api5', "Test prompt")
