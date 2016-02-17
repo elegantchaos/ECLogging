@@ -56,7 +56,7 @@ def upload_version(token, appid, appZip, dsymZip, notes = "", notes_type = 1, no
     return (result, response)
 
 if __name__ == '__main__':
-    (user, token) = get_token()
+    token = get_token()
 
     print get_apps(token)
 
