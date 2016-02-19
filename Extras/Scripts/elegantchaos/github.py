@@ -22,10 +22,16 @@ def login_using_keychain():
     return gh
 
 
+def milestone_with_title(repo, title):
+    milestones = repo.milestones()
+    for milestone in milestones:
+        if (milestone.title == title):
+            return milestone
+
 if __name__ == '__main__':
 
-    gh = login_using_keychain()    
-    
+    gh = login_using_keychain()
+
     issue = gh.issue("BohemianCoding", "Sketch", "3444")
     print issue.as_dict().keys()
     print issue.title
