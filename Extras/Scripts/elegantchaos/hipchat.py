@@ -30,12 +30,13 @@ def hipchat_room_request(command, room, token, data):
     room_command = "room/" + room + "/" + command
     return hipchat_request(room_command, token, data)
 
-def hipchat_message_request(message, color, room, token, mode):
-    data = urllib.urlencode({ "message" : message, "color" : color, "message_format" : mode})
+def hipchat_message_request(message, color, room, token, mode, notify):
+    info = { "message" : message, "color" : color, "message_format" : mode, "notify" : notify }
+    data = urllib.urlencode(info)
     return hipchat_room_request("notification", room, token, data)
 
-def hipchat_message(message, colour, room, token, mode):
-    request = hipchat_message_request(message, colour, room, token, mode)
+def hipchat_message(message, colour, room, token, mode, notify = "true"):
+    request = hipchat_message_request(message, colour, room, token, mode, notify)
     response = urllib2.urlopen(request)
     return response.read()
 
