@@ -13,6 +13,7 @@ import sys
 import errors
 import getopt
 import re
+import webbrowser
 
 try:
     from docopt import docopt
@@ -195,8 +196,8 @@ def write_text(path, text):
 def view_file(path):
     subprocess.call(["open", path])
 
-def view_url(path):
-    subprocess.call(["open", path])
+def view_url(url):
+	webbrowser.open(url)
 
 def got_tool(tool):
     try:
