@@ -36,9 +36,14 @@ def log_paths(jobName):
     else:
         prefix = ''
 
+    logsPath = os.path.join(root, 'logs')
+    if not os.path.exists(logsPath):
+        os.makedirs(logsPath)
+
     full = {}
     for log in logs:
-        full[log] = os.path.join(root, 'logs', "{0}{1}.log".format(prefix, log))
+        path = os.path.join(logsPath, "{0}{1}.log".format(prefix, log))
+        full[log] = path
 
     return full
 
@@ -91,7 +96,7 @@ def zip_built_application(appPath, symPath, zipRoot = None):
         shell.log_verbose(output)
 
 def run_unit_tests(workspace, scheme, jobName = 'tests'):
-    return build(workspace, scheme, actions = ['test'], jobName = jobName, cleanAll = False)
+    return build(workspace, scheme, actions = ['test'], jobName = jobName)
 
 def build_variant(variant, workspace, scheme, actions = ['archive'], jobName = None):
     configsPath = shell.script_relative('../../../Sketch/Configs')
@@ -183,15 +188,15 @@ def summarise_build_log(result, jobName):
     summary['status'] = status
     return summary
 
-def build(workspace, scheme, platform = 'macosx', configuration = 'Release', actions = ['build'], jobName = None, cleanAll = True, extraArgs = []):
-    args = ['xctool', '-workspace', workspace, '-scheme', scheme, '-sdk', platform, '-configuration', configuration]
+def clean():
+    root = root_path()
+    try:
+        shutil.rmtree(root)
+    except Exception as e:
+        pass
 
-    if cleanAll:
-        root = root_path()
-        try:
-            shutil.rmtree(root)
-        except Exception as e:
-            pass
+def build(workspace, scheme, platform = 'macosx', configuration = 'Release', actions = ['build'], jobName = None, extraArgs = []):
+    args = ['xctool', '-workspace', workspace, '-scheme', scheme, '-sdk', platform, '-configuration', configuration]
 
     for action in actions:
         args += [action]
@@ -212,4 +217,4 @@ def build(workspace, scheme, platform = 'macosx', configuration = 'Release', act
 
 if __name__ == "__main__":
     print build('Sketch.xcworkspace', 'ECLogging Mac', jobName = 'framework')
-    print build('Sketch.xcworkspace', 'ECLogging Mac Static', jobName = 'static', cleanAll = False)
+    print build('Sketch.xcworkspace', 'ECLogging Mac Static', jobName = 'static')
