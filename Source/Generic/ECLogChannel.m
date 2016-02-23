@@ -59,7 +59,9 @@ static NSString* const kSuffixToStrip = @"Channel";
 	{
 		self.enabled = YES;
 		ECMakeContext();
-		logToChannel(self, &ecLogContext, @"enabled channel");
+		if (self.context & ECLogContextMeta) {
+			logToChannel(self, &ecLogContext, @"enabled channel");
+		}
 	}
 }
 
@@ -72,7 +74,9 @@ static NSString* const kSuffixToStrip = @"Channel";
 	if (self.enabled)
 	{
 		ECMakeContext();
-		logToChannel(self, &ecLogContext, @"disabled channel");
+		if (self.context & ECLogContextMeta) {
+			logToChannel(self, &ecLogContext, @"disabled channel");
+		}
 		self.enabled = NO;
 	}
 }

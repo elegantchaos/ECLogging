@@ -82,7 +82,9 @@
 - (void)wasEnabledForChannel:(ECLogChannel*)channel
 {
 	ECMakeContext();
-	logToChannel(channel, &ecLogContext, @"Enabled handler %@", self.name);
+	if (channel.context & ECLogContextMeta) {
+		logToChannel(channel, &ecLogContext, @"Enabled handler %@", self.name);
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -93,7 +95,9 @@
 - (void)wasDisabledForChannel:(ECLogChannel*)channel
 {
 	ECMakeContext();
-	logToChannel(channel, &ecLogContext, @"Disabled handler %@", self.name);
+	if (channel.context & ECLogContextMeta) {
+		logToChannel(channel, &ecLogContext, @"Disabled handler %@", self.name);
+	}
 }
 
 @end
