@@ -123,7 +123,7 @@ def get_user_list(token):
     return people
 
 def main():
-    (user, token) = hipchat.get_token()
+    token = hipchat.get_token()
 
     if len(sys.argv) == 2:
         email = sys.argv[1]
