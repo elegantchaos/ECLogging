@@ -18,7 +18,7 @@ def hockey_request(command, token, data = None, files = None, mode = None):
         if mode == 'put':
             request = requests.put(url, data = data, headers = headers, files = files)
         else:
-        request = requests.post(url, data = data, headers = headers, files = files)
+            request = requests.post(url, data = data, headers = headers, files = files)
     else:
         request = requests.get(url, headers = headers)
     return request
