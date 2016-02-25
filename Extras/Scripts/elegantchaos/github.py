@@ -24,6 +24,12 @@ def login_using_keychain():
         return gh
 
 
+def milestone_with_title(repo, title):
+    milestones = repo.milestones()
+    for milestone in milestones:
+        if (milestone.title == title):
+            return milestone
+
 if __name__ == '__main__':
 
     gh = login_using_keychain()
