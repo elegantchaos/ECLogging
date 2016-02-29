@@ -15,11 +15,6 @@ import getopt
 import re
 import webbrowser
 
-try:
-    from docopt import docopt
-except:
-    exit_with_message("This script requires docopt. You can install it with: pip install docopt.", errors.ERROR_REQUIRED_MODULE_MISSING)
-
 RE_XCODE_VERSION = re.compile('Xcode ([\d.]+).*')
 
 
@@ -235,3 +230,10 @@ def call_output_and_result(cmd):
         return (0, subprocess.check_output(cmd, stderr = subprocess.STDOUT))
     except subprocess.CalledProcessError as e:
         return (e.returncode, e.output)
+
+
+
+try:
+    from docopt import docopt
+except:
+    exit_with_message("This script requires docopt. You can install it with: pip install docopt.", errors.ERROR_REQUIRED_MODULE_MISSING)
