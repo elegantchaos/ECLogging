@@ -6,15 +6,8 @@ import keychain
 import requests  # see http://docs.python-requests.org/en/latest/user/quickstart/#quickstart for docs
 import json
 
-
-
-def set_token(token):
-    keychain.set_internet_password("hockey-api-key", token, "api.hockeyapp.net")
-
-
-
 def get_token():
-    return keychain.get_internet_password("api.hockeyapp.net")
+    return keychain.get_or_set_token("api.hockeyapp.net", "Please enter your Hockey API token")
 
 
 
@@ -103,7 +96,7 @@ def upload_version(token, appID, appZip, dsymZip, notes = "", notes_type = 1, no
 
 
 if __name__ == '__main__':
-    (user, token) = get_token()
+    token = get_token()
 
     print get_apps(token)
 

@@ -17,15 +17,17 @@ except:
     exit(1)
 
 def login_using_keychain():
-    (user, password) = keychain.get_internet_password("github.com")
-    gh = github3.login(user, password=password)
-    return gh
+    info = keychain.get_or_set_password("github.com", "Please enter your github details")
+    if info:
+        (user, password) = info
+        gh = github3.login(user, password=password)
+        return gh
 
 
 if __name__ == '__main__':
 
-    gh = login_using_keychain()    
-    
+    gh = login_using_keychain()
+
     issue = gh.issue("BohemianCoding", "Sketch", "3444")
     print issue.as_dict().keys()
     print issue.title
