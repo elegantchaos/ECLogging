@@ -27,6 +27,7 @@ typedef NS_OPTIONS(NSUInteger, ECLogContextFlags)
 	ECLogContextFunction = 0x0004,
 	ECLogContextMessage = 0x0008,
 	ECLogContextName = 0x0010,
+	ECLogContextMeta = 0x0020,
 
 	ECLogContextFullPath = 0x1000,
 	ECLogContextDefault = 0x8000

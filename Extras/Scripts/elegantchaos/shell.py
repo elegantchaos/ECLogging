@@ -13,11 +13,7 @@ import sys
 import errors
 import getopt
 import re
-
-try:
-    from docopt import docopt
-except:
-    exit_with_message("This script requires docopt. You can install it with: pip install docopt.", errors.ERROR_REQUIRED_MODULE_MISSING)
+import webbrowser
 
 RE_XCODE_VERSION = re.compile('Xcode ([\d.]+).*')
 
@@ -39,6 +35,7 @@ def application_info(applicationPath):
     'xcode build' : application_info_for_key(applicationPath, 'DTXcodeBuild'),
     'sdk' : application_info_for_key(applicationPath, 'DTSDKName'),
     'sdk build' : application_info_for_key(applicationPath, 'DTSDKBuild'),
+    'sdks supported' : application_info_for_key(applicationPath, 'Supported SDKs'),
     'commit' : application_info_for_key(applicationPath, 'ECVersionCommit')
 	}
 
@@ -68,6 +65,9 @@ def xcode_version():
     else:
         return output.strip()
 
+def log(message):
+    print message
+
 def log_verbose(message):
 	if get_option('verbose'):
 		print message
@@ -76,9 +76,11 @@ def exit_with_message(message, error):
     print(message)
     exit(error)
 
-def exit_if_failed_with_message(result, output, message):
+def exit_if_failed_with_message(result, output, message, showOutput = None):
     if result != 0:
-        if get_argument('verbose'):
+        if not showOutput:
+            showOutput = get_argument('verbose')
+        if showOutput:
             message = "{0}\n\n{1}".format(message, output)
 
         exit_with_message(message, result)
@@ -191,8 +193,8 @@ def write_text(path, text):
 def view_file(path):
     subprocess.call(["open", path])
 
-def view_url(path):
-    subprocess.call(["open", path])
+def view_url(url):
+	webbrowser.open(url)
 
 def got_tool(tool):
     try:
@@ -230,3 +232,10 @@ def call_output_and_result(cmd):
         return (0, subprocess.check_output(cmd, stderr = subprocess.STDOUT))
     except subprocess.CalledProcessError as e:
         return (e.returncode, e.output)
+
+
+
+try:
+    from docopt import docopt
+except:
+    exit_with_message("This script requires docopt. You can install it with: pip install docopt.", errors.ERROR_REQUIRED_MODULE_MISSING)

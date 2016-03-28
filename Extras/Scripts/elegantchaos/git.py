@@ -76,6 +76,8 @@ def short_ref(ref):
         return ref
 
 def checkout_recursive_helper(module, expectedCommit, checkoutRef):
+    # does the branch we've been asked to check out exist on the server?
+    # if so, is it pointing at our expected commit?
     checkoutCommit = commit_for_ref("origin/" + checkoutRef)
     if checkoutCommit:
         if checkoutCommit != expectedCommit:
@@ -84,18 +86,30 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
             checkoutShort = short_ref(checkoutCommit)
             expectedShort = short_ref(expectedCommit)
             print "Branch {0} is using commit {2} of submodule {1}, but {1}'s {0} branch is at commit {3}.".format(checkoutRef, moduleName, checkoutShort, expectedShort)
-        else:
-            (result, output) = checkout(checkoutRef)
-            if result == 0:
-                merge(fastForwardOnly = True)
-            else:
-                print "Error checking out {0}: {1}".format(module, output)
+            return
+
+    # check out the branch we were actually asked for
+    # (if this is local, it might be out of date)
+    (result, output) = checkout(checkoutRef)
+
+    # if we found a remote branch, fast-forward merge it,
+    # to make sure that our local one is up to date
+    if (result == 0) and checkoutCommit:
+        (result, output) = merge(fastForwardOnly = True)
+
+    if result != 0:
+        shell.log_verbose("Error checking out {0}: {1}".format(module, output))
 
 
 def checkout_recursive(ref, pullIfSafe = False):
     (result, output) = checkout(ref)
     if (result == 0) and pullIfSafe:
         (result, moreOutput) = pull(fastForwardOnly = True)
+        # it's ok for the pull to fail if there's not a tracking branch set up
+        if (result != 0) and ("There is no tracking information for the current branch." in moreOutput):
+            moreOutput = "Skipping pull - no remote branch yet.\n"
+            result = 0
+
         output += moreOutput
 
     if result == 0:

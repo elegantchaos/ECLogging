@@ -13,11 +13,8 @@ import keychain
 import json
 import datetime
 
-def set_token(token):
-    keychain.set_internet_password("hipchat-script", token, "api.hipchat.com")
-
 def get_token():
-    return keychain.get_internet_password("api.hipchat.com")
+    return keychain.get_or_set_token("api.hipchat.com", "Please enter your hipchat token")
 
 def hipchat_request(command, token, data, parameters = None):
     url = "https://api.hipchat.com/v2/" + command + "?auth_token=" + token
@@ -30,12 +27,13 @@ def hipchat_room_request(command, room, token, data):
     room_command = "room/" + room + "/" + command
     return hipchat_request(room_command, token, data)
 
-def hipchat_message_request(message, color, room, token, mode):
-    data = urllib.urlencode({ "message" : message, "color" : color, "message_format" : mode})
+def hipchat_message_request(message, color, room, token, mode, notify):
+    info = { "message" : message, "color" : color, "message_format" : mode, "notify" : notify }
+    data = urllib.urlencode(info)
     return hipchat_room_request("notification", room, token, data)
 
-def hipchat_message(message, colour, room, token, mode):
-    request = hipchat_message_request(message, colour, room, token, mode)
+def hipchat_message(message, colour, room, token, mode, notify = "true"):
+    request = hipchat_message_request(message, colour, room, token, mode, notify)
     response = urllib2.urlopen(request)
     return response.read()
 
@@ -75,3 +73,9 @@ def fetch_as_json(request):
     output = response.read()
     processed = json.loads(output)
     return processed
+
+
+
+
+if __name__ == '__main__':
+    print get_token()

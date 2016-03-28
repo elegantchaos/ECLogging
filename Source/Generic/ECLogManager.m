@@ -80,7 +80,8 @@ const ContextFlagInfo kContextFlagInfo[] = {
 	{ ECLogContextDate, @"Date" },
 	{ ECLogContextFunction, @"Function" },
 	{ ECLogContextMessage, @"Message" },
-	{ ECLogContextName, @"Name" }
+	{ ECLogContextName, @"Name" },
+	{ ECLogContextMeta, @"Meta" }
 };
 
 #define TEST_ERROR 0 // enable this for a deliberate compiler error (handy when testing build reporting scripts)
@@ -305,7 +306,7 @@ static ECLogManager* gSharedInstance = nil;
 
 	NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
 	self.channels = dictionary;
-	self.defaultContextFlags = ECLogContextName | ECLogContextMessage;
+	self.defaultContextFlags = ECLogContextName | ECLogContextMessage | ECLogContextMeta;
 
 	[self loadSettings];
 	[self registerHandlers];
@@ -402,7 +403,11 @@ static ECLogManager* gSharedInstance = nil;
 		}
 	}
 
-	NSDictionary* result = [NSDictionary dictionaryWithContentsOfURL:url];
+	NSDictionary* result = nil;
+	if (url) {
+		result = [NSDictionary dictionaryWithContentsOfURL:url];
+	}
+
 	if (![result count])
 	{
 #if EC_DEBUG
