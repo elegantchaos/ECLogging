@@ -310,6 +310,7 @@ static ECLogManager* gSharedInstance = nil;
 
 	[self loadSettings];
 	[self registerHandlers];
+	[self loadChannelSettings];
 
 	// The log manager is created on demand, the first time that a channel needs to register itself.
 	// This allows channels to be declared and used in the simplest possible way, and to work in code
@@ -508,8 +509,6 @@ static ECLogManager* gSharedInstance = nil;
 		self.settings[HandlersKey] = handlers;
 	}
 
-	[self loadChannelSettings];
-
 	// the showMenu property is read/set here in generic code, but it's up to the
 	// platform specific UI support to interpret it
 	BOOL forceMenu = [userSettings boolForKey:ForceDebugMenuKey];
@@ -688,6 +687,7 @@ static ECLogManager* gSharedInstance = nil;
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LogManagerSettingsKey];
 	[self loadSettings];
 	[self registerHandlers];
+	[self loadChannelSettings];
 	[self resetAllChannels];
 	[self postUpdateNotification];
 }
