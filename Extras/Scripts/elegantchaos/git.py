@@ -78,6 +78,8 @@ def short_ref(ref):
 def checkout_recursive_helper(module, expectedCommit, checkoutRef):
     # does the branch we've been asked to check out exist on the server?
     # if so, is it pointing at our expected commit?
+
+    shell.log_verbose("\nChecking out {0}".format(module))
     checkoutCommit = commit_for_ref("origin/" + checkoutRef)
     if checkoutCommit:
         if checkoutCommit != expectedCommit:
@@ -98,11 +100,14 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
         (result, output) = merge(fastForwardOnly = True)
 
     if result != 0:
-        shell.log_verbose("Error checking out {0}: {1}".format(module, output))
+        shell.log_verbose("Error checking out {0}:".format(module))
 
+    shell.log_verbose(output)
 
 def checkout_recursive(ref, pullIfSafe = False):
     (result, output) = checkout(ref)
+    shell.log_verbose(output)
+
     if (result == 0) and pullIfSafe:
         (result, moreOutput) = pull(fastForwardOnly = True)
         # it's ok for the pull to fail if there's not a tracking branch set up
@@ -111,13 +116,17 @@ def checkout_recursive(ref, pullIfSafe = False):
             result = 0
 
         output += moreOutput
+        shell.log_verbose(moreOutput)
 
     if result == 0:
         (result, moreOutput) = submodule_update()
         output += moreOutput
+        shell.log_verbose(moreOutput)
 
     if result == 0:
         enumerate_submodules(checkout_recursive_helper, ref)
+    else:
+        shell.log("Error checking out main repo.")
 
     return (result, output)
 
