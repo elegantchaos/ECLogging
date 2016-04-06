@@ -80,14 +80,15 @@ def checkout_recursive_helper(module, expectedCommit, checkoutRef):
     # if so, is it pointing at our expected commit?
 
     shell.log_verbose("\nChecking out {0}".format(module))
-    checkoutCommit = commit_for_ref("origin/" + checkoutRef)
+    remoteBranch = "origin/" + checkoutRef
+    checkoutCommit = commit_for_ref(remoteBranch)
     if checkoutCommit:
         if checkoutCommit != expectedCommit:
             moduleName = os.path.basename(module)
             modulePath = os.path.join(repo_root_path(), module)
             checkoutShort = short_ref(checkoutCommit)
             expectedShort = short_ref(expectedCommit)
-            print "Branch {0} is using commit {2} of submodule {1}, but {1}'s {0} branch is at commit {3}.".format(checkoutRef, moduleName, checkoutShort, expectedShort)
+            print "Branch {0} is using commit {2} of submodule {1}, but {1}'s {4} is at commit {3}.".format(checkoutRef, moduleName, checkoutShort, expectedShort, remoteBranch)
             return
 
     # check out the branch we were actually asked for
