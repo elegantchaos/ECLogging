@@ -25,7 +25,14 @@ def login_using_keychain():
 
 
 def milestone_with_title(repo, title):
+    # try open milestones
     milestones = repo.milestones()
+    for milestone in milestones:
+        if (milestone.title == title):
+            return milestone
+
+    # try closed ones
+    milestones = repo.milestones(state = 'closed')
     for milestone in milestones:
         if (milestone.title == title):
             return milestone
