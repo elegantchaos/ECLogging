@@ -34,12 +34,15 @@ def current_branch():
     if result == 0:
         return output.strip()
 
-def status():
-    status = subprocess.check_output(["git", "status", "--porcelain"])
+def status(ignoreUntracked = True):
+    args = ["git", "status", "--porcelain"]
+    if ignoreUntracked:
+        args += ['--untracked-files=no']
+    status = subprocess.check_output(args)
     return status
 
-def got_changes():
-    return status() != ""
+def got_changes(ignoreUntracked = True):
+    return status(ignoreUntracked) != ""
 
 def ensure_running_at_root_of_repo(root):
     path = repo_root_path()
@@ -50,8 +53,8 @@ def ensure_running_at_root_of_repo(root):
     else:
         os.chdir(repo_root_path())
 
-def exit_if_changes():
-    if got_changes() and (not shell.get_option('force')):
+def exit_if_changes(ignoreUntracked = True):
+    if got_changes(ignoreUntracked) and (not shell.get_option('force')):
         shell.exit_with_message("You have changes. Commit them first.", errors.ERROR_GIT_CHANGES_PENDING)
 
 def checkout(ref):
