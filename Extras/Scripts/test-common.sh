@@ -69,9 +69,9 @@ cleanoutput()
     testerr="$logdir/err.log"
 
     # make empty output files
-    echo "" > "$testout"
-    echo "" > "$testpretty"
-    echo "" > "$testerr"
+    date > "$testout"
+    date > "$testpretty"
+    date > "$testerr"
 }
 
 setup()
