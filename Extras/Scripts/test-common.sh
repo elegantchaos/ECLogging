@@ -54,13 +54,10 @@ cleanoutput()
     logdir="$build/logs/$2-$1"
     mkdir -p "$logdir"
     testout="$logdir/out.log"
-    testpretty="$logdir/pretty.log"
+    testjson="$logdir/out.json"
     testerr="$logdir/err.log"
-
-    # make empty output files
-    date > "$testout"
-    date > "$testpretty"
-    echo "" > "$testerr"
+    stamplog="$logdir/timestamps.log"
+    statusfile="$build/status.txt"
 }
 
 setup()
@@ -91,8 +88,8 @@ setup()
 
 commonbuild()
 {
-    echo "BUILDING" > "$build/status.txt"
-    date > "$build/started.txt"
+    echo "BUILDING" > "$statusfile"
+    echo "Started $(date)" > "$stamplog"
 
     local PLATFORM="$1"
     shift
@@ -106,10 +103,10 @@ commonbuild()
     mkdir -p "$reportdir"
 
 
-    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" -derivedDataPath "$derived" $ACTIONS -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testpretty" -reporter "plain:$testout" 2>> "$testerr"
+    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" -derivedDataPath "$derived" $ACTIONS -reporter "junit:$reportdir/report.xml" -reporter "json-compilation-database:$testjson" -reporter "plain:$testout" 2>> "$testerr"
     result=$?
 
-    date > "$build/finished.txt"
+    echo "Finished $(date)" > "$stamplog"
 
     if [[ $result != 0 ]]
     then
@@ -128,7 +125,7 @@ commonbuild()
             LOG_URL="$LOG_PATH"
         fi
         echo "Full log: $LOG_URL"
-        echo "FAILED-BUILD" > "$build/status.txt"
+        echo "FAILED-BUILD" > "$statusfile"
 
         exit $result
     fi
@@ -143,11 +140,11 @@ commonbuild()
         echo "$buildWarnings"
         echo
         echo "Analyser failed for scheme $SCHEME"
-        echo "FAILED-ANALYSER" > "$build/status.txt"
+        echo "FAILED-ANALYSER" > "$statusfile"
         exit 1
     fi
 
-    echo "BUILT" > "$build/status.txt"
+    echo "BUILT" > "$statusfile"
 }
 
 macbuild()
