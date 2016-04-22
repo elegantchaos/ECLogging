@@ -88,9 +88,6 @@ setup()
 
 commonbuild()
 {
-    echo "BUILDING" > "$statusfile"
-    echo "Started $(date)" > "$stamplog"
-
     local PLATFORM="$1"
     shift
 
@@ -98,6 +95,9 @@ commonbuild()
     shift
 
     setup "xctool" "$SCHEME" "$PLATFORM" "$@"
+
+    echo "BUILDING" > "$statusfile"
+    echo "Started $(date)" > "$stamplog"
 
     reportdir="$build/reports/$PLATFORM-$SCHEME"
     mkdir -p "$reportdir"
