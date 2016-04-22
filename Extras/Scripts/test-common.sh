@@ -91,6 +91,9 @@ setup()
 
 commonbuild()
 {
+    echo "BUILDING" > "$build/status.txt"
+    date > "$build/started.txt"
+
     local PLATFORM="$1"
     shift
 
@@ -105,6 +108,8 @@ commonbuild()
 
     xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" -derivedDataPath "$derived" $ACTIONS -reporter "junit:$reportdir/report.xml" -reporter "pretty:$testpretty" -reporter "plain:$testout" 2>> "$testerr"
     result=$?
+
+    date > "$build/finished.txt"
 
     if [[ $result != 0 ]]
     then
@@ -123,6 +128,7 @@ commonbuild()
             LOG_URL="$LOG_PATH"
         fi
         echo "Full log: $LOG_URL"
+        echo "FAILED-BUILD" > "$build/status.txt"
 
         exit $result
     fi
@@ -137,9 +143,11 @@ commonbuild()
         echo "$buildWarnings"
         echo
         echo "Analyser failed for scheme $SCHEME"
+        echo "FAILED-ANALYSER" > "$build/status.txt"
         exit 1
     fi
 
+    echo "BUILT" > "$build/status.txt"
 }
 
 macbuild()
