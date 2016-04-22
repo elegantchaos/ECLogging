@@ -41,17 +41,6 @@ urlencode()
     encoded="$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$1")"
 }
 
-report()
-{
-    pushd "$build" > /dev/null 2>> "$testerr"
-    "$ocunit2junit" < "$testout" > /dev/null 2>> "$testerr"
-    reportdir="$build/reports/$2-$1"
-    mkdir -p "$reportdir"
-    mv test-reports/* "$reportdir" 2>> "$testerr"
-    rmdir test-reports 2>> "$testerr"
-    popd > /dev/null 2>> "$testerr"
-}
-
 cleanbuild()
 {
     # ensure a clean build every time
@@ -71,7 +60,7 @@ cleanoutput()
     # make empty output files
     date > "$testout"
     date > "$testpretty"
-    date > "$testerr"
+    echo "" > "$testerr"
 }
 
 setup()
@@ -177,70 +166,8 @@ iosbuild()
 
         local ACTIONS=$1
         shift
-        if ! $use_xctool
-        then
-          if [[ $ACTIONS == "test" ]];
-          then
-              ACTIONS="build TEST_AFTER_BUILD=YES"
-          fi
-        fi
+
         cleanbuild
         commonbuild "iphonesimulator" "$SCHEME" "$ACTIONS" -arch i386 ONLY_ACTIVE_ARCH=NO "$@"
     fi
-}
-
-iosbuildproject()
-{
-
-    if $testIOS; then
-
-        cleanbuild
-        cleanoutput "$1" "$2"
-
-        cd "$1"
-        echo Building debug target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build -derivedDataPath "$derived" >> "$testout" 2>> "$testerr"
-        echo Building release target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build -derivedDataPath "$derived" >> "$testout" 2>> "$testerr"
-        result=$?
-        cd ..
-        if [[ $result != 0 ]]; then
-            cat "$testerr"
-            echo
-            echo "** BUILD FAILURES **"
-            echo "Build failed for scheme $1"
-        exit $result
-        fi
-
-    fi
-
-}
-
-iostestproject()
-{
-
-    if $testIOS; then
-
-        cleanoutput "$1" "$2"
-        cleanbuild
-
-        cd "$1"
-        echo Testing debug target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build -derivedDataPath "$derived" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
-        echo Testing release target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" -derivedDataPath "$derived" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
-        result=$?
-        cd ..
-        if [[ $result != 0 ]]; then
-            cat "$testerr"
-            echo
-            echo "** BUILD FAILURES **"
-            echo "Build failed for scheme $1"
-            exit $result
-        fi
-
-        report "$1" "iphonesimulator"
-
-    fi
-
 }
