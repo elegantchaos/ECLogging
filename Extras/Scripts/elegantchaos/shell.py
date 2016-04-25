@@ -79,7 +79,7 @@ def exit_with_message(message, error):
 def exit_if_failed_with_message(result, output, message, showOutput = None):
     if result != 0:
         if not showOutput:
-            showOutput = get_argument('verbose')
+            showOutput = get_option('verbose')
         if showOutput:
             message = "{0}\n\n{1}".format(message, output)
 
