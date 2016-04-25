@@ -120,7 +120,7 @@ def checkout_recursive(ref, pullIfSafe = False):
         shell.log_verbose(moreOutput)
 
     if result == 0:
-        (result, moreOutput) = submodule_update()
+        (result, moreOutput) = submodule_update(recursive = True)
         output += moreOutput
         shell.log_verbose(moreOutput)
 
@@ -150,10 +150,10 @@ def submodule_update(recursive = True, init = False):
 
     return shell.call_output_and_result(args)
 
-def checkout_and_update(ref):
+def checkout_and_update(ref, recursive = True, init = False):
     (result, output) = checkout(ref)
     if result == 0:
-        (result, output) = submodule_update()
+        (result, output) = submodule_update(recursive = recursive, init = init)
 
     return (result, output)
 
