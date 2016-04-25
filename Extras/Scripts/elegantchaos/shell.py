@@ -173,6 +173,12 @@ def get_option(key):
         result = PROCESSED_OPTIONS.get(key)
     return result
 
+def all_arguments():
+    return PROCESSED_ARGUMENTS
+
+def all_options():
+    return PROCESSED_OPTIONS
+    
 def expand_directory(path):
     path = os.path.expanduser(path)
     if not os.path.exists(path):
