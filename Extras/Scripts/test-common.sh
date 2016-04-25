@@ -106,7 +106,7 @@ commonbuild()
     xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" -derivedDataPath "$derived" $ACTIONS -reporter "junit:$reportdir/report.xml" -reporter "json-compilation-database:$testjson" -reporter "plain:$testout" 2>> "$testerr"
     result=$?
 
-    echo "Finished $(date)" > "$stamplog"
+    echo "Finished $(date)" >> "$stamplog"
 
     if [[ $result != 0 ]]
     then
