@@ -123,7 +123,7 @@ def checkout_recursive(ref, pullIfSafe = False):
         shell.log_verbose(moreOutput)
 
     if result == 0:
-        (result, moreOutput) = submodule_update()
+        (result, moreOutput) = submodule_update(recursive = True)
         output += moreOutput
         shell.log_verbose(moreOutput)
 
@@ -144,13 +144,19 @@ def commit(path, message): # TODO: is anything using this? remove it and rename 
 def commit2(path, message):
     return shell.call_output_and_result(["git", "commit", path, "-m", message])
 
-def submodule_update():
-    return shell.call_output_and_result(["git", "submodule", "update"])
+def submodule_update(recursive = True, init = False):
+    args = ["git", "submodule", "update"]
+    if recursive:
+        args += ['--recursive']
+    if init:
+        args += ['init']
 
-def checkout_and_update(ref):
+    return shell.call_output_and_result(args)
+
+def checkout_and_update(ref, recursive = True, init = False):
     (result, output) = checkout(ref)
     if result == 0:
-        (result, output) = submodule_update()
+        (result, output) = submodule_update(recursive = recursive, init = init)
 
     return (result, output)
 
