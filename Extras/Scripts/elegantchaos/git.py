@@ -141,8 +141,14 @@ def commit(path, message): # TODO: is anything using this? remove it and rename 
 def commit2(path, message):
     return shell.call_output_and_result(["git", "commit", path, "-m", message])
 
-def submodule_update():
-    return shell.call_output_and_result(["git", "submodule", "update"])
+def submodule_update(recursive = True, init = False):
+    args = ["git", "submodule", "update"]
+    if recursive:
+        args += ['--recursive']
+    if init:
+        args += ['init']
+
+    return shell.call_output_and_result(args)
 
 def checkout_and_update(ref):
     (result, output) = checkout(ref)
