@@ -174,14 +174,9 @@ def get_option(key):
     return result
 
 def all_arguments():
-    global PROCESSED_ARGUMENTS
+    global DOCOPT_ARGUMENTS
 
-    return PROCESSED_ARGUMENTS
-
-def all_options():
-    global PROCESSED_OPTIONS
-    
-    return PROCESSED_OPTIONS
+    return DOCOPT_ARGUMENTS
 
 def expand_directory(path):
     path = os.path.expanduser(path)
