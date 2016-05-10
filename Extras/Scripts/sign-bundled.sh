@@ -91,6 +91,7 @@ sign_folder()
       # sign embedded stuff first
       sign_folder "$f/Frameworks"
       sign_folder "$f/PlugIns"
+      sign_folder "$f/XPCServices"
 
       # if the bundle has an info plist file in it, extract the bundle id to use from it
       # (if not, we'll use the current one to resign, or we'll use the app id as a last resort)
