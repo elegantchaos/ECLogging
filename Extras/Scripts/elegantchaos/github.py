@@ -8,6 +8,7 @@
 # --------------------------------------------------------------------------
 
 import keychain
+import requests
 
 try:
     import github3
@@ -23,6 +24,15 @@ def login_using_keychain():
         gh = github3.login(user, password=password)
         return gh
 
+def issue_with_number(number, session, organisation, repo):
+    try:
+        result = session.issue(organisation, repo, number)
+        return result
+    # except requests.NewConnectionError as e:
+    #     print e
+    except Exception as e:
+        print e
+        pass
 
 def milestone_with_title(repo, title):
     # try open milestones
