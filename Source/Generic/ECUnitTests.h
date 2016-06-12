@@ -4,6 +4,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+@import Foundation;
+
 #import "ECTestCase.h"
 #import "ECParameterisedTestCase.h"
 #import "ECParameterisedTestSuite.h"

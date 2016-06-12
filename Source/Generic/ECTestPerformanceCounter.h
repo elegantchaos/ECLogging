@@ -4,8 +4,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <Foundation/Foundation.h>
-
 @interface ECTestPerformanceCounter : NSObject
 
 + (BOOL)updateWithValue:(CGFloat)average key:(NSString*)key threshold:(CGFloat)threshold;

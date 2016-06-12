@@ -8,10 +8,6 @@
 #import "ECLoggingMenu.h"
 #import "NSMenu+ECLogging.h"
 
-#import "ECLogManager.h"
-#import "ECLogChannel.h"
-#import "ECLogHandler.h"
-
 // --------------------------------------------------------------------------
 // Private Methods
 // --------------------------------------------------------------------------

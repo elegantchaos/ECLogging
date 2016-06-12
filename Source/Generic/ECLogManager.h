@@ -4,7 +4,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLoggingMacros.h"
 #import "ECLogContext.h"
 
 @class ECLogChannel;

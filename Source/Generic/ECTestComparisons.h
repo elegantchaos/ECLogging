@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's
+//  Copyright (c) 2015 Sam Deane, Elegant Chaos. All rights reserved.
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 

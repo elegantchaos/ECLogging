@@ -21,6 +21,9 @@
 
 #if EC_DEBUG
 
+#define EC_CONFIGURATION_STRING @"Debug"
+#define EC_CONFIGURATION_STRING_SHORT @"D"
+
 #define ECUnusedInDebug(v) ECUnused(v)
 #define ECUnusedInRelease(v) \
 	do                       \
@@ -35,10 +38,10 @@
 
 #else
 
-#define ECUnusedInDebug(v) \
-	do                     \
-	{                      \
-	} while (0)
+#define EC_CONFIGURATION_STRING @"Release"
+#define EC_CONFIGURATION_STRING_SHORT @"R"
+
+#define ECUnusedInDebug(v) do {} while(0)
 #define ECUnusedInRelease(v) ECUnused(v)
 #define ECDebugOnly(x) \
 	do                 \

@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's
+//  Copyright (c) 2015 Sam Deane, Elegant Chaos. All rights reserved.
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@
 		context = [NSString stringWithFormat:@"%@", [self nameForMatching]];
 	else
 		context = [NSString stringWithFormat:@"%@ vs %@", [self nameForMatching], [item2 nameForMatching]];
-
+	
 	return [self matches:item2 context:context level:0 block:block];
 }
 
@@ -97,7 +97,7 @@
 			}
 		}
 	}
-
+	
 	return matches;
 }
 
@@ -138,7 +138,7 @@
 			}
 			[keys2 removeObject:key];
 		}
-
+		
 		for (NSString* key in keys2)
 		{
 			NSString* itemContext = [NSString stringWithFormat:@"%@[@\"%@\"] extra key %@", context, key, key];
@@ -146,7 +146,7 @@
 			matches = NO;
 		}
 	}
-
+	
 	return matches;
 }
 

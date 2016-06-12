@@ -4,7 +4,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <ECConfig/ECConfigRelease.pch>
+@import UIKit;
 
-#import "ECUnitTestsShared.pch"
-
+#import <ECLogging/ECLogging.h>
+#import <ECUnitTests/ECUnitTests.h>
+#import <UIKit/UIKit.h>

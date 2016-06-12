@@ -4,9 +4,9 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECLogManager.h"
 #import "ECLogChannel.h"
 #import "ECLogHandlerNSLog.h"
+#import "ECLogManager.h"
 
 @interface ECLogManager ()
 

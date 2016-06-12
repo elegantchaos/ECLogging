@@ -1,37 +1,18 @@
 // --------------------------------------------------------------------------
-//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 
-/**
- * Standard definitions for all libraries.
- */
-
 #ifdef __OBJC__
 
+// --------------------------------------------------------------------------
+// Shared Settings
+// --------------------------------------------------------------------------
+
+@import Foundation;
 @import ECLogging;
-
-// --------------------------------------------------------------------------
-// iOS Settings
-// --------------------------------------------------------------------------
-
-#if TARGET_OS_IPHONE
-
-@import UIKit;
-
-
-// --------------------------------------------------------------------------
-// Mac Settings
-// --------------------------------------------------------------------------
-
-#elif TARGET_OS_MAC
-
-@import AppKit;
+@import ECUnitTests;
 
 #endif
-
-
-#endif
-

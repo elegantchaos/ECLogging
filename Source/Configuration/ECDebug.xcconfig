@@ -34,7 +34,7 @@ COPY_PHASE_STRIP = NO
 
 ECDEBUGCONFIG=YES
 
-GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 $(inherited)
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 EC_DEBUG=1 $(inherited)
 
 // --------------------------------------------------------------------------
 // Signing

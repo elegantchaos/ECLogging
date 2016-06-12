@@ -1,7 +1,7 @@
 // --------------------------------------------------------------------------
 //
-//  Copyright (c) 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's
+//  Copyright (c) 2015 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's 
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -12,13 +12,14 @@
 #define ECAssertNonNilBase(expression, imp) imp((expression) != nil)
 #define ECAssertNilBase(expression, imp) imp((expression) == nil)
 #define ECAssertCountAtLeastBase(container, countMinimum, imp) imp([(container)count] >= (countMinimum))
-#define ECAssertEmptyBase(object, imp)
+#define ECAssertEmptyBase(object, imp)							
 #define ECAssertIsMainThreadBase(imp) imp(([NSThread isMainThread]))
 
 #if EC_DEBUG
 
 #import "ECLoggingMacros.h"
 
+@class ECLogChannel;
 ECDeclareDebugChannel(AssertionChannel);
 
 #endif

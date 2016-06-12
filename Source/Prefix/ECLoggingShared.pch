@@ -15,7 +15,8 @@
 // Shared Settings
 // --------------------------------------------------------------------------
 
-#import <CoreFoundation/CoreFoundation.h>
+@import CoreFoundation;
+@import Foundation;
 
 #define EC_FOUNDATION 1
 #define EC_LOGGING 1
@@ -26,11 +27,7 @@
 
 #if TARGET_OS_IPHONE
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
-#define EC_PLATFORM_IOS 1
-
+@import UIKit;
 
 // --------------------------------------------------------------------------
 // Mac Settings
@@ -38,12 +35,7 @@
 
 #elif TARGET_OS_MAC
 
-#import <Foundation/Foundation.h>
-
-#define EC_PLATFORM_MAC 1
-
 #endif
-
 
 #endif
 

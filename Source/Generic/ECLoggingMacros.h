@@ -14,9 +14,6 @@
 #endif
 #endif
 
-#import "ECLogContext.h"
-
-
 #pragma mark - Plain C interface
 
 // These routines are used in some of the macros, and are generally not intended for public use.

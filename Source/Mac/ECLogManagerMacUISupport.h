@@ -6,6 +6,6 @@
 
 #import <ECLogging/ECLogging.h>
 
-@interface ECLogManagerMacUISupport : NSObject <ECLogManagerDelegate>
+@interface ECLogManagerMacUISupport : NSObject<ECLogManagerDelegate>
 
 @end

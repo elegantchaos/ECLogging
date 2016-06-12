@@ -5,8 +5,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <Foundation/Foundation.h>
-
 @interface ECErrorAndMessage : NSObject
 
 @property (strong, nonatomic) NSString* message;
