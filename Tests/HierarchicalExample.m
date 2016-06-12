@@ -4,8 +4,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <ECUnitTests/ECUnitTests.h>
-
 @interface HierarchicalExample : ECParameterisedTestCase
 
 @end

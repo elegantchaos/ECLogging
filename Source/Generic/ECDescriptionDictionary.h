@@ -6,7 +6,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /**
  Variant of description, which maintains some structure.

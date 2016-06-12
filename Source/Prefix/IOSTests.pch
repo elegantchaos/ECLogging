@@ -6,6 +6,5 @@
 
 @import UIKit;
 
-#import <ECLogging/ECLogging.h>
-#import <ECUnitTests/ECUnitTests.h>
-#import <UIKit/UIKit.h>
+@import ECLogging;
+@import ECUnitTests;

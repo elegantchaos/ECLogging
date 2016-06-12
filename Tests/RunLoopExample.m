@@ -5,9 +5,6 @@
 // --------------------------------------------------------------------------
 
 
-
-#import <ECUnitTests/ECUnitTests.h>
-
 @interface RunLoopExample : ECTestCase
 @end
 

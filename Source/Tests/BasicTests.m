@@ -5,9 +5,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <ECLogging/ECLogging.h>
-#import <ECUnitTests/ECUnitTests.h>
-
 ECDefineLogChannel(TestChannel);
 
 @interface ECLogManager (PrivateTestAccessOnly)
