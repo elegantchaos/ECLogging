@@ -1,7 +1,7 @@
 // --------------------------------------------------------------------------
 //
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -121,14 +121,14 @@
  Enable the channel.
  */
 
-- (void) enable;
+- (void)enable;
 
 
 /**
  Disable the channel. Any output sent to the channel will be ignored whilst it is disabled.
  */
 
-- (void) disable;
+- (void)disable;
 
 
 /**
@@ -137,8 +137,7 @@
  @param name The name of the channel.
  */
 
-- (id) initWithName: (NSString*) name;
-
+- (instancetype)initWithName:(NSString*)name NS_DESIGNATED_INITIALIZER;
 
 
 /**
@@ -147,8 +146,7 @@
  @return Comparison result.
  */
 
-- (NSComparisonResult) caseInsensitiveCompare: (ECLogChannel*) other;
-
+- (NSComparisonResult)caseInsensitiveCompare:(ECLogChannel*)other;
 
 
 /**
@@ -156,8 +154,7 @@
  @param handler The handler to enable. Any output sent to this channel will get passed to the enabled handler.
  */
 
-- (void) enableHandler: (ECLogHandler*) handler;
-
+- (void)enableHandler:(ECLogHandler*)handler;
 
 
 /**
@@ -165,7 +162,7 @@
  @param handler The handler to disable. Any output sent to this channel will no longer get passed to the disabled handler.
  */
 
-- (void) disableHandler: (ECLogHandler*) handler;
+- (void)disableHandler:(ECLogHandler*)handler;
 
 
 /**
@@ -174,7 +171,7 @@
  @return YES if the handler is enabled for this channel.
  */
 
-- (BOOL) isHandlerEnabled:( ECLogHandler*) handler;
+- (BOOL)isHandlerEnabled:(ECLogHandler*)handler;
 
 
 /**
@@ -183,8 +180,7 @@
  @return YES if context information should be shown.
  */
 
-- (BOOL) showContext:(ECLogContextFlags)flags;
-
+- (BOOL)showContext:(ECLogContextFlags)flags;
 
 
 /**
@@ -194,8 +190,7 @@
  @return String with the file name and line number.
  */
 
-- (NSString*) fileFromContext:(ECLogContext*)context;
-
+- (NSString*)fileFromContext:(ECLogContext*)context;
 
 
 /**
@@ -207,7 +202,7 @@
  */
 
 
-- (NSString*) stringFromContext:(ECLogContext*)context;
+- (NSString*)stringFromContext:(ECLogContext*)context;
 
 
 /**
@@ -230,7 +225,6 @@
 */
 
 - (void)selectFlagWithIndex:(NSUInteger)index;
-
 
 
 /**
@@ -263,7 +257,6 @@
  @return Cleaned up name.
  */
 
-+ (NSString*) cleanName:(const char *) name;
++ (NSString*)cleanName:(const char*)name;
 
 @end
-

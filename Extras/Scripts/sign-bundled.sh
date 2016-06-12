@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# --------------------------------------------------------------------------
+#  Copyright 2013-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
+
 ## Re-sign every plugin and framework using the bundle id and code signing identity of the target
 ##
 ## You can use this script in a Run Script phase to ensure that all plugins and frameworks are signed consistently.
@@ -7,6 +13,14 @@
 ## (C) 2013 Sam Deane, Elegant Chaos.
 ## Feel free to use and abuse this script - I'd love to hear of improvements.
 
+SHOW_VERBOSE=false
+
+verbose()
+{
+    if $SHOW_VERBOSE; then
+        echo $@
+    fi
+}
 
 sign()
 {
@@ -15,12 +29,14 @@ sign()
   local FILE="$3"
   local NAME=`basename "$FILE"`
 
+  verbose "Sign called with BUNDLEID:'$BUNDLEID'"
+  verbose "IDENTITY:'$CODE_SIGN_IDENTITY'"
+  verbose "FILE:'$FILE'"
+
   # get current signing details
   local CURRENT=`codesign --verbose=2 -d "${FILE}" 2>&1`
+
   if [ $? == 0 ]; then
-
-    #echo "current:$CURRENT"
-
     # get current id
     local PATTERN="Identifier=([a-zA-Z0-9.]*)"
     [[ "$CURRENT" =~ $PATTERN ]]
@@ -36,8 +52,8 @@ sign()
       BUNDLEID="$CURRENT_IDENTIFIER"
     fi
 
-    #    echo "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
-    #    echo "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
+    verbose "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
+    verbose "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
 
   else
 
@@ -52,12 +68,14 @@ sign()
 
   # check if we need to resign (resigning can be slow, so we check first)
   if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
-    echo "Resigning $NAME as $CODE_SIGN_IDENTITY with id $BUNDLEID"
-    echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
-    codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}"
-    #codesign --verbose=2 -d "${FILE}"
+    echo "Resigning $NAME as $CODE_SIGN_IDENTITY with id '$BUNDLEID'"
+    if [[ ("$CURRENT_IDENTIFIER" != "") || ("$CURRENT_AUTHORITY" != "") ]]; then
+        echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
+    fi
+    SIGN_OUTPUT=$(codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}" 2>&1)
+    verbose "$SIGN_OUTPUT"
   else
-    echo "Didn't need to sign $NAME - already signed correctly as $CURRENT_IDENTIFIER $CURRENT_AUTHORITY"
+    verbose "Didn't need to sign $NAME - already signed correctly as $CURRENT_IDENTIFIER $CURRENT_AUTHORITY"
   fi
 }
 
@@ -83,6 +101,15 @@ sign_folder()
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Resources/Info.plist"`
       elif [ -e "$f/Info.plist" ]; then
         BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$f/Info.plist"`
+      elif [ -f "$f" ]; then
+        if [[ (-x "$f") && ( "$cf" != *.sh ) ]]; then
+            # it's a standalone executable, so sign it
+            BUNDLEID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /dev/stdin <<< $(otool -X -s __TEXT __info_plist -v "$f")`
+        else
+            # it's not an executable, so skip it
+            verbose "Skipping $f as it's not an executable..."
+            continue
+        fi
       fi
 
       # now sign this bundle
@@ -93,10 +120,35 @@ sign_folder()
 
 }
 
+sign_binaries()
+{
+    local FOLDER="$1"
+    local RECURSIVE="$2"
+
+    verbose "Signing binaries for: $1 (recursive:$RECURSIVE)"
+
+    local cf
+    for cf in "$FOLDER"/*
+    do
+        verbose "Checking $cf"
+        if [[ -d "$cf" ]]; then
+            if [[ $RECURSIVE == true ]]; then
+                verbose "Recursing for $cf"
+                sign_binaries "$cf" "$MODE"
+            fi
+        elif [[ (-x "$cf") ]]; then
+          verbose "Resigning script ${cf}"
+          sign "$APPID" "${CODE_SIGN_IDENTITY}" "$cf"
+        fi
+    done
+    verbose "Done signing binaries for: $1"
+}
+
+
 # Pull out the application's bundle id
 BUILT_INFO_PLIST="${CODESIGNING_FOLDER_PATH}/Contents/Info.plist"
-APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" ${BUILT_INFO_PLIST}`
-echo "Resigning bundles items."
+APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "${BUILT_INFO_PLIST}"`
+echo "Resigning bundled items."
 echo "App bundle is $APPID."
 
 if [[ "$CODE_SIGN_IDENTITY" == "" ]] ; then
@@ -113,16 +165,25 @@ fi
 echo "Using identity $CODE_SIGN_IDENTITY"
 
 # Sign Plugins
+verbose "Resigning plugins"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/PlugIns"
 
 # Sign Frameworks
+verbose "Resigning frameworks"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Frameworks"
 
 # Sign XPCServices
+verbose "Resigning XCP services"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/XPCServices"
 
 # Sign Quicklook
+verbose "Resigning Quicklook plugins"
 sign_folder "${CODESIGNING_FOLDER_PATH}/Contents/Library/QuickLook"
+
+# Sign bundled tools
+verbose "Resigning tools"
+sign_binaries "${CODESIGNING_FOLDER_PATH}/Contents" false
+sign_binaries "${CODESIGNING_FOLDER_PATH}/Contents/Resources" true
 
 
 echo ""

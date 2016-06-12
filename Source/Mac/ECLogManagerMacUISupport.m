@@ -52,16 +52,16 @@
 	if (!submenuItem)
 	{
 		submenuItem = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
-		
+
 		id menu = [[menuClass alloc] initWithTitle:title];
 		if ([menu respondsToSelector:@selector(setupAsRootMenu)])
 			[menu setupAsRootMenu];
-		
+
 		submenuItem.submenu = menu;
-		
+
 		[debugItem.submenu addItem:submenuItem];
 	}
-	
+
 	return submenuItem.submenu;
 }
 
@@ -69,7 +69,7 @@
 /// Perform some extra Mac-only startup.
 /// --------------------------------------------------------------------------
 
-- (void)logManagerDidStartup:(ECLogManager *)manager
+- (void)logManagerDidStartup:(ECLogManager*)manager
 {
 	if (manager.showMenu)
 	{
@@ -92,7 +92,7 @@
 /// Perform some extra Mac-only cleanup.
 /// --------------------------------------------------------------------------
 
-- (void)logManagerWillShutdown:(ECLogManager *)manager
+- (void)logManagerWillShutdown:(ECLogManager*)manager
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -104,7 +104,7 @@
 
 - (void)handleBackgroundOrQuitting:(NSNotification*)notification
 {
-    [[ECLogManager sharedInstance] saveChannelSettings];
+	[[ECLogManager sharedInstance] saveChannelSettings];
 }
 
 /// --------------------------------------------------------------------------
@@ -114,7 +114,7 @@
 
 - (void)crashNow:(id)sender
 {
-	strcpy((char*)0x1, "I gotta bad feeling about this");
+	*((char*)0x1) = 123;
 }
 
 /// --------------------------------------------------------------------------

@@ -6,14 +6,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class ECLogViewController;
-@class ECLoggingSettingsViewController;
+@class ECLogViewHandler;
 
-@interface ECLoggingViewController : UIViewController
-
-@property (strong, nonatomic) IBOutlet ECLoggingSettingsViewController* oSettingsController;
-@property (strong, nonatomic) IBOutlet ECLogViewController* oLogController;
-
-- (void)showModallyWithController:(UIViewController*)controller;
-
+@interface ECLogTranscriptViewController : UITableViewController
+- (void)setupInitialLogItems;
 @end

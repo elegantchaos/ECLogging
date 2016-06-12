@@ -11,6 +11,7 @@
 // --------------------------------------------------------------------------
 
 ONLY_ACTIVE_ARCH = NO
+ENABLE_NS_ASSERTIONS = NO
 
 // --------------------------------------------------------------------------
 // Code Generation
@@ -24,4 +25,5 @@ GCC_OPTIMIZATION_LEVEL = s
 
 COPY_PHASE_STRIP = YES
 
-GCC_PREPROCESSOR_DEFINITIONS = NDEBUG=1 EC_RELEASE=1 $(inherited)
+
+GCC_PREPROCESSOR_DEFINITIONS = EC_RELEASE=1 NDEBUG=1  $(inherited)

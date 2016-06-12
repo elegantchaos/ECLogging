@@ -8,3 +8,4 @@
 
 #include "ECIOSRelease.xcconfig"
 #include "ECPseudoFramework.xcconfig"
+#include "Shared.xcconfig"

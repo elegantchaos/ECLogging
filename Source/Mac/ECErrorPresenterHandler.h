@@ -18,7 +18,7 @@
  *
  */
 
-extern NSString *const ECLoggingErrorDomain;
+extern NSString* const ECLoggingErrorDomain;
 extern const NSInteger ECLoggingUnknownError;
 
 @interface ECErrorPresenterHandler : ECLogHandler

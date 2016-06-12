@@ -32,7 +32,7 @@
 
 - (NSComparisonResult)caseInsensitiveCompare:(ECLogHandler*)other
 {
-	return [self.name caseInsensitiveCompare: other.name];
+	return [self.name caseInsensitiveCompare:other.name];
 }
 
 // --------------------------------------------------------------------------
@@ -42,34 +42,34 @@
 
 - (NSString*)simpleOutputStringForChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context
 {
-    NSString* result;
-    
-    if (![channel showContext:ECLogContextMessage])
-    {
-        // just log the context
-        result = [channel stringFromContext:context];
-    }
-    else
-    {
-        // log the message, possibly with a context appended
-        if ([object isKindOfClass:[NSString class]])
-        {
-            NSString* format = object;
-            result = [[NSString alloc] initWithFormat:format arguments: arguments];
-        }
-        else
-        {
-            result = [object description];
-        }
-        
-        NSString* contextString = [channel stringFromContext:context];
-        if ([contextString length])
-        {
-            result = [NSString stringWithFormat:@"%@ «%@»", result, contextString];
-        }
-    }
-    
-    return result;
+	NSString* result;
+
+	if (![channel showContext:ECLogContextMessage])
+	{
+		// just log the context
+		result = [channel stringFromContext:context];
+	}
+	else
+	{
+		// log the message, possibly with a context appended
+		if ([object isKindOfClass:[NSString class]])
+		{
+			NSString* format = object;
+			result = [[NSString alloc] initWithFormat:format arguments:arguments];
+		}
+		else
+		{
+			result = [object description];
+		}
+
+		NSString* contextString = [channel stringFromContext:context];
+		if ([contextString length])
+		{
+			result = [NSString stringWithFormat:@"%@ «%@»", result, contextString];
+		}
+	}
+
+	return result;
 }
 
 #pragma mark - Default Enabled/Disabled Notifications
@@ -79,10 +79,12 @@
 //! By default we just log the fact to the channel.
 // --------------------------------------------------------------------------
 
-- (void)wasEnabledForChannel:(ECLogChannel *)channel
+- (void)wasEnabledForChannel:(ECLogChannel*)channel
 {
 	ECMakeContext();
-    logToChannel(channel, &ecLogContext, @"Enabled handler %@", self.name);
+	if (channel.context & ECLogContextMeta) {
+		logToChannel(channel, &ecLogContext, @"Enabled handler %@", self.name);
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -90,10 +92,12 @@
 //! By default we just log the fact to the channel.
 // --------------------------------------------------------------------------
 
-- (void)wasDisabledForChannel:(ECLogChannel *)channel
+- (void)wasDisabledForChannel:(ECLogChannel*)channel
 {
 	ECMakeContext();
-    logToChannel(channel, &ecLogContext, @"Disabled handler %@", self.name);
+	if (channel.context & ECLogContextMeta) {
+		logToChannel(channel, &ecLogContext, @"Disabled handler %@", self.name);
+	}
 }
 
 @end

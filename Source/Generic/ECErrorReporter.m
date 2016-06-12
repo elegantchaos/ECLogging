@@ -1,7 +1,7 @@
 // --------------------------------------------------------------------------
 //
 //  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@
 #import "ECErrorAndMessage.h"
 #import "ECLogChannel.h"
 
-@interface ECErrorReporter()
+@interface ECErrorReporter ()
 
 // --------------------------------------------------------------------------
 // Private Properties
@@ -22,7 +22,7 @@
 // Private Methods
 // --------------------------------------------------------------------------
 
-+ (void)reportError:(NSError*) error format:(NSString*)format arguments:(va_list)arguments assertInDebug:(BOOL)assertInDebug;
++ (void)reportError:(NSError*)error format:(NSString*)format arguments:(va_list)arguments assertInDebug:(BOOL)assertInDebug;
 
 @end
 
@@ -48,17 +48,17 @@ ECDefineLogChannel(ErrorChannel);
 //! separately and do something with it (eg present it to the user)
 // --------------------------------------------------------------------------
 
-+ (void)reportError:(NSError*) error format:(NSString*)format arguments:(va_list)arguments assertInDebug:(BOOL)assertInDebug
++ (void)reportError:(NSError*)error format:(NSString*)format arguments:(va_list)arguments assertInDebug:(BOOL)assertInDebug
 {
 	ECErrorAndMessage* ewm = [[ECErrorAndMessage alloc] init];
 	ewm.message = [[NSString alloc] initWithFormat:format arguments:arguments];
 	ewm.error = error;
 	ECLog(ErrorChannel, ewm);
-    
-    if (assertInDebug)
-    {
-        ECAssertShouldntBeHere();
-    }
+
+	if (assertInDebug)
+	{
+		ECAssertShouldntBeHere();
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -72,7 +72,7 @@ ECDefineLogChannel(ErrorChannel);
 	{
 		[self reportStatus:status message:@"status wasn't noErr"];
 	}
-	
+
 	return result;
 }
 
@@ -82,15 +82,15 @@ ECDefineLogChannel(ErrorChannel);
 //! Asserts on failure in debug builds.
 // --------------------------------------------------------------------------
 
-+ (void)reportResult:(BOOL)didSucceed error:(NSError*) error message:(NSString*)message, ... 
++ (void)reportResult:(BOOL)didSucceed error:(NSError*)error message:(NSString*)message, ...
 {
-    if (!didSucceed) 
+	if (!didSucceed)
 	{
-        va_list args;
-        va_start(args, message);
-        [self reportError:error format:message arguments:args assertInDebug:NO];
-        va_end(args);
-    }
+		va_list args;
+		va_start(args, message);
+		[self reportError:error format:message arguments:args assertInDebug:NO];
+		va_end(args);
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -99,15 +99,15 @@ ECDefineLogChannel(ErrorChannel);
 //! Asserts on failure in debug builds.
 // --------------------------------------------------------------------------
 
-+ (void)reportResult:(BOOL)didSucceed message:(NSString*)message, ... 
++ (void)reportResult:(BOOL)didSucceed message:(NSString*)message, ...
 {
-    if (!didSucceed) 
+	if (!didSucceed)
 	{
-        va_list args;
-        va_start(args, message);
-        [self reportError:nil format:message arguments:args assertInDebug:NO];
-        va_end(args);
-    }
+		va_list args;
+		va_start(args, message);
+		[self reportError:nil format:message arguments:args assertInDebug:NO];
+		va_end(args);
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -118,13 +118,13 @@ ECDefineLogChannel(ErrorChannel);
 
 + (void)reportStatus:(OSStatus)status message:(NSString*)message, ...
 {
-    if (status != noErr) 
+	if (status != noErr)
 	{
-        va_list args;
-        va_start(args, message);
-        [self reportError:nil format:message arguments:args assertInDebug:NO];
-        va_end(args);
-    }
+		va_list args;
+		va_start(args, message);
+		[self reportError:nil format:message arguments:args assertInDebug:NO];
+		va_end(args);
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -133,15 +133,15 @@ ECDefineLogChannel(ErrorChannel);
 //! Asserts on failure in debug builds.
 // --------------------------------------------------------------------------
 
-+ (void)reportError:(NSError*) error message:(NSString*)message, ... 
++ (void)reportError:(NSError*)error message:(NSString*)message, ...
 {
-    if (error) 
+	if (error)
 	{
-        va_list args;
-        va_start(args, message);
-        [self reportError:error format:message arguments:args assertInDebug:NO];
-        va_end(args);
-    }
+		va_list args;
+		va_start(args, message);
+		[self reportError:error format:message arguments:args assertInDebug:NO];
+		va_end(args);
+	}
 }
 
 @end
