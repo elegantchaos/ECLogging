@@ -18,9 +18,6 @@
 @import CoreFoundation;
 @import Foundation;
 
-#define EC_FOUNDATION 1
-#define EC_LOGGING 1
-
 // --------------------------------------------------------------------------
 // iOS Settings
 // --------------------------------------------------------------------------
