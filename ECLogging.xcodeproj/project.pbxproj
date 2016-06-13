@@ -473,6 +473,7 @@
 		22F2FEEF1641418600CD3C7C /* ECLogManagerMacUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerMacUISupport.m; sourceTree = "<group>"; };
 		22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerIOSUISupport.h; sourceTree = "<group>"; };
 		22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerIOSUISupport.m; sourceTree = "<group>"; };
+		22F71E411D0E1E29001795E8 /* UnitTestShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = UnitTestShared.xcconfig; sourceTree = "<group>"; };
 		22F861241B02956300586780 /* .clang-format */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".clang-format"; sourceTree = "<group>"; };
 		22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECParameterisedTestSuite.h; sourceTree = "<group>"; };
 		22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECParameterisedTestSuite.m; sourceTree = "<group>"; };
@@ -692,6 +693,7 @@
 				2221873E19DAB91B00F08CCE /* MacUIReleaseStatic.xcconfig */,
 				2221873F19DAB93F00F08CCE /* MacUIShared.xcconfig */,
 				227947FA1D0E0FCC00D2416D /* Shared.xcconfig */,
+				22F71E411D0E1E29001795E8 /* UnitTestShared.xcconfig */,
 				2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */,
 				2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */,
 				2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */,
@@ -1225,6 +1227,7 @@
 				228CF1E517562478003E1D25 /* Sources */,
 				228CF1E617562478003E1D25 /* Frameworks */,
 				228CF1E717562478003E1D25 /* Headers */,
+				2247FD031D0E2DCE00B482B1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1408,6 +1411,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "ln -sfh \"Versions/${FRAMEWORK_VERSION}/Scripts\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Scripts\"";
+		};
+		2247FD031D0E2DCE00B482B1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"${MODULEMAP_FILE}\" \"${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/module.modulemap\"";
 		};
 		2251BA7815DBDBE300F2FE40 /* Package Pseudo-Framework */ = {
 			isa = PBXShellScriptBuildPhase;
