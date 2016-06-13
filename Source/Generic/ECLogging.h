@@ -4,7 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 #import "ECAssertion.h"
 //#import "ECASLClient.h"

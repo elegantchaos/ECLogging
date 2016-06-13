@@ -6,8 +6,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-@import Foundation;
-
 /**
  Variant of description, which maintains some structure.
  Called on a normal object, it returns the same as description.
