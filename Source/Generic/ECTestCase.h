@@ -335,6 +335,8 @@
 
 - (NSURL*)writeOutputText:(NSString*)data name:(NSString*)name extension:(NSString*)extension asReference:(BOOL)asReference;
 
+#if !TARGET_OS_IPHONE
+
 /**
  Run a command line tool and return its output.
  */
@@ -346,8 +348,6 @@
  */
 
 - (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status;
-
-#if !TARGET_OS_IPHONE
 
 /**
  Write an image as an output file.

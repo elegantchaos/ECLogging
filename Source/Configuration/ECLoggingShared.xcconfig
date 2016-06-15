@@ -5,3 +5,5 @@
 // --------------------------------------------------------------------------
 
 PRODUCT_BUNDLE_IDENTIFIER = com.elegantchaos.frameworks.eclogging
+MODULEMAP_FILE = Source/$(PRODUCT_NAME)IOS.modulemap
+

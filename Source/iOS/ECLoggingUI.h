@@ -4,12 +4,12 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <ECLogging/ECLogging.h>
-
 #import "ECLogManagerIOSUISupport.h"
 #import "ECErrorPresenterHandler.h"
 #import "ECDebugChannelsViewController.h"
 #import "ECDebugChannelViewController.h"
+#import "ECDebugHandlersViewController.h"
+#import "ECLogTranscriptViewController.h"
 #import "ECLogSettingsViewController.h"
 #import "ECLogViewPopoverController.h"
 #import "ECLogViewHandler.h"

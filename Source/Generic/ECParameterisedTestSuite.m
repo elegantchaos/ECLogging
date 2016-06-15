@@ -114,7 +114,7 @@ static NSMutableDictionary* dataIndex;
 }
 
 - (void)setupDataIfNecessary {
-	NSString* key = [self.testClass className];
+	NSString* key = NSStringFromClass(self.testClass);
 	NSDictionary* data = dataIndex[key];
 	if (!data) {
 		data = [self.testClass parameterisedTestData];

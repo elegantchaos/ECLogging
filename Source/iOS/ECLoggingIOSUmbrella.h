@@ -4,6 +4,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#include "TestsShared.xcconfig"
+@import Foundation;
+@import UIKit;
 
-GCC_PREFIX_HEADER = Source/Prefix/IOSTests.pch
+#import "ECLogging.h"
+#import "ECLoggingUI.h"
