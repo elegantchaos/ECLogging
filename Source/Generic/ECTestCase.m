@@ -4,14 +4,15 @@
 ///  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#if !TARGET_OS_IPHONE
+@import Cocoa;
+#endif
+
 #import "ECTestCase.h"
 #import "ECParameterisedTestCase.h"
 #import "ECTestComparisons.h"
 #import "NSString+ECLogging.h"
 
-#if !TARGET_OS_IPHONE
-#import <Cocoa/Cocoa.h>
-#endif
 
 @interface ECTestCase ()
 
@@ -433,7 +434,7 @@
 
 	// we look first in a subfolder with the name of this test class
 	// if we can't find anything there, we look in the test bundle's root resource folder
-	NSURL* result = [bundle URLForResource:name withExtension:ext subdirectory:[self className]];
+	NSURL* result = [bundle URLForResource:name withExtension:ext subdirectory:self.className];
 	if (!result)
 		result = [bundle URLForResource:name withExtension:ext];
 
@@ -606,7 +607,7 @@
 
 	// append the test class name to the path, so that each set of tests has its own folder
 	NSURL* url = [NSURL fileURLWithPath:[outputPath stringByExpandingTildeInPath]];
-	url = [url URLByAppendingPathComponent:[self className]];
+	url = [url URLByAppendingPathComponent:self.className];
 
 	// use reference or generated, depending on the type
 	if (asReference)

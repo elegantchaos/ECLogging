@@ -120,7 +120,8 @@
 	}
 	else
 	{
-		NSMutableArray* keys2 = [NSMutableArray arrayWithArray:[item2 allKeys]];
+		NSDictionary* dictionary2 = item2;
+		NSMutableArray* keys2 = [NSMutableArray arrayWithArray:[dictionary2 allKeys]];
 		for (NSString* key in self)
 		{
 			id v1 = self[key];

@@ -4,11 +4,4 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-@import Foundation;
-@import XCTest;
-
-#import "ECTestCase.h"
-#import "ECParameterisedTestCase.h"
-#import "ECParameterisedTestSuite.h"
-#import "ECTestComparisons.h"
-#import "ECTestPerformanceCounter.h"
+#include "ECLoggingShared.xcconfig"

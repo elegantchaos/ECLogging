@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2251B9FE15DBCC3E00F2FE40"
-               BuildableName = "ECLogging.framework"
+               BuildableName = ".framework"
                BlueprintName = "ECLoggingMac"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
@@ -86,7 +86,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2251B9FE15DBCC3E00F2FE40"
-            BuildableName = "ECLogging.framework"
+            BuildableName = ".framework"
             BlueprintName = "ECLoggingMac"
             ReferencedContainer = "container:ECLogging.xcodeproj">
          </BuildableReference>
@@ -108,7 +108,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2251B9FE15DBCC3E00F2FE40"
-            BuildableName = "ECLogging.framework"
+            BuildableName = ".framework"
             BlueprintName = "ECLoggingMac"
             ReferencedContainer = "container:ECLogging.xcodeproj">
          </BuildableReference>
@@ -126,7 +126,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2251B9FE15DBCC3E00F2FE40"
-            BuildableName = "ECLogging.framework"
+            BuildableName = ".framework"
             BlueprintName = "ECLoggingMac"
             ReferencedContainer = "container:ECLogging.xcodeproj">
          </BuildableReference>

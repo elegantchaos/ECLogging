@@ -4,7 +4,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <XCTest/XCTest.h>
 #import "ECTestComparisons.h"
 
 

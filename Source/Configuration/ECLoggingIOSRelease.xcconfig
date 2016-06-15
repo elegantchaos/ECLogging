@@ -6,6 +6,6 @@
 
 /// Standard xcconfig files.
 
-#include "ECMacDebug.xcconfig"
-#include "ECUnitTests.xcconfig"
-#include "UnitTestShared.xcconfig"
+#include "ECIOSRelease.xcconfig"
+#include "ECPseudoFramework.xcconfig"
+#include "ECLoggingIOSShared.xcconfig"

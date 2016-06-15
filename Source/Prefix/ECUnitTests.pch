@@ -4,8 +4,19 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
 
-#include "ECIOSDebug.xcconfig"
-#include "ECUnitTests.xcconfig"
-#include "UnitTestShared.xcconfig"
+/**
+ * Standard definitions for all libraries.
+ */
+
+#ifdef __OBJC__
+
+// --------------------------------------------------------------------------
+// Shared Settings
+// --------------------------------------------------------------------------
+
+@import CoreFoundation;
+@import Foundation;
+@import XCTest;
+
+#endif

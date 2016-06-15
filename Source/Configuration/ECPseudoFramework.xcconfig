@@ -20,7 +20,9 @@ VERSION_FOLDER_PATH = $(CONTENTS_FOLDER_PATH)/Versions/$(FRAMEWORK_VERSION)
 RESOURCES_FOLDER_PATH = $(VERSION_FOLDER_PATH)/Resources
 PRODUCT_NAME = $(PROJECT_NAME)
 CLANG_LINK_OBJC_RUNTIME = NO
-
+DEFINES_MODULE = YES
+MODULEMAP_FILE = Source/$(PRODUCT_NAME).modulemap
+PRODUCT_MODULE_NAME = $(PRODUCT_NAME)
 
 // These settings prevent an obscure crash with ad-hoc distributed executables that use static libraries (pseudo-frameworks are really static libs)
 // See http://stackoverflow.com/questions/10300800/ios-app-with-static-lib-always-crashes-on-launch-of-ad-hoc-archive-build-cant-r for more details.

@@ -4,7 +4,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+@import Foundation;
 @import UIKit;
-
+@import XCTest;
 @import ECLogging;
 @import ECUnitTests;

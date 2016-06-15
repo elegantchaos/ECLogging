@@ -357,14 +357,14 @@
 		22507DB81B249C8E00C86559 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/ECLogViewController.xib; sourceTree = SOURCE_ROOT; };
 		2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECLogging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2251BA1215DBCC4A00F2FE40 /* ECLogging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLogging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSDebug.xcconfig; sourceTree = "<group>"; };
-		2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSRelease.xcconfig; sourceTree = "<group>"; };
-		2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacDebug.xcconfig; sourceTree = "<group>"; };
-		2251BA4615DBCD3900F2FE40 /* MacRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacRelease.xcconfig; sourceTree = "<group>"; };
-		2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSUnitTestDebug.xcconfig; sourceTree = "<group>"; };
-		2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSUnitTestRelease.xcconfig; sourceTree = "<group>"; };
-		2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacUnitTestDebug.xcconfig; sourceTree = "<group>"; };
-		2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacUnitTestRelease.xcconfig; sourceTree = "<group>"; };
+		2251BA4315DBCD3900F2FE40 /* ECLoggingIOSDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSDebug.xcconfig; sourceTree = "<group>"; };
+		2251BA4415DBCD3900F2FE40 /* ECLoggingIOSRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSRelease.xcconfig; sourceTree = "<group>"; };
+		2251BA4515DBCD3900F2FE40 /* ECLoggingMacDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacDebug.xcconfig; sourceTree = "<group>"; };
+		2251BA4615DBCD3900F2FE40 /* ECLoggingMacRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacRelease.xcconfig; sourceTree = "<group>"; };
+		2251BA5C15DBD68500F2FE40 /* IOSTestsDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSTestsDebug.xcconfig; sourceTree = "<group>"; };
+		2251BA5D15DBD68500F2FE40 /* IOSTestsRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSTestsRelease.xcconfig; sourceTree = "<group>"; };
+		2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacTestsDebug.xcconfig; sourceTree = "<group>"; };
+		2251BA5F15DBD68500F2FE40 /* MacTestsRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacTestsRelease.xcconfig; sourceTree = "<group>"; };
 		2251BA6115DBD93700F2FE40 /* BasicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicTests.m; sourceTree = "<group>"; };
 		2251BA6C15DBDA5100F2FE40 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2251BAE315DBEA2C00F2FE40 /* ECLoggingMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingMacros.h; sourceTree = "<group>"; };
@@ -399,7 +399,7 @@
 		2277CE4616D6B2B900835964 /* ECTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTestCase.h; sourceTree = "<group>"; };
 		2277CE4716D6B2B900835964 /* ECTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTestCase.m; sourceTree = "<group>"; };
 		2277CE4816D6B2B900835964 /* ECUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECUnitTests.h; sourceTree = "<group>"; };
-		227947FA1D0E0FCC00D2416D /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		227947FA1D0E0FCC00D2416D /* ECLoggingShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingShared.xcconfig; sourceTree = "<group>"; };
 		227C029C17C4D3340011ABB5 /* ECDescriptionDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDescriptionDictionary.h; sourceTree = "<group>"; };
 		227C029D17C4D3340011ABB5 /* ECDescriptionDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDescriptionDictionary.m; sourceTree = "<group>"; };
 		2283A43B14F53BCC009142F7 /* ECASLClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECASLClient.h; sourceTree = "<group>"; };
@@ -447,8 +447,8 @@
 		2283A4D314F53D31009142F7 /* NSString+ECLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ECLogging.m"; sourceTree = "<group>"; };
 		2285B5EC1899855400919FA7 /* ECTestPerformanceCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTestPerformanceCounter.h; sourceTree = "<group>"; };
 		2285B5ED1899855400919FA7 /* ECTestPerformanceCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTestPerformanceCounter.m; sourceTree = "<group>"; };
-		228CF1D417562136003E1D25 /* MacDebugStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacDebugStatic.xcconfig; sourceTree = "<group>"; };
-		228CF1D517562136003E1D25 /* MacReleaseStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacReleaseStatic.xcconfig; sourceTree = "<group>"; };
+		228CF1D417562136003E1D25 /* ECLoggingMacDebugStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacDebugStatic.xcconfig; sourceTree = "<group>"; };
+		228CF1D517562136003E1D25 /* ECLoggingMacReleaseStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacReleaseStatic.xcconfig; sourceTree = "<group>"; };
 		228CF1D617562182003E1D25 /* ECStaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECStaticLibrary.xcconfig; sourceTree = "<group>"; };
 		228CF1E917562478003E1D25 /* libECLogging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libECLogging.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugHandlersViewController.h; sourceTree = "<group>"; };
@@ -463,6 +463,7 @@
 		22D6EF581B021952004F9FC7 /* Included.testsuite */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Included.testsuite; path = Tests/Included.testsuite; sourceTree = SOURCE_ROOT; };
 		22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ParameterisedTestsExample.plist; path = Tests/ParameterisedTestsExample.plist; sourceTree = SOURCE_ROOT; };
 		22D6EF631B021982004F9FC7 /* HierarchicalExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HierarchicalExample.m; path = Tests/HierarchicalExample.m; sourceTree = SOURCE_ROOT; };
+		22E817871D11F18000DD8803 /* ECUnitTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECUnitTests.pch; sourceTree = "<group>"; };
 		22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
 		22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorAndMessage.h; sourceTree = "<group>"; };
@@ -473,7 +474,18 @@
 		22F2FEEF1641418600CD3C7C /* ECLogManagerMacUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerMacUISupport.m; sourceTree = "<group>"; };
 		22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerIOSUISupport.h; sourceTree = "<group>"; };
 		22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerIOSUISupport.m; sourceTree = "<group>"; };
-		22F71E411D0E1E29001795E8 /* UnitTestShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = UnitTestShared.xcconfig; sourceTree = "<group>"; };
+		22F6388C1D11D78E00B36F11 /* ECLoggingMacShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacShared.xcconfig; sourceTree = "<group>"; };
+		22F6388E1D11D80300B36F11 /* ECUnitTestsMacDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsMacDebug.xcconfig; sourceTree = "<group>"; };
+		22F6388F1D11D80300B36F11 /* ECUnitTestsMacRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsMacRelease.xcconfig; sourceTree = "<group>"; };
+		22F638901D11D80300B36F11 /* ECUnitTestsMacShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsMacShared.xcconfig; sourceTree = "<group>"; };
+		22F638911D11D80300B36F11 /* ECUnitTestsShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsShared.xcconfig; sourceTree = "<group>"; };
+		22F638931D11D93000B36F11 /* ECUnitTestsIOSDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsIOSDebug.xcconfig; sourceTree = "<group>"; };
+		22F638941D11D93000B36F11 /* ECUnitTestsIOSRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsIOSRelease.xcconfig; sourceTree = "<group>"; };
+		22F638951D11D93000B36F11 /* ECUnitTestsIOSShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsIOSShared.xcconfig; sourceTree = "<group>"; };
+		22F638961D11D93800B36F11 /* ECLoggingIOSShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSShared.xcconfig; sourceTree = "<group>"; };
+		22F6389C1D11DCB000B36F11 /* IOSTestsShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSTestsShared.xcconfig; sourceTree = "<group>"; };
+		22F6389D1D11DCB000B36F11 /* MacTestsShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacTestsShared.xcconfig; sourceTree = "<group>"; };
+		22F6389E1D11DCB000B36F11 /* TestsShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = TestsShared.xcconfig; sourceTree = "<group>"; };
 		22F861241B02956300586780 /* .clang-format */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".clang-format"; sourceTree = "<group>"; };
 		22F861251B029BEE00586780 /* ECParameterisedTestSuite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECParameterisedTestSuite.h; sourceTree = "<group>"; };
 		22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECParameterisedTestSuite.m; sourceTree = "<group>"; };
@@ -678,23 +690,9 @@
 		2277CE2916D6ABE900835964 /* for ECLogging itself */ = {
 			isa = PBXGroup;
 			children = (
-				2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */,
-				2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */,
-				2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */,
-				2251BA4615DBCD3900F2FE40 /* MacRelease.xcconfig */,
-				228CF1D417562136003E1D25 /* MacDebugStatic.xcconfig */,
-				228CF1D517562136003E1D25 /* MacReleaseStatic.xcconfig */,
-				2221873B19DAB91B00F08CCE /* MacUIDebug.xcconfig */,
-				2221873C19DAB91B00F08CCE /* MacUIDebugStatic.xcconfig */,
-				2221873D19DAB91B00F08CCE /* MacUIRelease.xcconfig */,
-				2221873E19DAB91B00F08CCE /* MacUIReleaseStatic.xcconfig */,
-				2221873F19DAB93F00F08CCE /* MacUIShared.xcconfig */,
-				227947FA1D0E0FCC00D2416D /* Shared.xcconfig */,
-				22F71E411D0E1E29001795E8 /* UnitTestShared.xcconfig */,
-				2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */,
-				2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */,
-				2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */,
-				2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */,
+				22F6388D1D11D7F500B36F11 /* ECLogging */,
+				22F638921D11D80800B36F11 /* ECUnitTests */,
+				22F6389F1D11DD0700B36F11 /* Tests */,
 			);
 			name = "for ECLogging itself";
 			sourceTree = "<group>";
@@ -870,6 +868,7 @@
 			isa = PBXGroup;
 			children = (
 				2283A4CB14F53C6F009142F7 /* ECLogging.pch */,
+				22E817871D11F18000DD8803 /* ECUnitTests.pch */,
 				2221873A19DAB8B800F08CCE /* ECLoggingUI.pch */,
 				223C3B1F1AAB61F8003CCFFC /* IOSTests.pch */,
 				223C3B201AAB61F8003CCFFC /* MacTests.pch */,
@@ -913,6 +912,95 @@
 				22F2FEED164140F700CD3C7C /* Documentation */,
 			);
 			name = Extras;
+			sourceTree = "<group>";
+		};
+		22F6388D1D11D7F500B36F11 /* ECLogging */ = {
+			isa = PBXGroup;
+			children = (
+				227947FA1D0E0FCC00D2416D /* ECLoggingShared.xcconfig */,
+				22F638971D11D94200B36F11 /* iOS */,
+				22F638981D11D94A00B36F11 /* Mac */,
+			);
+			name = ECLogging;
+			sourceTree = "<group>";
+		};
+		22F638921D11D80800B36F11 /* ECUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				22F638911D11D80300B36F11 /* ECUnitTestsShared.xcconfig */,
+				22F638991D11D95000B36F11 /* iOS */,
+				22F6389A1D11D95600B36F11 /* Mac */,
+			);
+			name = ECUnitTests;
+			sourceTree = "<group>";
+		};
+		22F638971D11D94200B36F11 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				2251BA4315DBCD3900F2FE40 /* ECLoggingIOSDebug.xcconfig */,
+				2251BA4415DBCD3900F2FE40 /* ECLoggingIOSRelease.xcconfig */,
+				22F638961D11D93800B36F11 /* ECLoggingIOSShared.xcconfig */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		22F638981D11D94A00B36F11 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				22F6389B1D11D9C500B36F11 /* UI */,
+				228CF1D417562136003E1D25 /* ECLoggingMacDebugStatic.xcconfig */,
+				228CF1D517562136003E1D25 /* ECLoggingMacReleaseStatic.xcconfig */,
+				2251BA4515DBCD3900F2FE40 /* ECLoggingMacDebug.xcconfig */,
+				2251BA4615DBCD3900F2FE40 /* ECLoggingMacRelease.xcconfig */,
+				22F6388C1D11D78E00B36F11 /* ECLoggingMacShared.xcconfig */,
+			);
+			name = Mac;
+			sourceTree = "<group>";
+		};
+		22F638991D11D95000B36F11 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				22F638931D11D93000B36F11 /* ECUnitTestsIOSDebug.xcconfig */,
+				22F638941D11D93000B36F11 /* ECUnitTestsIOSRelease.xcconfig */,
+				22F638951D11D93000B36F11 /* ECUnitTestsIOSShared.xcconfig */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		22F6389A1D11D95600B36F11 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				22F6388E1D11D80300B36F11 /* ECUnitTestsMacDebug.xcconfig */,
+				22F6388F1D11D80300B36F11 /* ECUnitTestsMacRelease.xcconfig */,
+				22F638901D11D80300B36F11 /* ECUnitTestsMacShared.xcconfig */,
+			);
+			name = Mac;
+			sourceTree = "<group>";
+		};
+		22F6389B1D11D9C500B36F11 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				2221873B19DAB91B00F08CCE /* MacUIDebug.xcconfig */,
+				2221873C19DAB91B00F08CCE /* MacUIDebugStatic.xcconfig */,
+				2221873D19DAB91B00F08CCE /* MacUIRelease.xcconfig */,
+				2221873E19DAB91B00F08CCE /* MacUIReleaseStatic.xcconfig */,
+				2221873F19DAB93F00F08CCE /* MacUIShared.xcconfig */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		22F6389F1D11DD0700B36F11 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				2251BA5C15DBD68500F2FE40 /* IOSTestsDebug.xcconfig */,
+				2251BA5D15DBD68500F2FE40 /* IOSTestsRelease.xcconfig */,
+				22F6389C1D11DCB000B36F11 /* IOSTestsShared.xcconfig */,
+				22F6389D1D11DCB000B36F11 /* MacTestsShared.xcconfig */,
+				2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */,
+				2251BA5F15DBD68500F2FE40 /* MacTestsRelease.xcconfig */,
+				22F6389E1D11DCB000B36F11 /* TestsShared.xcconfig */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1722,7 +1810,7 @@
 		};
 		221E215816E7864900B65B1F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */;
+			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* ECLoggingIOSDebug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Resources/IOSResourcesInfo.plist;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
@@ -1770,35 +1858,35 @@
 		};
 		2251BA0C15DBCC3E00F2FE40 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */;
+			baseConfigurationReference = 2251BA4515DBCD3900F2FE40 /* ECLoggingMacDebug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		2251BA0D15DBCC3E00F2FE40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4615DBCD3900F2FE40 /* MacRelease.xcconfig */;
+			baseConfigurationReference = 2251BA4615DBCD3900F2FE40 /* ECLoggingMacRelease.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		2251BA1D15DBCC4A00F2FE40 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */;
+			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* ECLoggingIOSDebug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		2251BA1E15DBCC4A00F2FE40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */;
+			baseConfigurationReference = 2251BA4415DBCD3900F2FE40 /* ECLoggingIOSRelease.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		225EC67411EBAA4800A97AEA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
+			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREFIX_HEADER = Source/Prefix/MacTests.pch;
@@ -1809,7 +1897,7 @@
 		};
 		225EC67511EBAA4800A97AEA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
+			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacTestsRelease.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
@@ -1817,7 +1905,7 @@
 		};
 		226889E51AEE4B49005510E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacUnitTestDebug.xcconfig */;
+			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
@@ -1826,7 +1914,7 @@
 		};
 		226889E61AEE4B49005510E5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacUnitTestRelease.xcconfig */;
+			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacTestsRelease.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREFIX_HEADER = Source/Prefix/MacTests.pch;
@@ -1838,7 +1926,7 @@
 		};
 		2274B3A214F56896003B8A0B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA5C15DBD68500F2FE40 /* IOSUnitTestDebug.xcconfig */;
+			baseConfigurationReference = 2251BA5C15DBD68500F2FE40 /* IOSTestsDebug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1851,7 +1939,7 @@
 		};
 		2274B3A314F56896003B8A0B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA5D15DBD68500F2FE40 /* IOSUnitTestRelease.xcconfig */;
+			baseConfigurationReference = 2251BA5D15DBD68500F2FE40 /* IOSTestsRelease.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1864,14 +1952,14 @@
 		};
 		228CF1F217562479003E1D25 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 228CF1D417562136003E1D25 /* MacDebugStatic.xcconfig */;
+			baseConfigurationReference = 228CF1D417562136003E1D25 /* ECLoggingMacDebugStatic.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		228CF1F317562479003E1D25 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 228CF1D517562136003E1D25 /* MacReleaseStatic.xcconfig */;
+			baseConfigurationReference = 228CF1D517562136003E1D25 /* ECLoggingMacReleaseStatic.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
@@ -1894,7 +1982,7 @@
 		};
 		22FF8E7C16F1E418008FC10D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* IOSDebug.xcconfig */;
+			baseConfigurationReference = 22F638931D11D93000B36F11 /* ECUnitTestsIOSDebug.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = ECUnitTests;
 			};
@@ -1902,7 +1990,7 @@
 		};
 		22FF8E7D16F1E418008FC10D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4415DBCD3900F2FE40 /* IOSRelease.xcconfig */;
+			baseConfigurationReference = 22F638941D11D93000B36F11 /* ECUnitTestsIOSRelease.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = ECUnitTests;
 			};
@@ -1910,7 +1998,7 @@
 		};
 		22FF8EC216F1E5EB008FC10D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4515DBCD3900F2FE40 /* MacDebug.xcconfig */;
+			baseConfigurationReference = 22F6388E1D11D80300B36F11 /* ECUnitTestsMacDebug.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = ECUnitTests;
 			};
@@ -1918,7 +2006,7 @@
 		};
 		22FF8EC316F1E5EB008FC10D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4615DBCD3900F2FE40 /* MacRelease.xcconfig */;
+			baseConfigurationReference = 22F6388F1D11D80300B36F11 /* ECUnitTestsMacRelease.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = ECUnitTests;
 			};
