@@ -334,7 +334,7 @@
 		2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
 		2204C6BB15E160DA00F71E15 /* ECLoggingUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingUI.h; sourceTree = "<group>"; };
-		221E214B16E7864900B65B1F /* ECLogging.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLogging.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		221E214B16E7864900B65B1F /* .bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = .bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		222186F119DAB5F300F08CCE /* ECLoggingUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECLoggingUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2221872C19DAB60900F08CCE /* libECLoggingUIStatic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libECLoggingUIStatic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2221872E19DAB67400F08CCE /* ECLoggingUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingUI.h; sourceTree = "<group>"; };
@@ -464,6 +464,7 @@
 		22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ParameterisedTestsExample.plist; path = Tests/ParameterisedTestsExample.plist; sourceTree = SOURCE_ROOT; };
 		22D6EF631B021982004F9FC7 /* HierarchicalExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HierarchicalExample.m; path = Tests/HierarchicalExample.m; sourceTree = SOURCE_ROOT; };
 		22E817871D11F18000DD8803 /* ECUnitTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECUnitTests.pch; sourceTree = "<group>"; };
+		22E817881D11F3DD00DD8803 /* ECLoggingIOSResources.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSResources.xcconfig; sourceTree = "<group>"; };
 		22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
 		22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorAndMessage.h; sourceTree = "<group>"; };
@@ -589,7 +590,7 @@
 				2274B38D14F56896003B8A0B /* ECLoggingIOSTests.xctest */,
 				2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */,
 				2251BA1215DBCC4A00F2FE40 /* ECLogging.framework */,
-				221E214B16E7864900B65B1F /* ECLogging.bundle */,
+				221E214B16E7864900B65B1F /* .bundle */,
 				22FF8E7E16F1E418008FC10D /* ECUnitTests.framework */,
 				22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */,
 				228CF1E917562478003E1D25 /* libECLogging.a */,
@@ -940,6 +941,7 @@
 				2251BA4315DBCD3900F2FE40 /* ECLoggingIOSDebug.xcconfig */,
 				2251BA4415DBCD3900F2FE40 /* ECLoggingIOSRelease.xcconfig */,
 				22F638961D11D93800B36F11 /* ECLoggingIOSShared.xcconfig */,
+				22E817881D11F3DD00DD8803 /* ECLoggingIOSResources.xcconfig */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -1167,7 +1169,7 @@
 			);
 			name = ECLoggingIOSResources;
 			productName = ECLoggingIOSResources;
-			productReference = 221E214B16E7864900B65B1F /* ECLogging.bundle */;
+			productReference = 221E214B16E7864900B65B1F /* .bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		222186B419DAB5F300F08CCE /* ECLoggingUI */ = {
@@ -1810,21 +1812,15 @@
 		};
 		221E215816E7864900B65B1F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* ECLoggingIOSDebug.xcconfig */;
+			baseConfigurationReference = 22E817881D11F3DD00DD8803 /* ECLoggingIOSResources.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = Resources/IOSResourcesInfo.plist;
-				PRODUCT_NAME = "$(PROJECT_NAME)";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
 		221E215916E7864900B65B1F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2277CE1F16D6AB9500835964 /* ECIOSRelease.xcconfig */;
+			baseConfigurationReference = 22E817881D11F3DD00DD8803 /* ECLoggingIOSResources.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = Resources/IOSResourcesInfo.plist;
-				PRODUCT_NAME = "$(PROJECT_NAME)";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -1888,10 +1884,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PREFIX_HEADER = Source/Prefix/MacTests.pch;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
 			name = Debug;
 		};
@@ -1899,7 +1891,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacTestsRelease.xcconfig */;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 			};
 			name = Release;
 		};
@@ -1907,8 +1898,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
 			};
 			name = Debug;
 		};
@@ -1916,11 +1905,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacTestsRelease.xcconfig */;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PREFIX_HEADER = Source/Prefix/MacTests.pch;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
 			};
 			name = Release;
 		};
@@ -1928,12 +1912,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5C15DBD68500F2FE40 /* IOSTestsDebug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PREFIX_HEADER = Source/Prefix/IOSTests.pch;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Debug;
 		};
@@ -1941,12 +1919,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5D15DBD68500F2FE40 /* IOSTestsRelease.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PREFIX_HEADER = Source/Prefix/IOSTests.pch;
-				INFOPLIST_FILE = Resources/ECLoggingTests.plist;
 			};
 			name = Release;
 		};
@@ -1984,7 +1956,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22F638931D11D93000B36F11 /* ECUnitTestsIOSDebug.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Debug;
 		};
@@ -1992,7 +1963,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22F638941D11D93000B36F11 /* ECUnitTestsIOSRelease.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Release;
 		};
@@ -2000,7 +1970,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22F6388E1D11D80300B36F11 /* ECUnitTestsMacDebug.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Debug;
 		};
@@ -2008,7 +1977,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22F6388F1D11D80300B36F11 /* ECUnitTestsMacRelease.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = ECUnitTests;
 			};
 			name = Release;
 		};

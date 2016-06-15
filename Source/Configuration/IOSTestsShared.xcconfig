@@ -5,3 +5,5 @@
 // --------------------------------------------------------------------------
 
 #include "TestsShared.xcconfig"
+
+GCC_PREFIX_HEADER = Source/Prefix/IOSTests.pch

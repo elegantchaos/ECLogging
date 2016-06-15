@@ -4,4 +4,5 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-INFOPLIST_FILE = Resources/ECLoggingTests.plist
+INFOPLIST_FILE = Resources/IOSResourcesInfo.plist;
+WRAPPER_EXTENSION = bundle
