@@ -334,7 +334,7 @@
 		2204C6B415E15E4000F71E15 /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		2204C6B515E15E4000F71E15 /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
 		2204C6BB15E160DA00F71E15 /* ECLoggingUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingUI.h; sourceTree = "<group>"; };
-		221E214B16E7864900B65B1F /* .bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = .bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		221E214B16E7864900B65B1F /* ECLogging.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLogging.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		222186F119DAB5F300F08CCE /* ECLoggingUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECLoggingUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2221872C19DAB60900F08CCE /* libECLoggingUIStatic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libECLoggingUIStatic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2221872E19DAB67400F08CCE /* ECLoggingUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingUI.h; sourceTree = "<group>"; };
@@ -590,7 +590,7 @@
 				2274B38D14F56896003B8A0B /* ECLoggingIOSTests.xctest */,
 				2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */,
 				2251BA1215DBCC4A00F2FE40 /* ECLogging.framework */,
-				221E214B16E7864900B65B1F /* .bundle */,
+				221E214B16E7864900B65B1F /* ECLogging.bundle */,
 				22FF8E7E16F1E418008FC10D /* ECUnitTests.framework */,
 				22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */,
 				228CF1E917562478003E1D25 /* libECLogging.a */,
@@ -1169,7 +1169,7 @@
 			);
 			name = ECLoggingIOSResources;
 			productName = ECLoggingIOSResources;
-			productReference = 221E214B16E7864900B65B1F /* .bundle */;
+			productReference = 221E214B16E7864900B65B1F /* ECLogging.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		222186B419DAB5F300F08CCE /* ECLoggingUI */ = {
