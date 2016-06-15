@@ -205,6 +205,9 @@
 		22D6EF651B021982004F9FC7 /* HierarchicalExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF631B021982004F9FC7 /* HierarchicalExample.m */; };
 		22D6EF661B021982004F9FC7 /* HierarchicalExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF631B021982004F9FC7 /* HierarchicalExample.m */; };
 		22E8178B1D11FC5D00DD8803 /* ECLoggingIOSUmbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E8178A1D11FC4500DD8803 /* ECLoggingIOSUmbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22E8178E1D12067100DD8803 /* ParameterisedTestsExample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */; };
+		22E8178F1D12068C00DD8803 /* HierarchicalExample.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */; };
+		22E817901D12069E00DD8803 /* Included.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF581B021952004F9FC7 /* Included.testsuite */; };
 		22F2FEF4164142A600CD3C7C /* ECLogManagerIOSUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */; };
 		22F861271B029BFF00586780 /* ECParameterisedTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */; };
@@ -1464,6 +1467,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22E817901D12069E00DD8803 /* Included.testsuite in Resources */,
+				22E8178F1D12068C00DD8803 /* HierarchicalExample.testsuite in Resources */,
+				22E8178E1D12067100DD8803 /* ParameterisedTestsExample.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
