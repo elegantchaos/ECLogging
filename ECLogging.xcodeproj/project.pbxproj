@@ -670,9 +670,6 @@
 			isa = PBXGroup;
 			children = (
 				2251BA6C15DBDA5100F2FE40 /* Info.plist */,
-				22381E161A6C35BF000AD60A /* ECLogging.modulemap */,
-				223C3B1D1AAB5A7F003CCFFC /* ECLoggingUI.modulemap */,
-				22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */,
 				2274B37814F56679003B8A0B /* ECLoggingTests.plist */,
 			);
 			path = Resources;
@@ -883,6 +880,9 @@
 		22BBB10114F646D20086974D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				22381E161A6C35BF000AD60A /* ECLogging.modulemap */,
+				223C3B1D1AAB5A7F003CCFFC /* ECLoggingUI.modulemap */,
+				22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */,
 				2251BA4215DBCD3900F2FE40 /* Configuration */,
 				2283A43A14F53BCC009142F7 /* Generic */,
 				2283A45514F53BCC009142F7 /* iOS */,
