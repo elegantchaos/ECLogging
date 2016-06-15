@@ -7,3 +7,4 @@
 #include "TestsShared.xcconfig"
 
 GCC_PREFIX_HEADER = Source/Prefix/IOSTests.pch
+CODE_SIGN_IDENTITY = iPhone Developer
