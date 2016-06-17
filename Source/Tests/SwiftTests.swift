@@ -9,6 +9,8 @@
 import XCTest
 import ECUnitTests
 import ECLogging
+import Foundation
+import AppKit
 
 class SwiftTests: ECTestCase {
 

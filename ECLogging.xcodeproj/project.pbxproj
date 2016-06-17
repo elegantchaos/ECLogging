@@ -209,6 +209,8 @@
 		22E817981D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
 		22E817991D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
 		22E8179A1D149A7900DD8803 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
+		22E8179B1D149F6C00DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
+		22E8179C1D149FAA00DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
 		22F2FEF4164142A600CD3C7C /* ECLogManagerIOSUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */; };
 		22F861271B029BFF00586780 /* ECParameterisedTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */; };
@@ -1675,6 +1677,7 @@
 				2251BA6215DBD93700F2FE40 /* BasicTests.m in Sources */,
 				22D6EF541B021900004F9FC7 /* RunLoopExample.m in Sources */,
 				22D6EF641B021982004F9FC7 /* HierarchicalExample.m in Sources */,
+				22E8179B1D149F6C00DD8803 /* SwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1682,6 +1685,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22E8179C1D149FAA00DD8803 /* SwiftTests.swift in Sources */,
 				226889DC1AEE4B49005510E5 /* ComparisonTests.m in Sources */,
 				226889DD1AEE4B49005510E5 /* StringTests.m in Sources */,
 				22E817991D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */,
