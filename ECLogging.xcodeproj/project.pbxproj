@@ -208,6 +208,9 @@
 		22E8178E1D12067100DD8803 /* ParameterisedTestsExample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */; };
 		22E8178F1D12068C00DD8803 /* HierarchicalExample.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */; };
 		22E817901D12069E00DD8803 /* Included.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF581B021952004F9FC7 /* Included.testsuite */; };
+		22E817951D14825700DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
+		22E817961D14825700DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
+		22E817971D14825700DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
 		22F2FEF4164142A600CD3C7C /* ECLogManagerIOSUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */; };
 		22F861271B029BFF00586780 /* ECParameterisedTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */; };
@@ -466,6 +469,8 @@
 		22E817881D11F3DD00DD8803 /* ECLoggingIOSResources.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSResources.xcconfig; sourceTree = "<group>"; };
 		22E817891D11FAE100DD8803 /* ECLoggingIOS.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECLoggingIOS.modulemap; sourceTree = "<group>"; };
 		22E8178A1D11FC4500DD8803 /* ECLoggingIOSUmbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECLoggingIOSUmbrella.h; sourceTree = "<group>"; };
+		22E817911D14825600DD8803 /* ECLoggingTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ECLoggingTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		22E817941D14825700DD8803 /* SwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTests.swift; sourceTree = "<group>"; };
 		22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
 		22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorAndMessage.h; sourceTree = "<group>"; };
@@ -669,12 +674,14 @@
 			isa = PBXGroup;
 			children = (
 				2251BA6115DBD93700F2FE40 /* BasicTests.m */,
+				22E817941D14825700DD8803 /* SwiftTests.swift */,
 				22FA575F1AB085E10045A364 /* StringTests.m */,
 				22B6A24A183E0CA800873C05 /* ComparisonTests.m */,
 				22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */,
 				22D6EF501B021900004F9FC7 /* RunLoopExample.m */,
 				22D6EF631B021982004F9FC7 /* HierarchicalExample.m */,
 				22D6EF671B02198A004F9FC7 /* Resources */,
+				22E817911D14825600DD8803 /* ECLoggingTests-Bridging-Header.h */,
 			);
 			name = Tests;
 			path = Source/Tests;
@@ -1401,11 +1408,11 @@
 				222186B419DAB5F300F08CCE /* ECLoggingUI */,
 				222186F319DAB60900F08CCE /* ECLoggingUIStatic */,
 				22FF8E8516F1E5EB008FC10D /* ECUnitTestsMac */,
-				226889D81AEE4B49005510E5 /* ECLoggingMacTestsStatic */,
 				2251BA1115DBCC4A00F2FE40 /* ECLoggingIOS */,
 				22FF8E3616F1E418008FC10D /* ECUnitTestsIOS */,
 				221E214A16E7864900B65B1F /* ECLoggingIOSResources */,
 				225EC67111EBAA4800A97AEA /* ECLoggingMacTests */,
+				226889D81AEE4B49005510E5 /* ECLoggingMacTestsStatic */,
 				2274B38C14F56896003B8A0B /* ECLoggingIOSTests */,
 				22A204F2172006AA00A6045D /* Package Release */,
 			);
@@ -1670,6 +1677,7 @@
 				22D6EF541B021900004F9FC7 /* RunLoopExample.m in Sources */,
 				22D6EF511B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */,
 				22D6EF641B021982004F9FC7 /* HierarchicalExample.m in Sources */,
+				22E817961D14825700DD8803 /* SwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1683,6 +1691,7 @@
 				22D6EF551B021900004F9FC7 /* RunLoopExample.m in Sources */,
 				22D6EF521B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */,
 				22D6EF651B021982004F9FC7 /* HierarchicalExample.m in Sources */,
+				22E817951D14825700DD8803 /* SwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1696,6 +1705,7 @@
 				22D6EF561B021900004F9FC7 /* RunLoopExample.m in Sources */,
 				22D6EF531B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */,
 				22D6EF661B021982004F9FC7 /* HierarchicalExample.m in Sources */,
+				22E817971D14825700DD8803 /* SwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -103,12 +103,12 @@ const CGFloat ECLogViewControllerCellPadding = 16.0;
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
 	ECLogViewHandlerItem* item = [self.items objectAtIndex:indexPath.row];
-	NSLineBreakMode mode = NSLineBreakByWordWrapping;
+	NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin;
 	CGSize constraint = CGSizeMake(tableView.frame.size.width, 10000.0);
-	CGSize messageSize = [item.message sizeWithFont:self.messageFont constrainedToSize:constraint lineBreakMode:mode];
-	CGSize contextSize = [item.context sizeWithFont:self.contextFont constrainedToSize:constraint lineBreakMode:mode];
+	CGRect messageRect = [item.message boundingRectWithSize:constraint options:options attributes:nil context:nil];
+	CGRect contextRect = [item.context boundingRectWithSize:constraint options:options attributes:nil context:nil];
 
-	return messageSize.height + contextSize.height + ECLogViewControllerCellPadding;
+	return messageRect.size.height + contextRect.size.height + ECLogViewControllerCellPadding;
 }
 
 

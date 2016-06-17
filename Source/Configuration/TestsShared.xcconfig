@@ -5,3 +5,6 @@
 // --------------------------------------------------------------------------
 
 INFOPLIST_FILE = Resources/ECLoggingTests.plist
+SWIFT_OBJC_BRIDGING_HEADER = Source/Tests/ECLoggingTests-Bridging-Header.h
+SWIFT_OPTIMIZATION_LEVEL = -Onone
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
