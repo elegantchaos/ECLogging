@@ -7,8 +7,9 @@
 //
 
 import XCTest
+import ECUnitTests
 
-class SwiftTests: XCTestCase {
+class SwiftTests: ECTestCase {
 
     override func setUp() {
         super.setUp()
@@ -23,6 +24,8 @@ class SwiftTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+		self.assertString("blah", matchesString: "blah2")
+
     }
 
     func testPerformanceExample() {
