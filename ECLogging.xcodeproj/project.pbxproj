@@ -189,9 +189,6 @@
 		22B6A24E183E0CA800873C05 /* ComparisonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6A24A183E0CA800873C05 /* ComparisonTests.m */; };
 		22D6EF4C1B0218EA004F9FC7 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		22D6EF4D1B0218EA004F9FC7 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		22D6EF511B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
-		22D6EF521B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
-		22D6EF531B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
 		22D6EF541B021900004F9FC7 /* RunLoopExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF501B021900004F9FC7 /* RunLoopExample.m */; };
 		22D6EF551B021900004F9FC7 /* RunLoopExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF501B021900004F9FC7 /* RunLoopExample.m */; };
 		22D6EF561B021900004F9FC7 /* RunLoopExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF501B021900004F9FC7 /* RunLoopExample.m */; };
@@ -208,9 +205,10 @@
 		22E8178E1D12067100DD8803 /* ParameterisedTestsExample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */; };
 		22E8178F1D12068C00DD8803 /* HierarchicalExample.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */; };
 		22E817901D12069E00DD8803 /* Included.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF581B021952004F9FC7 /* Included.testsuite */; };
-		22E817951D14825700DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
-		22E817961D14825700DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
 		22E817971D14825700DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
+		22E817981D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
+		22E817991D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
+		22E8179A1D149A7900DD8803 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
 		22F2FEF4164142A600CD3C7C /* ECLogManagerIOSUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */; };
 		22F861271B029BFF00586780 /* ECParameterisedTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */; };
@@ -1673,11 +1671,10 @@
 			files = (
 				22B6A24C183E0CA800873C05 /* ComparisonTests.m in Sources */,
 				22FA57601AB085E10045A364 /* StringTests.m in Sources */,
+				22E817981D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */,
 				2251BA6215DBD93700F2FE40 /* BasicTests.m in Sources */,
 				22D6EF541B021900004F9FC7 /* RunLoopExample.m in Sources */,
-				22D6EF511B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */,
 				22D6EF641B021982004F9FC7 /* HierarchicalExample.m in Sources */,
-				22E817961D14825700DD8803 /* SwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1687,11 +1684,10 @@
 			files = (
 				226889DC1AEE4B49005510E5 /* ComparisonTests.m in Sources */,
 				226889DD1AEE4B49005510E5 /* StringTests.m in Sources */,
+				22E817991D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */,
 				226889DE1AEE4B49005510E5 /* BasicTests.m in Sources */,
 				22D6EF551B021900004F9FC7 /* RunLoopExample.m in Sources */,
-				22D6EF521B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */,
 				22D6EF651B021982004F9FC7 /* HierarchicalExample.m in Sources */,
-				22E817951D14825700DD8803 /* SwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1701,9 +1697,9 @@
 			files = (
 				22B6A24E183E0CA800873C05 /* ComparisonTests.m in Sources */,
 				22FA57611AB085EB0045A364 /* StringTests.m in Sources */,
+				22E8179A1D149A7900DD8803 /* ParameterisedTestsExample.m in Sources */,
 				2251BA6315DBD93700F2FE40 /* BasicTests.m in Sources */,
 				22D6EF561B021900004F9FC7 /* RunLoopExample.m in Sources */,
-				22D6EF531B021900004F9FC7 /* ParameterisedTestsExample.m in Sources */,
 				22D6EF661B021982004F9FC7 /* HierarchicalExample.m in Sources */,
 				22E817971D14825700DD8803 /* SwiftTests.swift in Sources */,
 			);

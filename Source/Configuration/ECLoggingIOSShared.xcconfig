@@ -5,3 +5,5 @@
 // --------------------------------------------------------------------------
 
 #include "ECLoggingShared.xcconfig"
+
+MODULEMAP_FILE = Source/$(PRODUCT_NAME)IOS.modulemap
