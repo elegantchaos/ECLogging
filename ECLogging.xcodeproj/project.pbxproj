@@ -1521,7 +1521,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp \"${MODULEMAP_FILE}\" \"${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/../module.modulemap\"";
+			shellScript = "Extras/Scripts/package-mac-static-library.sh";
 		};
 		2251BA7815DBDBE300F2FE40 /* Package Pseudo-Framework */ = {
 			isa = PBXShellScriptBuildPhase;
