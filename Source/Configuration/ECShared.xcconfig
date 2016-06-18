@@ -9,7 +9,7 @@
 // --------------------------------------------------------------------------
 
 GCC_VERSION = com.apple.compilers.llvm.clang.1_0
-GCC_C_LANGUAGE_STANDARD = gnu99
+GCC_C_LANGUAGE_STANDARD = compiler-default
 CLANG_CXX_LANGUAGE_STANDARD = gnu++0x
 CLANG_CXX_LIBRARY = libc++
 
