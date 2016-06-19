@@ -4,6 +4,9 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+ARCHS = $(ARCHS_STANDARD)
+VALID_ARCHS = $(ARCHS_STANDARD)
+
 // --------------------------------------------------------------------------
 // Compiler Version
 // --------------------------------------------------------------------------
@@ -61,6 +64,7 @@ ALWAYS_SEARCH_USER_PATHS = NO
 GCC_PREFIX_HEADER = Source/Prefix/$(PROJECT_NAME).pch
 GCC_PRECOMPILE_PREFIX_HEADER = YES
 PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES
+GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO
 
 // Under normal circumstances, the headers for frameworks and libraries are built into TARGET_BUILD_DIR/include.
 // However, when archiving, any libraries that are set not to be part of the archive (which should be most if not all of them)
