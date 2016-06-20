@@ -1,4 +1,4 @@
-framework module ECLogging {
+module ECLogging {
   umbrella header "ECLoggingIOSUmbrella.h"
 
   config_macros [exhaustive] EC_DEBUG, EC_RELEASE

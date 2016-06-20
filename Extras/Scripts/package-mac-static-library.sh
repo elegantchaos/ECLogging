@@ -7,7 +7,7 @@
 # --------------------------------------------------------------------------
 
 MAPSRC="${MODULEMAP_FILE}"
-MAPDST="${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/../module.modulemap"
+MAPDST="${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/module.modulemap"
 
 MAP=$(cat "${MAPSRC}")
 
@@ -15,10 +15,12 @@ if [[ -e "${MAPDST}" ]]
 then
     CURRENT=$(cat "${MAPDST}")
 else
+    echo "Couldn't find existing module map in built products."
     CURRENT=""
 fi
 
 if [[ "$MAP" != "$CURRENT" ]]
 then
+    echo "Copying module map into built products."
     cp -p "${MAPSRC}" "${MAPDST}"
 fi
