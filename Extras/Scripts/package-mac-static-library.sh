@@ -6,4 +6,16 @@
 #  liberal license: http://www.elegantchaos.com/license/liberal
 # --------------------------------------------------------------------------
 
-cp "${MODULEMAP_FILE}" "${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/../module.modulemap"
+MAP=$(cat "${MODULEMAP_FILE}")
+
+if [[ -e "${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/../module.modulemap" ]]
+then
+    CURRENT=$(cat "${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/../module.modulemap")
+else
+    CURRENT=""
+fi
+
+if [[ "$MAP" != "$CURRENT" ]]
+then
+    cp -p "${MODULEMAP_FILE}" "${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/../module.modulemap"
+fi
