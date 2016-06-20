@@ -72,7 +72,7 @@ GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO
 // to be something we can change, so we need to look there too for headers.
 // Just to complicate things further, from Xcode 7 onwards it would appear that this folder is actually inside a folder named with
 // the SDK (eg macosx). Whilst we're also supporting Xcode 7, we need to check both with and without this extra folder.
-HEADER_SEARCH_PATHS = "${TARGET_BUILD_DIR}/include" "${PROJECT_TEMP_DIR}/../UninstalledProducts/include" "${PROJECT_TEMP_DIR}/../UninstalledProducts/$(PLATFORM_NAME)/include"
+HEADER_SEARCH_PATHS = "${TARGET_BUILD_DIR}" "${PROJECT_TEMP_DIR}/../UninstalledProducts" "${PROJECT_TEMP_DIR}/../UninstalledProducts/$(PLATFORM_NAME)"
 
 // --------------------------------------------------------------------------
 // Standard Warnings
