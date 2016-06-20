@@ -66,9 +66,9 @@ GCC_PRECOMPILE_PREFIX_HEADER = YES
 PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES
 GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO
 
-// Under normal circumstances, the headers for frameworks and libraries are built into TARGET_BUILD_DIR/include.
+// Under normal circumstances, the headers for frameworks and libraries are built into TARGET_BUILD_DIR.
 // However, when archiving, any libraries that are set not to be part of the archive (which should be most if not all of them)
-// get built instead into an include/ folder in the UninstalledProducts directory. This is Xcode's behaviour and appears not
+// get built instead into the UninstalledProducts directory. This is Xcode's behaviour and appears not
 // to be something we can change, so we need to look there too for headers.
 // Just to complicate things further, from Xcode 7 onwards it would appear that this folder is actually inside a folder named with
 // the SDK (eg macosx). Whilst we're also supporting Xcode 7, we need to check both with and without this extra folder.
