@@ -1327,7 +1327,7 @@
 				228CF1E517562478003E1D25 /* Sources */,
 				228CF1E617562478003E1D25 /* Frameworks */,
 				228CF1E717562478003E1D25 /* Headers */,
-				2247FD031D0E2DCE00B482B1 /* Package Static Library */,
+				2247FD031D0E2DCE00B482B1 /* Package Module */,
 			);
 			buildRules = (
 			);
@@ -1510,14 +1510,14 @@
 			shellPath = /bin/sh;
 			shellScript = "ln -sfh \"Versions/${FRAMEWORK_VERSION}/Scripts\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Scripts\"";
 		};
-		2247FD031D0E2DCE00B482B1 /* Package Static Library */ = {
+		2247FD031D0E2DCE00B482B1 /* Package Module */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Package Static Library";
+			name = "Package Module";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

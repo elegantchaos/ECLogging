@@ -173,7 +173,8 @@ IBSC_WARNINGS = YES
 // Custom settings
 // --------------------------------------------------------------------------
 
-ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
+MODULES_PATH = ${SRCROOT}/..
+ECLOGGING_SCRIPT_PATH = ${MODULES_PATH}/ECLogging/Extras/Scripts
 
 // --------------------------------------------------------------------------
 // Unit Testing
