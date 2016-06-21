@@ -196,6 +196,9 @@
 		22BBED481D19A183003B79CA /* ECASLClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43B14F53BCC009142F7 /* ECASLClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22BBED491D19A183003B79CA /* ECASLClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43B14F53BCC009142F7 /* ECASLClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22BBED4A1D19A186003B79CA /* ECASLClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43B14F53BCC009142F7 /* ECASLClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22BBED4B1D19A279003B79CA /* ECASLClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A43C14F53BCC009142F7 /* ECASLClient.m */; };
+		22BBED4C1D19A27A003B79CA /* ECASLClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A43C14F53BCC009142F7 /* ECASLClient.m */; };
+		22BBED4D1D19A27D003B79CA /* ECASLClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A43C14F53BCC009142F7 /* ECASLClient.m */; };
 		22D6EF4C1B0218EA004F9FC7 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		22D6EF4D1B0218EA004F9FC7 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		22D6EF541B021900004F9FC7 /* RunLoopExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF501B021900004F9FC7 /* RunLoopExample.m */; };
@@ -1647,6 +1650,7 @@
 				227C02A117C4D3340011ABB5 /* ECDescriptionDictionary.m in Sources */,
 				2221874719DABA6000F08CCE /* ECErrorReporter.m in Sources */,
 				22BBED451D19A151003B79CA /* ECLogHandlerStdout.m in Sources */,
+				22BBED4B1D19A279003B79CA /* ECASLClient.m in Sources */,
 				22BBED2D1D19A151003B79CA /* ECLogHandlerASL.m in Sources */,
 				2221875119DABA6000F08CCE /* ECLogManager.m in Sources */,
 				22BBED391D19A151003B79CA /* ECLogHandlerNSLog.m in Sources */,
@@ -1682,6 +1686,7 @@
 				22BBED2F1D19A151003B79CA /* ECLogHandlerASL.m in Sources */,
 				2204C6B715E15E4000F71E15 /* ECErrorPresenterHandler.m in Sources */,
 				22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */,
+				22BBED4D1D19A27D003B79CA /* ECASLClient.m in Sources */,
 				229EDCEC16442DB00087B26E /* ECDebugHandlersViewController.m in Sources */,
 				2258586916E765DD00E2DDD4 /* ECLogViewController.m in Sources */,
 			);
@@ -1742,6 +1747,7 @@
 				228CF1FE175624FB003E1D25 /* ECLogChannel.m in Sources */,
 				228CF201175624FB003E1D25 /* ECLogging.m in Sources */,
 				22BBED461D19A151003B79CA /* ECLogHandlerStdout.m in Sources */,
+				22BBED4C1D19A27A003B79CA /* ECASLClient.m in Sources */,
 				22BBED2E1D19A151003B79CA /* ECLogHandlerASL.m in Sources */,
 				228CF204175624FB003E1D25 /* ECLogHandler.m in Sources */,
 				22BBED3A1D19A151003B79CA /* ECLogHandlerNSLog.m in Sources */,
