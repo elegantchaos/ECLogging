@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 
 @import ECLogging;
+@import AppKit;
 
 #import "ECDebugMenu.h"
 #import "ECErrorPresenterHandler.h"

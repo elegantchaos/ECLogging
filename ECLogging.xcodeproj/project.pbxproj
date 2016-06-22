@@ -35,7 +35,6 @@
 		222186E019DAB5F300F08CCE /* NSMenu+ECLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = 2237ECD914F563D200085BF5 /* NSMenu+ECLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		222186E119DAB5F300F08CCE /* ECOptionsMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 224E84D517AAB98F002EB661 /* ECOptionsMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		222186E419DAB5F300F08CCE /* ECDebugMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 22696F111630342E006AE56D /* ECDebugMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		222186E519DAB5F300F08CCE /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		222186E619DAB5F300F08CCE /* ECLogManagerMacUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEEE1641418600CD3C7C /* ECLogManagerMacUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		222186E919DAB5F300F08CCE /* ECLogging.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLogging.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		222186EC19DAB5F300F08CCE /* Scripts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277CE3916D6AFA000835964 /* Scripts */; };
@@ -45,7 +44,6 @@
 		2221870719DAB60900F08CCE /* ECErrorPresenterHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */; };
 		2221870819DAB60900F08CCE /* ECLoggingMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A46614F53BCC009142F7 /* ECLoggingMenu.m */; };
 		2221870919DAB60900F08CCE /* NSMenu+ECLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2237ECDA14F563D200085BF5 /* NSMenu+ECLogging.m */; };
-		2221870D19DAB60900F08CCE /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2221871519DAB60900F08CCE /* ECOptionsMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 224E84D517AAB98F002EB661 /* ECOptionsMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2221872119DAB60900F08CCE /* ECLogManagerMacUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEEE1641418600CD3C7C /* ECLogManagerMacUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2221872219DAB60900F08CCE /* ECDebugMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 22696F111630342E006AE56D /* ECDebugMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -350,7 +348,7 @@
 		2204C6BB15E160DA00F71E15 /* ECLoggingUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingUI.h; sourceTree = "<group>"; };
 		221E214B16E7864900B65B1F /* ECLogging.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLogging.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		222186F119DAB5F300F08CCE /* ECLoggingUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECLoggingUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2221872C19DAB60900F08CCE /* libECLoggingUIStatic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libECLoggingUIStatic.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2221872C19DAB60900F08CCE /* libECLoggingUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libECLoggingUI.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2221872E19DAB67400F08CCE /* ECLoggingUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingUI.h; sourceTree = "<group>"; };
 		2221873019DAB73300F08CCE /* ECLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogging.h; sourceTree = "<group>"; };
 		2221873A19DAB8B800F08CCE /* ECLoggingUI.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECLoggingUI.pch; sourceTree = "<group>"; };
@@ -613,7 +611,7 @@
 				22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */,
 				228CF1E917562478003E1D25 /* libECLogging.a */,
 				222186F119DAB5F300F08CCE /* ECLoggingUI.framework */,
-				2221872C19DAB60900F08CCE /* libECLoggingUIStatic.a */,
+				2221872C19DAB60900F08CCE /* libECLoggingUI.a */,
 				226889E71AEE4B49005510E5 /* ECLoggingMacTestsStatic.xctest */,
 			);
 			name = Products;
@@ -1050,7 +1048,6 @@
 				222186E019DAB5F300F08CCE /* NSMenu+ECLogging.h in Headers */,
 				222186E119DAB5F300F08CCE /* ECOptionsMenu.h in Headers */,
 				222186E419DAB5F300F08CCE /* ECDebugMenu.h in Headers */,
-				222186E519DAB5F300F08CCE /* ECMacros.h in Headers */,
 				222186E619DAB5F300F08CCE /* ECLogManagerMacUISupport.h in Headers */,
 				222186E919DAB5F300F08CCE /* ECLogging.pch in Headers */,
 			);
@@ -1060,7 +1057,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2221870D19DAB60900F08CCE /* ECMacros.h in Headers */,
 				2221873719DAB86900F08CCE /* ECLoggingUI.h in Headers */,
 				2221871519DAB60900F08CCE /* ECOptionsMenu.h in Headers */,
 				2221872119DAB60900F08CCE /* ECLogManagerMacUISupport.h in Headers */,
@@ -1239,6 +1235,7 @@
 				222186F419DAB60900F08CCE /* Sources */,
 				2221870A19DAB60900F08CCE /* Frameworks */,
 				2221870C19DAB60900F08CCE /* Headers */,
+				229230FC1D1A9A7000CB4B4E /* Package Module */,
 			);
 			buildRules = (
 			);
@@ -1247,7 +1244,7 @@
 			);
 			name = ECLoggingUIStatic;
 			productName = ECLoggingMacStatic2;
-			productReference = 2221872C19DAB60900F08CCE /* libECLoggingUIStatic.a */;
+			productReference = 2221872C19DAB60900F08CCE /* libECLoggingUI.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		2251B9FE15DBCC3E00F2FE40 /* ECLoggingMac */ = {
@@ -1593,6 +1590,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "ln -sfh \"Versions/${FRAMEWORK_VERSION}/Scripts\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Scripts\"";
+			showEnvVarsInLog = 0;
+		};
+		229230FC1D1A9A7000CB4B4E /* Package Module */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Package Module";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "Extras/Scripts/package-mac-static-library.sh";
 			showEnvVarsInLog = 0;
 		};
 		22FF8E7716F1E418008FC10D /* ShellScript */ = {

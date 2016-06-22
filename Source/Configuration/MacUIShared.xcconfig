@@ -4,8 +4,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-PRODUCT_NAME = $(TARGET_NAME)
+PRODUCT_NAME = ECLoggingUI
 GCC_PREFIX_HEADER = Source/Prefix/ECLoggingUI.pch
-MODULEMAP_FILE = Source/$(PRODUCT_NAME)UI.modulemap
+MODULEMAP_FILE = Source/$(PRODUCT_NAME).modulemap
 PRODUCT_BUNDLE_IDENTIFIER = com.elegantchaos.frameworks.eclogging.ui
 
