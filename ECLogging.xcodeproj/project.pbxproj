@@ -900,6 +900,15 @@
 			path = Prefix;
 			sourceTree = "<group>";
 		};
+		229230FB1D1A94CB00CB4B4E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				2283A45514F53BCC009142F7 /* iOS */,
+				2283A46414F53BCC009142F7 /* Mac */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		22BBB10114F646D20086974D /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -909,8 +918,7 @@
 				22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */,
 				2251BA4215DBCD3900F2FE40 /* Configuration */,
 				2283A43A14F53BCC009142F7 /* Generic */,
-				2283A45514F53BCC009142F7 /* iOS */,
-				2283A46414F53BCC009142F7 /* Mac */,
+				229230FB1D1A94CB00CB4B4E /* UI */,
 				2283A4C814F53C6F009142F7 /* Prefix */,
 			);
 			path = Source;
