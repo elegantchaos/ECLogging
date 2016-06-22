@@ -3,6 +3,8 @@ module ECLoggingUI {
 
   config_macros [exhaustive] EC_DEBUG, EC_RELEASE
 
+  link "ECLoggingUI"
+  
   export *
   module * { export * }
 }
