@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "222186F319DAB60900F08CCE"
-               BuildableName = "libECLogging.a"
+               BuildableName = "libECLoggingUI.a"
                BlueprintName = "ECLoggingUIStatic"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
