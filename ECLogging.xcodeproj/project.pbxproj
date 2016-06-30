@@ -371,8 +371,8 @@
 		2251BA1215DBCC4A00F2FE40 /* ECLogging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLogging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2251BA4315DBCD3900F2FE40 /* ECLoggingIOSDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSDebug.xcconfig; sourceTree = "<group>"; };
 		2251BA4415DBCD3900F2FE40 /* ECLoggingIOSRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSRelease.xcconfig; sourceTree = "<group>"; };
-		2251BA4515DBCD3900F2FE40 /* ECLoggingMacDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacDebug.xcconfig; sourceTree = "<group>"; };
-		2251BA4615DBCD3900F2FE40 /* ECLoggingMacRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacRelease.xcconfig; sourceTree = "<group>"; };
+		2251BA4515DBCD3900F2FE40 /* ECLoggingMacDebugFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacDebugFramework.xcconfig; sourceTree = "<group>"; };
+		2251BA4615DBCD3900F2FE40 /* ECLoggingMacReleaseFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacReleaseFramework.xcconfig; sourceTree = "<group>"; };
 		2251BA5C15DBD68500F2FE40 /* IOSTestsDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSTestsDebug.xcconfig; sourceTree = "<group>"; };
 		2251BA5D15DBD68500F2FE40 /* IOSTestsRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSTestsRelease.xcconfig; sourceTree = "<group>"; };
 		2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacTestsDebug.xcconfig; sourceTree = "<group>"; };
@@ -475,6 +475,8 @@
 		22D6EF581B021952004F9FC7 /* Included.testsuite */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Included.testsuite; path = Tests/Included.testsuite; sourceTree = SOURCE_ROOT; };
 		22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ParameterisedTestsExample.plist; path = Tests/ParameterisedTestsExample.plist; sourceTree = SOURCE_ROOT; };
 		22D6EF631B021982004F9FC7 /* HierarchicalExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HierarchicalExample.m; path = Tests/HierarchicalExample.m; sourceTree = SOURCE_ROOT; };
+		22E167131D2564AB00C850DC /* ECLoggingFramework.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECLoggingFramework.modulemap; sourceTree = "<group>"; };
+		22E167141D25654100C850DC /* ECLoggingMacSharedFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacSharedFramework.xcconfig; sourceTree = "<group>"; };
 		22E817871D11F18000DD8803 /* ECUnitTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECUnitTests.pch; sourceTree = "<group>"; };
 		22E817881D11F3DD00DD8803 /* ECLoggingIOSResources.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSResources.xcconfig; sourceTree = "<group>"; };
 		22E817891D11FAE100DD8803 /* ECLoggingIOS.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECLoggingIOS.modulemap; sourceTree = "<group>"; };
@@ -491,7 +493,7 @@
 		22F2FEEF1641418600CD3C7C /* ECLogManagerMacUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerMacUISupport.m; sourceTree = "<group>"; };
 		22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerIOSUISupport.h; sourceTree = "<group>"; };
 		22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerIOSUISupport.m; sourceTree = "<group>"; };
-		22F6388C1D11D78E00B36F11 /* ECLoggingMacShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacShared.xcconfig; sourceTree = "<group>"; };
+		22F6388C1D11D78E00B36F11 /* ECLoggingMacSharedStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacSharedStatic.xcconfig; sourceTree = "<group>"; };
 		22F6388E1D11D80300B36F11 /* ECUnitTestsMacDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsMacDebug.xcconfig; sourceTree = "<group>"; };
 		22F6388F1D11D80300B36F11 /* ECUnitTestsMacRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsMacRelease.xcconfig; sourceTree = "<group>"; };
 		22F638901D11D80300B36F11 /* ECUnitTestsMacShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsMacShared.xcconfig; sourceTree = "<group>"; };
@@ -911,6 +913,7 @@
 			isa = PBXGroup;
 			children = (
 				22381E161A6C35BF000AD60A /* ECLogging.modulemap */,
+				22E167131D2564AB00C850DC /* ECLoggingFramework.modulemap */,
 				223C3B1D1AAB5A7F003CCFFC /* ECLoggingUI.modulemap */,
 				22E817891D11FAE100DD8803 /* ECLoggingIOS.modulemap */,
 				22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */,
@@ -930,6 +933,26 @@
 				22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		22E167151D25656B00C850DC /* Static Library */ = {
+			isa = PBXGroup;
+			children = (
+				228CF1D417562136003E1D25 /* ECLoggingMacDebugStatic.xcconfig */,
+				228CF1D517562136003E1D25 /* ECLoggingMacReleaseStatic.xcconfig */,
+				22F6388C1D11D78E00B36F11 /* ECLoggingMacSharedStatic.xcconfig */,
+			);
+			name = "Static Library";
+			sourceTree = "<group>";
+		};
+		22E167161D25659000C850DC /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				2251BA4515DBCD3900F2FE40 /* ECLoggingMacDebugFramework.xcconfig */,
+				2251BA4615DBCD3900F2FE40 /* ECLoggingMacReleaseFramework.xcconfig */,
+				22E167141D25654100C850DC /* ECLoggingMacSharedFramework.xcconfig */,
+			);
+			name = Framework;
 			sourceTree = "<group>";
 		};
 		22F2FEEC164140E700CD3C7C /* Extras */ = {
@@ -980,11 +1003,8 @@
 			isa = PBXGroup;
 			children = (
 				22F6389B1D11D9C500B36F11 /* UI */,
-				228CF1D417562136003E1D25 /* ECLoggingMacDebugStatic.xcconfig */,
-				228CF1D517562136003E1D25 /* ECLoggingMacReleaseStatic.xcconfig */,
-				2251BA4515DBCD3900F2FE40 /* ECLoggingMacDebug.xcconfig */,
-				2251BA4615DBCD3900F2FE40 /* ECLoggingMacRelease.xcconfig */,
-				22F6388C1D11D78E00B36F11 /* ECLoggingMacShared.xcconfig */,
+				22E167151D25656B00C850DC /* Static Library */,
+				22E167161D25659000C850DC /* Framework */,
 			);
 			name = Mac;
 			sourceTree = "<group>";
@@ -1576,6 +1596,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "ln -sfh \"Versions/${FRAMEWORK_VERSION}/Scripts\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/Scripts\"";
+			showEnvVarsInLog = 0;
 		};
 		2277CE4116D6B05200835964 /* Link in Scripts Folder */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1898,14 +1919,14 @@
 		};
 		2251BA0C15DBCC3E00F2FE40 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4515DBCD3900F2FE40 /* ECLoggingMacDebug.xcconfig */;
+			baseConfigurationReference = 2251BA4515DBCD3900F2FE40 /* ECLoggingMacDebugFramework.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		2251BA0D15DBCC3E00F2FE40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2251BA4615DBCD3900F2FE40 /* ECLoggingMacRelease.xcconfig */;
+			baseConfigurationReference = 2251BA4615DBCD3900F2FE40 /* ECLoggingMacReleaseFramework.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;

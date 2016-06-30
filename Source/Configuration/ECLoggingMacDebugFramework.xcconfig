@@ -8,4 +8,4 @@
 
 #include "ECMacDebug.xcconfig"
 #include "ECFramework.xcconfig"
-#include "ECLoggingMacShared.xcconfig"
+#include "ECLoggingMacSharedFramework.xcconfig"
