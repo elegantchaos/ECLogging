@@ -6,9 +6,23 @@
 #  liberal license: http://www.elegantchaos.com/license/liberal
 # --------------------------------------------------------------------------
 
-MAPSRC="${MODULEMAP_FILE}"
-MAPDST="${BUILT_PRODUCTS_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/module.modulemap"
+# Work out where we're building to. This can be different if we're archiving.
+DST="${PROJECT_TEMP_ROOT}/UninstalledProducts/macosx"
+if [[ ! -e "$DST" ]]
+then
+    DST="${PROJECT_TEMP_ROOT}/UninstalledProducts"
+fi
 
+if [[ ! -e "$DST" ]]
+then
+    DST="${BUILT_PRODUCTS_DIR}"
+fi
+
+
+
+# Copy module map into the right place if it's not already there
+MAPSRC="${MODULEMAP_FILE}"
+MAPDST="${DST}/${PUBLIC_HEADERS_FOLDER_PATH}/module.modulemap"
 MAP=$(cat "${MAPSRC}")
 
 if [[ -e "${MAPDST}" ]]
