@@ -1408,7 +1408,7 @@
 			attributes = {
 				LastSwiftMigration = 0730;
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Elegant Chaos";
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ECLogging" */;
