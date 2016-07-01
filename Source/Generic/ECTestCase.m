@@ -38,6 +38,10 @@
 	{
 		result = [super defaultTestSuite];
 	}
+	else
+	{
+		result = [XCTestSuite testSuiteWithName:@""];
+	}
 
 	return result;
 }
