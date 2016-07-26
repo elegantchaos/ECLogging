@@ -253,14 +253,6 @@ NSString* const SuiteExtension = @"testsuite";
 		unsigned int methodCount;
 		Method* methods = class_copyMethodList([self class], &methodCount);
 
-		// If we had no normal tests there will be no default suite. We might need one though, in
-		// order to add some parameterised tests, so make one.
-		BOOL noDefaultSuite = suite == nil;
-		if (noDefaultSuite) {
-			suite = [[XCTestSuite alloc] initWithName:NSStringFromClass(self)];
-		}
-
-		BOOL addedTests = NO;
 		for (NSUInteger n = 0; n < methodCount; ++n)
 		{
 			SEL selector = method_getName(methods[n]);
@@ -270,14 +262,7 @@ NSString* const SuiteExtension = @"testsuite";
 				NSString* suiteName = [name substringFromIndex:methodPrefixLength];
 				ECParameterisedTestSuite* subSuite = [ECParameterisedTestSuite suiteForSelector:selector class:self name:suiteName data:data];
 				[suite addTest:subSuite];
-				addedTests = YES;
 			}
-		}
-
-		// If we added an empty suite, but there turned out to be no parameterised tests
-		// we can remove it again.
-		if (noDefaultSuite && !addedTests) {
-			suite = nil;
 		}
 	}
 

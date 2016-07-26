@@ -1,11 +1,9 @@
 // --------------------------------------------------------------------------
-//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2015 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
+#include "ECLoggingShared.xcconfig"
 
-#include "ECMacDebug.xcconfig"
-#include "ECStaticLibrary.xcconfig"
-#include "ECLoggingMacSharedStatic.xcconfig"
+MODULEMAP_FILE = Source/$(PRODUCT_NAME)Framework.modulemap

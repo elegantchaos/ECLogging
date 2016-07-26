@@ -87,7 +87,7 @@
 {
 	NSMenu* menu = [[NSMenu alloc] initWithTitle:channel.name];
 
-	NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Enabled" action:@selector(channelSelected:) keyEquivalent:@""];
+	NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Enabled", @"channel is enabled") action:@selector(channelSelected:) keyEquivalent:@""];
 	item.target = self;
 	item.state = channel.enabled ? NSOnState : NSOffState;
 	item.representedObject = channel;
@@ -118,7 +118,7 @@
 	}
 
 	[menu addItem:[NSMenuItem separatorItem]];
-	item = [[NSMenuItem alloc] initWithTitle:@"Reset" action:@selector(resetSelected:) keyEquivalent:@""];
+	item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reset", @"reset channel") action:@selector(resetSelected:) keyEquivalent:@""];
 	item.target = self;
 	item.representedObject = channel;
 	[menu addItem:item];
@@ -132,7 +132,7 @@
 
 - (NSMenu*)buildDefaultHandlersMenu
 {
-	NSMenu* menu = [[NSMenu alloc] initWithTitle:@"Default Handlers"];
+	NSMenu* menu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Default Handlers", @"use default handlers")];
 
 	ECLogManager* manager = self.logManager;
 	NSUInteger count = [manager handlerCount];
@@ -160,29 +160,29 @@
 	{
 		[self removeAllItemsEC];
 
-		NSMenuItem* enableAllItem = [[NSMenuItem alloc] initWithTitle:@"Enable All Channels" action:@selector(enableAllChannels) keyEquivalent:@""];
+		NSMenuItem* enableAllItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Enable All Channels", @"set all channels to enabled") action:@selector(enableAllChannels) keyEquivalent:@""];
 		enableAllItem.target = manager;
 		[self addItem:enableAllItem];
 
-		NSMenuItem* disableAllItem = [[NSMenuItem alloc] initWithTitle:@"Disable All Channels" action:@selector(disableAllChannels) keyEquivalent:@""];
+		NSMenuItem* disableAllItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Disable All Channels", @"set all channels to disabled") action:@selector(disableAllChannels) keyEquivalent:@""];
 		disableAllItem.target = manager;
 		[self addItem:disableAllItem];
 
-		NSMenuItem* resetAllItem = [[NSMenuItem alloc] initWithTitle:@"Reset All Settings" action:@selector(resetAllSettings) keyEquivalent:@""];
+		NSMenuItem* resetAllItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reset All Settings", @"reset all channel settings") action:@selector(resetAllSettings) keyEquivalent:@""];
 		resetAllItem.target = manager;
 		[self addItem:resetAllItem];
 
-		NSMenuItem* revealLogFilesItem = [[NSMenuItem alloc] initWithTitle:@"Reveal Log Files" action:@selector(revealLogFiles) keyEquivalent:@""];
+		NSMenuItem* revealLogFilesItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reveal Log Files", @"show the log files in the Finder") action:@selector(revealLogFiles) keyEquivalent:@""];
 		revealLogFilesItem.target = self;
 		[self addItem:revealLogFilesItem];
 
-		NSMenuItem* revealSettingsItem = [[NSMenuItem alloc] initWithTitle:@"Reveal Settings" action:@selector(revealSettings) keyEquivalent:@""];
+		NSMenuItem* revealSettingsItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reveal Settings", @"show the settings folder in the Finder") action:@selector(revealSettings) keyEquivalent:@""];
 		revealSettingsItem.target = self;
 		[self addItem:revealSettingsItem];
 
 		[self addItem:[NSMenuItem separatorItem]];
 
-		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Default Handlers" action:nil keyEquivalent:@""];
+		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Default Handlers", @"use the default handlers") action:nil keyEquivalent:@""];
 		item.submenu = [self buildDefaultHandlersMenu];
 		item.target = self;
 		[self addItem:item];

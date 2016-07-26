@@ -77,9 +77,9 @@
 			[self installDebugSubmenuWithTitle:@"Logging" class:[ECLoggingMenu class]];
 			[self installDebugSubmenuWithTitle:@"Options" class:[ECOptionsMenu class]];
 			NSMenu* utilities = [self installDebugSubmenuWithTitle:@"Utilities" class:[NSMenu class]];
-			[utilities addItemWithTitle:@"Crash Now" action:@selector(crashNow:) keyEquivalent:@""].target = self;
-			[utilities addItemWithTitle:@"Assert Now" action:@selector(assertNow:) keyEquivalent:@""].target = self;
-			[utilities addItemWithTitle:@"Reveal Application Support" action:@selector(revealApplicationSupport:) keyEquivalent:@""].target = self;
+			[utilities addItemWithTitle:NSLocalizedString(@"Crash Now", @"cause the application to crash deliberately") action:@selector(crashNow:) keyEquivalent:@""].target = self;
+			[utilities addItemWithTitle:NSLocalizedString(@"Assert Now", @"fire an assertion deliberately") action:@selector(assertNow:) keyEquivalent:@""].target = self;
+			[utilities addItemWithTitle:NSLocalizedString(@"Reveal Application Support", @"show the application support folder in the finder") action:@selector(revealApplicationSupport:) keyEquivalent:@""].target = self;
 		}];
 	}
 
