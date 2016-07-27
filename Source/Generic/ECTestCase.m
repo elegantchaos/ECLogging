@@ -225,6 +225,73 @@
 	[self diffURL:temp1 againstURL:temp2];
 }
 
+static double epsilon = 0.000000000001;
+
++ (NSString *)comparePlistValue:(NSObject *)value withValue:(NSObject *)compareValue {
+	if (!(value && compareValue)) {
+		return @"At least one value to compare is nil.";
+	}
+	
+	if (!([value isKindOfClass:[compareValue class]] || [compareValue isKindOfClass:[value class]])) {
+		return @"Values to compare are different types.";
+	}
+	
+	if ([value isKindOfClass:[NSString class]]) {
+		if ([(NSString *)value isEqualToString:(NSString *)compareValue]) {
+			return nil;
+		}
+		return @"String values are different.";
+	}
+	
+	if ([value isKindOfClass:[NSNumber class]]) {
+		double number = [(NSNumber *)value doubleValue];
+		double compareNumber = [(NSNumber *)compareValue doubleValue];
+		if (fabs(number - compareNumber) < epsilon) {
+			return nil;
+		}
+		return @"Number values are different.";
+	}
+	
+	if ([value isKindOfClass:[NSDictionary class]]) {
+		return [self keyPathDifferentForDictionary:(NSDictionary *)value withDictionary:(NSDictionary *)compareValue];
+	}
+	
+	if ([value isKindOfClass:[NSArray class]]) {
+		return [self indexValuesDifferentForArray:(NSArray *)value withArray:(NSArray *)compareValue];
+	}
+	
+	return @"Unknown property list type.";
+}
+
++ (NSString *)indexValuesDifferentForArray:(NSArray *)array withArray:(NSArray *)compareArray {
+	if (array.count != compareArray.count) {
+		return @"Arrays have different number of elements.";
+	}
+	
+	for (NSUInteger arrayIndex = 0 ; arrayIndex < array.count ; arrayIndex++) {
+		NSString *result = [self comparePlistValue:array[arrayIndex] withValue:compareArray[arrayIndex]];
+		if (result) {
+			return [[NSString alloc] initWithFormat:@"[%ld]: %@", arrayIndex, result];
+		}
+	}
+	return nil;
+}
+
++ (NSString *)keyPathDifferentForDictionary:(NSDictionary *)dictionary withDictionary:(NSDictionary *)compareDict {
+	NSArray *allKeys = dictionary.allKeys;
+	if (allKeys.count != compareDict.allKeys.count) {
+		return @"Dictionaries have different number of keys.";
+	}
+	
+	for (NSString *key in allKeys) {
+		NSString *result = [self comparePlistValue:dictionary[key] withValue:compareDict[key]];
+		if (result) {
+			return [[NSString alloc] initWithFormat:@"{%@}: %@", key, result];
+		}
+	}
+	return nil;
+}
+
 - (BOOL)assertLinesIgnoringWhitespaceOfString:(NSString*)string1 matchesString:(NSString*)string2
 {
 	BOOL ok = [self checkLinesIgnoringWhitespaceOfString:string1 matchesString:string2];
