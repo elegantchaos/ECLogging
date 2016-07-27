@@ -310,15 +310,6 @@
 - (void)diffURL:(NSURL*)url1 againstURL:(NSURL*)url2;
 
 /**
- Compare two propertly list values, (NSDictionary, NSArray, NSNumber, NSString) and return a string indicating where first difference occurs.
- 
- @param value A property list value to be compared.
- @param compareValue A second value to be compared against.
- @result A nil string if the property list values are the same. Otherwise a string describing the first different and where.
- */
-+ (NSString *)comparePlistValue:(NSObject *)value withValue:(NSObject *)compareValue;
-
-/**
  The name to use for determining output file locations for this test module.
  By default, we use the name of the test bundle.
  */
