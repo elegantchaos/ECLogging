@@ -227,9 +227,20 @@
 
 static double epsilon = 0.000000000001;
 
+// Returns a string if the property list values are different, otherwise nil.
 + (NSString *)comparePlistValue:(NSObject *)value withValue:(NSObject *)compareValue {
 	if (!(value && compareValue)) {
 		return @"At least one value to compare is nil.";
+	}
+
+	// Special casing for NSDictionary/NSArray. The comparison of the class types returns false if one of the dictionaries is of
+	// type NSCFDictionary and the other NSDictionary.
+	if ([value isKindOfClass:[NSDictionary class]]) {
+		return [self compareDictionary:(NSDictionary *)value withDictionary:(NSDictionary *)compareValue];
+	}
+	
+	if ([value isKindOfClass:[NSArray class]]) {
+		return [self compareArray:(NSArray *)value withArray:(NSArray *)compareValue];
 	}
 	
 	if (!([value isKindOfClass:[compareValue class]] || [compareValue isKindOfClass:[value class]])) {
@@ -252,18 +263,14 @@ static double epsilon = 0.000000000001;
 		return @"Number values are different.";
 	}
 	
-	if ([value isKindOfClass:[NSDictionary class]]) {
-		return [self keyPathDifferentForDictionary:(NSDictionary *)value withDictionary:(NSDictionary *)compareValue];
-	}
-	
-	if ([value isKindOfClass:[NSArray class]]) {
-		return [self indexValuesDifferentForArray:(NSArray *)value withArray:(NSArray *)compareValue];
-	}
-	
 	return @"Unknown property list type.";
 }
 
-+ (NSString *)indexValuesDifferentForArray:(NSArray *)array withArray:(NSArray *)compareArray {
++ (NSString *)compareArray:(NSArray *)array withArray:(NSArray *)compareArray {
+	if (!([array isKindOfClass:[NSArray class]] && [compareArray isKindOfClass:[NSArray class]])) {
+		return @"Values to compare are different types.";
+	}
+
 	if (array.count != compareArray.count) {
 		return @"Arrays have different number of elements.";
 	}
@@ -277,7 +284,10 @@ static double epsilon = 0.000000000001;
 	return nil;
 }
 
-+ (NSString *)keyPathDifferentForDictionary:(NSDictionary *)dictionary withDictionary:(NSDictionary *)compareDict {
++ (NSString *)compareDictionary:(NSDictionary *)dictionary withDictionary:(NSDictionary *)compareDict {
+	if (!([dictionary isKindOfClass:[NSDictionary class]] && [compareDict isKindOfClass:[NSDictionary class]])) {
+		return @"Values to compare are different types.";
+	}
 	NSArray *allKeys = dictionary.allKeys;
 	if (allKeys.count != compareDict.allKeys.count) {
 		return @"Dictionaries have different number of keys.";
