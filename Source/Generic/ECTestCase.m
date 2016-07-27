@@ -40,7 +40,7 @@
 	}
 	else
 	{
-		result = [XCTestSuite testSuiteWithName:@""];
+		result = [XCTestSuite testSuiteWithName:NSStringFromClass([self class])];
 	}
 
 	return result;
