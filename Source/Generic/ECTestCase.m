@@ -234,7 +234,7 @@ static double epsilon = 0.000000000001;
 	}
 
 	// Special casing for NSDictionary/NSArray. The comparison of the class types returns false if one of the dictionaries is of
-	// type NSCFDictionary and the other NSDictionary.
+	// type NSCFDictionary and the other NSDictionary. Same for NSArray/NSArrayM.
 	if ([value isKindOfClass:[NSDictionary class]]) {
 		return [self compareDictionary:(NSDictionary *)value withDictionary:(NSDictionary *)compareValue];
 	}
@@ -708,7 +708,7 @@ static double epsilon = 0.000000000001;
 	NSURL* container = [self URLForOutputAsReference:asReference];
 	NSURL* file = [[container URLByAppendingPathComponent:name] URLByAppendingPathExtension:extension];
 	NSError* error;
-	NSData* data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:(NSPropertyListFormat)kCFPropertyListBinaryFormat_v1_0 options:0 error:&error];
+	NSData* data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListXMLFormat_v1_0 options:0 error:&error];
 	[[NSFileManager defaultManager] createDirectoryAtURL:[file URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:@{} error:nil];
 	BOOL written = [data writeToURL:file options:NSDataWritingAtomic error:&error];
 	ECTestAssertTrueFormat(written, @"failed to write data to %@: %@", file, error);
