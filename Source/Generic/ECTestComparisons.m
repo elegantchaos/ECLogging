@@ -53,6 +53,32 @@
 	return @"number";
 }
 
+// Returns YES if both numbers are doubles which only differ in the last couple of digits.
+// This could happen if we convert a double to a string and then re-interpret it.
+- (BOOL)matchesAsNearAsDamnIt:(NSNumber*)other {
+	if ( strcmp(self.objCType,"d") == 0 && strcmp(other.objCType,"d") == 0) {
+		double a = self.doubleValue;
+		double b = other.doubleValue;
+		return (fabs(a - b) <= ((fabs(a) > fabs(b)) ? fabs(b) : fabs(a)) * DBL_EPSILON * 4.0);
+	} else {
+		return NO;
+	}
+}
+
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level block:(ECTestComparisonBlock)block {
+	BOOL matches = [self isEqualTo:item2];
+	if (!matches) {
+		if ([item2 isKindOfClass:[NSNumber class]]) {
+			matches = [self matchesAsNearAsDamnIt:item2];
+		}
+	}
+	
+	if (!matches) {
+		block(context, level, self, item2);
+	}
+	return  matches;
+}
+
 @end
 
 @implementation NSArray (ECTestComparisons)
