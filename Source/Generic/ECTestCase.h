@@ -9,6 +9,16 @@
 
 @class NSBitmapImageRep;
 
+typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
+{
+	ECTestComparisonShowChars,
+	ECTestComparisonShowLines,
+	ECTestComparisonShowLinesIgnoreWhitespace,
+	ECTestComparisonDiff,
+	ECTestComparisonDiffNoJSON,
+	ECTestComparisonDefault
+};
+
 // --------------------------------------------------------------------------
 /// The ECTestAssert macros are generally like the STAssert
 /// macros, except that they don't take a description string.

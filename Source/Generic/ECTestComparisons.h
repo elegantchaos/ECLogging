@@ -6,21 +6,16 @@
 
 #import <Foundation/Foundation.h>
 
-
-typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
+typedef NS_ENUM(NSUInteger, ECTestComparisonDoubleType)
 {
-	ECTestComparisonShowChars,
-	ECTestComparisonShowLines,
-	ECTestComparisonShowLinesIgnoreWhitespace,
-	ECTestComparisonDiff,
-	ECTestComparisonDiffNoJSON,
-	ECTestComparisonDefault
+	ECTestComparisonDoubleExact,
+	ECTestComparisonDoubleFuzzy
 };
 
 typedef void (^ECTestComparisonBlock)(NSString* context, NSUInteger level, id item1, id item2);
 
 @interface NSObject (ECTestComparisons)
-- (BOOL)matches:(id)item2 block:(ECTestComparisonBlock)block;
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level block:(ECTestComparisonBlock)block;
+- (BOOL)matches:(id)item2 options:(ECTestComparisonDoubleType)options block:(ECTestComparisonBlock)block;
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonDoubleType)options block:(ECTestComparisonBlock)block;
 - (NSString*)nameForMatching;
 @end
