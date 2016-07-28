@@ -15,7 +15,7 @@
 - (BOOL)item:(id)item1 matches:(id)item2
 {
 	NSMutableString* string = [NSMutableString new];
-	BOOL result = [item1 matches:item2 block:^(NSString* context, NSUInteger level, id i1, id i2) {
+	BOOL result = [item1 matches:item2 options:ECTestComparisonDoubleExact block:^(NSString* context, NSUInteger level, id i1, id i2) {
 		if (i1 && i2)
 			[string appendFormat:@"%@: %@ didn't match %@\n", context, i1, i2];
 		else
