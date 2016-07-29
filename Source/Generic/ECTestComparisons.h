@@ -6,16 +6,19 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, ECTestComparisonDoubleType)
+// Property list, dictionary, etc. test comparison options
+typedef NS_OPTIONS(NSUInteger, ECTestComparisonOptions)
 {
-	ECTestComparisonDoubleExact,
-	ECTestComparisonDoubleFuzzy
+	ECTestComparisonNone = 0,
+	
+	// If this option is set then any NSNumber double values will be compared with a fudge factor.
+	ECTestComparisonDoubleFuzzy = 0x0001
 };
 
 typedef void (^ECTestComparisonBlock)(NSString* context, NSUInteger level, id item1, id item2);
 
 @interface NSObject (ECTestComparisons)
-- (BOOL)matches:(id)item2 options:(ECTestComparisonDoubleType)options block:(ECTestComparisonBlock)block;
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonDoubleType)options block:(ECTestComparisonBlock)block;
+- (BOOL)matches:(id)item2 options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block;
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block;
 - (NSString*)nameForMatching;
 @end

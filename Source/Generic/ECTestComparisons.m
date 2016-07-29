@@ -8,7 +8,7 @@
 
 @implementation NSObject (ECTestComparisons)
 
-- (BOOL)matches:(id)item2 options:(ECTestComparisonDoubleType)options block:(ECTestComparisonBlock)block
+- (BOOL)matches:(id)item2 options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
 	Class c1 = [self class];
 	Class c2 = [item2 class];
@@ -21,7 +21,7 @@
 	return [self matches:item2 context:context level:0 options:options block:block];
 }
 
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonDoubleType)options block:(ECTestComparisonBlock)block
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
 	BOOL matches = [self isEqual:item2];
 	if (!matches)
@@ -65,10 +65,10 @@
 	}
 }
 
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonDoubleType)options block:(ECTestComparisonBlock)block {
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block {
     BOOL matches = [self isEqualTo:item2];
     if (!matches) {
-        if ((options == ECTestComparisonDoubleFuzzy) && [item2 isKindOfClass:[NSNumber class]]) {
+        if ((options & ECTestComparisonDoubleFuzzy) && [item2 isKindOfClass:[NSNumber class]]) {
             matches = [self matchesAsNearAsDamnIt:item2];
 	    }
     }
@@ -83,7 +83,7 @@
 
 @implementation NSArray (ECTestComparisons)
 
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonDoubleType)options block:(ECTestComparisonBlock)block
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
 	BOOL matches = [item2 isKindOfClass:[NSArray class]];
 	if (!matches)
@@ -136,7 +136,7 @@
 
 @implementation NSDictionary (ECTestComparisons)
 
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonDoubleType)options block:(ECTestComparisonBlock)block
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
 	BOOL matches = [item2 isKindOfClass:[NSDictionary class]];
 	if (!matches)
