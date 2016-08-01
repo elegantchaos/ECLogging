@@ -53,8 +53,8 @@
 	return @"number";
 }
 
-// Returns YES if both numbers are doubles which only differ in the last couple of digits.
-// This could happen if we convert a double to a string and then re-interpret it.
+/// Returns YES if both numbers are doubles which only differ in the last couple of digits.
+/// This could happen if we convert a double to a string and then re-interpret it.
 - (BOOL)matchesAsNearAsDamnIt:(NSNumber*)other {
     if ( strcmp(self.objCType,"d") == 0 && strcmp(other.objCType,"d") == 0) {
 		double a = self.doubleValue;
@@ -65,6 +65,8 @@
 	}
 }
 
+/// Compare an NSNumber value against self. If the numbers aren't exactly the same and are type double and the compare
+/// option is fuzzy double compare then allow for a small fudge factor comparison.
 - (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block {
     BOOL matches = [self isEqualTo:item2];
     if (!matches) {

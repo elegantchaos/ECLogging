@@ -28,6 +28,22 @@
 	return result;
 }
 
+- (BOOL)item:(id)item1 fuzzyMatches:(id)item2
+{
+	NSMutableString* string = [NSMutableString new];
+	BOOL result = [item1 matches:item2 options:ECTestComparisonDoubleFuzzy block:^(NSString* context, NSUInteger level, id i1, id i2) {
+		if (i1 && i2)
+			[string appendFormat:@"%@: %@ didn't match %@\n", context, i1, i2];
+		else
+			[string appendFormat:@"%@: %@\n", context, i1 ? i1 : i2];
+	}];
+	
+	self.output = string;
+	NSLog(@"Output:\n%@", string);
+	
+	return result;
+}
+
 - (void)testStringsEqual
 {
 	ECTestAssertTrue([self item:@"abc" matches:@"abc"]);
@@ -148,4 +164,13 @@
 	ECTestAssertFalse([self item:@(1) matches:@"abc"]);
 	ECTestAssertIsEqual(self.output, @"number vs string: 1 didn't match abc\n");
 }
+
+- (void)testFuzzyNSNumber
+{
+	id item1 = @[@(1.0000000001), @(0.9999999999)];
+	id item2 = @[@(1.0), @(1.0)];
+	ECTestAssertFalse([self item:item1 fuzzyMatches:item2]);
+	ECTestAssertIsEqual(self.output, @"array[0]: 1.0000000001 didn't match 1\narray[1]: 0.9999999999 didn't match 1\n");
+}
+
 @end

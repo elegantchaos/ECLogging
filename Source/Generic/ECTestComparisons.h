@@ -18,7 +18,12 @@ typedef NS_OPTIONS(NSUInteger, ECTestComparisonOptions)
 typedef void (^ECTestComparisonBlock)(NSString* context, NSUInteger level, id item1, id item2);
 
 @interface NSObject (ECTestComparisons)
+
+/// Is item2 equal to the current object with option for a fuzzy compare of double values
 - (BOOL)matches:(id)item2 options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block;
+
+/// Is item2 equal to the current object with option for a fuzzy compare of double values and a string context for differences to be reported.
 - (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block;
+
 - (NSString*)nameForMatching;
 @end

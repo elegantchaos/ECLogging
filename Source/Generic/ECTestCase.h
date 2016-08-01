@@ -9,6 +9,8 @@
 
 @class NSBitmapImageRep;
 
+/// The reporting mode enum when comparing test results
+/// Are differences reported by character, line etc?
 typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 {
 	ECTestComparisonShowChars,
