@@ -623,6 +623,7 @@
 	NSError* error;
 	NSFileManager* fm = [NSFileManager defaultManager];
 	BOOL ok = [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+	NSLog(@"output directory will be %@", url);
 	ECTestAssertTrueFormat(ok, @"failed to make output directory %@: %@", url, error);
 
 	return url;
