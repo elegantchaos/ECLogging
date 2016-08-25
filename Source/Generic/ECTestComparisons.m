@@ -13,7 +13,13 @@
 	Class c1 = [self class];
 	Class c2 = [item2 class];
 	NSString* context = nil;
-	if (c1 == c2)
+	
+	//macOS 10.12 Sierra introduces __NSSingleEntryDictionaryI for single-entry dicts and similar for NSArray
+	//so simple class comparisons don't hold anymore for class clusters
+	BOOL bothAreArrays = [self isKindOfClass:[NSArray class]] && [item2 isKindOfClass:[NSArray class]];
+	BOOL bothAreDicts = [self isKindOfClass:[NSDictionary class]] && [item2 isKindOfClass:[NSDictionary class]];
+	
+	if (c1 == c2 || bothAreArrays || bothAreDicts)
 		context = [NSString stringWithFormat:@"%@", [self nameForMatching]];
 	else
 		context = [NSString stringWithFormat:@"%@ vs %@", [self nameForMatching], [item2 nameForMatching]];
