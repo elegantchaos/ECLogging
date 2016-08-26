@@ -10,19 +10,14 @@
 
 - (BOOL)matches:(id)item2 options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
-	Class c1 = [self class];
-	Class c2 = [item2 class];
+	NSString *name1 = [self nameForMatching];
+	NSString *name2 = [item2 nameForMatching];
 	NSString* context = nil;
 	
-	//macOS 10.12 Sierra introduces __NSSingleEntryDictionaryI for single-entry dicts and similar for NSArray
-	//so simple class comparisons don't hold anymore for class clusters
-	BOOL bothAreArrays = [self isKindOfClass:[NSArray class]] && [item2 isKindOfClass:[NSArray class]];
-	BOOL bothAreDicts = [self isKindOfClass:[NSDictionary class]] && [item2 isKindOfClass:[NSDictionary class]];
-	
-	if (c1 == c2 || bothAreArrays || bothAreDicts)
-		context = [NSString stringWithFormat:@"%@", [self nameForMatching]];
+	if ([name1 isEqualToString:name2])
+		context = [NSString stringWithFormat:@"%@", name1];
 	else
-		context = [NSString stringWithFormat:@"%@ vs %@", [self nameForMatching], [item2 nameForMatching]];
+		context = [NSString stringWithFormat:@"%@ vs %@", name1, name2];
 	
 	return [self matches:item2 context:context level:0 options:options block:block];
 }
