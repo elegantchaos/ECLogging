@@ -830,10 +830,10 @@
 }
 
 - (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments {
-	return [self runCommand:command arguments:arguments status:NULL];
+	return [self runCommand:command arguments:arguments status:NULL error:NULL];
 }
 
-- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status {
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status error:(NSData* __autoreleasing *)error {
 	NSTask *task = [[NSTask alloc] init];
 	task.launchPath = command;
 	task.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -842,20 +842,33 @@
 
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardOutput: pipe];
+
+	NSPipe *errorPipe = [NSPipe pipe];
+	[task setStandardError: errorPipe];
+
 	NSFileHandle *file = [pipe fileHandleForReading];
+	NSFileHandle *errorFile = [errorPipe fileHandleForReading];
 
 	NSData* result = nil;
+	NSData* errorData = nil;
+
 	@try {
 		[task launch];
 		result = [file readDataToEndOfFile];
+		errorData = [errorFile readDataToEndOfFile];
 	}
 	@catch (NSException *exception) {
 		ECTestFail(@"Failed to run %@ %@", command, arguments);
 	}
 
+	[task waitUntilExit];
+	
 	if (status) {
-		[task waitUntilExit];
 		*status = task.terminationStatus;
+	}
+
+	if (error) {
+		*error = errorData;
 	}
 
 	return result;

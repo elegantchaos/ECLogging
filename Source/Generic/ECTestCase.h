@@ -359,7 +359,7 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
  Run a command line tool and return its output.
  */
 
-- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status;
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status error:(NSData* __autoreleasing *)error;
 
 /**
  Write an image as an output file.
