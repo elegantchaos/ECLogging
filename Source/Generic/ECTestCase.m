@@ -695,8 +695,7 @@
 	[NSGraphicsContext setCurrentContext:ctx];
 
 	NSRect rect = NSMakeRect(0, 0, width, height);
-	NSRect fromRect = NSMakeRect(0, 0, bitmap.size.width, bitmap.size.height);
-	[bitmap drawInRect:rect fromRect:fromRect operation:NSCompositeCopy fraction:1.0 respectFlipped:NO hints:nil];
+	[bitmap drawInRect:rect fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0 respectFlipped:NO hints:nil];
 	[ctx flushGraphics];
 	[NSGraphicsContext restoreGraphicsState];
 
