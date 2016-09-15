@@ -8,20 +8,21 @@
 
 @implementation NSObject (ECTestComparisons)
 
-- (BOOL)matches:(id)item2 block:(ECTestComparisonBlock)block
+- (BOOL)matches:(id)item2 options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
-	Class c1 = [self class];
-	Class c2 = [item2 class];
+	NSString *name1 = [self nameForMatching];
+	NSString *name2 = [item2 nameForMatching];
 	NSString* context = nil;
-	if (c1 == c2)
-		context = [NSString stringWithFormat:@"%@", [self nameForMatching]];
-	else
-		context = [NSString stringWithFormat:@"%@ vs %@", [self nameForMatching], [item2 nameForMatching]];
 	
-	return [self matches:item2 context:context level:0 block:block];
+	if ([name1 isEqualToString:name2])
+		context = [NSString stringWithFormat:@"%@", name1];
+	else
+		context = [NSString stringWithFormat:@"%@ vs %@", name1, name2];
+	
+	return [self matches:item2 context:context level:0 options:options block:block];
 }
 
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level block:(ECTestComparisonBlock)block
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
 	BOOL matches = [self isEqual:item2];
 	if (!matches)
@@ -53,8 +54,8 @@
 	return @"number";
 }
 
-// Returns YES if both numbers are doubles which only differ in the last couple of digits.
-// This could happen if we convert a double to a string and then re-interpret it.
+/// Returns YES if both numbers are doubles which only differ in the last couple of digits.
+/// This could happen if we convert a double to a string and then re-interpret it.
 - (BOOL)matchesAsNearAsDamnIt:(NSNumber*)other {
 	if ( strcmp(self.objCType,"d") == 0 && strcmp(other.objCType,"d") == 0) {
 		double a = self.doubleValue;
@@ -65,10 +66,12 @@
 	}
 }
 
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level block:(ECTestComparisonBlock)block {
+/// Compare an NSNumber value against self. If the numbers aren't exactly the same and are type double and the compare
+/// option is fuzzy double compare then allow for a small fudge factor comparison.
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block {
 	BOOL matches = [self isEqualTo:item2];
 	if (!matches) {
-		if ([item2 isKindOfClass:[NSNumber class]]) {
+		if ((options & ECTestComparisonDoubleFuzzy) && [item2 isKindOfClass:[NSNumber class]]) {
 			matches = [self matchesAsNearAsDamnIt:item2];
 		}
 	}
@@ -83,7 +86,7 @@
 
 @implementation NSArray (ECTestComparisons)
 
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level block:(ECTestComparisonBlock)block
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
 	BOOL matches = [item2 isKindOfClass:[NSArray class]];
 	if (!matches)
@@ -100,7 +103,7 @@
 		for (NSUInteger n = 0; n < min; ++n)
 		{
 			NSString* itemContext = [NSString stringWithFormat:@"%@[%ld]", context, (long)n];
-			matches = [self[n] matches:item2[n] context:itemContext level:level + 1 block:block] && matches;
+			matches = [self[n] matches:item2[n] context:itemContext level:level + 1 options:options block:block] && matches;
 		}
 
 		if (c1 < c2)
@@ -136,7 +139,7 @@
 
 @implementation NSDictionary (ECTestComparisons)
 
-- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level block:(ECTestComparisonBlock)block
+- (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
 	BOOL matches = [item2 isKindOfClass:[NSDictionary class]];
 	if (!matches)
@@ -155,7 +158,7 @@
 			if (v2)
 			{
 				NSString* itemContext = [NSString stringWithFormat:@"%@[@\"%@\"]", context, key];
-				matches = [v1 matches:v2 context:itemContext level:level + 1 block:block] && matches;
+				matches = [v1 matches:v2 context:itemContext level:level + 1 options:options block:block] && matches;
 			}
 			else
 			{

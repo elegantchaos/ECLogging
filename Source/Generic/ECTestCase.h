@@ -9,6 +9,18 @@
 
 @class NSBitmapImageRep;
 
+/// The reporting mode enum when comparing test results
+/// Are differences reported by character, line etc?
+typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
+{
+	ECTestComparisonShowChars,
+	ECTestComparisonShowLines,
+	ECTestComparisonShowLinesIgnoreWhitespace,
+	ECTestComparisonDiff,
+	ECTestComparisonDiffNoJSON,
+	ECTestComparisonDefault
+};
+
 // --------------------------------------------------------------------------
 /// The ECTestAssert macros are generally like the STAssert
 /// macros, except that they don't take a description string.
@@ -347,7 +359,7 @@
  Run a command line tool and return its output.
  */
 
-- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status;
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status error:(NSData* __autoreleasing *)error;
 
 /**
  Write an image as an output file.

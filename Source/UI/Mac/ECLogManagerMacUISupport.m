@@ -25,14 +25,15 @@
 {
 	NSMenuItem* result;
 
+	NSString* title = NSLocalizedString(@"Debug", @"Debug menu title");
 	NSMenu* menubar = [NSApp mainMenu];
-	result = [menubar itemWithTitle:@"Debug"];
+	result = [menubar itemWithTitle:title];
 	if (!result)
 	{
-		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:@"Debug" action:nil keyEquivalent:@""];
+		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
 		result = item;
 
-		ECDebugMenu* menu = [[ECDebugMenu alloc] initWithTitle:@"Debug"];
+		ECDebugMenu* menu = [[ECDebugMenu alloc] initWithTitle:title];
 		item.submenu = menu;
 
 		[menubar addItem:item];
@@ -74,9 +75,9 @@
 	if (manager.showMenu)
 	{
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
-			[self installDebugSubmenuWithTitle:@"Logging" class:[ECLoggingMenu class]];
-			[self installDebugSubmenuWithTitle:@"Options" class:[ECOptionsMenu class]];
-			NSMenu* utilities = [self installDebugSubmenuWithTitle:@"Utilities" class:[NSMenu class]];
+			[self installDebugSubmenuWithTitle:NSLocalizedString(@"Logging", @"logging submenu title") class:[ECLoggingMenu class]];
+			[self installDebugSubmenuWithTitle:NSLocalizedString(@"Options", @"options submenu title") class:[ECOptionsMenu class]];
+			NSMenu* utilities = [self installDebugSubmenuWithTitle:NSLocalizedString(@"Utilities", @"utilities submenu title") class:[NSMenu class]];
 			[utilities addItemWithTitle:NSLocalizedString(@"Crash Now", @"cause the application to crash deliberately") action:@selector(crashNow:) keyEquivalent:@""].target = self;
 			[utilities addItemWithTitle:NSLocalizedString(@"Assert Now", @"fire an assertion deliberately") action:@selector(assertNow:) keyEquivalent:@""].target = self;
 			[utilities addItemWithTitle:NSLocalizedString(@"Reveal Application Support", @"show the application support folder in the finder") action:@selector(revealApplicationSupport:) keyEquivalent:@""].target = self;

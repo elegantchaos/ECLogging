@@ -118,7 +118,7 @@
 
 - (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2
 {
-	BOOL result = [collection1 matches:collection2 block:^(NSString* context, NSUInteger level, id i1, id i2) {
+	BOOL result = [collection1 matches:collection2 options:ECTestComparisonNone block:^(NSString* context, NSUInteger level, id i1, id i2) {
 		if (i1 && i2)
 			NSLog(@"%@: %@ didn't match %@\n", context, i1, i2);
 		else
@@ -622,8 +622,9 @@
 	// make sure that the folder and all sub-folders exist
 	NSError* error;
 	NSFileManager* fm = [NSFileManager defaultManager];
-	[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
-	
+	BOOL ok = [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+	ECTestAssertTrueFormat(ok, @"failed to make output directory %@: %@", url, error);
+
 	return url;
 }
 
@@ -631,7 +632,7 @@
 	NSURL* container = [self URLForOutputAsReference:asReference];
 	NSURL* file = [[container URLByAppendingPathComponent:name] URLByAppendingPathExtension:extension];
 	NSError* error;
-	NSData* data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:(NSPropertyListFormat)kCFPropertyListBinaryFormat_v1_0 options:0 error:&error];
+	NSData* data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListXMLFormat_v1_0 options:0 error:&error];
 	[[NSFileManager defaultManager] createDirectoryAtURL:[file URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:@{} error:nil];
 	BOOL written = [data writeToURL:file options:NSDataWritingAtomic error:&error];
 	ECTestAssertTrueFormat(written, @"failed to write data to %@: %@", file, error);
@@ -671,8 +672,8 @@
 
 - (NSBitmapImageRep*)bitmapAs32BitRGBA:(NSBitmapImageRep*)bitmap
 {
-	NSInteger width = (NSInteger)[bitmap size].width;
-	NSInteger height = (NSInteger)[bitmap size].height;
+	NSInteger width = bitmap.pixelsWide;
+	NSInteger height = bitmap.pixelsHigh;
 
 	if (width < 1 || height < 1)
 		return nil;
@@ -694,7 +695,7 @@
 	[NSGraphicsContext setCurrentContext:ctx];
 
 	NSRect rect = NSMakeRect(0, 0, width, height);
-	[bitmap drawInRect:rect fromRect:rect operation:NSCompositeCopy fraction:1.0 respectFlipped:NO hints:nil];
+	[bitmap drawInRect:rect fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0 respectFlipped:NO hints:nil];
 	[ctx flushGraphics];
 	[NSGraphicsContext restoreGraphicsState];
 
@@ -718,19 +719,19 @@
 	CGFloat pixelThreshold = [mergedProperties[@"pixelThreshold"] doubleValue];
 	NSSize maxSize = NSZeroSize;
 	if ([mergedProperties[@"maxSizeMatchesReference"] boolValue]) {
-		maxSize = reference.size;
+		maxSize = NSMakeSize(reference.pixelsWide, reference.pixelsHigh);
 	} else {
 		maxSize = NSMakeSize([mergedProperties[@"maxWidth"] doubleValue], [mergedProperties[@"maxHeight"] doubleValue]);
 	}
 
-	NSSize imageSize = image.size;
+	NSSize imageSize = NSMakeSize(image.pixelsWide, image.pixelsHigh);
 	if ((imageSize.width > maxSize.width) || (imageSize.height > maxSize.height))
 	{
 		NSLog(@"image looks a bit big: %@", NSStringFromSize(imageSize));
 		return NO;
 	}
 
-	NSSize referenceSize = reference.size;
+	NSSize referenceSize = NSMakeSize(reference.pixelsWide, reference.pixelsHigh);
 	if ((referenceSize.width > maxSize.width) || (referenceSize.height > maxSize.height))
 	{
 		NSLog(@"reference looks a bit big: %@", NSStringFromSize(referenceSize));
@@ -830,10 +831,10 @@
 }
 
 - (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments {
-	return [self runCommand:command arguments:arguments status:NULL];
+	return [self runCommand:command arguments:arguments status:NULL error:NULL];
 }
 
-- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status {
+- (NSData*)runCommand:(NSString*)command arguments:(NSArray*)arguments status:(int*)status error:(NSData* __autoreleasing *)error {
 	NSTask *task = [[NSTask alloc] init];
 	task.launchPath = command;
 	task.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -842,20 +843,33 @@
 
 	NSPipe *pipe = [NSPipe pipe];
 	[task setStandardOutput: pipe];
+
+	NSPipe *errorPipe = [NSPipe pipe];
+	[task setStandardError: errorPipe];
+
 	NSFileHandle *file = [pipe fileHandleForReading];
+	NSFileHandle *errorFile = [errorPipe fileHandleForReading];
 
 	NSData* result = nil;
+	NSData* errorData = nil;
+
 	@try {
 		[task launch];
 		result = [file readDataToEndOfFile];
+		errorData = [errorFile readDataToEndOfFile];
 	}
 	@catch (NSException *exception) {
 		ECTestFail(@"Failed to run %@ %@", command, arguments);
 	}
 
+	[task waitUntilExit];
+	
 	if (status) {
-		[task waitUntilExit];
 		*status = task.terminationStatus;
+	}
+
+	if (error) {
+		*error = errorData;
 	}
 
 	return result;
