@@ -210,6 +210,18 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 - (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2;
 
 /**
+ Check that two collections match.
+ If they don't match, we call STFail reporting the point where they differed.
+ 
+ This is implemented by calling description on them both, then calling assertString:matchesString.
+ @param collection1 first collection
+ @param collection2 second collection
+ @param options the options to use when comparing values
+ @return YES if the items match, NO otherwise
+ */
+- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 options:(ECTestComparisonOptions)options;
+
+/**
  Check that a collection matches the contents of a file.
  If they don't match, we call STFail reporting the point where they differed.
 

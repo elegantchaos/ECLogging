@@ -116,17 +116,20 @@
 	return result;
 }
 
-- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2
-{
-	BOOL result = [collection1 matches:collection2 options:ECTestComparisonNone block:^(NSString* context, NSUInteger level, id i1, id i2) {
+- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 options:(ECTestComparisonOptions)options {
+	BOOL result = [collection1 matches:collection2 options:options block:^(NSString* context, NSUInteger level, id i1, id i2) {
 		if (i1 && i2)
 			NSLog(@"%@: %@ didn't match %@\n", context, i1, i2);
 		else
 			NSLog(@"%@: %@\n", context, i1 ? i1 : i2);
 	}];
-
+	
 	ECTestAssertTrueFormat(result, @"collections didn't match");
 	return result;
+}
+
+- (BOOL)assertCollection:(id)collection1 matchesCollection:(id)collection2 {
+	return [self assertCollection:collection1 matchesCollection:collection2 options:ECTestComparisonNone];
 }
 
 - (BOOL)assertLinesOfString:(NSString*)string1 matchesString:(NSString*)string2
