@@ -672,8 +672,8 @@
 
 - (NSBitmapImageRep*)bitmapAs32BitRGBA:(NSBitmapImageRep*)bitmap
 {
-	NSInteger width = (NSInteger)[bitmap size].width;
-	NSInteger height = (NSInteger)[bitmap size].height;
+	NSInteger width = bitmap.pixelsWide;
+	NSInteger height = bitmap.pixelsHigh;
 
 	if (width < 1 || height < 1)
 		return nil;
@@ -695,7 +695,7 @@
 	[NSGraphicsContext setCurrentContext:ctx];
 
 	NSRect rect = NSMakeRect(0, 0, width, height);
-	[bitmap drawInRect:rect fromRect:rect operation:NSCompositeCopy fraction:1.0 respectFlipped:NO hints:nil];
+	[bitmap drawInRect:rect fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0 respectFlipped:NO hints:nil];
 	[ctx flushGraphics];
 	[NSGraphicsContext restoreGraphicsState];
 
@@ -719,19 +719,19 @@
 	CGFloat pixelThreshold = [mergedProperties[@"pixelThreshold"] doubleValue];
 	NSSize maxSize = NSZeroSize;
 	if ([mergedProperties[@"maxSizeMatchesReference"] boolValue]) {
-		maxSize = reference.size;
+		maxSize = NSMakeSize(reference.pixelsWide, reference.pixelsHigh);
 	} else {
 		maxSize = NSMakeSize([mergedProperties[@"maxWidth"] doubleValue], [mergedProperties[@"maxHeight"] doubleValue]);
 	}
 
-	NSSize imageSize = image.size;
+	NSSize imageSize = NSMakeSize(image.pixelsWide, image.pixelsHigh);
 	if ((imageSize.width > maxSize.width) || (imageSize.height > maxSize.height))
 	{
 		NSLog(@"image looks a bit big: %@", NSStringFromSize(imageSize));
 		return NO;
 	}
 
-	NSSize referenceSize = reference.size;
+	NSSize referenceSize = NSMakeSize(reference.pixelsWide, reference.pixelsHigh);
 	if ((referenceSize.width > maxSize.width) || (referenceSize.height > maxSize.height))
 	{
 		NSLog(@"reference looks a bit big: %@", NSStringFromSize(referenceSize));
