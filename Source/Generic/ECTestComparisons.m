@@ -10,13 +10,14 @@
 
 - (BOOL)matches:(id)item2 options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block
 {
-	Class c1 = [self class];
-	Class c2 = [item2 class];
+	NSString *name1 = [self nameForMatching];
+	NSString *name2 = [item2 nameForMatching];
 	NSString* context = nil;
-	if (c1 == c2)
-		context = [NSString stringWithFormat:@"%@", [self nameForMatching]];
+	
+	if ([name1 isEqualToString:name2])
+		context = [NSString stringWithFormat:@"%@", name1];
 	else
-		context = [NSString stringWithFormat:@"%@ vs %@", [self nameForMatching], [item2 nameForMatching]];
+		context = [NSString stringWithFormat:@"%@ vs %@", name1, name2];
 	
 	return [self matches:item2 context:context level:0 options:options block:block];
 }

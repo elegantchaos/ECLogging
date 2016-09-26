@@ -622,8 +622,9 @@
 	// make sure that the folder and all sub-folders exist
 	NSError* error;
 	NSFileManager* fm = [NSFileManager defaultManager];
-	[fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
-	
+	BOOL ok = [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+	ECTestAssertTrueFormat(ok, @"failed to make output directory %@: %@", url, error);
+
 	return url;
 }
 
