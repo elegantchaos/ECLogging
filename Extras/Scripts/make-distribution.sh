@@ -66,7 +66,6 @@ cd "$root"
 
 cp -Rf "$root/Source/Configuration" "$dist"
 cp -Rf "$root/Extras/Scripts" "$dist"
-rm -rf "$dist/Scripts/ocunit2junit"
 
 buildios "Debug"
 buildios "Release"
