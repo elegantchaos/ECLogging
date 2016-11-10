@@ -19,6 +19,9 @@ ENABLE_NS_ASSERTIONS = NO
 
 GCC_OPTIMIZATION_LEVEL = s
 
+// XC8.1 additions
+SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+
 // --------------------------------------------------------------------------
 // Deployment
 // --------------------------------------------------------------------------
