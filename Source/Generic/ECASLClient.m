@@ -7,6 +7,7 @@
 
 #import "ECASLClient.h"
 
+#import <asl.h>
 
 static ECASLClient* gSharedInstance = nil;
 
@@ -40,15 +41,9 @@ static ECASLClient* gSharedInstance = nil;
 //! Set up ASL connection etc.
 // --------------------------------------------------------------------------
 
-- (instancetype)init
-{
-	self = [self initWithName:@"Untitled"];
-	return self;
-}
-
 - (instancetype)initWithName:(NSString*)name
 {
-	if ((self = [super init]) != nil)
+	if ((self = [super initWithName:name]) != nil)
 	{
 		const char* name_c = [name UTF8String];
 		self.client = asl_open(name_c, "log", ASL_OPT_STDERR);
@@ -84,43 +79,6 @@ static ECASLClient* gSharedInstance = nil;
 {
 	NSString* text = [[NSString alloc] initWithFormat:format arguments:args];
 	asl_log(self.client, self.msg, level, "%s", [text UTF8String]);
-}
-
-
-// --------------------------------------------------------------------------
-//! Log to ASL. at a given level
-// --------------------------------------------------------------------------
-
-- (void)logAtLevel:(int)level withFormat:(NSString*)format, ...
-{
-	va_list args;
-	va_start(args, format);
-	[self logAtLevel:level withFormat:format args:args];
-	va_end(args);
-}
-
-// --------------------------------------------------------------------------
-//! Log info to ASL.
-// --------------------------------------------------------------------------
-
-- (void)log:(NSString*)format, ...
-{
-	va_list args;
-	va_start(args, format);
-	[self logAtLevel:ASL_LEVEL_INFO withFormat:format args:args];
-	va_end(args);
-}
-
-// --------------------------------------------------------------------------
-//! Log error to ASL.
-// --------------------------------------------------------------------------
-
-- (void)error:(NSString*)format, ...
-{
-	va_list args;
-	va_start(args, format);
-	[self logAtLevel:ASL_LEVEL_INFO withFormat:format args:args];
-	va_end(args);
 }
 
 

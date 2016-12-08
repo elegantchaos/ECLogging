@@ -7,8 +7,6 @@
 
 #import "ECSystemLogClient.h"
 
-@interface ECASLClient : ECSystemLogClient
-
-+ (ECASLClient*)sharedInstance;
+@interface ECOSLogClient : ECSystemLogClient
 
 @end

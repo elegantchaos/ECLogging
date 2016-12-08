@@ -21,5 +21,7 @@
 #import "ECLogHandlerStdout.h"
 #import "ECLogManager.h"
 #import "ECMacros.h"
+#import "ECOSLogClient.h"
+#import "ECSystemLogClient.h"
 
 #import "NSString+ECLogging.h"
