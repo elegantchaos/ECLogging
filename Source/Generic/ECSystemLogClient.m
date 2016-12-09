@@ -7,8 +7,6 @@
 
 #import "ECSystemLogClient.h"
 
-#import <asl.h>
-
 @implementation ECSystemLogClient
 
 - (instancetype)init
