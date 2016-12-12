@@ -49,25 +49,14 @@
     aslclient client = [(self.aslClients)[channel.name] pointerValue];
     if (!client)
     {
-		NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
-		NSString* app = info[(__bridge NSString*) kCFBundleNameKey];
-		if (!app) {
-			app = info[(__bridge NSString*) kCFBundleIdentifierKey]; 
-		}
-		NSString* name = [NSString stringWithFormat:@"%@ (%@)", channel.name, app];
-		client = asl_open([name UTF8String], "ECLogging", ASL_OPT_STDERR);
+		client = asl_open([channel.nameIncludingApplication UTF8String], "ECLogging", ASL_OPT_STDERR);
 		(self.aslClients)[channel.name] = [NSValue valueWithPointer:client];
 
     }
 
     int level = channel.level ? (int) [channel.level integerValue] : ASL_LEVEL_NOTICE;
 
-	ECLogContextFlags oldContext = channel.context;
-	if (oldContext == ECLogContextDefault)
-	{
-		channel.context = [[ECLogManager sharedInstance] defaultContextFlags];
-	}
-	channel.context &= ~ECLogContextName;
+	ECLogContextFlags oldContext = [channel disableFlags:ECLogContextName];
     NSString* output = [self simpleOutputStringForChannel:channel withObject:object arguments:arguments context:context];
 	channel.context = oldContext;
 	aslmsg aslMsg = asl_new(ASL_TYPE_MSG);

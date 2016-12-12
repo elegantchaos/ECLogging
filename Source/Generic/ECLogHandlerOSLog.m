@@ -40,8 +40,7 @@
     os_log_t log = (self.osLogs)[channel.name];
     if (!log)
     {
-		const char* subsystem_c = [[[NSBundle mainBundle] bundleIdentifier] UTF8String];
-		log = os_log_create(subsystem_c, "ECLogging");
+		log = os_log_create([channel.nameIncludingApplication UTF8String], "ECLogging");
 		(self.osLogs)[channel.name] = log;
     }
     

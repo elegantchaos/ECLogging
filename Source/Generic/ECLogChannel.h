@@ -259,4 +259,24 @@
 
 + (NSString*)cleanName:(const char*)name;
 
+/**
+ Returns the channel name with the application name appended: "<name> (<app name>)".
+ Generally for use when logging to the console.
+ */
+
+- (NSString*)nameIncludingApplication;
+
+/**
+ Disables some flags.
+ Returns the previous version of the flags.
+ */
+
+- (ECLogContextFlags)disableFlags:(ECLogContextFlags)flags;
+
+/**
+ Returns our context flags, with a given flag removed.
+ */
+
+- (ECLogContextFlags)flagsExcluding:(ECLogContextFlags)flags;
+
 @end

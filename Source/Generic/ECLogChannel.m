@@ -329,4 +329,29 @@ static NSString* const kSuffixToStrip = @"Channel";
 	[lm saveChannelSettings];
 }
 
+- (ECLogContextFlags)flagsExcluding:(ECLogContextFlags)flags {
+	ECLogContextFlags context = self.context;
+	if (context == ECLogContextDefault)
+	{
+		context = [[ECLogManager sharedInstance] defaultContextFlags];
+	}
+	return context &= ~flags;
+}
+
+- (ECLogContextFlags)disableFlags:(ECLogContextFlags)flags {
+	ECLogContextFlags previous = self.context;
+	self.context = [self flagsExcluding:flags];
+	return previous;
+}
+
+- (NSString*)nameIncludingApplication {
+	NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
+	NSString* app = info[(__bridge NSString*) kCFBundleNameKey];
+	if (!app) {
+		app = info[(__bridge NSString*) kCFBundleIdentifierKey];
+	}
+	NSString* name = [NSString stringWithFormat:@"%@ (%@)", self.name, app];
+	return name;
+}
+
 @end
