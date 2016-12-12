@@ -6,7 +6,6 @@
 
 #import "ECLogHandlerOSLog.h"
 #import "ECLogChannel.h"
-#import "ECOSLogClient.h"
 
 #import <os/log.h>
 

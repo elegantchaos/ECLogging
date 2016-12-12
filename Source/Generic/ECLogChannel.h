@@ -10,6 +10,28 @@
 @class ECLogHandler;
 
 /**
+ These log levels correspond to those used by ASL, and are used by anything that
+ wants to set the log level of a channel.
+ 
+ Log levels aren't really a concept that's fully embraced by ECLogging - you are
+ much better off just making separate log channels for the various levels of 
+ logging/notification that you want to differentiate. However, level support is provided
+ for compatibility with os_log() / asl.
+ */
+
+typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
+	ECSystemLogLevelEmergency,
+	ECSystemLogLevelAlert,
+	ECSystemLogLevelCritical,
+	ECSystemLogLevelError,
+	ECSystemLogLevelWarning,
+	ECSystemLogLevelNotice,
+	ECSystemLogLevelInfo,
+	ECSystemLogLevelDebug
+};
+
+
+/**
  
  This isn't a class you typically interact with directly. The methods in the class are generally used by the logging system itself.
 
