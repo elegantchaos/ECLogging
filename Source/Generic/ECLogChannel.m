@@ -19,6 +19,7 @@ static NSString* const kSuffixToStrip = @"Channel";
 // --------------------------------------------------------------------------
 
 @interface ECLogChannel ()
+@property (strong, nonatomic, readwrite) ECLogChannel* parent;
 @end
 
 @implementation ECLogChannel
@@ -34,12 +35,18 @@ static NSString* const kSuffixToStrip = @"Channel";
 	return [self initWithName:@"Untitled"];
 }
 
-- (instancetype)initWithName:(NSString*)nameIn
+- (instancetype)initWithName:(NSString*)name
+{
+	return [self initWithName:name parent:nil];
+}
+
+- (instancetype)initWithName:(NSString*)name parent:(ECLogChannel *)parent
 {
 	if ((self = [super init]) != nil)
 	{
-		self.name = nameIn;
-		self.context = ECLogContextDefault;
+		_name = name;
+		_context = ECLogContextDefault;
+		_parent = parent;
 	}
 
 	return self;

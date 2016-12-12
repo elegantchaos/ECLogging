@@ -113,6 +113,14 @@
 
 @property (strong, nonatomic) NSMutableSet* handlers;
 
+/**
+ Parent channel. 
+ Any message logged to this channel will also be logged to the parent channel.
+ If the parent channel is disabled, this channel will be, too.
+ */
+
+@property (strong, nonatomic, readonly) ECLogChannel* parent;
+
 // --------------------------------------------------------------------------
 // Public Methods
 // --------------------------------------------------------------------------
@@ -137,8 +145,17 @@
  @param name The name of the channel.
  */
 
-- (instancetype)initWithName:(NSString*)name NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithName:(NSString*)name;
 
+/**
+ Set up a channel with a given name.
+
+ @param name The name of the channel.
+ @param parent The parent channel. Can be nil, indicating that the channel has no parent.
+
+ */
+
+- (instancetype)initWithName:(NSString*)name parent:(ECLogChannel*)parent NS_DESIGNATED_INITIALIZER;
 
 /**
  Comparison function to sort channels by name.

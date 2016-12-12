@@ -617,6 +617,11 @@ static ECLogManager* gSharedInstance = nil;
 		va_copy(arg_copy, arguments);
 		[handler logFromChannel:channel withObject:object arguments:arg_copy context:context];
 	}
+
+	ECLogChannel* parent = channel.parent;
+	if (parent) {
+		[self logFromChannel:parent withObject:object arguments:arguments context:context];
+	}
 }
 
 // --------------------------------------------------------------------------
