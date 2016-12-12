@@ -7,6 +7,7 @@
 
 #import "ECLogHandlerASL.h"
 #import "ECLogChannel.h"
+#import "ECLogManager.h"
 
 #import <asl.h>
 
@@ -48,18 +49,27 @@
     aslclient client = [(self.aslClients)[channel.name] pointerValue];
     if (!client)
     {
-	NSString* name = [NSString stringWithFormat:@"%@.%@", [[NSBundle mainBundle] bundleIdentifier], channel.name];
-	client = asl_open([name UTF8String], "ECLogging", ASL_OPT_STDERR);
-	(self.aslClients)[channel.name] = [NSValue valueWithPointer:client];
+		NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
+		NSString* app = info[(__bridge NSString*) kCFBundleNameKey];
+		if (!app) {
+			app = info[(__bridge NSString*) kCFBundleIdentifierKey]; 
+		}
+		NSString* name = [NSString stringWithFormat:@"%@ (%@)", channel.name, app];
+		client = asl_open([name UTF8String], "ECLogging", ASL_OPT_STDERR);
+		(self.aslClients)[channel.name] = [NSValue valueWithPointer:client];
 
     }
 
     int level = channel.level ? (int) [channel.level integerValue] : ASL_LEVEL_NOTICE;
 
-	ECLogContextFlags oldFlags = channel.context;
+	ECLogContextFlags oldContext = channel.context;
+	if (oldContext == ECLogContextDefault)
+	{
+		channel.context = [[ECLogManager sharedInstance] defaultContextFlags];
+	}
 	channel.context &= ~ECLogContextName;
     NSString* output = [self simpleOutputStringForChannel:channel withObject:object arguments:arguments context:context];
-	channel.context = oldFlags;
+	channel.context = oldContext;
 	aslmsg aslMsg = asl_new(ASL_TYPE_MSG);
     asl_log(client, aslMsg, level, "%s", [output UTF8String]);
 	asl_free(aslMsg);
