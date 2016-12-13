@@ -19,6 +19,7 @@
 #import "ECLogHandlerOSLog.h"
 #import "ECLogHandlerStderr.h"
 #import "ECLogHandlerStdout.h"
+#import "ECLogHandlerString.h"
 #import "ECLogManager.h"
 #import "ECMacros.h"
 
