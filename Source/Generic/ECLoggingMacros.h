@@ -1,9 +1,5 @@
 // --------------------------------------------------------------------------
-//
-//! @file:
-//! Logging utilities.
-//
-//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2016 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
@@ -36,15 +32,16 @@
 
 #pragma mark - Logging Macros
 
-#define ECLog(channel, ...)                                \
-	do                                                     \
-	{                                                      \
-		ECLogChannel* __c = getChannel##channel();         \
-		if (channelEnabled(__c))                           \
-		{                                                  \
-			ECMakeContext();                               \
-			logToChannel(__c, &ecLogContext, __VA_ARGS__); \
-		}                                                  \
+#define ECLog(channel, ...) ECLogDynamic((getChannel##channel()), __VA_ARGS__)
+
+#define ECLogDynamic(channel, ...)                             \
+	do                                                         \
+	{                                                          \
+		if (channelEnabled(channel))                           \
+		{                                                      \
+			ECMakeContext();                                   \
+			logToChannel(channel, &ecLogContext, __VA_ARGS__); \
+		}                                                      \
 	} while (0)
 
 #define ECLogIf(test, channel, ...)                            \
@@ -76,6 +73,7 @@
 #if EC_DEBUG
 
 #define ECDebug ECLog
+#define ECDebugDynamic ECLogDynamic
 #define ECDebugIf ECLogIf
 #define ECDefineDebugChannel ECDefineLogChannel
 #define ECDeclareDebugChannel ECDeclareLogChannel
@@ -87,6 +85,7 @@
 #else
 
 #define ECDebug(...)
+#define ECDebugDynamic(...)
 #define ECDebugIf(...)
 #define ECDefineDebugChannel(...)
 #define ECDeclareDebugChannel(...)
