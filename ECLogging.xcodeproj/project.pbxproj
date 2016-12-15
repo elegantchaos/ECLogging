@@ -215,12 +215,12 @@
 		22E8178E1D12067100DD8803 /* ParameterisedTestsExample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF591B021952004F9FC7 /* ParameterisedTestsExample.plist */; };
 		22E8178F1D12068C00DD8803 /* HierarchicalExample.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */; };
 		22E817901D12069E00DD8803 /* Included.testsuite in Resources */ = {isa = PBXBuildFile; fileRef = 22D6EF581B021952004F9FC7 /* Included.testsuite */; };
-		22E817971D14825700DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
+		22E817971D14825700DD8803 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* StringTests.swift */; };
 		22E817981D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
 		22E817991D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
 		22E8179A1D149A7900DD8803 /* ParameterisedTestsExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */; };
-		22E8179B1D149F6C00DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
-		22E8179C1D149FAA00DD8803 /* SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* SwiftTests.swift */; };
+		22E8179B1D149F6C00DD8803 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* StringTests.swift */; };
+		22E8179C1D149FAA00DD8803 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E817941D14825700DD8803 /* StringTests.swift */; };
 		22F2FEF4164142A600CD3C7C /* ECLogManagerIOSUISupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F2FEF5164142A600CD3C7C /* ECLogManagerIOSUISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */; };
 		22F861271B029BFF00586780 /* ECParameterisedTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F861261B029BEE00586780 /* ECParameterisedTestSuite.m */; };
@@ -482,7 +482,7 @@
 		22E817891D11FAE100DD8803 /* ECLoggingIOS.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECLoggingIOS.modulemap; sourceTree = "<group>"; };
 		22E8178A1D11FC4500DD8803 /* ECLoggingIOSUmbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECLoggingIOSUmbrella.h; sourceTree = "<group>"; };
 		22E817911D14825600DD8803 /* ECLoggingTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ECLoggingTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		22E817941D14825700DD8803 /* SwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTests.swift; sourceTree = "<group>"; };
+		22E817941D14825700DD8803 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
 		22F2CA601534864400F0A01D /* ECErrorPresenterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorPresenterHandler.h; sourceTree = "<group>"; };
 		22F2CA611534864400F0A01D /* ECErrorPresenterHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorPresenterHandler.m; sourceTree = "<group>"; };
 		22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorAndMessage.h; sourceTree = "<group>"; };
@@ -686,7 +686,7 @@
 			isa = PBXGroup;
 			children = (
 				2251BA6115DBD93700F2FE40 /* BasicTests.m */,
-				22E817941D14825700DD8803 /* SwiftTests.swift */,
+				22E817941D14825700DD8803 /* StringTests.swift */,
 				22FA575F1AB085E10045A364 /* StringTests.m */,
 				22B6A24A183E0CA800873C05 /* ComparisonTests.m */,
 				22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */,
@@ -1431,7 +1431,16 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Elegant Chaos";
 				TargetAttributes = {
+					222186F319DAB60900F08CCE = {
+						LastSwiftMigration = 0820;
+					};
 					226889D81AEE4B49005510E5 = {
+						LastSwiftMigration = 0820;
+					};
+					228CF1E817562478003E1D25 = {
+						LastSwiftMigration = 0820;
+					};
+					22FF8E8516F1E5EB008FC10D = {
 						LastSwiftMigration = 0820;
 					};
 				};
@@ -1748,7 +1757,7 @@
 				2251BA6215DBD93700F2FE40 /* BasicTests.m in Sources */,
 				22D6EF541B021900004F9FC7 /* RunLoopExample.m in Sources */,
 				22D6EF641B021982004F9FC7 /* HierarchicalExample.m in Sources */,
-				22E8179B1D149F6C00DD8803 /* SwiftTests.swift in Sources */,
+				22E8179B1D149F6C00DD8803 /* StringTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1756,7 +1765,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22E8179C1D149FAA00DD8803 /* SwiftTests.swift in Sources */,
+				22E8179C1D149FAA00DD8803 /* StringTests.swift in Sources */,
 				226889DC1AEE4B49005510E5 /* ComparisonTests.m in Sources */,
 				226889DD1AEE4B49005510E5 /* StringTests.m in Sources */,
 				22E817991D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */,
@@ -1776,7 +1785,7 @@
 				2251BA6315DBD93700F2FE40 /* BasicTests.m in Sources */,
 				22D6EF561B021900004F9FC7 /* RunLoopExample.m in Sources */,
 				22D6EF661B021982004F9FC7 /* HierarchicalExample.m in Sources */,
-				22E817971D14825700DD8803 /* SwiftTests.swift in Sources */,
+				22E817971D14825700DD8803 /* StringTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
