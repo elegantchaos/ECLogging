@@ -1428,8 +1428,13 @@
 			attributes = {
 				LastSwiftMigration = 0730;
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Elegant Chaos";
+				TargetAttributes = {
+					226889D81AEE4B49005510E5 = {
+						LastSwiftMigration = 0820;
+					};
+				};
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ECLogging" */;
 			compatibilityVersion = "Xcode 3.2";

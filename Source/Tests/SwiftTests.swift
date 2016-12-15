@@ -14,10 +14,10 @@ import Foundation
 class SwiftTests: ECTestCase {
 
 	func testStringBySplittingMixedCaps() {
-		XCTAssertEqual("mixedCapTest".stringBySplittingMixedCaps(), "mixed Cap Test")
-		XCTAssertEqual("alllowercaseoneword".stringBySplittingMixedCaps(), "alllowercaseoneword")
-		XCTAssertEqual("".stringBySplittingMixedCaps(), "")
-		XCTAssertEqual("all lower case multiple words".stringBySplittingMixedCaps(), "all lower case multiple words")
+		XCTAssertEqual("mixedCapTest".splittingMixedCaps(), "mixed Cap Test")
+		XCTAssertEqual("alllowercaseoneword".splittingMixedCaps(), "alllowercaseoneword")
+		XCTAssertEqual("".splittingMixedCaps(), "")
+		XCTAssertEqual("all lower case multiple words".splittingMixedCaps(), "all lower case multiple words")
 	}
 
 }
