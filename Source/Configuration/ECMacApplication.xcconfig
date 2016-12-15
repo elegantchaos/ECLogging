@@ -8,3 +8,9 @@
 
 WRAPPER_EXTENSION = app
 INSTALL_PATH = $(HOME)/Applications
+
+// --------------------------------------------------------------------------
+// Swift
+// --------------------------------------------------------------------------
+
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
