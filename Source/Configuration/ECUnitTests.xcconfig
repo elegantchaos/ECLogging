@@ -12,5 +12,8 @@ OTHER_LDFLAGS = $(inherited) -ObjC
 ENABLE_TESTABILITY = YES
 GCC_PREFIX_HEADER = Tests/$(TARGET_NAME).pch
 
-// XC8.1 additions
+// --------------------------------------------------------------------------
+// Swift
+// --------------------------------------------------------------------------
+
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
