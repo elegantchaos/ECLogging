@@ -7,5 +7,4 @@
 /// Standard xcconfig files.
 
 #include "ECMacDebug.xcconfig"
-#include "ECUnitTests.xcconfig"
 #include "MacTestsShared.xcconfig"

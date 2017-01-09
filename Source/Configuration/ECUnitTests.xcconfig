@@ -11,3 +11,9 @@ PRODUCT_NAME = $(TARGET_NAME)
 OTHER_LDFLAGS = $(inherited) -ObjC
 ENABLE_TESTABILITY = YES
 GCC_PREFIX_HEADER = Tests/$(TARGET_NAME).pch
+
+// --------------------------------------------------------------------------
+// Swift
+// --------------------------------------------------------------------------
+
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
