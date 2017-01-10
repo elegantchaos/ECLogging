@@ -25,7 +25,6 @@ build="$PWD/test-build"
 
 pushd "$ecbase" > /dev/null
 wd=`pwd`
-ocunit2junit="$wd/ocunit2junit/bin/ocunit2junit"
 popd > /dev/null
 
 derived="$build/derived"

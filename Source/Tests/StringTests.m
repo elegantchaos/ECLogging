@@ -31,14 +31,6 @@
 }
 #endif
 
-- (void)testStringBySplittingMixedCaps
-{
-	ECTestAssertStringIsEqual([@"mixedCapTest" stringBySplittingMixedCaps], @"mixed Cap Test");
-	ECTestAssertStringIsEqual([@"alllowercaseoneword" stringBySplittingMixedCaps], @"alllowercaseoneword");
-	ECTestAssertStringIsEqual([@"" stringBySplittingMixedCaps], @"");
-	ECTestAssertStringIsEqual([@"all lower case multiple words" stringBySplittingMixedCaps], @"all lower case multiple words");
-}
-
 - (void)testLastLines
 {
 	NSString* threeLines = [@[@"line1", @"line2", @"line3"] componentsJoinedByString:@"\n"];

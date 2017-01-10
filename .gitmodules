@@ -1,7 +1,3 @@
 [submodule "Extras/Documentation/Wiki"]
 	path = Extras/Documentation/Wiki
 	url = git://github.com/elegantchaos/ECLogging.wiki.git
-[submodule "Extras/Scripts/ocunit2junit"]
-	path = Extras/Scripts/ocunit2junit
-	url = git://github.com/samdeane/OCUnit2JUnit.git
-

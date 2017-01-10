@@ -4,9 +4,10 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#include "ECUnitTests.xcconfig"
+
 INFOPLIST_FILE = Resources/ECLoggingTests.plist
 SWIFT_OBJC_BRIDGING_HEADER = Source/Tests/ECLoggingTests-Bridging-Header.h
 SWIFT_OPTIMIZATION_LEVEL = -Onone
 LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/Frameworks @loader_path/../Frameworks
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-SWIFT_VERSION = 2.3
