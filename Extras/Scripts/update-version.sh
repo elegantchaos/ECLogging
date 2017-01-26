@@ -15,14 +15,13 @@
 ##
 
 PLIST="$1"
+SHORT_VERSION="$2"
+
 if [ "$PLIST" == "" ]; then
     PLIST="${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
 fi
 
-VERSION=`git log --oneline | wc -l`
 COMMIT=`git rev-parse HEAD`
-
-SHORT_VERSION="$2"
 
 # update the plist in the built app
 
@@ -34,6 +33,8 @@ then
     echo "Commit is unchanged - no need to bump build number."
     exit 0
 fi
+
+VERSION=`git log --oneline | wc -l`
 
 if [[ "$EXISTING_COMMIT" == "" ]]
 then
