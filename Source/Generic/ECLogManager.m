@@ -356,6 +356,9 @@ static ECLogManager* gSharedInstance = nil;
 	if (enabledChannel)
 	{
 		ECLogChannel* channel = self.channels[enabledChannel];
+		if (!channel) {
+			channel = [self registerChannelWithName:enabledChannel options:nil];
+		}
 		[channel enable];
 	}
 
