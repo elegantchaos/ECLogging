@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-//  Copyright 2014 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
 //  Copyright (c) 2015 Sam Deane, Elegant Chaos. All rights reserved.
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
