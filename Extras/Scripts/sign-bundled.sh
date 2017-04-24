@@ -74,6 +74,10 @@ sign()
     fi
     SIGN_OUTPUT=$(codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}" 2>&1)
     verbose "$SIGN_OUTPUT"
+    if [ $? != 0 ];
+    then
+        echo "Code signing failed for $NAME"
+    fi
   else
     verbose "Didn't need to sign $NAME - already signed correctly as $CURRENT_IDENTIFIER $CURRENT_AUTHORITY"
   fi
