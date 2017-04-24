@@ -29,7 +29,7 @@ sign()
   local FILE="$3"
   local NAME=`basename "$FILE"`
 
-  verbose "Sign called with BUNDLEID:'$BUNDLEID'"
+  verbose "Signing $NAME with BUNDLEID:'$BUNDLEID'"
   verbose "IDENTITY:'$CODE_SIGN_IDENTITY'"
   verbose "FILE:'$FILE'"
 
@@ -73,6 +73,8 @@ sign()
         echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
     fi
     SIGN_OUTPUT=$(codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}" 2>&1)
+
+    verbose "> codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign '${CODE_SIGN_IDENTITY}' '${FILE}'"
     verbose "$SIGN_OUTPUT"
     if [ $? != 0 ];
     then
