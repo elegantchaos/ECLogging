@@ -13,7 +13,7 @@
 ## (C) 2013 Sam Deane, Elegant Chaos.
 ## Feel free to use and abuse this script - I'd love to hear of improvements.
 
-SHOW_VERBOSE=false
+SHOW_VERBOSE=true
 
 verbose()
 {
