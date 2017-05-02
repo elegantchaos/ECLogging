@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>InstallMenu</key>
+	<true/>
+	<key>Channels</key>
+	<dict>
+		<key>Application</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Level</key>
+			<integer>5</integer>
+		</dict>
+		<key>Object</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+		</dict>
+		<key>Test</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+		</dict>
+		<key>Other</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+		</dict>
+		<key>Error</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Handlers</key>
+			<array>
+				<string>ErrorPresenter</string>
+			</array>
+		</dict>
+	</dict>
+	<key>Handlers</key>
+	<dict>
+		<key>ECLogHandlerFile</key>
+		<dict>
+			<key>Default</key>
+			<true/>
+		</dict>
+		<key>ECLogHandlerNSLog</key>
+		<dict>
+			<key>Default</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

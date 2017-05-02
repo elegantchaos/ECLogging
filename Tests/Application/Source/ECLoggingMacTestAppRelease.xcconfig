@@ -5,4 +5,4 @@
 // --------------------------------------------------------------------------
 
 #include "../../../Source/Configuration/ECMacRelease.xcconfig"
-#include "ECLoggingMacAppTestShared.xcconfig"
+#include "ECLoggingMacTestAppShared.xcconfig"

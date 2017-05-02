@@ -10,6 +10,10 @@
 
 #import "AppDelegate.h"
 
+@interface AppDelegate()
+@property (strong, nonatomic) ECLogManagerMacUISupport* logSupport;
+@end
+
 @implementation AppDelegate
 
 #pragma mark - Channels
@@ -29,6 +33,10 @@ ECDefineLogChannel(OtherChannel);
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification
 {
+	ECLogManagerMacUISupport* logSupport = [ECLogManagerMacUISupport new];
+	[ECLogManager sharedInstance].delegate = logSupport;
+	self.logSupport = logSupport;
+
 	ECDebug(ApplicationChannel, @"will finish launching");
 
 	// example of logging a non-string object
