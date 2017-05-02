@@ -11,6 +11,16 @@
 			<key>Level</key>
 			<integer>5</integer>
 		</dict>
+		<key>Assertion</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Handlers</key>
+			<array>
+				<string>ErrorPresenter</string>
+				<string>NSLog</string>
+			</array>
+		</dict>
 		<key>Object</key>
 		<dict>
 			<key>Enabled</key>
@@ -47,6 +57,11 @@
 		<dict>
 			<key>Default</key>
 			<true/>
+		</dict>
+		<key>ECErrorPresenterHandler</key>
+		<dict>
+			<key>Default</key>
+			<false/>
 		</dict>
 	</dict>
 </dict>

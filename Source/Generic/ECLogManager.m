@@ -66,7 +66,7 @@ static NSString* const ForceChannelDisabledKey = @"ECLoggingDisableChannel";
 static NSString* const ForceDebugMenuKey = @"ECLoggingMenu";
 static NSString* const InstallDebugMenuKey = @"InstallMenu";
 
-static NSUInteger kSettingsVersion = 2;
+static NSUInteger kSettingsVersion = 4;
 
 typedef struct
 {
