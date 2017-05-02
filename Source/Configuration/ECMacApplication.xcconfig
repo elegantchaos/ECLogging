@@ -8,6 +8,7 @@
 
 WRAPPER_EXTENSION = app
 INSTALL_PATH = $(HOME)/Applications
+OTHER_LDFLAGS = -ObjC
 
 // --------------------------------------------------------------------------
 // Swift
