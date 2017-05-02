@@ -8,7 +8,7 @@
 #include "ECLogChannel.h"
 #include "ECLoggingMacros.h"
 
-ECDefineDebugChannel(AssertionChannel);
+ECDefineLogChannel(AssertionChannel);
 
 @implementation ECAssertion
 

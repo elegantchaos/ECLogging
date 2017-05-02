@@ -6,8 +6,6 @@
 //  Copyright © 2017 Elegant Chaos. All rights reserved.
 //
 
-@import ECLogging;
-
 #import "AppDelegate.h"
 
 @interface AppDelegate()
@@ -135,7 +133,7 @@ ECDefineLogChannel(OtherChannel);
 
 - (IBAction)clickedTestAssertion:(id)sender
 {
-
+	ECAssertFail();
 }
 
 - (IBAction)clickedRevealLogFiles:(id)sender

@@ -4,6 +4,39 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#if !NS_BLOCK_ASSERTIONS && !defined(__clang_analyzer__) // don't evaluate assertions whilst we're being analyzed as it can confuse clang into thinking that some code paths are normal when actually they aren't
+
+#pragma mark - Assertions Enabled
+
+#import "ECLoggingMacros.h"
+
+@class ECLogChannel;
+
+ECDeclareLogChannel(AssertionChannel);
+
+#define ECAssert(expression)                                                    \
+	do                                                                          \
+	{                                                                           \
+		if (!(expression))                                                      \
+		{                                                                       \
+			ECLog(AssertionChannel, @"Expression %s was false", #expression);   \
+			[ECAssertion failAssertion:#expression];                            \
+		}                                                                       \
+	} while (0)
+
+#define ECAssertC(expression) assert(expression)
+
+#else
+
+#pragma mark - Assertions Disabled
+
+#define ECAssert(expression)
+#define ECAssertC(expression)
+
+#endif
+
+#pragma mark - Generic Macros
+
 #define ECAssertContainsBase(container, object, imp) imp([(container)containsObject:(object)])
 #define ECAssertDoesntContainBase(container, object, imp) imp(![(container)containsObject:(object)])
 #define ECAssertShouldntBeHereBase(imp) imp(FALSE)
@@ -11,37 +44,10 @@
 #define ECAssertNonNilBase(expression, imp) imp((expression) != nil)
 #define ECAssertNilBase(expression, imp) imp((expression) == nil)
 #define ECAssertCountAtLeastBase(container, countMinimum, imp) imp([(container)count] >= (countMinimum))
-#define ECAssertEmptyBase(object, imp)							
+#define ECAssertEmptyBase(object, imp)
 #define ECAssertIsMainThreadBase(imp) imp(([NSThread isMainThread]))
+#define ECAssertFailBase(imp) imp(FALSE)
 
-#if EC_DEBUG
-
-#import "ECLoggingMacros.h"
-
-@class ECLogChannel;
-ECDeclareDebugChannel(AssertionChannel);
-
-#endif
-
-#if EC_DEBUG && !defined(__clang_analyzer__) // don't evaluate assertions whilst we're being analyzed as it can confuse clang into thinking that some code paths are normal when actually they aren't
-
-#define ECAssert(expression)                                                    \
-	do                                                                          \
-	{                                                                           \
-		if (!(expression))                                                      \
-		{                                                                       \
-			ECDebug(AssertionChannel, @"Expression %s was false", #expression); \
-			[ECAssertion failAssertion:#expression];                            \
-		}                                                                       \
-	} while (0)
-#define ECAssertC(expression) assert(expression)
-
-#else // NON-DEBUG
-
-#define ECAssert(expression)
-#define ECAssertC(expression)
-
-#endif
 
 #define ECAssertContains(container, object) ECAssertContainsBase(container, object, ECAssert)
 #define ECAssertContainsC(container, object) ECAssertContainsBase(container, object, ECAssertC)
@@ -86,10 +92,12 @@ ECDeclareDebugChannel(AssertionChannel);
 #define ECAssertIsMainThread() ECAssertIsMainThreadBase(ECAssert)
 #define ECAssertIsMainThreadC() ECAssertIsMainThreadBase(ECAssertC)
 
+#define ECAssertFail()	{ ECAssertFailBase(ECAssert) }
+#define ECAssertFailC()	{ ECAssertFailBase(ECAssertC) }
+
 @interface ECAssertion : NSObject
 
 + (void)failAssertion:(const char*)expression;
 + (id)assertObject:(id)object isOfClass:(Class)c;
-
 
 @end
