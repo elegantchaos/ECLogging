@@ -297,6 +297,20 @@
 			remoteGlobalIDString = 22F408E81EB8912C00DBB6BB;
 			remoteInfo = ECLoggingMacAppTest;
 		};
+		22F409301EB8B01F00DBB6BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2251B9FE15DBCC3E00F2FE40;
+			remoteInfo = ECLoggingMac;
+		};
+		22F409321EB8B01F00DBB6BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 222186B419DAB5F300F08CCE;
+			remoteInfo = ECLoggingUI;
+		};
 		22FF8E8116F1E4E3008FC10D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -647,8 +661,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22F409281EB896F500DBB6BB /* ECLoggingUI.framework in Frameworks */,
 				22F409271EB896F100DBB6BB /* ECLogging.framework in Frameworks */,
+				22F409281EB896F500DBB6BB /* ECLoggingUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1562,6 +1576,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				22F409311EB8B01F00DBB6BB /* PBXTargetDependency */,
+				22F409331EB8B01F00DBB6BB /* PBXTargetDependency */,
 			);
 			name = ECLoggingMacTestApp;
 			productName = ECLoggingMacAppTest;
@@ -2159,6 +2175,16 @@
 			isa = PBXTargetDependency;
 			target = 22F408E81EB8912C00DBB6BB /* ECLoggingMacTestApp */;
 			targetProxy = 22F4090D1EB8912D00DBB6BB /* PBXContainerItemProxy */;
+		};
+		22F409311EB8B01F00DBB6BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2251B9FE15DBCC3E00F2FE40 /* ECLoggingMac */;
+			targetProxy = 22F409301EB8B01F00DBB6BB /* PBXContainerItemProxy */;
+		};
+		22F409331EB8B01F00DBB6BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 222186B419DAB5F300F08CCE /* ECLoggingUI */;
+			targetProxy = 22F409321EB8B01F00DBB6BB /* PBXContainerItemProxy */;
 		};
 		22FF8E8216F1E4E3008FC10D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
