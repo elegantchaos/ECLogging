@@ -4,5 +4,5 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#include "../../../Source/Configuration/ECMacDebug.xcconfig"
+#include "Source/Configuration/ECMacDebug.xcconfig"
 #include "ECLoggingMacTestAppShared.xcconfig"
