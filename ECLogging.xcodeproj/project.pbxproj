@@ -161,6 +161,8 @@
 		229C9E0A16F9085B00FD7AAE /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */; };
 		229EDCEB16442DB00087B26E /* ECDebugHandlersViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 229EDCE916442DAF0087B26E /* ECDebugHandlersViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		229EDCEC16442DB00087B26E /* ECDebugHandlersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229EDCEA16442DB00087B26E /* ECDebugHandlersViewController.m */; };
+		229FF4561EB8BD9C00BD79A8 /* libECLogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 228CF1E917562478003E1D25 /* libECLogging.a */; };
+		229FF4571EB8BD9C00BD79A8 /* libECLoggingUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2221872C19DAB60900F08CCE /* libECLoggingUI.a */; };
 		22B6A245183E0C5400873C05 /* ECTestComparisons.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B6A243183E0C5400873C05 /* ECTestComparisons.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22B6A246183E0C5400873C05 /* ECTestComparisons.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B6A243183E0C5400873C05 /* ECTestComparisons.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22B6A247183E0C5400873C05 /* ECTestComparisons.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6A244183E0C5400873C05 /* ECTestComparisons.m */; };
@@ -294,20 +296,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 22F408E81EB8912C00DBB6BB;
 			remoteInfo = ECLoggingMacAppTest;
-		};
-		22F409301EB8B01F00DBB6BB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2251B9FE15DBCC3E00F2FE40;
-			remoteInfo = ECLoggingMac;
-		};
-		22F409321EB8B01F00DBB6BB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 222186B419DAB5F300F08CCE;
-			remoteInfo = ECLoggingUI;
 		};
 		22FF8E8116F1E4E3008FC10D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -556,9 +544,7 @@
 		22F409121EB8912D00DBB6BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22F409231EB894D800DBB6BB /* ECLoggingMacTestAppDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ECLoggingMacTestAppDebug.xcconfig; path = Tests/Application/Source/ECLoggingMacTestAppDebug.xcconfig; sourceTree = SOURCE_ROOT; };
 		22F409241EB894D800DBB6BB /* ECLoggingMacTestAppRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ECLoggingMacTestAppRelease.xcconfig; path = Tests/Application/Source/ECLoggingMacTestAppRelease.xcconfig; sourceTree = SOURCE_ROOT; };
-		22F409251EB894D800DBB6BB /* ECLoggingMacTestAppTestsDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ECLoggingMacTestAppTestsDebug.xcconfig; path = Tests/Application/Source/ECLoggingMacTestAppTestsDebug.xcconfig; sourceTree = SOURCE_ROOT; };
-		22F409261EB894D800DBB6BB /* ECLoggingMacTestAppTestsRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ECLoggingMacTestAppTestsRelease.xcconfig; path = Tests/Application/Source/ECLoggingMacTestAppTestsRelease.xcconfig; sourceTree = SOURCE_ROOT; };
-		22F409291EB8973700DBB6BB /* ECLoggingMacTestAppTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECLoggingMacTestAppTests.pch; sourceTree = "<group>"; };
+		22F409291EB8973700DBB6BB /* ECLoggingMacTestApp.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECLoggingMacTestApp.pch; sourceTree = "<group>"; };
 		22F4092A1EB8978A00DBB6BB /* ECLoggingMacTestAppShared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ECLoggingMacTestAppShared.xcconfig; path = Tests/Application/Source/ECLoggingMacTestAppShared.xcconfig; sourceTree = SOURCE_ROOT; };
 		22F4092C1EB89D2D00DBB6BB /* ECLogging.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ECLogging.plist; sourceTree = "<group>"; };
 		22F4092D1EB89D2D00DBB6BB /* ECLoggingDebug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ECLoggingDebug.plist; sourceTree = "<group>"; };
@@ -659,6 +645,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				229FF4561EB8BD9C00BD79A8 /* libECLogging.a in Frameworks */,
+				229FF4571EB8BD9C00BD79A8 /* libECLoggingUI.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1079,7 +1067,7 @@
 				22F408FC1EB8912C00DBB6BB /* Info.plist */,
 				22F4092C1EB89D2D00DBB6BB /* ECLogging.plist */,
 				22F4092D1EB89D2D00DBB6BB /* ECLoggingDebug.plist */,
-				22F409291EB8973700DBB6BB /* ECLoggingMacTestAppTests.pch */,
+				22F409291EB8973700DBB6BB /* ECLoggingMacTestApp.pch */,
 				22F4091C1EB891DE00DBB6BB /* Configuration */,
 				22F408EF1EB8912C00DBB6BB /* main.m */,
 			);
@@ -1110,8 +1098,6 @@
 				22F4092A1EB8978A00DBB6BB /* ECLoggingMacTestAppShared.xcconfig */,
 				22F409231EB894D800DBB6BB /* ECLoggingMacTestAppDebug.xcconfig */,
 				22F409241EB894D800DBB6BB /* ECLoggingMacTestAppRelease.xcconfig */,
-				22F409251EB894D800DBB6BB /* ECLoggingMacTestAppTestsDebug.xcconfig */,
-				22F409261EB894D800DBB6BB /* ECLoggingMacTestAppTestsRelease.xcconfig */,
 			);
 			name = Configuration;
 			path = ../../../../../../../elegantchaos/Projects/Libraries/ECIntegration/ECLoggingExamples/Configuration;
@@ -1572,8 +1558,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				22F409311EB8B01F00DBB6BB /* PBXTargetDependency */,
-				22F409331EB8B01F00DBB6BB /* PBXTargetDependency */,
 			);
 			name = ECLoggingMacTestApp;
 			productName = ECLoggingMacAppTest;
@@ -2172,16 +2156,6 @@
 			target = 22F408E81EB8912C00DBB6BB /* ECLoggingMacTestApp */;
 			targetProxy = 22F4090D1EB8912D00DBB6BB /* PBXContainerItemProxy */;
 		};
-		22F409311EB8B01F00DBB6BB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2251B9FE15DBCC3E00F2FE40 /* ECLoggingMac */;
-			targetProxy = 22F409301EB8B01F00DBB6BB /* PBXContainerItemProxy */;
-		};
-		22F409331EB8B01F00DBB6BB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 222186B419DAB5F300F08CCE /* ECLoggingUI */;
-			targetProxy = 22F409321EB8B01F00DBB6BB /* PBXContainerItemProxy */;
-		};
 		22FF8E8216F1E4E3008FC10D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2251BA1115DBCC4A00F2FE40 /* ECLoggingIOS */;
@@ -2384,7 +2358,6 @@
 		};
 		22F409151EB8912D00DBB6BB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22F409251EB894D800DBB6BB /* ECLoggingMacTestAppTestsDebug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2441,7 +2414,6 @@
 		};
 		22F409161EB8912D00DBB6BB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22F409261EB894D800DBB6BB /* ECLoggingMacTestAppTestsRelease.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";

@@ -8,4 +8,4 @@
 
 GCC_PREFIX_HEADER = Tests/Application/Source/ECLoggingMacTestApp.pch
 INFOPLIST_FILE = Tests/Application/Source/Info.plist
-PRODUCT_BUNDLE_IDENTIFIER = com.elegantchaos.ECLoggingMacAppTest
+PRODUCT_BUNDLE_IDENTIFIER = com.elegantchaos.ECLoggingMacTestApp
