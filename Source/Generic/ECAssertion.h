@@ -14,18 +14,27 @@
 
 ECDeclareLogChannel(AssertionChannel);
 
-#define ECAssert(expression)                                                    \
-	do                                                                          \
-	{                                                                           \
-		if (!(expression))                                                      \
-		{                                                                       \
-			ECLog(AssertionChannel, @"%s was false", #expression);   \
-		}                                                                       \
-		NSAssert(expression, @"ECAssertion failed for expression: %s", #expression); \
+#define ECAssert(expression)																\
+	do {																					\
+		BOOL _expression_ok = ((int)(expression)) != 0;                                     \
+		if (!_expression_ok) {                                                              \
+			ECLog(AssertionChannel, @"%s was false", #expression);							\
+		}																					\
+		NSAssert(_expression_ok, @"ECAssertion failed for expression: %s", #expression);	\
 	} while (0)
 
-#define ECAssertC(expression) assert(expression)
-
+#ifdef __OBJC
+#define ECAssertC(expression)																\
+	do {																					\
+		BOOL _expression_ok = ((int)(expression)) != 0;                                     \
+		if (!_expression_ok) {                                                              \
+			ECLog(AssertionChannel, @"%s was false", #expression);							\
+		}																					\
+		NSAssertC(_expression_ok, @"ECAssertion failed for expression: %s", #expression);   \
+	} while (0)
+#else
+#define ECAssertC assert
+#endif
 #else
 
 #pragma mark - Assertions Disabled
