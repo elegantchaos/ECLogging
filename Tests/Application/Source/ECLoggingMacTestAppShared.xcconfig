@@ -1,0 +1,11 @@
+// --------------------------------------------------------------------------
+//  Copyright 2017 Sam Deane, Elegant Chaos. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
+
+#include "../../../Source/Configuration/ECMacApplication.xcconfig"
+
+INFOPLIST_FILE = Tests/Application/Source/Info.plist
+PRODUCT_BUNDLE_IDENTIFIER = com.elegantchaos.ECLoggingMacAppTest
+GCC_PREFIX_HEADER = Tests/Application/Source/ECLoggingMacTestApp.pch
