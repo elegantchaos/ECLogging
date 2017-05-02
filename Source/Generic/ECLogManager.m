@@ -815,4 +815,20 @@ static ECLogManager* gSharedInstance = nil;
 	}
 }
 
+- (BOOL)debugChannelsAreEnabled {
+#if EC_DEBUG
+	return YES;
+#else
+	return NO;
+#endif
+}
+
+- (BOOL)assertionsAreEnabled {
+#if NS_BLOCK_ASSERTIONS
+	return NO;
+#else
+	return YES;
+#endif
+}
+
 @end

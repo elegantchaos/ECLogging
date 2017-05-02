@@ -13,7 +13,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Do any additional setup after loading the view.
+	ECLogManager* lm = [ECLogManager sharedInstance];
+	NSString* debugText = [NSString stringWithFormat:@"Debug %@. ", lm.debugChannelsAreEnabled ? @"enabled" : @"disabled"];
+	NSString* assertionsText = [NSString stringWithFormat:@"Assertions %@. ", lm.assertionsAreEnabled ? @"enabled" : @"disabled"];
+	self.status.stringValue = [assertionsText stringByAppendingString:debugText];
 }
 
 

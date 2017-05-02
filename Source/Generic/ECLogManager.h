@@ -44,6 +44,8 @@
 @property (strong, nonatomic) NSMutableDictionary* settings;
 @property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
 @property (assign, nonatomic) BOOL showMenu;
+@property (assign, nonatomic, readonly, getter=debugChannelsAreEnabled) BOOL debugChannelsAreEnabled;
+@property (assign, nonatomic, readonly, getter=assertionsAreEnabled) BOOL assertionsAreEnabled;
 
 // --------------------------------------------------------------------------
 // Public Methods

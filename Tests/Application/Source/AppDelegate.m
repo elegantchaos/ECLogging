@@ -31,9 +31,11 @@ ECDefineLogChannel(OtherChannel);
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification
 {
+	ECLogManager* lm = [ECLogManager sharedInstance];
 	ECLogManagerMacUISupport* logSupport = [ECLogManagerMacUISupport new];
-	[ECLogManager sharedInstance].delegate = logSupport;
+	lm.delegate = logSupport;
 	self.logSupport = logSupport;
+
 
 	ECDebug(ApplicationChannel, @"will finish launching");
 
