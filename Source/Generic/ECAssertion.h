@@ -92,8 +92,8 @@ ECDeclareLogChannel(AssertionChannel);
 #define ECAssertIsMainThread() ECAssertIsMainThreadBase(ECAssert)
 #define ECAssertIsMainThreadC() ECAssertIsMainThreadBase(ECAssertC)
 
-#define ECAssertFail()	{ ECAssertFailBase(ECAssert) }
-#define ECAssertFailC()	{ ECAssertFailBase(ECAssertC) }
+#define ECAssertFail()	{ ECAssertFailBase(ECAssert); }
+#define ECAssertFailC()	{ ECAssertFailBase(ECAssertC); }
 
 @interface ECAssertion : NSObject
 
