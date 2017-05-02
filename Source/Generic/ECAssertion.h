@@ -19,9 +19,9 @@ ECDeclareLogChannel(AssertionChannel);
 	{                                                                           \
 		if (!(expression))                                                      \
 		{                                                                       \
-			ECLog(AssertionChannel, @"Expression %s was false", #expression);   \
-			[ECAssertion failAssertion:#expression];                            \
+			ECLog(AssertionChannel, @"%s was false", #expression);   \
 		}                                                                       \
+		NSAssert(expression, @"ECAssertion failed for expression: %s", #expression); \
 	} while (0)
 
 #define ECAssertC(expression) assert(expression)
@@ -97,7 +97,6 @@ ECDeclareLogChannel(AssertionChannel);
 
 @interface ECAssertion : NSObject
 
-+ (void)failAssertion:(const char*)expression;
 + (id)assertObject:(id)object isOfClass:(Class)c;
 
 @end

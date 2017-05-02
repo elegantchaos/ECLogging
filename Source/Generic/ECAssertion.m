@@ -12,11 +12,6 @@ ECDefineLogChannel(AssertionChannel);
 
 @implementation ECAssertion
 
-+ (void)failAssertion:(const char*)expression
-{
-	[NSException raise:@"ECAssertion failed" format:@"Expression:%s", expression];
-}
-
 + (id)assertObject:(id)object isOfClass:(Class)c
 {
 	ECAssert((object == nil) || [object isKindOfClass:c]);
