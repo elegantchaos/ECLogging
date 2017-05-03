@@ -79,6 +79,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary*)optionsSettings;
 
+- (BOOL)isAssertionSuppressedForKey:(NSString*)key;
+- (void)suppressAssertionForKey:(NSString*)key;
+- (void)resetAllAssertions;
+
 @end
 
 @interface ECLogManager (PlatformSpecific)

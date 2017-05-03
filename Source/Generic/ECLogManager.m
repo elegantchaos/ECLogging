@@ -11,7 +11,7 @@
 @interface ECLogManager ()
 
 // Turn this setting on to output debug message on the log manager itself, using NSLog
-#define LOG_MANAGER_DEBUGGING 1
+#define LOG_MANAGER_DEBUGGING 0
 
 #if LOG_MANAGER_DEBUGGING
 #define LogManagerLog(format, ...) NSLog(@"ECLogManager: %@", [NSString stringWithFormat:format, ##__VA_ARGS__])
@@ -52,20 +52,21 @@ NSString* const LogChannelsChanged = @"LogChannelsChanged";
 static NSString* const DebugLogSettingsFile = @"ECLoggingDebug";
 static NSString* const LogSettingsFile = @"ECLogging";
 
-static NSString* const ContextKey = @"Context";
-static NSString* const EnabledKey = @"Enabled";
-static NSString* const HandlersKey = @"Handlers";
-static NSString* const OptionsKey = @"Options";
-static NSString* const LevelKey = @"Level";
-static NSString* const LogManagerSettingsKey = @"ECLogging";
 static NSString* const ChannelsKey = @"Channels";
+static NSString* const ContextKey = @"Context";
 static NSString* const DefaultKey = @"Default";
-static NSString* const VersionKey = @"Version";
-static NSString* const ResetSettingsKey = @"ECLoggingReset";
+static NSString* const EnabledKey = @"Enabled";
 static NSString* const ForceChannelEnabledKey = @"ECLoggingEnableChannel";
 static NSString* const ForceChannelDisabledKey = @"ECLoggingDisableChannel";
 static NSString* const ForceDebugMenuKey = @"ECLoggingMenu";
+static NSString* const HandlersKey = @"Handlers";
 static NSString* const InstallDebugMenuKey = @"InstallMenu";
+static NSString* const LevelKey = @"Level";
+static NSString* const LogManagerSettingsKey = @"ECLogging";
+static NSString* const OptionsKey = @"Options";
+static NSString* const ResetSettingsKey = @"ECLoggingReset";
+static NSString *const SuppressedAssertionsKey = @"SuppressedAssertions";
+static NSString* const VersionKey = @"Version";
 
 static NSUInteger kSettingsVersion = 4;
 
@@ -826,6 +827,24 @@ static ECLogManager* gSharedInstance = nil;
 #else
 	return YES;
 #endif
+}
+
+- (BOOL)isAssertionSuppressedForKey:(NSString*)key {
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	NSDictionary* suppressedAssertions = [defaults valueForKey:SuppressedAssertionsKey];
+	return [suppressedAssertions[key] boolValue];
+}
+
+- (void)suppressAssertionForKey:(NSString*)key {
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	NSMutableDictionary* suppressedAssertions = [([defaults valueForKey:SuppressedAssertionsKey] ?: @{}) mutableCopy] ;
+	suppressedAssertions[key] = @(YES);
+	[defaults setValue:suppressedAssertions forKey:SuppressedAssertionsKey];
+}
+
+- (void)resetAllAssertions {
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	[defaults removeObjectForKey:SuppressedAssertionsKey];
 }
 
 @end

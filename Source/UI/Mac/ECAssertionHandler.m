@@ -26,38 +26,52 @@
 
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context
 {
-	// log the message, possibly with a context appended
-	NSString* message;
-	if ([object isKindOfClass:[NSString class]])
-	{
-		NSString* format = object;
-		message = [[NSString alloc] initWithFormat:format arguments:arguments];
-	}
-	else
-	{
-		message = [object description];
-	}
+	// has this alert been suppressed?
+	ECLogManager* lm = [ECLogManager sharedInstance];
+	NSString* assertionKey = [NSString stringWithFormat:@"%s%s%u", context->function, context->file, context->line];
+	if (![lm isAssertionSuppressedForKey:assertionKey]) {
+		NSString* message;
+		if ([object isKindOfClass:[NSString class]])
+		{
+			NSString* format = object;
+			message = [[NSString alloc] initWithFormat:format arguments:arguments];
+		}
+		else
+		{
+			message = [object description];
+		}
+		
+		NSAlert* alert = [NSAlert new];
+		alert.alertStyle = NSAlertStyleCritical;
+		alert.showsSuppressionButton = YES;
+		alert.messageText = [NSString stringWithFormat:@"Assertion failed: %@", message];
+		alert.informativeText = [NSString stringWithFormat:@"%s\n\n%@, %u",
+								 context->function,
+								 [[NSString stringWithUTF8String:context->file] lastPathComponent],
+								 context->line];
 
-	NSAlert* alert = [NSAlert new];
-	alert.messageText = message;
-	alert.informativeText = [NSString stringWithFormat:@"\nfile:%s\nline:%u\nfunction:%s", context->file, context->line, context->function];
+		NSArray* buttons = @[@"Continue", @"Pause", @"Abort"];
+		for (NSString* title in buttons) {
+			[alert addButtonWithTitle:title];
+		}
 
-	NSArray* buttons = @[@"Continue", @"Pause", @"Abort"];
-	for (NSString* title in buttons) {
-		[alert addButtonWithTitle:title];
-	}
+		NSModalResponse response = [alert runModal];
+		switch (response) {
+			case NSAlertThirdButtonReturn:
+				abort();
 
-	NSModalResponse response = [alert runModal];
-	switch (response) {
-		case NSAlertThirdButtonReturn:
-			abort();
+			case NSAlertSecondButtonReturn:
+				NSLog(@"set a breakpoint here if you want this to enter the debugger");
+				break;
 
-		case NSAlertSecondButtonReturn:
-			NSLog(@"set a breakpoint here if you want this to enter the debugger");
-			break;
+			default:
+				break;
+		}
 
-		default:
-			break;
+		BOOL suppressed = alert.suppressionButton.integerValue != 0;
+		if (suppressed) {
+			[lm suppressAssertionForKey:assertionKey];
+		}
 	}
 }
 
