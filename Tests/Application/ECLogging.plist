@@ -19,9 +19,8 @@
 			<true/>
 			<key>Handlers</key>
 			<array>
-				<string>ECAssertionHandler</string>
 				<string>NSLog</string>
-				<string>AssertionHandler</string>
+				<string>Assertion</string>
 			</array>
 		</dict>
 		<key>Object</key>
