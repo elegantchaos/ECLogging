@@ -11,7 +11,7 @@
 @interface ECLogManager ()
 
 // Turn this setting on to output debug message on the log manager itself, using NSLog
-#define LOG_MANAGER_DEBUGGING 0
+#define LOG_MANAGER_DEBUGGING 1
 
 #if LOG_MANAGER_DEBUGGING
 #define LogManagerLog(format, ...) NSLog(@"ECLogManager: %@", [NSString stringWithFormat:format, ##__VA_ARGS__])
@@ -25,6 +25,7 @@
 // --------------------------------------------------------------------------
 
 @property (strong, nonatomic) NSArray* handlersSorted;
+@property (strong, nonatomic) NSDictionary* defaultSettings;
 
 // --------------------------------------------------------------------------
 // Private Methods
@@ -126,7 +127,7 @@ static ECLogManager* gSharedInstance = nil;
 //! If the channel was created, we register it.
 // --------------------------------------------------------------------------
 
-- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(NSDictionary*)options
+- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(nullable NSDictionary*)options
 {
 	LogManagerLog(@"registering raw channel with name %s", rawName);
 	NSString* name = [ECLogChannel cleanName:rawName];
@@ -138,7 +139,7 @@ static ECLogManager* gSharedInstance = nil;
 //! If the channel was created, we register it.
 // --------------------------------------------------------------------------
 
-- (ECLogChannel*)registerChannelWithName:(NSString*)name options:(NSDictionary*)options
+- (ECLogChannel*)registerChannelWithName:(NSString*)name options:(nullable NSDictionary*)options
 {
 	LogManagerLog(@"registering channel with name %@", name);
 	ECLogChannel* channel = self.channels[name];
@@ -384,46 +385,48 @@ static ECLogManager* gSharedInstance = nil;
 	}
 }
 
-- (NSDictionary*)settingsFromBundle:(NSBundle*)bundle
-{
-	NSURL* url;
-#if EC_DEBUG
-	url = [bundle URLForResource:DebugLogSettingsFile withExtension:@"plist"];
-	if (url)
-	{
-		LogManagerLog(@"loaded defaults from %@.plist", DebugLogSettingsFile);
-	}
-	else
-#endif
-	{
-		url = [bundle URLForResource:LogSettingsFile withExtension:@"plist"];
-		if (url)
-		{
-			LogManagerLog(@"loaded defaults from %@.plist", LogSettingsFile);
+- (void)mergeSettings:(NSMutableDictionary*)settings withOverrides:(NSDictionary*)overrides name:(nullable NSString*)name {
+	if (overrides) {
+		if (name) {
+			LogManagerLog(@"loaded defaults from %@", name);
 		}
-		else
-		{
-			LogManagerLog(@"couldn't load defaults from %@.plist", LogSettingsFile);
-		}
-	}
 
-	NSDictionary* result = nil;
+		NSArray* keys = overrides.allKeys;
+		for (NSString* key in keys) {
+			id existing = settings[key];
+			id override = overrides[key];
+			if (existing && [existing isKindOfClass:[NSDictionary class]] && [override isKindOfClass:[NSDictionary class]]) {
+				if ([key isEqualToString:HandlersKey] || [key isEqualToString:ChannelsKey]) {
+					NSMutableDictionary* merged = [existing mutableCopy];
+					[self mergeSettings:merged withOverrides:override name:[NSString stringWithFormat:@"%@.%@", name, key]];
+					override = merged;
+				}
+			}
+
+			settings[key] = override;
+		}
+	}
+}
+
+- (void)mergeSettings:(NSMutableDictionary*)settings fromURL:(NSURL*)url {
 	if (url) {
-		result = [NSDictionary dictionaryWithContentsOfURL:url];
+		NSDictionary* overrides = [NSDictionary dictionaryWithContentsOfURL:url];
+		[self mergeSettings:settings withOverrides:overrides name:[url lastPathComponent]];
 	}
+}
 
-	if (![result count])
-	{
+- (void)mergeSettings:(NSMutableDictionary*)settings fromBundle:(NSBundle*)bundle
+{
+	// we look in the bundle for a settings file, and also in the Info.plist for a settings entry
+	// the settings in the Info.plist override any in the file (but ideally there should just be one or the other)
+	[self mergeSettings:settings fromURL:[bundle URLForResource:LogSettingsFile withExtension:@"plist"]];
+	[self mergeSettings:settings withOverrides:bundle.infoDictionary[LogSettingsFile] name:LogSettingsFile];
+
 #if EC_DEBUG
-		result = bundle.infoDictionary[DebugLogSettingsFile];
+	// for debug builds, we then override these settings with additional ones from an extra optional debug-only file / Info.plist entry
+	[self mergeSettings:settings fromURL:[bundle URLForResource:DebugLogSettingsFile withExtension:@"plist"]];
+	[self mergeSettings:settings withOverrides:bundle.infoDictionary[DebugLogSettingsFile] name:DebugLogSettingsFile];
 #endif
-		if (![result count])
-		{
-			result = bundle.infoDictionary[LogSettingsFile];
-		}
-	}
-
-	return result;
 }
 
 // --------------------------------------------------------------------------
@@ -432,20 +435,36 @@ static ECLogManager* gSharedInstance = nil;
 
 - (NSDictionary*)defaultSettings
 {
-	// try loading settings from the main bundle first
-	NSDictionary* defaultSettings = [self settingsFromBundle:[NSBundle mainBundle]];
+	if (!_defaultSettings) {
+		// start with some defaults
+		NSDictionary* defaults = @{
+								   VersionKey : @(kSettingsVersion),
+								   HandlersKey: @{ @"ECLogHandlerNSLog": @{ @"Default": @YES } },
+								   ChannelsKey: @{}
+								   };
 
-	// if that doesn't work, try our bundle (we might be in a plugin)
-	if (![defaultSettings count])
-		defaultSettings = [self settingsFromBundle:[NSBundle bundleForClass:[self class]]];
+		NSMutableDictionary* settings = [defaults mutableCopy];
 
-	// if that doesn't work, use some defaults
-	if (![defaultSettings count])
-	{
-		NSLog(@"Registering ECLogHandlerNSLog log handler. Add an ECLogging.plist file to your project to customise this behaviour.");
-		defaultSettings = [NSMutableDictionary dictionaryWithDictionary:@{ @"Handlers": @{ @"ECLogHandlerNSLog": @{ @"Default": @YES } } }];
+		// try loading settings from the main bundle first
+		NSBundle* mainBundle = [NSBundle mainBundle];
+		[self mergeSettings:settings fromBundle:mainBundle];
+
+		// also try our bundle if it's different (we might be in a plugin)
+		NSBundle* ourBundle = [NSBundle bundleForClass:[self class]];
+		if (ourBundle != mainBundle) {
+			[self mergeSettings:settings fromBundle:ourBundle];
+		}
+
+		// if we're still just using the defaults, report that fact
+		if ([settings isEqualToDictionary:defaults])
+		{
+			NSLog(@"Registering ECLogHandlerNSLog log handler. Add an ECLogging.plist file to your project to customise this behaviour.");
+		}
+
+		_defaultSettings = settings;
 	}
-	return defaultSettings;
+
+	return _defaultSettings;
 }
 
 - (NSUInteger)expectedSettingsVersionWithDefaultSettings:(NSDictionary*)defaultSettings
@@ -479,37 +498,15 @@ static ECLogManager* gSharedInstance = nil;
 		savedSettings = [userSettings dictionaryForKey:LogManagerSettingsKey];
 	}
 
-	NSDictionary* defaultSettings = [self defaultSettings];
-	self.settings = [NSMutableDictionary dictionaryWithDictionary:defaultSettings];
+	NSMutableDictionary* settings = [[self defaultSettings] mutableCopy];
+	self.settings = settings;
 
-	NSUInteger expectedVersion = [self expectedSettingsVersionWithDefaultSettings:defaultSettings];
+	NSUInteger expectedVersion = [self expectedSettingsVersionWithDefaultSettings:settings];
 	NSUInteger savedVersion = [savedSettings[VersionKey] unsignedIntegerValue];
 	if (savedVersion == expectedVersion)
 	{
-		// use saved channel settings if we have them, otherwise the defaults
-		id channels = savedSettings[ChannelsKey];
-		if (!channels)
-		{
-			channels = defaultSettings[ChannelsKey];
-		}
-
-		// always use list of handlers from the defaults, but merge in saved handler settings
-		NSDictionary* defaultHandlers = defaultSettings[HandlersKey];
-		NSDictionary* savedHandlers = savedSettings[HandlersKey];
-		NSMutableDictionary* handlers = [NSMutableDictionary dictionary];
-		for (NSString* handlerName in defaultHandlers)
-		{
-			NSDictionary* savedHandlerSettings = defaultHandlers[handlerName];
-			if ([savedHandlerSettings isKindOfClass:[NSDictionary class]])
-			{
-				NSMutableDictionary* handlerSettings = [NSMutableDictionary dictionaryWithDictionary:savedHandlerSettings];
-				[handlerSettings addEntriesFromDictionary:savedHandlers[handlerName]];
-				handlers[handlerName] = handlerSettings;
-			}
-		}
-
-		self.settings[ChannelsKey] = channels;
-		self.settings[HandlersKey] = handlers;
+		// any user settings override the defaults
+		[self mergeSettings:settings withOverrides:savedSettings name:@"Saved Settings"];
 	}
 
 	// the showMenu property is read/set here in generic code, but it's up to the

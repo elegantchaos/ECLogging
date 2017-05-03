@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Version</key>
+	<integer>10</integer>
 	<key>Channels</key>
 	<dict>
 		<key>Application</key>
@@ -17,8 +19,9 @@
 			<true/>
 			<key>Handlers</key>
 			<array>
-				<string>ErrorPresenter</string>
+				<string>ECAssertionHandler</string>
 				<string>NSLog</string>
+				<string>AssertionHandler</string>
 			</array>
 		</dict>
 		<key>Object</key>
@@ -59,6 +62,11 @@
 			<true/>
 		</dict>
 		<key>ECErrorPresenterHandler</key>
+		<dict>
+			<key>Default</key>
+			<false/>
+		</dict>
+		<key>ECAssertionHandler</key>
 		<dict>
 			<key>Default</key>
 			<false/>

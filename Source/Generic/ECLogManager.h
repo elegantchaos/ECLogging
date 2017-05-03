@@ -6,6 +6,7 @@
 
 #import "ECLogContext.h"
 
+NS_ASSUME_NONNULL_BEGIN
 @class ECLogChannel;
 @class ECLogHandler;
 @class ECLogManager;
@@ -37,11 +38,11 @@
 // Public Properties
 // --------------------------------------------------------------------------
 
-@property (strong, nonatomic) NSMutableDictionary* channels;
-@property (strong, nonatomic) NSMutableDictionary* handlers;
-@property (strong, nonatomic) NSMutableArray* defaultHandlers;
+@property (strong, nonatomic, nullable) NSMutableDictionary* channels;
+@property (strong, nonatomic, nullable) NSMutableDictionary* handlers;
+@property (strong, nonatomic, nullable) NSMutableArray* defaultHandlers;
 @property (assign, nonatomic) ECLogContextFlags defaultContextFlags;
-@property (strong, nonatomic) NSMutableDictionary* settings;
+@property (strong, nonatomic, nullable) NSMutableDictionary* settings;
 @property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
 @property (assign, nonatomic) BOOL showMenu;
 @property (assign, nonatomic, readonly, getter=debugChannelsAreEnabled) BOOL debugChannelsAreEnabled;
@@ -51,8 +52,8 @@
 // Public Methods
 // --------------------------------------------------------------------------
 
-- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(NSDictionary*)options;
-- (ECLogChannel*)registerChannelWithName:(NSString*)name options:(NSDictionary*)options;
+- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(nullable NSDictionary*)options;
+- (ECLogChannel*)registerChannelWithName:(NSString*)name options:(nullable NSDictionary*)options;
 - (ECLogChannel*)registerChannel:(ECLogChannel*)channel;
 - (void)startup;
 - (void)shutdown;
@@ -89,3 +90,5 @@
 // --------------------------------------------------------------------------
 
 extern NSString* const LogChannelsChanged;
+
+NS_ASSUME_NONNULL_END

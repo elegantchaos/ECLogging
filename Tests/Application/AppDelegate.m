@@ -135,7 +135,7 @@ ECDefineLogChannel(OtherChannel);
 
 - (IBAction)clickedTestAssertion:(id)sender
 {
-	ECAssertFail();
+	ECAssert(1 < 0);
 }
 
 - (IBAction)clickedRevealLogFiles:(id)sender

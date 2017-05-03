@@ -8,6 +8,8 @@
 
 @class ECLogChannel;
 
+NS_ASSUME_NONNULL_BEGIN
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -48,3 +50,5 @@ extern void logToChannel(ECLogChannel* channel, ECLogContext* context, id object
 #define ECMakeContext()        \
 	ECLogContext ecLogContext; \
 	makeContext(&ecLogContext, __FILE__, __LINE__, __DATE__, __PRETTY_FUNCTION__)
+
+NS_ASSUME_NONNULL_END

@@ -15,55 +15,6 @@
 				<string>NSLog</string>
 			</array>
 		</dict>
-		<key>Application</key>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Level</key>
-			<integer>5</integer>
-		</dict>
-		<key>Object</key>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-		</dict>
-		<key>Test</key>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-		</dict>
-		<key>Other</key>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-		</dict>
-		<key>Error</key>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Handlers</key>
-			<array>
-				<string>ErrorPresenter</string>
-			</array>
-		</dict>
-	</dict>
-	<key>Handlers</key>
-	<dict>
-		<key>ECErrorPresenterHandler</key>
-		<dict>
-			<key>Default</key>
-			<false/>
-		</dict>
-		<key>ECLogHandlerFile</key>
-		<dict>
-			<key>Default</key>
-			<true/>
-		</dict>
-		<key>ECLogHandlerNSLog</key>
-		<dict>
-			<key>Default</key>
-			<true/>
-		</dict>
 	</dict>
 </dict>
 </plist>
