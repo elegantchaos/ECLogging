@@ -293,14 +293,9 @@ static ECLogManager* gSharedInstance = nil;
 	return self;
 }
 
-// --------------------------------------------------------------------------
-//! Cleanup and release retained objects.
-// --------------------------------------------------------------------------
-
-
-// --------------------------------------------------------------------------
-//! Start up the log manager, read settings, etc.
-// --------------------------------------------------------------------------
+/**
+ Start up the log manager, read settings, etc.
+ */
 
 - (void)startup
 {
@@ -328,9 +323,6 @@ static ECLogManager* gSharedInstance = nil;
 	});
 }
 
-// --------------------------------------------------------------------------
-//! Cleanup and shut down.
-// --------------------------------------------------------------------------
 
 - (void)shutdown
 {
@@ -594,14 +586,11 @@ static ECLogManager* gSharedInstance = nil;
 	[defaults synchronize];
 }
 
-- (NSDictionary*)optionsSettings
+- (NSDictionary*)options
 {
 	return self.settings[OptionsKey];
 }
 
-// --------------------------------------------------------------------------
-//! Log to all valid handlers for a channel
-// --------------------------------------------------------------------------
 
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context
 {
@@ -625,10 +614,6 @@ static ECLogManager* gSharedInstance = nil;
 	}
 }
 
-// --------------------------------------------------------------------------
-//! Turn on every channel.
-// --------------------------------------------------------------------------
-
 - (void)enableAllChannels
 {
 	LogManagerLog(@"enabling all channels");
@@ -640,10 +625,6 @@ static ECLogManager* gSharedInstance = nil;
 	[self saveChannelSettings];
 }
 
-// --------------------------------------------------------------------------
-//! Turn off every channel.
-// --------------------------------------------------------------------------
-
 - (void)disableAllChannels
 {
 	for (ECLogChannel* channel in [self.channels allValues])
@@ -652,10 +633,6 @@ static ECLogManager* gSharedInstance = nil;
 	}
 	[self saveChannelSettings];
 }
-
-// --------------------------------------------------------------------------
-//! Revert all channels to default settings.
-// --------------------------------------------------------------------------
 
 - (void)resetChannel:(ECLogChannel*)channel
 {
@@ -710,37 +687,20 @@ static ECLogManager* gSharedInstance = nil;
 	return sorted;
 }
 
-// --------------------------------------------------------------------------
-//! Return a text label for a context info flag.
-// --------------------------------------------------------------------------
-
 - (NSString*)contextFlagNameForIndex:(NSUInteger)index
 {
 	return kContextFlagInfo[index].name;
 }
-
-// --------------------------------------------------------------------------
-//! Return a context info flag.
-// --------------------------------------------------------------------------
 
 - (ECLogContextFlags)contextFlagValueForIndex:(NSUInteger)index
 {
 	return kContextFlagInfo[index].flag;
 }
 
-// --------------------------------------------------------------------------
-//! Return the number of named context info flags.
-// --------------------------------------------------------------------------
-
 - (NSUInteger)contextFlagCount
 {
 	return sizeof(kContextFlagInfo) / sizeof(ContextFlagInfo);
 }
-
-// --------------------------------------------------------------------------
-//! Return the handler for a given index.
-//! Index 0 represents the Default Handlers, and returns nil.
-// --------------------------------------------------------------------------
 
 - (ECLogHandler*)handlerForIndex:(NSUInteger)index
 {
@@ -757,11 +717,6 @@ static ECLogManager* gSharedInstance = nil;
 	return result;
 }
 
-
-// --------------------------------------------------------------------------
-//! Return the name of a given handler index.
-//! Index 0 represents the Default Handlers, and returns "Use Defaults".
-// --------------------------------------------------------------------------
 
 - (NSString*)handlerNameForIndex:(NSUInteger)index
 {
@@ -780,19 +735,11 @@ static ECLogManager* gSharedInstance = nil;
 }
 
 
-// --------------------------------------------------------------------------
-//! Return the number of handler indexes.
-//! This is the number of handlers, plus one (or the "Use Defaults" label).
-// --------------------------------------------------------------------------
 
 - (NSUInteger)handlerCount
 {
 	return [self.handlers count] + 1;
 }
-
-// --------------------------------------------------------------------------
-//! Return all the handlers.
-// --------------------------------------------------------------------------
 
 - (NSArray*)handlersSortedByName
 {

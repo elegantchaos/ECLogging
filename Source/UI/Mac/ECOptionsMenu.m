@@ -57,7 +57,7 @@
 	ECLogManager* logManager = [ECLogManager sharedInstance];
 	if (logManager.showMenu)
 	{
-		self.options = [logManager optionsSettings];
+		self.options = [logManager options];
 		[self removeAllItemsEC];
 		[self buildMenuWithOptions:self.options];
 	}
