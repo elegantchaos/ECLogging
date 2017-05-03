@@ -1,12 +1,8 @@
-//
-//  AppDelegate.h
-//  ECLoggingMacAppTest
-//
-//  Created by Sam Deane on 02/05/2017.
-//  Copyright © 2017 Elegant Chaos. All rights reserved.
-//
-
-#import <Cocoa/Cocoa.h>
+// --------------------------------------------------------------------------
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 

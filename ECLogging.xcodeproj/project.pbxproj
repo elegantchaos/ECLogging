@@ -676,7 +676,6 @@
 				22BBB10114F646D20086974D /* Source */,
 				2251BA6015DBD93700F2FE40 /* Tests */,
 				2274B37714F56679003B8A0B /* Resources */,
-				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				22F2FEEC164140E700CD3C7C /* Extras */,
 			);
@@ -685,13 +684,6 @@
 			sourceTree = "<group>";
 			tabWidth = 4;
 			usesTabs = 1;
-		};
-		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
 		};
 		22507DB51B2499A800C86559 /* View Controllers */ = {
 			isa = PBXGroup;
@@ -739,6 +731,28 @@
 				22F409221EB8933600DBB6BB /* Unit */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		225B84E01EBA462700E0F3D5 /* Module Maps */ = {
+			isa = PBXGroup;
+			children = (
+				22381E161A6C35BF000AD60A /* ECLogging.modulemap */,
+				22E167131D2564AB00C850DC /* ECLoggingFramework.modulemap */,
+				223C3B1D1AAB5A7F003CCFFC /* ECLoggingUI.modulemap */,
+				22E817891D11FAE100DD8803 /* ECLoggingIOS.modulemap */,
+				22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */,
+			);
+			name = "Module Maps";
+			sourceTree = "<group>";
+		};
+		225B84E11EBA466100E0F3D5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				225B84E01EBA462700E0F3D5 /* Module Maps */,
+				2251BA4215DBCD3900F2FE40 /* Configuration */,
+				2283A4C814F53C6F009142F7 /* Prefix */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		2274B37714F56679003B8A0B /* Resources */ = {
@@ -958,15 +972,9 @@
 		22BBB10114F646D20086974D /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22381E161A6C35BF000AD60A /* ECLogging.modulemap */,
-				22E167131D2564AB00C850DC /* ECLoggingFramework.modulemap */,
-				223C3B1D1AAB5A7F003CCFFC /* ECLoggingUI.modulemap */,
-				22E817891D11FAE100DD8803 /* ECLoggingIOS.modulemap */,
-				22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */,
-				2251BA4215DBCD3900F2FE40 /* Configuration */,
 				2283A43A14F53BCC009142F7 /* Generic */,
 				229230FB1D1A94CB00CB4B4E /* UI */,
-				2283A4C814F53C6F009142F7 /* Prefix */,
+				225B84E11EBA466100E0F3D5 /* Supporting Files */,
 			);
 			path = Source;
 			sourceTree = "<group>";

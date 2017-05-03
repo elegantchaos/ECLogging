@@ -1,10 +1,8 @@
-//
-//  ViewController.m
-//  ECLoggingMacAppTest
-//
-//  Created by Sam Deane on 02/05/2017.
-//  Copyright © 2017 Elegant Chaos. All rights reserved.
-//
+// --------------------------------------------------------------------------
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
 
 #import "ViewController.h"
 

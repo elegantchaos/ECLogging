@@ -1,7 +1,3 @@
-//
-//  main.m
-//  ECLoggingMacAppTest
-//
 //  Created by Sam Deane on 02/05/2017.
 //  Copyright © 2017 Elegant Chaos. All rights reserved.
 //
