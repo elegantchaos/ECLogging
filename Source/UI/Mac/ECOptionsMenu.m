@@ -70,6 +70,7 @@
 
 - (void)buildMenuWithOptions:(NSDictionary*)options
 {
+	NSMutableArray* items = [NSMutableArray new];
 	for (NSString* option in options)
 	{
 		NSDictionary* optionData = options[option];
@@ -77,9 +78,10 @@
 		if (!title)
 			title = option;
 
-		NSMenuItem* item = [self addItemWithTitle:title action:@selector(optionSelected:) keyEquivalent:@""];
+		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:title action:@selector(optionSelected:) keyEquivalent:@""];
 		item.target = self;
 		item.representedObject = option;
+		[items addObject:item];
 
 		NSDictionary* suboptions = optionData[@"suboptions"];
 		if (suboptions)
@@ -89,6 +91,14 @@
 			[submenu buildMenuWithOptions:suboptions];
 			item.submenu = submenu;
 		}
+	}
+
+	NSArray* sorted = [items sortedArrayUsingComparator:^NSComparisonResult(NSMenuItem*  _Nonnull item1, NSMenuItem*  _Nonnull item2) {
+		return [item1.title compare:item2.title];
+	}];
+
+	for (NSMenuItem* item in sorted) {
+		[self addItem:item];
 	}
 }
 
