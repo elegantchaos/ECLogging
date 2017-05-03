@@ -6,6 +6,8 @@
 
 #import "ECLogHandler.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Handler which logs via os_log.
  */
@@ -18,3 +20,5 @@
 - (void) logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context;
 
 @end
+
+NS_ASSUME_NONNULL_END

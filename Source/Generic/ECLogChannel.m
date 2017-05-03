@@ -39,7 +39,7 @@ static NSString* const kSuffixToStrip = @"Channel";
 	return [self initWithName:name parent:nil];
 }
 
-- (instancetype)initWithName:(NSString*)name parent:(ECLogChannel *)parent
+- (instancetype)initWithName:(NSString*)name parent:(ECLogChannel*)parent
 {
 	if ((self = [super init]) != nil)
 	{

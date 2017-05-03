@@ -4,6 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+
 #if !NS_BLOCK_ASSERTIONS && !defined(__clang_analyzer__) // don't evaluate assertions whilst we're being analyzed as it can confuse clang into thinking that some code paths are normal when actually they aren't
 
 #pragma mark - Assertions Enabled
@@ -104,8 +105,12 @@ ECDeclareLogChannel(AssertionChannel);
 #define ECAssertFail()	{ ECAssertFailBase(ECAssert); }
 #define ECAssertFailC()	{ ECAssertFailBase(ECAssertC); }
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ECAssertion : NSObject
 
 + (id)assertObject:(id)object isOfClass:(Class)c;
 
 @end
+
+NS_ASSUME_NONNULL_END

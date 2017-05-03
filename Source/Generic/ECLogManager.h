@@ -7,6 +7,7 @@
 #import "ECLogContext.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 @class ECLogChannel;
 @class ECLogHandler;
 @class ECLogManager;

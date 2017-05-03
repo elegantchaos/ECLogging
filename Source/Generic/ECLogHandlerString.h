@@ -6,6 +6,8 @@
 
 #import "ECLogHandler.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Handler which logs to a mutable string.
  *
@@ -26,3 +28,5 @@
 - (void) logFromChannel:(ECLogChannel*)channel withObject:(id)format arguments:(va_list)arguments context:(ECLogContext *)context;
 
 @end
+
+NS_ASSUME_NONNULL_END

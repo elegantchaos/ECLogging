@@ -6,6 +6,8 @@
 
 #import "ECLogHandler.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Handler which logs to the console using NSLog calls.
  *
@@ -21,3 +23,5 @@
 - (void) logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context;
 
 @end
+
+NS_ASSUME_NONNULL_END

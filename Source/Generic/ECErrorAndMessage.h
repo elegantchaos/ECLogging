@@ -4,9 +4,13 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ECErrorAndMessage : NSObject
 
 @property (strong, nonatomic) NSString* message;
 @property (strong, nonatomic) NSError* error;
 
 @end
+
+NS_ASSUME_NONNULL_END
