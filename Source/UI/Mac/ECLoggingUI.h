@@ -8,6 +8,7 @@
 @import AppKit;
 
 #import "ECDebugMenu.h"
+#import "ECAssertionHandler.h"
 #import "ECErrorPresenterHandler.h"
 #import "ECLoggingMenu.h"
 #import "ECOptionsMenu.h"

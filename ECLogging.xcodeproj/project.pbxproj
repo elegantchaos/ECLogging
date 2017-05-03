@@ -110,9 +110,10 @@
 		2251BAE515DBEA2D00F2FE40 /* ECLoggingMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2251BAE315DBEA2C00F2FE40 /* ECLoggingMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2258586816E765DD00E2DDD4 /* ECLogViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2258586616E765DD00E2DDD4 /* ECLogViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2258586916E765DD00E2DDD4 /* ECLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2258586716E765DD00E2DDD4 /* ECLogViewController.m */; };
-		225B84DD1EB9ED1600E0F3D5 /* ECAssertionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 225B84DB1EB9ED1600E0F3D5 /* ECAssertionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		225B84DE1EB9ED1600E0F3D5 /* ECAssertionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 225B84DC1EB9ED1600E0F3D5 /* ECAssertionHandler.m */; };
-		225B84DF1EBA13C800E0F3D5 /* ECAssertionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 225B84DC1EB9ED1600E0F3D5 /* ECAssertionHandler.m */; };
+		225B84E21EBA489000E0F3D5 /* ECAssertionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 225B84DB1EB9ED1600E0F3D5 /* ECAssertionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		225B84E31EBA489100E0F3D5 /* ECAssertionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 225B84DB1EB9ED1600E0F3D5 /* ECAssertionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		225B84E41EBA48A500E0F3D5 /* ECAssertionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 225B84DC1EB9ED1600E0F3D5 /* ECAssertionHandler.m */; };
+		225B84E51EBA48A500E0F3D5 /* ECAssertionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 225B84DC1EB9ED1600E0F3D5 /* ECAssertionHandler.m */; };
 		226889DC1AEE4B49005510E5 /* ComparisonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6A24A183E0CA800873C05 /* ComparisonTests.m */; };
 		226889DD1AEE4B49005510E5 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA575F1AB085E10045A364 /* StringTests.m */; };
 		226889DE1AEE4B49005510E5 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2251BA6115DBD93700F2FE40 /* BasicTests.m */; };
@@ -1181,6 +1182,7 @@
 				222186E419DAB5F300F08CCE /* ECDebugMenu.h in Headers */,
 				222186E619DAB5F300F08CCE /* ECLogManagerMacUISupport.h in Headers */,
 				222186E919DAB5F300F08CCE /* ECLogging.pch in Headers */,
+				225B84E21EBA489000E0F3D5 /* ECAssertionHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1196,6 +1198,7 @@
 				2221872419DAB60900F08CCE /* ECLoggingMenu.h in Headers */,
 				2221872519DAB60900F08CCE /* NSMenu+ECLogging.h in Headers */,
 				2221872819DAB60900F08CCE /* ECLogging.pch in Headers */,
+				225B84E31EBA489100E0F3D5 /* ECAssertionHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1216,7 +1219,6 @@
 				2221874619DABA6000F08CCE /* ECErrorReporter.h in Headers */,
 				2221874819DABA6000F08CCE /* ECLogChannel.h in Headers */,
 				2277CE5916D6B9A400835964 /* ECLogging.pch in Headers */,
-				225B84DD1EB9ED1600E0F3D5 /* ECAssertionHandler.h in Headers */,
 				22FE67D31DFFE23A003E873C /* ECLogHandlerString.h in Headers */,
 				2221875019DABA6000F08CCE /* ECLogManager.h in Headers */,
 				2221874E19DABA6000F08CCE /* ECLogHandler.h in Headers */,
@@ -1826,6 +1828,7 @@
 				222186C819DAB5F300F08CCE /* NSMenu+ECLogging.m in Sources */,
 				222186C919DAB5F300F08CCE /* ECDebugMenu.m in Sources */,
 				222186CA19DAB5F300F08CCE /* ECLogManagerMacUISupport.m in Sources */,
+				225B84E41EBA48A500E0F3D5 /* ECAssertionHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1839,6 +1842,7 @@
 				2221870719DAB60900F08CCE /* ECErrorPresenterHandler.m in Sources */,
 				2221870819DAB60900F08CCE /* ECLoggingMenu.m in Sources */,
 				2221870919DAB60900F08CCE /* NSMenu+ECLogging.m in Sources */,
+				225B84E51EBA48A500E0F3D5 /* ECAssertionHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1848,7 +1852,6 @@
 			files = (
 				22BBED331D19A151003B79CA /* ECLogHandlerFile.m in Sources */,
 				2221874519DABA6000F08CCE /* ECErrorAndMessage.m in Sources */,
-				225B84DE1EB9ED1600E0F3D5 /* ECAssertionHandler.m in Sources */,
 				2221874F19DABA6000F08CCE /* ECLogHandler.m in Sources */,
 				2221874C19DABA6000F08CCE /* ECLogging.m in Sources */,
 				2221874319DABA6000F08CCE /* ECAssertion.m in Sources */,
@@ -1958,7 +1961,6 @@
 				22BBED2E1D19A151003B79CA /* ECLogHandlerASL.m in Sources */,
 				228CF204175624FB003E1D25 /* ECLogHandler.m in Sources */,
 				22BBED3A1D19A151003B79CA /* ECLogHandlerNSLog.m in Sources */,
-				225B84DF1EBA13C800E0F3D5 /* ECAssertionHandler.m in Sources */,
 				228CF206175624FB003E1D25 /* ECLogManager.m in Sources */,
 				227D16A31DFAB88D003183D4 /* ECLogHandlerOSLog.m in Sources */,
 				22FE67D71DFFE23A003E873C /* ECLogHandlerString.m in Sources */,
