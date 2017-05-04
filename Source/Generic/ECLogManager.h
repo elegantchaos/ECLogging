@@ -196,7 +196,7 @@ NS_ASSUME_NONNULL_BEGIN
   Index 0 represents the Default Handlers, and returns nil.
   */
 
-- (ECLogHandler*)handlerForIndex:(NSUInteger)index;
+- (nullable ECLogHandler*)handlerForIndex:(NSUInteger)index;
 
 /**
  Is a handler one of the default set.
