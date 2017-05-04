@@ -48,6 +48,20 @@
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "22FF8E8516F1E5EB008FC10D"
+               BuildableName = "ECUnitTests.framework"
+               BlueprintName = "ECUnitTestsMac"
+               ReferencedContainer = "container:ECLogging.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -60,19 +74,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "22F409001EB8912C00DBB6BB"
-               BuildableName = "ECLoggingMacAppTestTests.xctest"
-               BlueprintName = "ECLoggingMacAppTestTests"
-               ReferencedContainer = "container:ECLogging.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "22F4090B1EB8912C00DBB6BB"
-               BuildableName = "ECLoggingMacAppTestUITests.xctest"
-               BlueprintName = "ECLoggingMacAppTestUITests"
+               BlueprintIdentifier = "226889D81AEE4B49005510E5"
+               BuildableName = "ECLoggingMacTestsStatic.xctest"
+               BlueprintName = "ECLoggingMacTestsStatic"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </TestableReference>
