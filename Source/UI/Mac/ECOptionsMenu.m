@@ -93,7 +93,7 @@
 		}
 	}
 
-	NSArray* sorted = [items sortedArrayUsingComparator:^NSComparisonResult(NSMenuItem*  _Nonnull item1, NSMenuItem*  _Nonnull item2) {
+	NSArray* sorted = [items sortedArrayUsingComparator:^NSComparisonResult(NSMenuItem*  EC_Nonnull item1, NSMenuItem*  EC_Nonnull item2) {
 		return [item1.title compare:item2.title];
 	}];
 

@@ -7,7 +7,7 @@
 #import "ECLoggingMacros.h"
 #import "ECLogContext.h"
 
-NS_ASSUME_NONNULL_BEGIN
+EC_ASSUME_NONNULL_BEGIN
 
 @class ECLogChannel;
 
@@ -113,4 +113,4 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wasDisabledForChannel:(ECLogChannel*)channel;
 @end
 
-NS_ASSUME_NONNULL_END
+EC_ASSUME_NONNULL_END

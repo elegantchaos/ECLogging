@@ -6,7 +6,7 @@
 
 #import "ECLogHandler.h"
 
-NS_ASSUME_NONNULL_BEGIN
+EC_ASSUME_NONNULL_BEGIN
 
 /**
  * Handler which logs to disk.
@@ -35,4 +35,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END
+EC_ASSUME_NONNULL_END

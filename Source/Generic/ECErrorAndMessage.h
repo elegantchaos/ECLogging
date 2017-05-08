@@ -4,7 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-NS_ASSUME_NONNULL_BEGIN
+EC_ASSUME_NONNULL_BEGIN
 
 @interface ECErrorAndMessage : NSObject
 
@@ -13,4 +13,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END
+EC_ASSUME_NONNULL_END

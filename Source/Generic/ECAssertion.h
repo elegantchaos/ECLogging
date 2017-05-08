@@ -105,7 +105,7 @@ ECDeclareLogChannel(AssertionChannel);
 #define ECAssertFail()	{ ECAssertFailBase(ECAssert); }
 #define ECAssertFailC()	{ ECAssertFailBase(ECAssertC); }
 
-NS_ASSUME_NONNULL_BEGIN
+EC_ASSUME_NONNULL_BEGIN
 
 @interface ECAssertion : NSObject
 
@@ -113,4 +113,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END
+EC_ASSUME_NONNULL_END

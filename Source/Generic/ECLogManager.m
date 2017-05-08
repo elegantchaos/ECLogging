@@ -128,7 +128,7 @@ static ECLogManager* gSharedInstance = nil;
 //! If the channel was created, we register it.
 // --------------------------------------------------------------------------
 
-- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(nullable NSDictionary*)options
+- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(ec_nullable NSDictionary*)options
 {
 	LogManagerLog(@"registering raw channel with name %s", rawName);
 	NSString* name = [ECLogChannel cleanName:rawName];
@@ -140,7 +140,7 @@ static ECLogManager* gSharedInstance = nil;
 //! If the channel was created, we register it.
 // --------------------------------------------------------------------------
 
-- (ECLogChannel*)registerChannelWithName:(NSString*)name options:(nullable NSDictionary*)options
+- (ECLogChannel*)registerChannelWithName:(NSString*)name options:(ec_nullable NSDictionary*)options
 {
 	LogManagerLog(@"registering channel with name %@", name);
 	ECLogChannel* channel = self.channels[name];
@@ -378,7 +378,7 @@ static ECLogManager* gSharedInstance = nil;
 	}
 }
 
-- (void)mergeSettings:(NSMutableDictionary*)settings withOverrides:(NSDictionary*)overrides name:(nullable NSString*)name {
+- (void)mergeSettings:(NSMutableDictionary*)settings withOverrides:(NSDictionary*)overrides name:(ec_nullable NSString*)name {
 	if (overrides) {
 		if (name) {
 			LogManagerLog(@"loaded defaults from %@", name);

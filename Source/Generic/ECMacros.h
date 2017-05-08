@@ -10,6 +10,23 @@
 #endif
 #endif
 
+#define EC_NULL_SUPPORT 0
+
+#if EC_NULL_SUPPORT
+#define EC_ASSUME_NONNULL_BEGIN NS_ASSUME_NONNULL_BEGIN
+#define EC_ASSUME_NONNULL_END NS_ASSUME_NONNULL_END
+#define ec_nullable nullable
+#define EC_Nullable _Nullable
+#define EC_Nonnull _Nonnull
+
+#else
+#define EC_ASSUME_NONNULL_BEGIN
+#define EC_ASSUME_NONNULL_END
+#define ec_nullable
+#define EC_Nullable
+#define EC_Nonnull
+#endif
+
 #define EC_DEPRECATED __attribute__((deprecated))
 
 #define ECUnused(v) (void)(v)

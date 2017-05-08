@@ -6,7 +6,7 @@
 
 #import "ECLogContext.h"
 
-NS_ASSUME_NONNULL_BEGIN
+EC_ASSUME_NONNULL_BEGIN
 
 @class ECLogChannel;
 @class ECLogHandler;
@@ -39,13 +39,13 @@ NS_ASSUME_NONNULL_BEGIN
 // Public Properties
 // --------------------------------------------------------------------------
 
-@property (strong, nonatomic, nullable) NSMutableArray* defaultHandlers;
+@property (strong, nonatomic, ec_nullable) NSMutableArray* defaultHandlers;
 
 /**
  All the ECLogManager settings.
  */
 
-@property (strong, nonatomic, nullable) NSMutableDictionary* settings;
+@property (strong, nonatomic, ec_nullable) NSMutableDictionary* settings;
 
 /**
  Options, as specified in the settings files.
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
  Dictionary of all channels and their settings.
  */
 
-@property (strong, nonatomic, nullable) NSMutableDictionary* channels;
+@property (strong, nonatomic, ec_nullable) NSMutableDictionary* channels;
 
 /**
  Sorted list of all channels.
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
  Dictionary of all handlers and their settings.
  */
 
-@property (strong, nonatomic, nullable) NSMutableDictionary* handlers;
+@property (strong, nonatomic, ec_nullable) NSMutableDictionary* handlers;
 
 /**
  The number of handler indexes.
@@ -110,13 +110,13 @@ NS_ASSUME_NONNULL_BEGIN
  Register a new channel.
  */
 
-- (ECLogChannel*)registerChannelWithName:(NSString*)name options:(nullable NSDictionary*)options;
+- (ECLogChannel*)registerChannelWithName:(NSString*)name options:(ec_nullable NSDictionary*)options;
 
 /**
  Register a new channel with a raw C-style name.
  */
 
-- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(nullable NSDictionary*)options;
+- (ECLogChannel*)registerChannelWithRawName:(const char*)rawName options:(ec_nullable NSDictionary*)options;
 
 /**
  Register a dynamically created channel.
@@ -196,7 +196,7 @@ NS_ASSUME_NONNULL_BEGIN
   Index 0 represents the Default Handlers, and returns nil.
   */
 
-- (nullable ECLogHandler*)handlerForIndex:(NSUInteger)index;
+- (ec_nullable ECLogHandler*)handlerForIndex:(NSUInteger)index;
 
 /**
  Is a handler one of the default set.
@@ -238,4 +238,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString* const LogChannelsChanged;
 
-NS_ASSUME_NONNULL_END
+EC_ASSUME_NONNULL_END

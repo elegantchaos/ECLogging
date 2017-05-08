@@ -6,6 +6,8 @@
 
 @import Foundation;
 
+#import "ECMacros.h"
+
 #import "ECAssertion.h"
 #import "ECDescriptionDictionary.h"
 #import "ECErrorAndMessage.h"
@@ -21,6 +23,5 @@
 #import "ECLogHandlerStdout.h"
 #import "ECLogHandlerString.h"
 #import "ECLogManager.h"
-#import "ECMacros.h"
 
 #import "NSString+ECLogging.h"
