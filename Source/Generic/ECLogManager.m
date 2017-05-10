@@ -505,7 +505,11 @@ static ECLogManager* gSharedInstance = nil;
 	// the showMenu property is read/set here in generic code, but it's up to the
 	// platform specific UI support to interpret it
 	BOOL forceMenu = [userSettings boolForKey:ForceDebugMenuKey];
+	if (forceMenu) {
+		LogManagerLog(@"forcing logging menu");
+	}
 	self.showMenu = (forceMenu || [self.settings[InstallDebugMenuKey] boolValue]);
+	LogManagerLog(@"Logging menu is %@.", self.showMenu ? @"shown" : @"hidden");
 }
 
 // --------------------------------------------------------------------------
