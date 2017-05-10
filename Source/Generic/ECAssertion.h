@@ -95,6 +95,7 @@ ECDeclareLogChannel(AssertionChannel);
 
 #define ECAssertIsKindOfClass(o, c) ECAssert(((o) == nil) || [o isKindOfClass:[c class]])
 #define ECAssertIsMemberOfClass(o, c) ECAssert(((o) == nil) || [o isMemberOfClass:[c class]])
+#define ECAssertConformsToProtocol(o, p) ECAssert(((o) == nil) || [o conformsToProtocol:@protocol(p)])
 
 #define ECAssertIsKindOfClassDynamic(o, dc) ECAssert(((o) == nil) || [o isKindOfClass:dc])
 #define ECAssertIsMemberOfClassDynamic(o, dc) ECAssert(((o) == nil) || [o isMemberOfClass:dc])
