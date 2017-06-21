@@ -104,6 +104,7 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 #define ECTestAssertRealIsLess(x, y) ECTestAssertOperator((x), <, (y), "%lf", double)
 #define ECTestAssertRealIsLessEqual(x, y) ECTestAssertOperator((x), <=, (y), "%lf", double)
 
+#define ECTestAssertRealIsEqualWithEpsilon(x, y, e) ECAssertTest(fabs((x) - (y)) < (e), NO, @"" #x " == " #y " within range " #e, @"Values are %lf and %lf)", (double)(x), (double)(y))
 
 #define ECTestLog NSLog
 
