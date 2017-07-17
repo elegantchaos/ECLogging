@@ -1566,20 +1566,20 @@
 				ORGANIZATIONNAME = "Elegant Chaos";
 				TargetAttributes = {
 					222186F319DAB60900F08CCE = {
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					226889D81AEE4B49005510E5 = {
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					228CF1E817562478003E1D25 = {
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					22F408E81EB8912C00DBB6BB = {
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
 					};
 					22FF8E8516F1E5EB008FC10D = {
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
