@@ -1562,7 +1562,7 @@
 			attributes = {
 				LastSwiftMigration = 0730;
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Elegant Chaos";
 				TargetAttributes = {
 					222186F319DAB60900F08CCE = {
