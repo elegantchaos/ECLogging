@@ -3,8 +3,8 @@
 //
 
 import XCTest
-import ECUnitTests
 import ECLogging
+import ECUnitTests
 import Foundation
 
 class SwiftStringTests: ECTestCase {

@@ -35,6 +35,20 @@
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2202EE201F27B75D00C8FE22"
+               BuildableName = "ECUnitTests.framework"
+               BlueprintName = "ECUnitTestsIOS"
+               ReferencedContainer = "container:ECLogging.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
             buildForTesting = "NO"
             buildForRunning = "NO"
             buildForProfiling = "NO"
@@ -45,20 +59,6 @@
                BlueprintIdentifier = "22FF8E3616F1E418008FC10D"
                BuildableName = "ECUnitTests.framework"
                BlueprintName = "ECUnitTestsIOSStatic"
-               ReferencedContainer = "container:ECLogging.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2202EE201F27B75D00C8FE22"
-               BuildableName = "ECUnitTestsIOS.framework"
-               BlueprintName = "ECUnitTestsIOS"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -76,8 +76,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2274B38C14F56896003B8A0B"
-               BuildableName = "ECLoggingIOSTests.xctest"
-               BlueprintName = "ECLoggingIOSTests"
+               BuildableName = "TestsIOS.xctest"
+               BlueprintName = "TestsIOS"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </TestableReference>
