@@ -4,8 +4,6 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <Foundation/Foundation.h>
-
 // Property list, dictionary, etc. test comparison options
 typedef NS_OPTIONS(NSUInteger, ECTestComparisonOptions)
 {

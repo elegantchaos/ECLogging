@@ -7,6 +7,20 @@
       buildImplicitDependencies = "NO">
       <BuildActionEntries>
          <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2251BA1115DBCC4A00F2FE40"
+               BuildableName = "ECLogging.framework"
+               BlueprintName = "ECLoggingIOSStatic"
+               ReferencedContainer = "container:ECLogging.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
             buildForProfiling = "YES"
@@ -14,14 +28,14 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2251BA1115DBCC4A00F2FE40"
+               BlueprintIdentifier = "2202EDD11F2791E800C8FE22"
                BuildableName = "ECLogging.framework"
                BlueprintName = "ECLoggingIOS"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
-            buildForTesting = "YES"
+            buildForTesting = "NO"
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
@@ -30,6 +44,20 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "22FF8E3616F1E418008FC10D"
                BuildableName = "ECUnitTests.framework"
+               BlueprintName = "ECUnitTestsIOSStatic"
+               ReferencedContainer = "container:ECLogging.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2202EE201F27B75D00C8FE22"
+               BuildableName = "ECUnitTestsIOS.framework"
                BlueprintName = "ECUnitTestsIOS"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
@@ -54,6 +82,15 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2202EDD11F2791E800C8FE22"
+            BuildableName = "ECLogging.framework"
+            BlueprintName = "ECLoggingIOS"
+            ReferencedContainer = "container:ECLogging.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -72,7 +109,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2251BA1115DBCC4A00F2FE40"
+            BlueprintIdentifier = "2202EDD11F2791E800C8FE22"
             BuildableName = "ECLogging.framework"
             BlueprintName = "ECLoggingIOS"
             ReferencedContainer = "container:ECLogging.xcodeproj">
@@ -87,6 +124,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2202EDD11F2791E800C8FE22"
+            BuildableName = "ECLogging.framework"
+            BlueprintName = "ECLoggingIOS"
+            ReferencedContainer = "container:ECLogging.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

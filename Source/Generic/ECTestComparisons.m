@@ -69,7 +69,7 @@
 /// Compare an NSNumber value against self. If the numbers aren't exactly the same and are type double and the compare
 /// option is fuzzy double compare then allow for a small fudge factor comparison.
 - (BOOL)matches:(id)item2 context:(NSString*)context level:(NSUInteger)level options:(ECTestComparisonOptions)options block:(ECTestComparisonBlock)block {
-	BOOL matches = [self isEqualTo:item2];
+	BOOL matches = [self isEqual:item2];
 	if (!matches) {
 		if ((options & ECTestComparisonDoubleFuzzy) && [item2 isKindOfClass:[NSNumber class]]) {
 			matches = [self matchesAsNearAsDamnIt:item2];

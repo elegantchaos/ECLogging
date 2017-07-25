@@ -6,5 +6,5 @@
 
 /// Standard xcconfig files.
 
-#include "ECIOSRelease.xcconfig"
-#include "ECLoggingIOSShared.xcconfig"
+#include "ECIOSDebug.xcconfig"
+#include "ECUnitTestsIOSSharedStatic.xcconfig"

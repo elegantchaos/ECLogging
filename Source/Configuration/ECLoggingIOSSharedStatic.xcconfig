@@ -4,7 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
+#include "ECPseudoFramework.xcconfig"
+#include "ECLoggingShared.xcconfig"
 
-#include "ECIOSRelease.xcconfig"
-#include "ECLoggingIOSShared.xcconfig"
+MODULEMAP_FILE = Source/$(PRODUCT_NAME)IOS.modulemap

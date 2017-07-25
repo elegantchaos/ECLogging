@@ -4,4 +4,5 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#include "ECFramework.xcconfig"
 #include "ECUnitTestsShared.xcconfig"
