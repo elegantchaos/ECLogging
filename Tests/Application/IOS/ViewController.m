@@ -12,18 +12,30 @@
 
 @end
 
+#pragma mark - Channels
+
+ECDefineDebugChannel(LoggingSampleViewControllerChannel);
+
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-}
 
+#pragma mark - View lifecycle
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+- (void)viewDidAppear:(BOOL)animated
+	{
+		[super viewDidAppear:animated];
+		[[ECLogManager sharedInstance] saveChannelSettings];
+	}
 
+- (IBAction)tappedShowDebugView:(id)sender
+	{
+		[[ECLogManager sharedInstance] showUI];
+	}
+
+- (IBAction)tappedTestOutput:(id)sender
+	{
+		ECDebug(LoggingSampleViewControllerChannel, @"some test output");
+		ECDebug(LoggingSampleViewControllerChannel, @"some more output this should spill over many lines hopefully at least it will if I really keep wittering on and on for a really long time");
+	}
 
 @end

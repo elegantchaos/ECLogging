@@ -798,4 +798,11 @@ static ECLogManager* gSharedInstance = nil;
 	[defaults removeObjectForKey:SuppressedAssertionsKey];
 }
 
+- (void)showUI {
+	id<ECLogManagerDelegate> delegate = self.delegate;
+	if ([delegate respondsToSelector:@selector(logManagerWillShowUI:)]) {
+		[delegate logManagerWillShowUI:self];
+	 }
+}
+
 @end

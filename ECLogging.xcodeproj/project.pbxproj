@@ -610,7 +610,7 @@
 		22F2FEEF1641418600CD3C7C /* ECLogManagerMacUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerMacUISupport.m; sourceTree = "<group>"; };
 		22F2FEF2164142A600CD3C7C /* ECLogManagerIOSUISupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogManagerIOSUISupport.h; sourceTree = "<group>"; };
 		22F2FEF3164142A600CD3C7C /* ECLogManagerIOSUISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECLogManagerIOSUISupport.m; sourceTree = "<group>"; };
-		22F408E91EB8912C00DBB6BB /* ECLoggingMacTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ECLoggingMacTestApp.app; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
+		22F408E91EB8912C00DBB6BB /* ECLoggingMacTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECLoggingMacTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F408EB1EB8912C00DBB6BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22F408EC1EB8912C00DBB6BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		22F408EF1EB8912C00DBB6BB /* Mac */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mac; path = Tests/Application/Mac; sourceTree = SOURCE_ROOT; };

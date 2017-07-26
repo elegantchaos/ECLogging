@@ -16,6 +16,7 @@ EC_ASSUME_NONNULL_BEGIN
 @optional
 - (void)logManagerDidStartup:(ECLogManager*)manager;
 - (void)logManagerWillShutdown:(ECLogManager*)manager;
+- (void)logManagerWillShowUI:(ECLogManager*)manager;
 @end
 
 /**
@@ -229,6 +230,14 @@ EC_ASSUME_NONNULL_BEGIN
  */
 
 - (void)resetAllAssertions;
+
+/**
+ Display some UI which allows configuration of the log manager.
+ This is implemented by the delegate, and can be an overlay, a separate window, or
+ anything else appropriate.
+ */
+
+- (void)showUI;
 
 @end
 
