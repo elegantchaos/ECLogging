@@ -4,8 +4,5 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#include "Source/Configuration/ECMacApplication.xcconfig"
-
-GCC_PREFIX_HEADER = Tests/Application/ECLoggingMacTestApp.pch
-INFOPLIST_FILE = Tests/Application/Info.plist
-PRODUCT_BUNDLE_IDENTIFIER = com.elegantchaos.ECLoggingMacTestApp
+#include "Source/Configuration/ECIOSDebug.xcconfig"
+#include "ECLoggingIOSTestAppShared.xcconfig"
