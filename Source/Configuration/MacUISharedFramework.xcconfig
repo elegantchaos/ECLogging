@@ -4,8 +4,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-/// Standard xcconfig files.
+PRODUCT_NAME = ECLoggingUI
+GCC_PREFIX_HEADER = Source/Prefix/ECLoggingUI.pch
+MODULEMAP_FILE = Source/$(PRODUCT_NAME)Framework.modulemap
+PRODUCT_BUNDLE_IDENTIFIER = com.elegantchaos.frameworks.eclogging.ui
 
-#include "ECMacRelease.xcconfig"
-#include "ECFramework.xcconfig"
-#include "MacUISharedFramework.xcconfig"
