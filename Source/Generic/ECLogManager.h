@@ -16,7 +16,7 @@ EC_ASSUME_NONNULL_BEGIN
 @optional
 - (void)logManagerDidStartup:(ECLogManager*)manager;
 - (void)logManagerWillShutdown:(ECLogManager*)manager;
-- (void)logManagerWillShowUI:(ECLogManager*)manager;
+- (void)showUIForLogManager:(ECLogManager*)manager;
 @end
 
 /**
