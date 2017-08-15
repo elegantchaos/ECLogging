@@ -800,8 +800,8 @@ static ECLogManager* gSharedInstance = nil;
 
 - (void)showUI {
 	id<ECLogManagerDelegate> delegate = self.delegate;
-	if ([delegate respondsToSelector:@selector(logManagerWillShowUI:)]) {
-		[delegate logManagerWillShowUI:self];
+	if ([delegate respondsToSelector:@selector(showUIForLogManager:)]) {
+		[delegate showUIForLogManager:self];
 	 }
 }
 

@@ -62,8 +62,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "226889D81AEE4B49005510E5"
-               BuildableName = "TestsMacStatic.xctest"
-               BlueprintName = "TestsMacStatic"
+               BuildableName = "ECLoggingTestsMacStatic.xctest"
+               BlueprintName = "ECLoggingTestsMacStatic"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </TestableReference>
