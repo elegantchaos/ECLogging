@@ -479,12 +479,12 @@
 		225B84DC1EB9ED1600E0F3D5 /* ECAssertionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAssertionHandler.m; sourceTree = "<group>"; };
 		225C51511642DC3600794DD2 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.md; sourceTree = "<group>"; };
 		225C51521642DC3600794DD2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; wrapsLines = 1; };
-		225EC67211EBAA4800A97AEA /* TestsMac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsMac.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		226889E71AEE4B49005510E5 /* TestsMacStatic.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsMacStatic.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		225EC67211EBAA4800A97AEA /* ECLoggingTestsMac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingTestsMac.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		226889E71AEE4B49005510E5 /* ECLoggingTestsMacStatic.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingTestsMacStatic.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22696F111630342E006AE56D /* ECDebugMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDebugMenu.h; sourceTree = "<group>"; };
 		22696F121630342E006AE56D /* ECDebugMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDebugMenu.m; sourceTree = "<group>"; };
 		2274B37814F56679003B8A0B /* ECLoggingTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ECLoggingTests.plist; sourceTree = "<group>"; };
-		2274B38D14F56896003B8A0B /* TestsIOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsIOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2274B38D14F56896003B8A0B /* ECLoggingTestsIOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECLoggingTestsIOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2277CE1B16D6AB9500835964 /* ECDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECDebug.xcconfig; sourceTree = "<group>"; };
 		2277CE1C16D6AB9500835964 /* ECFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECFramework.xcconfig; sourceTree = "<group>"; };
 		2277CE1D16D6AB9500835964 /* ECIOSApplication.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECIOSApplication.xcconfig; sourceTree = "<group>"; };
@@ -754,8 +754,8 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				225EC67211EBAA4800A97AEA /* TestsMac.xctest */,
-				2274B38D14F56896003B8A0B /* TestsIOS.xctest */,
+				225EC67211EBAA4800A97AEA /* ECLoggingTestsMac.xctest */,
+				2274B38D14F56896003B8A0B /* ECLoggingTestsIOS.xctest */,
 				2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */,
 				2251BA1215DBCC4A00F2FE40 /* ECLogging.framework */,
 				22FF8E7E16F1E418008FC10D /* ECUnitTests.framework */,
@@ -763,7 +763,7 @@
 				228CF1E917562478003E1D25 /* libECLogging.a */,
 				222186F119DAB5F300F08CCE /* ECLoggingUI.framework */,
 				2221872C19DAB60900F08CCE /* libECLoggingUI.a */,
-				226889E71AEE4B49005510E5 /* TestsMacStatic.xctest */,
+				226889E71AEE4B49005510E5 /* ECLoggingTestsMacStatic.xctest */,
 				22F408E91EB8912C00DBB6BB /* ECLoggingMacTestApp.app */,
 				2202EDD21F2791E800C8FE22 /* ECLogging.framework */,
 				2202EE211F27B75D00C8FE22 /* ECUnitTests.framework */,
@@ -1636,9 +1636,9 @@
 			productReference = 2251BA1215DBCC4A00F2FE40 /* ECLogging.framework */;
 			productType = "com.apple.product-type.bundle";
 		};
-		225EC67111EBAA4800A97AEA /* TestsMac */ = {
+		225EC67111EBAA4800A97AEA /* ECLoggingTestsMac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 225EC67611EBAA4800A97AEA /* Build configuration list for PBXNativeTarget "TestsMac" */;
+			buildConfigurationList = 225EC67611EBAA4800A97AEA /* Build configuration list for PBXNativeTarget "ECLoggingTestsMac" */;
 			buildPhases = (
 				225EC66D11EBAA4800A97AEA /* Resources */,
 				225EC66E11EBAA4800A97AEA /* Sources */,
@@ -1649,14 +1649,14 @@
 			);
 			dependencies = (
 			);
-			name = TestsMac;
+			name = ECLoggingTestsMac;
 			productName = "EC Foundation Unit Tests";
-			productReference = 225EC67211EBAA4800A97AEA /* TestsMac.xctest */;
+			productReference = 225EC67211EBAA4800A97AEA /* ECLoggingTestsMac.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		226889D81AEE4B49005510E5 /* TestsMacStatic */ = {
+		226889D81AEE4B49005510E5 /* ECLoggingTestsMacStatic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 226889E41AEE4B49005510E5 /* Build configuration list for PBXNativeTarget "TestsMacStatic" */;
+			buildConfigurationList = 226889E41AEE4B49005510E5 /* Build configuration list for PBXNativeTarget "ECLoggingTestsMacStatic" */;
 			buildPhases = (
 				226889D91AEE4B49005510E5 /* Resources */,
 				226889DB1AEE4B49005510E5 /* Sources */,
@@ -1667,14 +1667,14 @@
 			);
 			dependencies = (
 			);
-			name = TestsMacStatic;
+			name = ECLoggingTestsMacStatic;
 			productName = "EC Foundation Unit Tests";
-			productReference = 226889E71AEE4B49005510E5 /* TestsMacStatic.xctest */;
+			productReference = 226889E71AEE4B49005510E5 /* ECLoggingTestsMacStatic.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		2274B38C14F56896003B8A0B /* TestsIOS */ = {
+		2274B38C14F56896003B8A0B /* ECLoggingTestsIOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2274B3A114F56896003B8A0B /* Build configuration list for PBXNativeTarget "TestsIOS" */;
+			buildConfigurationList = 2274B3A114F56896003B8A0B /* Build configuration list for PBXNativeTarget "ECLoggingTestsIOS" */;
 			buildPhases = (
 				2274B38814F56896003B8A0B /* Sources */,
 				2274B38914F56896003B8A0B /* Frameworks */,
@@ -1684,9 +1684,9 @@
 			);
 			dependencies = (
 			);
-			name = TestsIOS;
+			name = ECLoggingTestsIOS;
 			productName = blahTests;
-			productReference = 2274B38D14F56896003B8A0B /* TestsIOS.xctest */;
+			productReference = 2274B38D14F56896003B8A0B /* ECLoggingTestsIOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		228CF1E817562478003E1D25 /* ECLoggingMacStatic */ = {
@@ -1854,9 +1854,9 @@
 				222186B419DAB5F300F08CCE /* ECLoggingUI */,
 				222186F319DAB60900F08CCE /* ECLoggingUIStatic */,
 				22FF8E3616F1E418008FC10D /* ECUnitTestsIOSStatic */,
-				225EC67111EBAA4800A97AEA /* TestsMac */,
-				226889D81AEE4B49005510E5 /* TestsMacStatic */,
-				2274B38C14F56896003B8A0B /* TestsIOS */,
+				225EC67111EBAA4800A97AEA /* ECLoggingTestsMac */,
+				226889D81AEE4B49005510E5 /* ECLoggingTestsMacStatic */,
+				2274B38C14F56896003B8A0B /* ECLoggingTestsIOS */,
 				22A204F2172006AA00A6045D /* Package Release */,
 				22F408E81EB8912C00DBB6BB /* ECLoggingMacTestApp */,
 				22C6C7A51F2894110090EC71 /* ECLoggingIOSTestApp */,
@@ -2660,7 +2660,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		225EC67611EBAA4800A97AEA /* Build configuration list for PBXNativeTarget "TestsMac" */ = {
+		225EC67611EBAA4800A97AEA /* Build configuration list for PBXNativeTarget "ECLoggingTestsMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				225EC67411EBAA4800A97AEA /* Debug */,
@@ -2669,7 +2669,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		226889E41AEE4B49005510E5 /* Build configuration list for PBXNativeTarget "TestsMacStatic" */ = {
+		226889E41AEE4B49005510E5 /* Build configuration list for PBXNativeTarget "ECLoggingTestsMacStatic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				226889E51AEE4B49005510E5 /* Debug */,
@@ -2678,7 +2678,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		2274B3A114F56896003B8A0B /* Build configuration list for PBXNativeTarget "TestsIOS" */ = {
+		2274B3A114F56896003B8A0B /* Build configuration list for PBXNativeTarget "ECLoggingTestsIOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2274B3A214F56896003B8A0B /* Debug */,
