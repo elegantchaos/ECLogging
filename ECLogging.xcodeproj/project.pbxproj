@@ -1796,38 +1796,58 @@
 					2202EDD11F2791E800C8FE22 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 					2202EE201F27B75D00C8FE22 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
+					};
+					222186B419DAB5F300F08CCE = {
+						ProvisioningStyle = Manual;
 					};
 					222186F319DAB60900F08CCE = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
+					};
+					2251B9FE15DBCC3E00F2FE40 = {
+						ProvisioningStyle = Manual;
 					};
 					2251BA1115DBCC4A00F2FE40 = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
+					};
+					225EC67111EBAA4800A97AEA = {
+						ProvisioningStyle = Manual;
 					};
 					226889D81AEE4B49005510E5 = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 					2274B38C14F56896003B8A0B = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 					228CF1E817562478003E1D25 = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 					22C6C7A51F2894110090EC71 = {
 						CreatedOnToolsVersion = 9.0;
 						DevelopmentTeam = 2H48644JM2;
+						ProvisioningStyle = Manual;
 					};
 					22F408E81EB8912C00DBB6BB = {
 						CreatedOnToolsVersion = 8.3.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					22FF8E3616F1E418008FC10D = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 					22FF8E8516F1E5EB008FC10D = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -2390,6 +2410,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4315DBCD3900F2FE40 /* ECLoggingIOSDebug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
 			};
 			name = Debug;
 		};
@@ -2397,6 +2418,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA4415DBCD3900F2FE40 /* ECLoggingIOSRelease.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
 			};
 			name = Release;
 		};
