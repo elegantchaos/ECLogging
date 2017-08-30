@@ -1806,6 +1806,9 @@
 					222186B419DAB5F300F08CCE = {
 						ProvisioningStyle = Manual;
 					};
+					222186B419DAB5F300F08CCE = {
+						LastSwiftMigration = 0900;
+					};
 					222186F319DAB60900F08CCE = {
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
@@ -1813,12 +1816,18 @@
 					2251B9FE15DBCC3E00F2FE40 = {
 						ProvisioningStyle = Manual;
 					};
+					2251B9FE15DBCC3E00F2FE40 = {
+						LastSwiftMigration = 0900;
+					};
 					2251BA1115DBCC4A00F2FE40 = {
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
 					225EC67111EBAA4800A97AEA = {
 						ProvisioningStyle = Manual;
+					};
+					225EC67111EBAA4800A97AEA = {
+						LastSwiftMigration = 0900;
 					};
 					226889D81AEE4B49005510E5 = {
 						LastSwiftMigration = 0900;
