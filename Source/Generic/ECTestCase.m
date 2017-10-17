@@ -681,7 +681,7 @@
 	if (width < 1 || height < 1)
 		return nil;
 
-	NSBitmapImageRep* sRGB = [bitmap bitmapImageRepByConvertingToColorSpace:[NSColorSpace sRGBColorSpace] renderingIntent:0];
+	NSBitmapImageRep* sRGB = [bitmap bitmapImageRepByConvertingToColorSpace:[NSColorSpace sRGBColorSpace] renderingIntent:NSColorRenderingIntentDefault];
 	NSBitmapImageRep* rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
 	                                                                pixelsWide:width
 	                                                                pixelsHigh:height
