@@ -20,6 +20,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		038F13BA1F98B46E000E8967 /* ECIODelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 038F13B91F98B46E000E8967 /* ECIODelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		038F13BB1F98B528000E8967 /* ECIODelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 038F13B91F98B46E000E8967 /* ECIODelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		038F13BC1F98B529000E8967 /* ECIODelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 038F13B91F98B46E000E8967 /* ECIODelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		038F13BD1F98B52A000E8967 /* ECIODelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 038F13B91F98B46E000E8967 /* ECIODelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2202EDDD1F2794CE00C8FE22 /* ECLoggingIOSUmbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E8178A1D11FC4500DD8803 /* ECLoggingIOSUmbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2202EDDF1F27A9FA00C8FE22 /* ECAssertion.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43D14F53BCC009142F7 /* ECAssertion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2202EDE01F27A9FA00C8FE22 /* ECErrorAndMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F2CA6615348A5300F0A01D /* ECErrorAndMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -422,6 +426,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		038F13B91F98B46E000E8967 /* ECIODelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECIODelegate.h; sourceTree = "<group>"; };
 		2202EDD21F2791E800C8FE22 /* ECLogging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECLogging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2202EDDA1F27928300C8FE22 /* ECLoggingIOSSharedStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSSharedStatic.xcconfig; sourceTree = "<group>"; };
 		2202EDDB1F27928300C8FE22 /* ECLoggingIOSDebugStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSDebugStatic.xcconfig; sourceTree = "<group>"; };
@@ -987,6 +992,7 @@
 		2283A43A14F53BCC009142F7 /* Generic */ = {
 			isa = PBXGroup;
 			children = (
+				038F13B91F98B46E000E8967 /* ECIODelegate.h */,
 				2277CE4316D6B2B900835964 /* ECMacros.h */,
 				2277CE4F16D6B2C000835964 /* Testing */,
 				2277CE4216D6B2A500835964 /* Logging */,
@@ -1347,6 +1353,7 @@
 				2202EDDD1F2794CE00C8FE22 /* ECLoggingIOSUmbrella.h in Headers */,
 				2202EE031F27B31200C8FE22 /* ECDebugHandlersViewController.h in Headers */,
 				2202EE3E1F27BC4000C8FE22 /* ECLoggingMacros.h in Headers */,
+				038F13BC1F98B529000E8967 /* ECIODelegate.h in Headers */,
 				2202EDF01F27AA3600C8FE22 /* ECLogHandlerOSLog.h in Headers */,
 				2202EDDF1F27A9FA00C8FE22 /* ECAssertion.h in Headers */,
 				2202EE011F27B31200C8FE22 /* ECDebugChannelsViewController.h in Headers */,
@@ -1423,6 +1430,7 @@
 				227D169F1DFAB88D003183D4 /* ECLogHandlerOSLog.h in Headers */,
 				2221874419DABA6000F08CCE /* ECErrorAndMessage.h in Headers */,
 				22BBED421D19A151003B79CA /* ECLogHandlerStdout.h in Headers */,
+				038F13BA1F98B46E000E8967 /* ECIODelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1457,6 +1465,7 @@
 				22F2FEF4164142A600CD3C7C /* ECLogManagerIOSUISupport.h in Headers */,
 				229EDCEB16442DB00087B26E /* ECDebugHandlersViewController.h in Headers */,
 				22BBED321D19A151003B79CA /* ECLogHandlerFile.h in Headers */,
+				038F13BD1F98B52A000E8967 /* ECIODelegate.h in Headers */,
 				2202EE3B1F27BAF400C8FE22 /* ECDescriptionDictionary.h in Headers */,
 				22BBED381D19A151003B79CA /* ECLogHandlerNSLog.h in Headers */,
 				22BBED441D19A151003B79CA /* ECLogHandlerStdout.h in Headers */,
@@ -1489,6 +1498,7 @@
 				22BBED311D19A151003B79CA /* ECLogHandlerFile.h in Headers */,
 				227D16A01DFAB88D003183D4 /* ECLogHandlerOSLog.h in Headers */,
 				228CF25917563F3F003E1D25 /* ECLogging.pch in Headers */,
+				038F13BB1F98B528000E8967 /* ECIODelegate.h in Headers */,
 				22BBED431D19A151003B79CA /* ECLogHandlerStdout.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1804,30 +1814,24 @@
 						ProvisioningStyle = Manual;
 					};
 					222186B419DAB5F300F08CCE = {
-						ProvisioningStyle = Manual;
-					};
-					222186B419DAB5F300F08CCE = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 					222186F319DAB60900F08CCE = {
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
 					2251B9FE15DBCC3E00F2FE40 = {
-						ProvisioningStyle = Manual;
-					};
-					2251B9FE15DBCC3E00F2FE40 = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 					2251BA1115DBCC4A00F2FE40 = {
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
 					225EC67111EBAA4800A97AEA = {
-						ProvisioningStyle = Manual;
-					};
-					225EC67111EBAA4800A97AEA = {
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
 					};
 					226889D81AEE4B49005510E5 = {
 						LastSwiftMigration = 0900;
