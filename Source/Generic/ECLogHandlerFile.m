@@ -6,6 +6,7 @@
 
 #import "ECLogHandlerFile.h"
 #import "ECLogChannel.h"
+#import "ECAssertion.h"
 
 #include <stdio.h>
 
@@ -13,7 +14,7 @@
 
 #pragma mark - Private Properties
 
-@property (strong, nonatomic) NSMutableDictionary* files;
+@property (strong, nonatomic) NSCache* files;
 @property (strong, nonatomic) NSURL* logFolder;
 
 @end
@@ -31,14 +32,15 @@
     if ((self = [super init]) != nil) 
     {
         self.name = @"File";
-        
+		_files = [NSCache new];
+
         NSError* error = nil;
         NSFileManager* fm = [NSFileManager defaultManager];
         NSURL* libraryFolder = [fm URLForDirectory:NSLibraryDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
         NSURL* logsFolder = [libraryFolder URLByAppendingPathComponent:@"Logs"];
-        self.logFolder = [logsFolder URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
-        [fm removeItemAtURL:self.logFolder error:&error];
-        [fm createDirectoryAtPath:[self.logFolder path] withIntermediateDirectories:YES attributes:nil error:&error];
+        _logFolder = [logsFolder URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
+        [fm removeItemAtURL:_logFolder error:&error];
+        [fm createDirectoryAtPath:[_logFolder path] withIntermediateDirectories:YES attributes:nil error:&error];
     }
     
     return self;
@@ -52,18 +54,13 @@
 
 - (NSURL*)logFileForChannel:(ECLogChannel*)channel
 {
-    NSMutableDictionary* fileCache = self.files;
-    if (fileCache == nil)
-    {
-        fileCache = [NSMutableDictionary dictionary];
-        self.files = fileCache;
-    }
-    
-    NSURL* logFile = fileCache[channel.name];
+    NSCache* fileCache = self.files;
+	ECAssertNonNil(fileCache);
+    NSURL* logFile = [fileCache objectForKey:channel.name];
     if (!logFile)
     {
         logFile = [self.logFolder URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.log", channel.name]];
-        fileCache[channel.name] = logFile;
+		[fileCache setObject:logFile forKey:channel.name];
     }
 
     return logFile;
