@@ -7,11 +7,18 @@
 //
 
 /**
- Defines IO methods required by ECCommandLineEngine.
+ Defines an abstract IO API for doing two things:
  
- These methods fall into two main groups:
- - supplying options for the engine.
- - outputting progress information.
+ - reading settings
+ - outputting structured information
+ 
+ The settings are of a form that might be supplied in a dictionary, via a command line interface, or from some other key/value store.
+ 
+ The output of information is structured in the sense that it can be nested by opening and closing groups. The intention here is to allow a tool to produce human readable output but also to have enough context to optionally produce machine-readable output instead.
+ 
+ The protocol provides explicit methods for outputting formatted strings and errors, but also for outputting arbitrary "information" associated with a key. These can just be objects of any type.
+ 
+ A naive tool that supports this protocol can choose to log out all information in a flat way. By supporting keys and grouping, however, the API also allows a tool to create meaningful output that is more structured - eg JSON or XML.
  
  */
 
