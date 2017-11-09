@@ -6,6 +6,7 @@
 
 @import Foundation;
 
+#import "ECIODelegate.h"
 #import "ECMacros.h"
 
 #import "ECAssertion.h"
