@@ -205,7 +205,6 @@
 		226889E01AEE4B49005510E5 /* libECLogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 228CF1E917562478003E1D25 /* libECLogging.a */; };
 		226889E11AEE4B49005510E5 /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */; };
 		226889E91AEE4B64005510E5 /* ECLogging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
-		2277CE3D16D6AFC600835964 /* Scripts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277CE3916D6AFA000835964 /* Scripts */; };
 		2277CE3F16D6B01800835964 /* Scripts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277CE3916D6AFA000835964 /* Scripts */; };
 		2277CE4916D6B2B900835964 /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2277CE5916D6B9A400835964 /* ECLogging.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLogging.pch */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -409,7 +408,6 @@
 			dstPath = "$(VERSION_FOLDER_PATH)";
 			dstSubfolderSpec = 16;
 			files = (
-				2277CE3D16D6AFC600835964 /* Scripts in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
