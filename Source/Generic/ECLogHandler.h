@@ -1,11 +1,13 @@
 // --------------------------------------------------------------------------
-//
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #import "ECLoggingMacros.h"
+#import "ECLogContext.h"
+
+EC_ASSUME_NONNULL_BEGIN
 
 @class ECLogChannel;
 
@@ -49,12 +51,7 @@
 
  */
 
-@interface ECLogHandler : NSObject 
-
-{
-@private
-	NSString* name;
-}
+@interface ECLogHandler : NSObject
 
 @property (strong, nonatomic) NSString* name;
 
@@ -97,7 +94,6 @@
 
 
 
-
 /**
  Called by the log manager to indicate that the handler was enabled for a channel.
 
@@ -116,3 +112,5 @@
 
 - (void)wasDisabledForChannel:(ECLogChannel*)channel;
 @end
+
+EC_ASSUME_NONNULL_END

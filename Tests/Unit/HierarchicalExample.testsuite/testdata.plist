@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>includes</key>
+	<array>
+		<string>Included.testsuite</string>
+	</array>
+	<key>settings</key>
+	<dict>
+		<key>a setting</key>
+		<string>a value</string>
+	</dict>
+</dict>
+</plist>

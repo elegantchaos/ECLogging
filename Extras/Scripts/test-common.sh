@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-# Common code for test scripts
+# --------------------------------------------------------------------------
+#  Copyright 2013-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
 
+# Common code for test scripts
 if [[ $project == "" ]];
 then
     echo "Need to define project variable."
@@ -14,96 +19,145 @@ echo "Need to set ecbase variable - assuming it's at $base/.. (which is probably
 ecbase="$base/.."
 fi
 
-echo "Setting up tests for $project"
+echo "Preparing to build $project"
 
 build="$PWD/test-build"
 
 pushd "$ecbase" > /dev/null
 wd=`pwd`
-ocunit2junit="$wd/ocunit2junit/bin/ocunit2junit"
 popd > /dev/null
 
-sym="$build/sym"
-obj="$build/obj"
+derived="$build/derived"
+archive="$build/archive"
 
-rm -rf "$build"
+rm -rfd "$build" 2> /dev/null
 mkdir -p "$build"
-
-testout="$build/out.log"
-testerr="$build/err.log"
 
 config="Debug"
 
-report()
+urlencode()
 {
-    pushd "$build" > /dev/null
-    "$ocunit2junit" < "$testout" > /dev/null 2>&1
-    reportdir="$build/reports/$2-$1"
-    mkdir -p "$reportdir"
-    mv test-reports/* "$reportdir" 2> /dev/null
-    rmdir test-reports
-    popd > /dev/null
+    encoded="$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$1")"
 }
 
 cleanbuild()
 {
     # ensure a clean build every time
-    rm -rf "$obj"
-    rm -rf "$sym"
+    rm -rfd "~/Library/Developer/Xcode/DerivedData"
+    rm -rfd "$derived" 2> /dev/null
+    rm -rfd "$archive" 2> /dev/null
 }
 
 cleanoutput()
 {
-# make empty output files
-echo "" > "$testout"
-echo "" > "$testerr"
+    logdir="$build/logs/$2-$1"
+    mkdir -p "$logdir"
+    testout="$logdir/out.log"
+    testjson="$logdir/out.json"
+    testerr="$logdir/err.log"
+    stamplog="$logdir/timestamps.log"
+    statusfile="$build/status.txt"
+}
+
+setup()
+{
+    local TOOL="$1"
+    shift
+
+    local SCHEME="$1"
+    shift
+
+    local PLATFORM="$1"
+    shift
+
+    ARCHIVE_PATH=""
+    if [[ "$1" == "archive" ]]
+    then
+      echo "Archiving"
+      shift
+      ACTIONS="archive -archivePath $archive $@"
+    else
+      ACTIONS="$@"
+    fi
+
+    echo "Building $SCHEME for $PLATFORM with $TOOL"
+    echo "Actions: $ACTIONS"
+    cleanoutput "$SCHEME" "$PLATFORM"
 }
 
 commonbuild()
 {
-    echo "Building $1 for $3 $2"
-    cleanoutput
+    local PLATFORM="$1"
+    shift
 
-    # build it
-    xcodebuild -workspace "$project.xcworkspace" -scheme "$1" -sdk "$3" $4 $2 OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
+    local SCHEME="$1"
+    shift
 
-    # we don't entirely trust the return code from xcodebuild, so we also scan the output for "failed"
+    setup "xctool" "$SCHEME" "$PLATFORM" "$@"
+
+    echo "BUILDING" > "$statusfile"
+    echo "Started $(date)" > "$stamplog"
+
+    reportdir="$build/reports/$PLATFORM-$SCHEME"
+    mkdir -p "$reportdir"
+
+
+    xctool -workspace "$project.xcworkspace" -scheme "$SCHEME" -sdk "$PLATFORM" -derivedDataPath "$derived" $ACTIONS -reporter "junit:$reportdir/report.xml" -reporter "json-compilation-database:$testjson" -reporter "plain:$testout" 2>> "$testerr"
     result=$?
-    buildfailures=`grep failed "$testerr"`
-    if [[ $result != 0 ]] || [[ $buildfailures != "" ]]; then
-        # if it looks like the build failed, output everything to stdout
-        echo "Build Failed"
-        cat "$testout"
-        cat "$testerr" > /dev/stderr
+
+    echo "Finished $(date)" >> "$stamplog"
+
+    if [[ $result != 0 ]]
+    then
+        echo "Build Failed:"
+        cat "$testerr" >&2
+        tail -n 20 "$testout"
         echo
-        echo "** BUILD FAILURES **"
-        echo "Build failed for scheme $1"
-        if [[ $result == 0 ]]; then
-            result=1
+        echo $'\n** BUILD FAILURES **\n'
+        echo "Build failed for scheme $SCHEME (xctool returned $result)"
+        LOG_PATH="test-build/logs/$PLATFORM-$SCHEME"
+        if [[ "$JOB_URL" != "" ]]
+        then
+            LOG_URL="${JOB_URL}/${LOG_PATH}"
+            urlencode "${LOG_URL}"
+        else
+            LOG_URL="$LOG_PATH"
         fi
+        echo "Full log: $LOG_URL"
+        echo "FAILED-BUILD" > "$statusfile"
+
         exit $result
     fi
 
-    report "$1" "$3"
-
-    testfailures=`grep failed "$testout"`
-    if [[ $testfailures != "" ]]; then
-        echo $testfailures
+    # grep the build output for warnings that didn't cause it to fail
+    # these are likely to be analyser warnings
+    buildWarnings=`grep --only-matching -E "\w+.m:\d+:\d+: warning:.*" "$testout"`
+    if [[ $buildWarnings != "" ]]
+    then
+        echo "** ANALYSER WARNINGS **"
+        echo "Found analyser warnings in log:"
+        echo "$buildWarnings"
         echo
-        echo "** UNIT TEST FAILURES **"
-        echo "Tests failed for scheme $1"
+        echo "Analyser failed for scheme $SCHEME"
+        echo "FAILED-ANALYSER" > "$statusfile"
         exit 1
     fi
 
+    echo "BUILT" > "$statusfile"
 }
 
 macbuild()
 {
     if $testMac ; then
+        if [[ $1 != "--dontclean" ]]
+        then
+            cleanbuild
+        else
+            echo "Suppressing cleaning - will reuse the same build products"
+            shift
+        fi
 
-        cleanbuild
-        commonbuild "$1" "$2" "macosx" ""
-
+        commonbuild "macosx" "$@"
     fi
 }
 
@@ -111,71 +165,13 @@ iosbuild()
 {
     if $testIOS; then
 
-        if [[ $2 == "test" ]];
-        then
-            action="build TEST_AFTER_BUILD=YES"
-        else
-            action=$2
-        fi
+        local SCHEME=$1
+        shift
+
+        local ACTIONS=$1
+        shift
 
         cleanbuild
-        commonbuild "$1" "$action" "iphonesimulator" "-arch i386 ONLY_ACTIVE_ARCH=NO"
-
+        commonbuild "iphonesimulator" "$SCHEME" "$ACTIONS" -arch i386 ONLY_ACTIVE_ARCH=NO "$@"
     fi
-}
-
-iosbuildproject()
-{
-
-    if $testIOS; then
-
-        cleanbuild
-        cleanoutput
-
-        cd "$1"
-        echo Building debug target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
-        echo Building release target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" >> "$testout" 2>> "$testerr"
-        result=$?
-        cd ..
-        if [[ $result != 0 ]]; then
-            cat "$testerr"
-            echo
-            echo "** BUILD FAILURES **"
-            echo "Build failed for scheme $1"
-        exit $result
-        fi
-
-    fi
-
-}
-
-iostestproject()
-{
-
-    if $testIOS; then
-
-        cleanoutput
-        cleanbuild
-
-        cd "$1"
-        echo Testing debug target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Debug" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
-        echo Testing release target $2 of project $1
-        xcodebuild -project "$1.xcodeproj" -config "Release" -target "$2" -arch i386 -sdk "iphonesimulator" build OBJROOT="$obj" SYMROOT="$sym" TEST_AFTER_BUILD=YES >> "$testout" 2>> "$testerr"
-        result=$?
-        cd ..
-        if [[ $result != 0 ]]; then
-            cat "$testerr"
-            echo
-            echo "** BUILD FAILURES **"
-            echo "Build failed for scheme $1"
-            exit $result
-        fi
-
-        report "$1" "iphonesimulator"
-
-    fi
-
 }

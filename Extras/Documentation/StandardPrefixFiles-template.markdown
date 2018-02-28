@@ -1,52 +1,26 @@
 Prefix Files
 ------------
 
-The ECFrameworks all use a pattern of having two main configurations - Debug and Release - and having a different prefix (pch) file for each configuration.
+The ECFrameworks all use a pattern of having two main configurations - Debug and Release, with corresponding
+xcconfig files for each one, which include a shared file.
 
-The intention is that you set up your own project to have prefixe files using the same pattern, and then #import either <ECLogging/ECLoggingDebug.pch> or <ECLogging/ECLoggingRelease.pch> from each one as appropriate.
+Previously a different precompiled prefix file was then included, based on the configuration
+(eg ECLoggingDebug.pch or ECLoggingRelease.pch), and this prefix file defined one of the macros
+EC_DEBUG or EC_RELEASE, depending on the configuration.
 
-If you have more than two configurations, that's fine - just choose to #import either the ECLoggingDebug or ECLoggingRelease pch from each one.
+With the advant of Swift and Clang modules, it's necessary to have these macros defined by the xcconfig files
+and passed in to the compiler. Because of this there is now generally only a single prefix file required (eg ECLogging.pch).
 
-Typically you'll want to also have a shared prefix file that all your other prefix files #import, in which you put all definitions that are shared between all configurations (ECLogging does this itself internally, with both ECLoggingDebug and ECLoggingRelease importing ECLoggingShared).
+Typically the only purpose of this file is to @import the required frameworks.
+
+The intention is that you set up your own project to have xcconfig files using the same pattern, and then
+to use a single prefix file.
+
+If you have more than two configurations, that's fine - just choose to #define either EC_DEBUG or EC_RELEASE in the xcconfig for
+each one.
 
 An easy way to set this sort of thing up in your project is to have a use a build setting like this:
 
-    GCC_PREFIX_HEADER = Source/Prefix/$(PROJECT_NAME)$(CONFIGURATION).pch
+    GCC_PREFIX_HEADER = Source/Prefix/$(PROJECT_NAME).pch
 
-If your project is called "Blah", and you have Debug, Release and AppStore configurations, this will automatically use the prefix files "Source/Prefix/BlahDebug.pch", "Source/Prefix/BlahRelease.pch", and  "Source/Prefix/BlahAppStore.pch" respectively.
-
-You can then create these files and set them up like this:
-
-BlahDebug.pch:
-
-    #import <ECLogging/ECLoggingDebug.pch>
-    #import "BlahShared.pch"
-    
-    #define SOME_DEBUG_SETTING_HERE
-    // etc...
-
-BlahRelease.pch:
-
-    #import <ECLogging/ECLoggingRelease.pch>
-    #import "BlahShared.pch"
-
-    #define SOME_RELEASE_SETTING_HERE
-    // etc...
-
-BlahAppStore.pch:
-
-    #import <ECLogging/ECLoggingRelease.pch>
-    #import "BlahShared.pch"
-    
-    #define SOME_APP_STORE_SETTING_HERE
-    // etc...
-
-
-BlahAppShared.pch:
-
-    #define SOME_SHARED_SETTING_HERE
-    #import <ECLogging/ECLogging.h> // for example, let's use the ECLogging framework
-    #import <SomeOtherFramework/SomeOtherFramework.h>
-    // etc...
-
-
+If your project is called "Blah" this will automatically use the prefix file "Source/Prefix/Blah.pch".

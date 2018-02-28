@@ -1,11 +1,10 @@
 // --------------------------------------------------------------------------
-//
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <Foundation/Foundation.h>
+EC_ASSUME_NONNULL_BEGIN
 
 @interface ECErrorAndMessage : NSObject
 
@@ -13,3 +12,5 @@
 @property (strong, nonatomic) NSError* error;
 
 @end
+
+EC_ASSUME_NONNULL_END

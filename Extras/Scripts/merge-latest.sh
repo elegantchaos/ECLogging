@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# --------------------------------------------------------------------------
+#  Copyright 2013-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
+
 ## This script is an attempt to automate picking up the latest version of the "develop" branch for a module, given that it might be on a detatch HEAD at the time.
 ##
 ## It performs the following steps:

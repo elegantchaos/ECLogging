@@ -1,21 +1,28 @@
 // --------------------------------------------------------------------------
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
+
+ARCHS = $(ARCHS_STANDARD)
+VALID_ARCHS = $(ARCHS_STANDARD)
 
 // --------------------------------------------------------------------------
 // Compiler Version
 // --------------------------------------------------------------------------
 
-GCC_VERSION = com.apple.compilers.llvm.clang.1_0
-GCC_C_LANGUAGE_STANDARD = gnu99
+GCC_VERSION =
+GCC_C_LANGUAGE_STANDARD = compiler-default
+CLANG_CXX_LANGUAGE_STANDARD = compiler-default
+CLANG_CXX_LIBRARY = compiler-default
 
 // --------------------------------------------------------------------------
 // Objective C stuff
 // --------------------------------------------------------------------------
 
+CLANG_ENABLE_OBJC_ARC = YES
 GCC_ENABLE_OBJC_EXCEPTIONS = YES
+CLANG_ENABLE_MODULES = YES
 
 // --------------------------------------------------------------------------
 // Resources
@@ -38,6 +45,16 @@ SKIP_INSTALL = YES
 PRODUCT_NAME = $(TARGET_NAME)
 
 // --------------------------------------------------------------------------
+// Code Signing
+// --------------------------------------------------------------------------
+
+
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY =
+OTHER_CODE_SIGN_FLAGS = $(inherited) --timestamp
+// enable this if you're trying to build offline and the timestamp is failing
+
+// --------------------------------------------------------------------------
 // Search Paths
 // --------------------------------------------------------------------------
 
@@ -47,10 +64,16 @@ ALWAYS_SEARCH_USER_PATHS = NO
 // By default, use standard pattern for prefix
 // --------------------------------------------------------------------------
 
-GCC_PREFIX_HEADER = Source/Prefix/$(PROJECT_NAME)$(CONFIGURATION).pch
-GCC_PRECOMPILE_PREFIX_HEADER = YES
+GCC_PREFIX_HEADER = Source/Prefix/$(PROJECT_NAME).pch
+GCC_PRECOMPILE_PREFIX_HEADER = NO
 PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES
-HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/include" "$(PROJECT_TEMP_DIR)/../UninstalledProducts/include"
+GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO
+
+// Under normal circumstances, the headers for frameworks and libraries are built into TARGET_BUILD_DIR.
+// However, when archiving, any libraries that are set not to be part of the archive (which should be most if not all of them)
+// get built instead into the UninstalledProducts directory. This is Xcode's behaviour and appears not
+// to be something we can change, so we need to look there too for headers.
+HEADER_SEARCH_PATHS = "${TARGET_BUILD_DIR}" "${PROJECT_TEMP_DIR}/../UninstalledProducts/$(PLATFORM_NAME)"
 
 // --------------------------------------------------------------------------
 // Standard Warnings
@@ -60,6 +83,11 @@ WARNING_CFLAGS = -Wall -Wextra -Wno-unused-macros -Wno-unused-parameter
 GCC_TREAT_WARNINGS_AS_ERRORS = YES
 CLANG_WARN_DOCUMENTATION_COMMENTS = YES
 
+CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR
+CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR
+
+CLANG_WARN_UNREACHABLE_CODE = YES
+CLANG_WARN_BOOL_CONVERSION = YES
 GCC_WARN_CHECK_SWITCH_STATEMENTS = YES
 GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES
 CLANG_WARN_EMPTY_BODY = YES
@@ -71,7 +99,7 @@ CLANG_WARN_ENUM_CONVERSION = YES
 CLANG_WARN_INT_CONVERSION = YES
 CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO
 GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES
-GCC_WARN_ABOUT_RETURN_TYPE = YES
+GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR
 GCC_WARN_MISSING_PARENTHESES = YES
 GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES
 GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES
@@ -82,13 +110,24 @@ CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES
 GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES
 GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES
-GCC_WARN_UNINITIALIZED_AUTOS = YES
+GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE
 GCC_WARN_UNKNOWN_PRAGMAS = YES
 GCC_WARN_UNUSED_FUNCTION = YES
 GCC_WARN_UNUSED_LABEL = YES
 GCC_WARN_UNUSED_PARAMETER = NO
 GCC_WARN_UNUSED_VALUE = YES
 GCC_WARN_UNUSED_VARIABLE = YES
+
+// XC8.1 additions
+CLANG_WARN_INFINITE_RECURSION = YES;
+CLANG_WARN_SUSPICIOUS_MOVE = YES;
+
+CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+ENABLE_STRICT_OBJC_MSGSEND = YES;
+ENABLE_TESTABILITY = YES;
+GCC_NO_COMMON_BLOCKS = YES;
+ONLY_ACTIVE_ARCH = YES;
+
 
 CLANG_WARN__DUPLICATE_METHOD_MATCH = YES
 CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES
@@ -98,18 +137,77 @@ CLANG_WARN_OBJC_RECEIVER_WEAK = YES
 GCC_WARN_STRICT_SELECTOR_MATCH = YES
 GCC_WARN_UNDECLARED_SELECTOR = YES
 
+GCC_ENABLE_BUILTIN_FUNCTIONS = YES
+GCC_SHORT_ENUMS = NO
+GCC_WARN_INHIBIT_ALL_WARNINGS = NO
+GCC_WARN_PEDANTIC = NO
+
+CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES
+GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES
+GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES
+GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = YES
+CLANG_WARN_CXX0X_EXTENSIONS = YES
+GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES
+GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO
+CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES
+CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES
+CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES
+CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES
+
+RUN_CLANG_STATIC_ANALYZER = NO
+CLANG_STATIC_ANALYZER_MODE_ON_ANALYZE_ACTION = deep
+
+CLANG_ANALYZER_DEADCODE_DEADSTORES = YES
+CLANG_ANALYZER_MEMORY_MANAGEMENT = YES
+CLANG_ANALYZER_GCD = YES
+CLANG_ANALYZER_OBJC_ATSYNC = YES
+CLANG_ANALYZER_OBJC_NSCFERROR = YES
+CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = YES
+CLANG_ANALYZER_OBJC_COLLECTIONS = YES
+CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES
+CLANG_ANALYZER_OBJC_SELF_INIT = YES
+CLANG_ANALYZER_OBJC_RETAIN_COUNT = YES
+CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = NO
+CLANG_ANALYZER_SECURITY_KEYCHAIN_API = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_UNCHECKEDRETURN = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_GETPW_GETS = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_MKSTEMP = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES
+CLANG_ANALYZER_SECURITY_INSECUREAPI_VFORK = YES
+
+// XC 9 additions
+
+CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+CLANG_WARN_COMMA = YES;
+CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+CLANG_WARN_STRICT_PROTOTYPES = YES;
+
+
+ASSETCATALOG_WARNINGS = YES
+
+IBSC_WARNINGS = YES
+
+// --------------------------------------------------------------------------
+// Swift
+// --------------------------------------------------------------------------
+
+SWIFT_VERSION = 3.0;
+
 // --------------------------------------------------------------------------
 // Custom settings
 // --------------------------------------------------------------------------
 
-ECLOGGING_SCRIPTS_PATH=$(BUILT_PRODUCTS_DIR)/ECLogging.framework/Scripts
+MODULES_PATH = ${SRCROOT}/..
+ECLOGGING_SCRIPT_PATH = ${MODULES_PATH}/ECLogging/Extras/Scripts
 
 // --------------------------------------------------------------------------
 // Unit Testing
 // --------------------------------------------------------------------------
 
-/// Since all of the targets link against SenTestKit, we need to be able to find it.
-/// It's in a different location on the Mac and iOS, but luckily our standard xcconfig
-/// files define a setting UNIT_TEST_FRAMEWORK_PATH with its location:
+/// Since all of the unit test targets link against XCTest, we need to be able to find it.
 
-FRAMEWORK_SEARCH_PATHS = "$(UNIT_TEST_FRAMEWORK_PATH)"
+UNIT_TEST_FRAMEWORK_PATH = "$(PLATFORM_DIR)/Developer/Library/Frameworks"
+FRAMEWORK_SEARCH_PATHS = $inherited $(UNIT_TEST_FRAMEWORK_PATH)

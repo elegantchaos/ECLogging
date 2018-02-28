@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECLogViewController">
+            <connections>
+                <outlet property="oSettingsController" destination="19" id="26"/>
+                <outlet property="oTranscriptController" destination="14" id="E1f-ha-KAG"/>
+                <outlet property="view" destination="2" id="3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="930"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="22" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="20" userLabel="Commands">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="158"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="158" id="6Zo-Gr-bcW"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="19" id="21"/>
+                        <outlet property="delegate" destination="19" id="22"/>
+                    </connections>
+                </tableView>
+                <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9" userLabel="Output">
+                    <rect key="frame" x="0.0" y="166" width="768" height="764"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="14" id="15"/>
+                        <outlet property="delegate" destination="14" id="16"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="20" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="1I4-8B-LKY"/>
+                <constraint firstAttribute="trailing" secondItem="9" secondAttribute="trailing" id="DV7-Fl-3gA"/>
+                <constraint firstItem="20" firstAttribute="trailing" secondItem="9" secondAttribute="trailing" id="FED-jP-8KN"/>
+                <constraint firstItem="9" firstAttribute="top" secondItem="20" secondAttribute="bottom" constant="8" symbolic="YES" id="HvT-Ep-rFU"/>
+                <constraint firstAttribute="bottom" secondItem="9" secondAttribute="bottom" id="ad3-aS-NaJ"/>
+                <constraint firstItem="9" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="bzs-tx-C4V"/>
+                <constraint firstItem="20" firstAttribute="top" secondItem="2" secondAttribute="top" id="q2j-kg-wTd"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
+            <nil key="simulatedBottomBarMetrics"/>
+        </view>
+        <tableViewController modalPresentationStyle="currentContext" id="14" userLabel="Transcript Controller" customClass="ECLogTranscriptViewController">
+            <extendedEdge key="edgesForExtendedLayout"/>
+            <connections>
+                <outlet property="view" destination="9" id="18"/>
+            </connections>
+        </tableViewController>
+        <tableViewController modalPresentationStyle="currentContext" id="19" userLabel="Settings Controller" customClass="ECLogSettingsViewController">
+            <extendedEdge key="edgesForExtendedLayout"/>
+            <connections>
+                <outlet property="view" destination="20" id="23"/>
+            </connections>
+        </tableViewController>
+    </objects>
+</document>

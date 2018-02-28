@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
@@ -10,13 +10,8 @@
 // Build Options
 // --------------------------------------------------------------------------
 
-RUN_CLANG_STATIC_ANALYZER = YES
-
-// --------------------------------------------------------------------------
-// Architectures
-// --------------------------------------------------------------------------
-
-ONLY_ACTIVE_ARCH = YES
+ENABLE_NS_ASSERTIONS = YES
+GCC_TREAT_WARNINGS_AS_ERRORS = NO
 
 // --------------------------------------------------------------------------
 // Code Generation
@@ -32,4 +27,10 @@ COPY_PHASE_STRIP = NO
 
 ECDEBUGCONFIG=YES
 
-GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 $(inherited)
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 EC_DEBUG=1 $(inherited)
+
+// --------------------------------------------------------------------------
+// Signing
+// --------------------------------------------------------------------------
+
+OTHER_CODE_SIGN_FLAGS = --timestamp=none // don't timestamp for debug builds (it needs a net connection, which we might not have)

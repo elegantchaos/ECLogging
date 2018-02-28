@@ -1,13 +1,36 @@
 // --------------------------------------------------------------------------
-//
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #import "ECLogContext.h"
 
+EC_ASSUME_NONNULL_BEGIN
+
 @class ECLogHandler;
+
+/**
+ These log levels correspond to those used by ASL, and are used by anything that
+ wants to set the log level of a channel.
+ 
+ Log levels aren't really a concept that's fully embraced by ECLogging - you are
+ much better off just making separate log channels for the various levels of 
+ logging/notification that you want to differentiate. However, level support is provided
+ for compatibility with os_log() / asl.
+ */
+
+typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
+	ECSystemLogLevelEmergency,
+	ECSystemLogLevelAlert,
+	ECSystemLogLevelCritical,
+	ECSystemLogLevelError,
+	ECSystemLogLevelWarning,
+	ECSystemLogLevelNotice,
+	ECSystemLogLevelInfo,
+	ECSystemLogLevelDebug
+};
+
 
 /**
  
@@ -67,14 +90,6 @@
  */
 
 @interface ECLogChannel : NSObject
-{
-@private
-	BOOL enabled;
-	BOOL setup;
-	NSString* name;
-	NSMutableSet* handlers;
-    ECLogContextFlags context;
-}
 
 // --------------------------------------------------------------------------
 // Public Properties
@@ -119,7 +134,15 @@
  Handlers that the channel's output will be sent to.
  */
 
-@property (strong, nonatomic) NSMutableSet* handlers;
+@property (strong, nonatomic, ec_nullable) NSMutableSet* handlers;
+
+/**
+ Parent channel. 
+ Any message logged to this channel will also be logged to the parent channel.
+ If the parent channel is disabled, this channel will be, too.
+ */
+
+@property (strong, nonatomic, readonly, ec_nullable) ECLogChannel* parent;
 
 // --------------------------------------------------------------------------
 // Public Methods
@@ -129,14 +152,14 @@
  Enable the channel.
  */
 
-- (void) enable;
+- (void)enable;
 
 
 /**
  Disable the channel. Any output sent to the channel will be ignored whilst it is disabled.
  */
 
-- (void) disable;
+- (void)disable;
 
 
 /**
@@ -145,9 +168,17 @@
  @param name The name of the channel.
  */
 
-- (id) initWithName: (NSString*) name;
+- (instancetype)initWithName:(NSString*)name;
 
+/**
+ Set up a channel with a given name.
 
+ @param name The name of the channel.
+ @param parent The parent channel. Can be nil, indicating that the channel has no parent.
+
+ */
+
+- (instancetype)initWithName:(NSString*)name parent:(ec_nullable ECLogChannel*)parent NS_DESIGNATED_INITIALIZER;
 
 /**
  Comparison function to sort channels by name.
@@ -155,8 +186,7 @@
  @return Comparison result.
  */
 
-- (NSComparisonResult) caseInsensitiveCompare: (ECLogChannel*) other;
-
+- (NSComparisonResult)caseInsensitiveCompare:(ECLogChannel*)other;
 
 
 /**
@@ -164,8 +194,7 @@
  @param handler The handler to enable. Any output sent to this channel will get passed to the enabled handler.
  */
 
-- (void) enableHandler: (ECLogHandler*) handler;
-
+- (void)enableHandler:(ECLogHandler*)handler;
 
 
 /**
@@ -173,7 +202,7 @@
  @param handler The handler to disable. Any output sent to this channel will no longer get passed to the disabled handler.
  */
 
-- (void) disableHandler: (ECLogHandler*) handler;
+- (void)disableHandler:(ECLogHandler*)handler;
 
 
 /**
@@ -182,7 +211,7 @@
  @return YES if the handler is enabled for this channel.
  */
 
-- (BOOL) isHandlerEnabled:( ECLogHandler*) handler;
+- (BOOL)isHandlerEnabled:(ECLogHandler*)handler;
 
 
 /**
@@ -191,8 +220,7 @@
  @return YES if context information should be shown.
  */
 
-- (BOOL) showContext:(ECLogContextFlags)flags;
-
+- (BOOL)showContext:(ECLogContextFlags)flags;
 
 
 /**
@@ -202,8 +230,7 @@
  @return String with the file name and line number.
  */
 
-- (NSString*) fileFromContext:(ECLogContext*)context;
-
+- (NSString*)fileFromContext:(ECLogContext*)context;
 
 
 /**
@@ -215,7 +242,7 @@
  */
 
 
-- (NSString*) stringFromContext:(ECLogContext*)context;
+- (NSString*)stringFromContext:(ECLogContext*)context;
 
 
 /**
@@ -238,7 +265,6 @@
 */
 
 - (void)selectFlagWithIndex:(NSUInteger)index;
-
 
 
 /**
@@ -271,7 +297,28 @@
  @return Cleaned up name.
  */
 
-+ (NSString*) cleanName:(const char *) name;
++ (NSString*)cleanName:(const char*)name;
+
+/**
+ Returns the channel name with the application name appended: "<name> (<app name>)".
+ Generally for use when logging to the console.
+ */
+
+- (NSString*)nameIncludingApplication;
+
+/**
+ Disables some flags.
+ Returns the previous version of the flags.
+ */
+
+- (ECLogContextFlags)disableFlags:(ECLogContextFlags)flags;
+
+/**
+ Returns our context flags, with a given flag removed.
+ */
+
+- (ECLogContextFlags)flagsExcluding:(ECLogContextFlags)flags;
 
 @end
 
+EC_ASSUME_NONNULL_END

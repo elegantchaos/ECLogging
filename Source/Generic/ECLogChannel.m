@@ -1,7 +1,6 @@
 // --------------------------------------------------------------------------
-//
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
@@ -12,23 +11,17 @@
 
 #import "NSString+ECLogging.h"
 
-static NSString *const kSuffixToStrip = @"Channel";
+static NSString* const kSuffixToStrip = @"Channel";
 
 // --------------------------------------------------------------------------
 // Private Methods
 // --------------------------------------------------------------------------
 
-@interface ECLogChannel()
+@interface ECLogChannel ()
+@property (strong, nonatomic, readwrite) ECLogChannel* parent;
 @end
 
 @implementation ECLogChannel
-
-@synthesize context;
-@synthesize enabled;
-@synthesize handlers;
-@synthesize level;
-@synthesize name;
-@synthesize setup;
 
 #pragma mark - Lifecycle
 
@@ -36,28 +29,26 @@ static NSString *const kSuffixToStrip = @"Channel";
 //! Initialse a channel.
 // --------------------------------------------------------------------------
 
-- (id) initWithName:(NSString*)nameIn
+- (instancetype)init
+{
+	return [self initWithName:@"Untitled"];
+}
+
+- (instancetype)initWithName:(NSString*)name
+{
+	return [self initWithName:name parent:nil];
+}
+
+- (instancetype)initWithName:(NSString*)name parent:(ECLogChannel*)parent
 {
 	if ((self = [super init]) != nil)
 	{
-		self.name = nameIn;
-        self.context = ECLogContextDefault;
+		_name = name;
+		_context = ECLogContextDefault;
+		_parent = parent;
 	}
-	
+
 	return self;
-}
-
-// --------------------------------------------------------------------------
-//! Clean up and release retained objects.
-// --------------------------------------------------------------------------
-
-- (void) dealloc
-{
-    [level release];
-	[name release];
-	[handlers release];
-    
-	[super dealloc];
 }
 
 #pragma mark - Enable/Disable
@@ -68,28 +59,32 @@ static NSString *const kSuffixToStrip = @"Channel";
 //! something to output to.
 // --------------------------------------------------------------------------
 
-- (void) enable
+- (void)enable
 {
-    if (!self.enabled)
-    {
-        self.enabled = YES;
-        ECMakeContext(); 
-        logToChannel(self, &ecLogContext, @"enabled channel");
-    }
+	if (!self.enabled)
+	{
+		self.enabled = YES;
+		ECMakeContext();
+		if (self.context & ECLogContextMeta) {
+			logToChannel(self, &ecLogContext, @"enabled channel");
+		}
+	}
 }
 
 // --------------------------------------------------------------------------
 //! Disable the channel.
 // --------------------------------------------------------------------------
 
-- (void) disable
+- (void)disable
 {
-    if (self.enabled)
-    {
-        ECMakeContext(); 
-        logToChannel(self, &ecLogContext, @"disabled channel");
-        self.enabled = NO;
-    }
+	if (self.enabled)
+	{
+		ECMakeContext();
+		if (self.context & ECLogContextMeta) {
+			logToChannel(self, &ecLogContext, @"disabled channel");
+		}
+		self.enabled = NO;
+	}
 }
 
 #pragma mark - Handlers
@@ -98,17 +93,17 @@ static NSString *const kSuffixToStrip = @"Channel";
 //! Add a handler to the set of handlers we're logging to.
 // --------------------------------------------------------------------------
 
-- (void) enableHandler: (ECLogHandler*)handler
+- (void)enableHandler:(ECLogHandler*)handler
 {
-    if (!self.handlers)
-    {
-        self.handlers = [NSMutableSet setWithObject:handler];
-    }
-    else
-    {
-        [self.handlers addObject:handler];
-    }
-    
+	if (!self.handlers)
+	{
+		self.handlers = [NSMutableSet setWithObject:handler];
+	}
+	else
+	{
+		[self.handlers addObject:handler];
+	}
+
 	[handler wasEnabledForChannel:self];
 }
 
@@ -116,26 +111,26 @@ static NSString *const kSuffixToStrip = @"Channel";
 //! Remove a handler from the set of handlers we're logging to.
 // --------------------------------------------------------------------------
 
-- (void) disableHandler: (ECLogHandler*) handler
+- (void)disableHandler:(ECLogHandler*)handler
 {
 	[handler wasDisabledForChannel:self];
-	
-    if (!self.handlers)
-    {
-        ECLogManager* lm = [ECLogManager sharedInstance];
-        self.handlers = [NSMutableSet setWithArray:[lm.handlers allValues]];
-    }
 
-    [self.handlers removeObject:handler];
+	if (!self.handlers)
+	{
+		ECLogManager* lm = [ECLogManager sharedInstance];
+		self.handlers = [NSMutableSet setWithArray:[lm.handlers allValues]];
+	}
+
+	[self.handlers removeObject:handler];
 }
 
 // --------------------------------------------------------------------------
 //! Is a handler in the set of handlers we're logging to.
 // --------------------------------------------------------------------------
 
-- (BOOL) isHandlerEnabled:( ECLogHandler*) handler
+- (BOOL)isHandlerEnabled:(ECLogHandler*)handler
 {
-    return !self.handlers || [self.handlers containsObject: handler];
+	return !self.handlers || [self.handlers containsObject:handler];
 }
 
 
@@ -145,13 +140,13 @@ static NSString *const kSuffixToStrip = @"Channel";
 //! Return a cleaned up version of a raw channel name.
 // --------------------------------------------------------------------------
 
-+ (NSString*)cleanName:(const char *)name
++ (NSString*)cleanName:(const char*)name
 {
 	NSString* temp = @(name);
 
-	if ([temp hasSuffix: kSuffixToStrip])
+	if ([temp hasSuffix:kSuffixToStrip])
 	{
-		temp = [temp substringToIndex: [temp length] - [kSuffixToStrip length]];
+		temp = [temp substringToIndex:[temp length] - [kSuffixToStrip length]];
 	}
 
 	NSString* result = [temp stringBySplittingMixedCaps];
@@ -162,9 +157,9 @@ static NSString *const kSuffixToStrip = @"Channel";
 //! Comparison function for sorting alphabetically by name.
 // --------------------------------------------------------------------------
 
-- (NSComparisonResult) caseInsensitiveCompare: (ECLogChannel*) other
+- (NSComparisonResult)caseInsensitiveCompare:(ECLogChannel*)other
 {
-	return [self.name caseInsensitiveCompare: other.name];
+	return [self.name caseInsensitiveCompare:other.name];
 }
 
 // --------------------------------------------------------------------------
@@ -173,29 +168,29 @@ static NSString *const kSuffixToStrip = @"Channel";
 
 - (BOOL)showContext:(ECLogContextFlags)flagsToTest
 {
-    ECLogContextFlags flagsSet = self.context;
-    if (flagsSet == ECLogContextDefault)
-    {
-        flagsSet = [[ECLogManager sharedInstance] defaultContextFlags];
-    }
-    
-    return (flagsToTest & flagsSet) == flagsToTest;
+	ECLogContextFlags flagsSet = self.context;
+	if (flagsSet == ECLogContextDefault)
+	{
+		flagsSet = [[ECLogManager sharedInstance] defaultContextFlags];
+	}
+
+	return (flagsToTest & flagsSet) == flagsToTest;
 }
 
 // --------------------------------------------------------------------------
-//! Return a formatted string giving the file name and line number from a 
+//! Return a formatted string giving the file name and line number from a
 //! context structure.
 // --------------------------------------------------------------------------
 
-- (NSString*) fileFromContext:(ECLogContext*)contextIn
+- (NSString*)fileFromContext:(ECLogContext*)contextIn
 {
-    NSString* file = @(contextIn->file);
-    if (![self showContext:ECLogContextFullPath])
-    {
-        file = [file lastPathComponent];
-    }
-    
-    return [NSString stringWithFormat:@"%@, %d", file, contextIn->line];
+	NSString* file = @(contextIn->file);
+	if (![self showContext:ECLogContextFullPath])
+	{
+		file = [file lastPathComponent];
+	}
+
+	return [NSString stringWithFormat:@"%@, %d", file, contextIn->line];
 }
 
 // --------------------------------------------------------------------------
@@ -203,41 +198,46 @@ static NSString *const kSuffixToStrip = @"Channel";
 //! context flags.
 // --------------------------------------------------------------------------
 
-- (NSString*)stringFromContext:(ECLogContext *)contextIn
+- (NSString*)stringFromContext:(ECLogContext*)contextIn
 {
-    NSString* result;
-    if (self.context)
-    {
-        NSMutableString* string = [[[NSMutableString alloc] init] autorelease];
-        
-        if ([self showContext:ECLogContextName])
-        {
-            [string appendString:[NSString stringWithFormat:@"%@ ", self.name]];
-        }
-        
-        if ([self showContext:ECLogContextFile])
-        {
-            [string appendString:[NSString stringWithFormat:@"%@ ", [self fileFromContext:contextIn]]];
-        }
-        
-        if ([self showContext:ECLogContextFunction])
-        {
-            [string appendString:[NSString stringWithFormat:@"%s ", contextIn->function]];
-        }
-        
-        NSUInteger length = [string length];
-        if (length > 0)
-        {
-            [string deleteCharactersInRange:NSMakeRange(length - 1, 1)]; 
-        }
-        result = string;
-    }
-    else
-    {
-        result = @"";
-    }
+	NSString* result;
+	if (self.context)
+	{
+		NSMutableString* string = [[NSMutableString alloc] init];
 
-    return result;
+		if ([self showContext:ECLogContextName])
+		{
+			[string appendString:[NSString stringWithFormat:@"%@ ", self.name]];
+		}
+
+		if ([self showContext:ECLogContextFile])
+		{
+			[string appendString:[NSString stringWithFormat:@"%@ ", [self fileFromContext:contextIn]]];
+		}
+
+		if ([self showContext:ECLogContextFunction])
+		{
+			[string appendString:[NSString stringWithFormat:@"%s ", contextIn->function]];
+		}
+
+		if ([self showContext:ECLogContextDate])
+		{
+			[string appendString:[NSString stringWithFormat:@"%s ", contextIn->date]];
+		}
+
+		NSUInteger length = [string length];
+		if (length > 0)
+		{
+			[string deleteCharactersInRange:NSMakeRange(length - 1, 1)];
+		}
+		result = string;
+	}
+	else
+	{
+		result = @"";
+	}
+
+	return result;
 }
 
 // --------------------------------------------------------------------------
@@ -246,19 +246,19 @@ static NSString *const kSuffixToStrip = @"Channel";
 
 - (BOOL)tickFlagWithIndex:(NSUInteger)index
 {
-    BOOL ticked;
-    ECLogManager* lm = [ECLogManager sharedInstance];
-    ECLogContextFlags rowFlag = [lm contextFlagValueForIndex:index];
-    if (self.context == ECLogContextDefault)
-    {
-        ticked = rowFlag == ECLogContextDefault;
-    }
-    else
-    {
-        ticked = [self showContext:rowFlag];
-    }
-    
-    return ticked;
+	BOOL ticked;
+	ECLogManager* lm = [ECLogManager sharedInstance];
+	ECLogContextFlags rowFlag = [lm contextFlagValueForIndex:index];
+	if (self.context == ECLogContextDefault)
+	{
+		ticked = rowFlag == ECLogContextDefault;
+	}
+	else
+	{
+		ticked = [self showContext:rowFlag];
+	}
+
+	return ticked;
 }
 
 // --------------------------------------------------------------------------
@@ -267,24 +267,24 @@ static NSString *const kSuffixToStrip = @"Channel";
 
 - (void)selectFlagWithIndex:(NSUInteger)index
 {
-    ECLogManager* lm = [ECLogManager sharedInstance];
-    ECLogContextFlags selectedFlag = [lm contextFlagValueForIndex:index];
-    
-    // if it's the default flag we're playing with, then we want to clear out all
-    // other flags; if it's any other flag, we want to clear out the default flag
-    if (selectedFlag == ECLogContextDefault)
-    {
-        self.context &= ECLogContextDefault;
-    }
-    else
-    {
-        self.context &= ~ECLogContextDefault;
-    }
-    
-    // toggle the flag that was actually selected
-    self.context ^= selectedFlag;
+	ECLogManager* lm = [ECLogManager sharedInstance];
+	ECLogContextFlags selectedFlag = [lm contextFlagValueForIndex:index];
 
-    [lm saveChannelSettings];
+	// if it's the default flag we're playing with, then we want to clear out all
+	// other flags; if it's any other flag, we want to clear out the default flag
+	if (selectedFlag == ECLogContextDefault)
+	{
+		self.context &= ECLogContextDefault;
+	}
+	else
+	{
+		self.context &= ~ECLogContextDefault;
+	}
+
+	// toggle the flag that was actually selected
+	self.context ^= selectedFlag;
+
+	[lm saveChannelSettings];
 }
 
 // --------------------------------------------------------------------------
@@ -293,19 +293,19 @@ static NSString *const kSuffixToStrip = @"Channel";
 
 - (BOOL)tickHandlerWithIndex:(NSUInteger)index
 {
-    BOOL ticked;
-    if (index == 0)
-    {
-        ticked = self.handlers == nil;
-    }
-    else
-    {
-        ECLogManager* lm = [ECLogManager sharedInstance];
-        ECLogHandler* handler = [lm handlerForIndex:index];
-        ticked = self.handlers && [self isHandlerEnabled:handler];
-    }
-    
-    return ticked;
+	BOOL ticked;
+	if (index == 0)
+	{
+		ticked = self.handlers == nil;
+	}
+	else
+	{
+		ECLogManager* lm = [ECLogManager sharedInstance];
+		ECLogHandler* handler = [lm handlerForIndex:index];
+		ticked = self.handlers && [self isHandlerEnabled:handler];
+	}
+
+	return ticked;
 }
 
 // --------------------------------------------------------------------------
@@ -314,25 +314,50 @@ static NSString *const kSuffixToStrip = @"Channel";
 
 - (void)selectHandlerWithIndex:(NSUInteger)index
 {
-    ECLogManager* lm = [ECLogManager sharedInstance];
-    if (index == 0)
-    {
-        self.handlers = nil;
-    }
-    else
-    {
-        ECLogHandler* handler = [lm handlerForIndex:index];
-        if (self.handlers && [self isHandlerEnabled:handler]) 
-        {
-            [self disableHandler:handler];
-        }
-        else
-        {
-            [self enableHandler:handler];
-        }
-    }
-    
-    [lm saveChannelSettings];
+	ECLogManager* lm = [ECLogManager sharedInstance];
+	if (index == 0)
+	{
+		self.handlers = nil;
+	}
+	else
+	{
+		ECLogHandler* handler = [lm handlerForIndex:index];
+		if (self.handlers && [self isHandlerEnabled:handler])
+		{
+			[self disableHandler:handler];
+		}
+		else
+		{
+			[self enableHandler:handler];
+		}
+	}
+
+	[lm saveChannelSettings];
+}
+
+- (ECLogContextFlags)flagsExcluding:(ECLogContextFlags)flags {
+	ECLogContextFlags context = self.context;
+	if (context == ECLogContextDefault)
+	{
+		context = [[ECLogManager sharedInstance] defaultContextFlags];
+	}
+	return context &= ~flags;
+}
+
+- (ECLogContextFlags)disableFlags:(ECLogContextFlags)flags {
+	ECLogContextFlags previous = self.context;
+	self.context = [self flagsExcluding:flags];
+	return previous;
+}
+
+- (NSString*)nameIncludingApplication {
+	NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
+	NSString* app = info[(__bridge NSString*) kCFBundleNameKey];
+	if (!app) {
+		app = info[(__bridge NSString*) kCFBundleIdentifierKey];
+	}
+	NSString* name = [NSString stringWithFormat:@"%@ (%@)", self.name, app];
+	return name;
 }
 
 @end

@@ -1,0 +1,10 @@
+module ECLogging {
+  umbrella header "ECLogging.h"
+
+  config_macros [exhaustive] EC_DEBUG, EC_RELEASE, NS_BLOCK_ASSERTIONS
+
+  link "ECLogging"
+  
+  export *
+  module * { export * }
+}

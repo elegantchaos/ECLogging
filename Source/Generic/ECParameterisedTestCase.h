@@ -1,16 +1,16 @@
 // --------------------------------------------------------------------------
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
-//  This source code is distributed under the terms of Elegant Chaos's 
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #import "ECTestCase.h"
 
-extern NSString *const DataURLKey;
-extern NSString *const IncludesKey;
-extern NSString *const SettingsKey;
-extern NSString *const TestItemsKey;
-extern NSString *const SuiteItemsKey;
+extern NSString* const DataURLKey;
+extern NSString* const IncludesKey;
+extern NSString* const SettingsKey;
+extern NSString* const TestItemsKey;
+extern NSString* const SuiteItemsKey;
 
 /**
  
@@ -27,11 +27,11 @@ extern NSString *const SuiteItemsKey;
 
  That gets tired quickly, and it doesn't allow for a dynamic amount of test data determined at runtime.
 
- What you really want in this case is to add the following abilities to SenTest:
+ What you really want in this case is to add the following abilities to XCTest:
 
  - the ability to define parameterised test methods using a similar naming convention to the normal ones
  - the ability to define a class method which returns a dictionary of test data
- - have SenTest make a sub-suite for each parameterised method we found
+ - have XCTest make a sub-suite for each parameterised method we found
  - have the sub-suite contain a test for each data item
  - iterate the suites and tests as usual, applying the relevant data item to each test in turn
 
@@ -39,7 +39,7 @@ extern NSString *const SuiteItemsKey;
 
  # How To Use It
 
- - inherit from ECParameterisedTest instead of SenTestCase
+ - inherit from ECParameterisedTest instead of XCTestCase
  - define test methods which are named parameterisedTestXYZ instead of testXYZ (they still take no parameters)
  - either: define a class method called parameterizedTestData which returns a dictionary containing data
  - or: create a plist with the name of your test class, which will contain the data
@@ -47,12 +47,12 @@ extern NSString *const SuiteItemsKey;
 
  At runtime the data method will be called to obtain the data. The names of each key should be single words which describe the data. The values can be anything you like - whatever the test methods are expecting.
 
- To simplify the amount of modification to SenTest, the test methods still take no parameters. Instead, to obtain the test data, each test method uses the **parameterisedTestDataItem** property.
+ To simplify the amount of modification to XCTest, the test methods still take no parameters. Instead, to obtain the test data, each test method uses the **parameterisedTestDataItem** property.
 
 
  # How It Works
 
- To make its test suites, SenTestKit calls a class method called defaultTestSuite on each SenTestCase subclass that it finds.
+ To make its test suites, XCTestKit calls a class method called defaultTestSuite on each XCTestCase subclass that it finds.
 
  The default version of this makes a suite based on finding methods called testXYZ, but it's easy enough to do something else.
 
@@ -61,13 +61,13 @@ extern NSString *const SuiteItemsKey;
  For each item in the dictionary, we add a test to this suite.
  Finally we make a master suite, add the other suites to it, and return that.
 
- To make things simple, we use the existing SenTestKit mechanism to invoke the test methods. Since SenTestKit expects test methods not to have any parameters, we need another way of passing the test data to each method. Each test invocation creates an instance of a our class, and we do this creation at the point we build the test suite, so the simple answer is just to add a property to the test class. We can set this property value when we make the test instance, and the test method can extract the data from the instance when it runs.
+ To make things simple, we use the existing XCTestKit mechanism to invoke the test methods. Since XCTestKit expects test methods not to have any parameters, we need another way of passing the test data to each method. Each test invocation creates an instance of a our class, and we do this creation at the point we build the test suite, so the simple answer is just to add a property to the test class. We can set this property value when we make the test instance, and the test method can extract the data from the instance when it runs.
 
  # Obtaining Test Data
 
  To obtain the test data, we've added a method **parameterisedTestData** that we expect the test class to implement.
 
- This method returns a dictionary rather than an array, so that we can use the keys as test names, and the values as the actual data. Having names for the data is useful because of the way SenTestKit reports the results.
+ This method returns a dictionary rather than an array, so that we can use the keys as test names, and the values as the actual data. Having names for the data is useful because of the way XCTestKit reports the results.
 
  Typically it reports each test as [SuiteName testName], taking these names from the class and method. Since we're going to use the name of the test method for each of our suites, we really need another name to use for each test. This is where the dictionary key comes in.
 
@@ -105,18 +105,15 @@ extern NSString *const SuiteItemsKey;
 
  */
 
+#define ECTEST_DEFER_LOADING_DATA 0
+
 @interface ECParameterisedTestCase : ECTestCase
-{
-@private
-	id parameterisedTestDataItem;
-	NSString* parameterisedTestName;
-}
 
 @property (strong, nonatomic) id parameterisedTestDataItem;
 @property (strong, nonatomic) NSString* parameterisedTestName;
+@property (strong, nonatomic) NSString* parameterisedBaseName;
 
-+ (id)testCaseWithSelector:(SEL)selector param:(id)param;
-+ (id)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
+//+ (instancetype)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
 
 + (NSDictionary*)parameterisedTestData;
 + (NSDictionary*)parameterisedTestDataFromFolder:(NSURL*)folder settings:(NSDictionary*)settings;

@@ -1,0 +1,40 @@
+// --------------------------------------------------------------------------
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
+//  This source code is distributed under the terms of Elegant Chaos's
+//  liberal license: http://www.elegantchaos.com/license/liberal
+// --------------------------------------------------------------------------
+
+
+/**
+ * Standard definitions for all libraries.
+ */
+
+#import "ECMacros.h"
+
+#ifdef __OBJC__
+
+// --------------------------------------------------------------------------
+// Shared Settings
+// --------------------------------------------------------------------------
+
+@import CoreFoundation;
+@import Foundation;
+
+// --------------------------------------------------------------------------
+// iOS Settings
+// --------------------------------------------------------------------------
+
+#if TARGET_OS_IPHONE
+
+@import UIKit;
+
+// --------------------------------------------------------------------------
+// Mac Settings
+// --------------------------------------------------------------------------
+
+#elif TARGET_OS_MAC
+
+#endif
+
+#endif
+

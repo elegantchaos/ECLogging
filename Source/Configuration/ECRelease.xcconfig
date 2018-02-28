@@ -1,10 +1,17 @@
 // --------------------------------------------------------------------------
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
 #include "ECShared.xcconfig"
+
+// --------------------------------------------------------------------------
+// Architectures
+// --------------------------------------------------------------------------
+
+ONLY_ACTIVE_ARCH = NO
+ENABLE_NS_ASSERTIONS = NO
 
 // --------------------------------------------------------------------------
 // Code Generation
@@ -13,8 +20,16 @@
 GCC_OPTIMIZATION_LEVEL = s
 
 // --------------------------------------------------------------------------
+// Swift
+// --------------------------------------------------------------------------
+
+SWIFT_OPTIMIZATION_LEVEL = -Owholemodule;
+
+// --------------------------------------------------------------------------
 // Deployment
 // --------------------------------------------------------------------------
 
 COPY_PHASE_STRIP = YES
-GCC_WARN_UNINITIALIZED_AUTOS = YES
+
+
+GCC_PREPROCESSOR_DEFINITIONS = EC_RELEASE=1 NDEBUG=1  $(inherited)

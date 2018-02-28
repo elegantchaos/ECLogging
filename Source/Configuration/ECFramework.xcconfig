@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-//  Copyright 2013 Sam Deane, Elegant Chaos. All rights reserved.
+//  Copyright 2017 Elegant Chaos Limited. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
@@ -11,5 +11,7 @@ DYLIB_CURRENT_VERSION = 1
 FRAMEWORK_VERSION = A
 PRODUCT_NAME = $(PROJECT_NAME)
 WRAPPER_EXTENSION = framework
-//INSTALL_PATH = @executable_path/../Frameworks
 INSTALL_PATH = @rpath
+
+DEFINES_MODULE = YES
+MODULEMAP_FILE = Source/$(PRODUCT_NAME).modulemap

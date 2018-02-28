@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# --------------------------------------------------------------------------
+#  Copyright 2013-2016 Sam Deane, Elegant Chaos. All rights reserved.
+#  This source code is distributed under the terms of Elegant Chaos's
+#  liberal license: http://www.elegantchaos.com/license/liberal
+# --------------------------------------------------------------------------
+
 ## Make a distributable version of ECLogging
 ##
 
@@ -60,7 +66,6 @@ cd "$root"
 
 cp -Rf "$root/Source/Configuration" "$dist"
 cp -Rf "$root/Extras/Scripts" "$dist"
-rm -rf "$dist/Scripts/ocunit2junit"
 
 buildios "Debug"
 buildios "Release"
