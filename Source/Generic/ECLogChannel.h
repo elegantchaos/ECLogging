@@ -6,6 +6,8 @@
 
 #import "ECLogContext.h"
 
+EC_ASSUME_NONNULL_BEGIN
+
 @class ECLogHandler;
 
 /**
@@ -132,7 +134,7 @@ typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
  Handlers that the channel's output will be sent to.
  */
 
-@property (strong, nonatomic) NSMutableSet* handlers;
+@property (strong, nonatomic, ec_nullable) NSMutableSet* handlers;
 
 /**
  Parent channel. 
@@ -140,7 +142,7 @@ typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
  If the parent channel is disabled, this channel will be, too.
  */
 
-@property (strong, nonatomic, readonly) ECLogChannel* parent;
+@property (strong, nonatomic, readonly, ec_nullable) ECLogChannel* parent;
 
 // --------------------------------------------------------------------------
 // Public Methods
@@ -176,7 +178,7 @@ typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
 
  */
 
-- (instancetype)initWithName:(NSString*)name parent:(ECLogChannel*)parent NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithName:(NSString*)name parent:(ec_nullable ECLogChannel*)parent NS_DESIGNATED_INITIALIZER;
 
 /**
  Comparison function to sort channels by name.
@@ -318,3 +320,5 @@ typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
 - (ECLogContextFlags)flagsExcluding:(ECLogContextFlags)flags;
 
 @end
+
+EC_ASSUME_NONNULL_END

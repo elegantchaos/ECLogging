@@ -9,7 +9,7 @@
 @class ECLogTranscriptViewController;
 @class ECLogSettingsViewController;
 
-typedef void (^ECLoggingSettingsViewControllerDoneBlock) ();
+typedef void (^ECLoggingSettingsViewControllerDoneBlock) (void);
 
 @interface ECLogViewController : UIViewController
 

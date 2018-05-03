@@ -7,6 +7,6 @@
 @interface ECTestPerformanceCounter : NSObject
 
 + (BOOL)updateWithValue:(CGFloat)average key:(NSString*)key threshold:(CGFloat)threshold;
-+ (NSTimeInterval)performIterations:(NSUInteger)iterations label:(NSString*)label block:(void (^)())block;
++ (NSTimeInterval)performIterations:(NSUInteger)iterations label:(NSString*)label block:(void (^)(void))block;
 
 @end

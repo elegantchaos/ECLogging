@@ -48,7 +48,10 @@ PRODUCT_NAME = $(TARGET_NAME)
 // Code Signing
 // --------------------------------------------------------------------------
 
-//OTHER_CODE_SIGN_FLAGS = $(inherited) --timestamp=none
+
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY =
+OTHER_CODE_SIGN_FLAGS = $(inherited) --timestamp
 // enable this if you're trying to build offline and the timestamp is failing
 
 // --------------------------------------------------------------------------
@@ -70,9 +73,7 @@ GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO
 // However, when archiving, any libraries that are set not to be part of the archive (which should be most if not all of them)
 // get built instead into the UninstalledProducts directory. This is Xcode's behaviour and appears not
 // to be something we can change, so we need to look there too for headers.
-// Just to complicate things further, from Xcode 7 onwards it would appear that this folder is actually inside a folder named with
-// the SDK (eg macosx). Whilst we're also supporting Xcode 7, we need to check both with and without this extra folder.
-HEADER_SEARCH_PATHS = "${TARGET_BUILD_DIR}" "${PROJECT_TEMP_DIR}/../UninstalledProducts" "${PROJECT_TEMP_DIR}/../UninstalledProducts/$(PLATFORM_NAME)"
+HEADER_SEARCH_PATHS = "${TARGET_BUILD_DIR}" "${PROJECT_TEMP_DIR}/../UninstalledProducts/$(PLATFORM_NAME)"
 
 // --------------------------------------------------------------------------
 // Standard Warnings
@@ -174,6 +175,15 @@ CLANG_ANALYZER_SECURITY_INSECUREAPI_MKSTEMP = YES
 CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES
 CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES
 CLANG_ANALYZER_SECURITY_INSECUREAPI_VFORK = YES
+
+// XC 9 additions
+
+CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+CLANG_WARN_COMMA = YES;
+CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+CLANG_WARN_STRICT_PROTOTYPES = YES;
 
 
 ASSETCATALOG_WARNINGS = YES

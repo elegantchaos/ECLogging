@@ -45,7 +45,7 @@ uint64_t dispatch_benchmark(size_t count, void (^block)(void)); // private API -
 	return result;
 }
 
-+ (NSTimeInterval)performIterations:(NSUInteger)iterations label:(NSString*)label block:(void (^)())block
++ (NSTimeInterval)performIterations:(NSUInteger)iterations label:(NSString*)label block:(void (^)(void))block
 {
 	NSLog(@"%@ performing %ld iterations", label, (long)iterations);
 	uint64_t nanos = dispatch_benchmark(iterations, block);

@@ -171,6 +171,10 @@
 		resetAllItem.target = manager;
 		[self addItem:resetAllItem];
 
+		NSMenuItem* resetAssertionsItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reset Assertions", @"reset any assertions that were suppressed") action:@selector(resetAllAssertions) keyEquivalent:@""];
+		resetAssertionsItem.target = manager;
+		[self addItem:resetAssertionsItem];
+
 		NSMenuItem* revealLogFilesItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reveal Log Files", @"show the log files in the Finder") action:@selector(revealLogFiles) keyEquivalent:@""];
 		revealLogFilesItem.target = self;
 		[self addItem:revealLogFilesItem];

@@ -6,6 +6,8 @@
 
 #import "ECLogHandler.h"
 
+EC_ASSUME_NONNULL_BEGIN
+
 /**
  * Handler which writes messages out to the stdout stream using printf.
  *
@@ -19,3 +21,5 @@
 - (void)logFromChannel:(ECLogChannel*)channel withObject:(id)object arguments:(va_list)arguments context:(ECLogContext*)context;
 
 @end
+
+EC_ASSUME_NONNULL_END

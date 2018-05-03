@@ -104,6 +104,37 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 #define ECTestAssertRealIsLess(x, y) ECTestAssertOperator((x), <, (y), "%lf", double)
 #define ECTestAssertRealIsLessEqual(x, y) ECTestAssertOperator((x), <=, (y), "%lf", double)
 
+#define ECTestAssertRealIsEqualWithEpsilon(x, y, e) ECAssertTest(fabs((x) - (y)) < (e), NO, @"" #x " == " #y " within range " #e, @"Values are %lf and %lf)", (double)(x), (double)(y))
+
+#define ECTestAssertPointIsEqual(p1, p2) do { \
+	ECTestAssertRealIsEqual(p1.x, p2.x); \
+	ECTestAssertRealIsEqual(p1.y, p2.y); \
+	} while(0)
+
+#define ECTestAssertSizeIsEqual(s1, s2) do { \
+	ECTestAssertRealIsEqual(s1.width, s2.width); \
+	ECTestAssertRealIsEqual(s1.height, s2.height); \
+	} while(0)
+
+#define ECTestAssertRectIsEqual(r1, r2) do { \
+	ECTestAssertPointIsEqual(r1.origin, r2.origin); \
+	ECTestAssertSizeIsEqual(r1.size, r2.size); \
+	} while(0)
+
+#define ECTestAssertPointIsEqualWithEpsilon(p1, p2, e) do { \
+	ECTestAssertRealIsEqualWithEpsilon(p1.x, p2.x, e); \
+	ECTestAssertRealIsEqualWithEpsilon(p1.y, p2.y, e); \
+	} while(0)
+
+#define ECTestAssertSizeIsEqualWithEpsilon(s1, s2, e) do { \
+	ECTestAssertRealIsEqualWithEpsilon(s1.width, s2.width, e); \
+	ECTestAssertRealIsEqualWithEpsilon(s1.height, s2.height, e); \
+	} while(0)
+
+#define ECTestAssertRectIsEqualWithEpsilon(r1, r2, e) do { \
+	ECTestAssertPointIsEqualWithEpsilon(r1.origin, r2.origin, e); \
+	ECTestAssertSizeIsEqualWithEpsilon(r1.size, r2.size, e); \
+	} while(0)
 
 #define ECTestLog NSLog
 

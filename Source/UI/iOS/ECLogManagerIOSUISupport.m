@@ -7,16 +7,6 @@
 #import "ECLogManagerIOSUISupport.h"
 #import "ECLogViewController.h"
 
-@interface Test : UILongPressGestureRecognizer
-@end
-@implementation Test
-
-- (void)dealloc
-{
-	NSLog(@"deallocing");
-}
-@end
-
 @interface ECLogManagerIOSUISupport ()
 
 @property (strong, nonatomic) ECLogViewController* viewController;
@@ -43,13 +33,6 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 	return gSharedInstance;
 }
 
-+ (void)load
-{
-	// we want to register with the log manager as early as possible, so that we
-	// get the startup and shutdown notifications
-	[ECLogManager sharedInstance].delegate = [self sharedInstance];
-}
-
 - (UIViewController*)rootViewController
 {
 	UIWindow* window = [UIApplication sharedApplication].windows[0];
@@ -65,25 +48,26 @@ static ECLogManagerIOSUISupport* gSharedInstance = nil;
 #endif
 }
 
+- (void)showUIForLogManager:(ECLogManager *)manager
+{
+	[self showUI];
+}
+	
 - (void)installGestureRecognizer
 {
-	UIWindow* window = [UIApplication sharedApplication].windows[0];
-	UILongPressGestureRecognizer* recognizer = [[Test alloc] initWithTarget:self action:@selector(showUI)];
-	recognizer.numberOfTouchesRequired = 2;
-	[window addGestureRecognizer:recognizer];
-}
-
-+ (void)showUI
-{
-	[[self sharedInstance] showUI];
+	UIWindow* window = UIApplication.sharedApplication.keyWindow;
+	if (window) {
+		UILongPressGestureRecognizer* recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showUI)];
+		recognizer.numberOfTouchesRequired = 2;
+		[window addGestureRecognizer:recognizer];
+	}
 }
 
 - (void)showUI
 {
 	if (!self.viewController)
 	{
-		NSURL* url = [[NSBundle mainBundle] URLForResource:@"ECLogging" withExtension:@"bundle"];
-		NSBundle* bundle = [NSBundle bundleWithURL:url];
+		NSBundle* bundle = [NSBundle bundleForClass:[self class]];
 		ECLogViewController* controller = [[ECLogViewController alloc] initWithNibName:@"ECLogViewController" bundle:bundle];
 		self.viewController = controller;
 	}

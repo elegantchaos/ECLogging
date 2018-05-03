@@ -6,8 +6,25 @@
 
 #ifndef EC_DEBUG
 #ifndef EC_RELEASE
-#error You must define either EC_DEBUG or EC_RELEASE
+#error You must define either EC_DEBUG or EC_RELEASE in the project configuration.
 #endif
+#endif
+
+#define EC_NULL_SUPPORT 0
+
+#if EC_NULL_SUPPORT
+#define EC_ASSUME_NONNULL_BEGIN NS_ASSUME_NONNULL_BEGIN
+#define EC_ASSUME_NONNULL_END NS_ASSUME_NONNULL_END
+#define ec_nullable nullable
+#define EC_Nullable _Nullable
+#define EC_Nonnull _Nonnull
+
+#else
+#define EC_ASSUME_NONNULL_BEGIN
+#define EC_ASSUME_NONNULL_END
+#define ec_nullable
+#define EC_Nullable
+#define EC_Nonnull
 #endif
 
 #define EC_DEPRECATED __attribute__((deprecated))
@@ -50,11 +67,4 @@
 #define ECReleaseOnly(x) x
 #define ECCastTo(_class_, _expression_) ((_class_*)(_expression_))
 
-#endif
-
-#ifndef __MAC_10_10_3 // TEMPORARY SUPPORT FOR XC6.2, which doesn't know about some of these
-#define nullable
-#define nonnull
-#define __nonnull
-#define SELECTOR_DOUBLE(x) @selector((x))
 #endif

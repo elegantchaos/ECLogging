@@ -1,0 +1,10 @@
+framework module ECLoggingUI {
+  umbrella header "ECLoggingUI.h"
+
+  config_macros [exhaustive] EC_DEBUG, EC_RELEASE, NS_BLOCK_ASSERTIONS
+
+  link framework "ECLoggingUI"
+  
+  export *
+  module * { export * }
+}

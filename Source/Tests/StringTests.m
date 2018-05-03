@@ -84,7 +84,7 @@
 	ECTestAssertIntegerIsEqual(index, 0);
 	
 	result = [@"" matchesString:nil divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];
-	ECTestAssertFalse(result);
+	ECTestAssertTrue(result);
 	ECTestAssertIntegerIsEqual(index, 0);
 	
 	result = [@"AAA" matchesString:@"BBB" divergingAfter:&after atIndex:&index divergentChar:&divergent expectedChar:&expected];

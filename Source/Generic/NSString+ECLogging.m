@@ -78,6 +78,10 @@
 
 - (BOOL)matchesString:(NSString*)string divergingAfter:(NSString* __autoreleasing *)prefix atIndex:(NSUInteger*)index divergentChar:(UniChar*)divergentChar expectedChar:(UniChar*)expectedChar
 {
+	if (!string) {
+		string = @"";
+	}
+
 	BOOL result = [self isEqualToString:string];
 	if (!result)
 	{

@@ -8,4 +8,4 @@
 
 #include "ECMacRelease.xcconfig"
 #include "ECStaticLibrary.xcconfig"
-#include "MacUIShared.xcconfig"
+#include "MacUISharedStatic.xcconfig"

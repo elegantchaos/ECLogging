@@ -8,14 +8,9 @@
 #include "ECLogChannel.h"
 #include "ECLoggingMacros.h"
 
-ECDefineDebugChannel(AssertionChannel);
+ECDefineLogChannel(AssertionChannel);
 
 @implementation ECAssertion
-
-+ (void)failAssertion:(const char*)expression
-{
-	[NSException raise:@"ECAssertion failed" format:@"Expression:%s", expression];
-}
 
 + (id)assertObject:(id)object isOfClass:(Class)c
 {

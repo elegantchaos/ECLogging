@@ -7,6 +7,8 @@
 #import "ECLoggingMacros.h"
 #import "ECLogContext.h"
 
+EC_ASSUME_NONNULL_BEGIN
+
 @class ECLogChannel;
 
 /**
@@ -110,3 +112,5 @@
 
 - (void)wasDisabledForChannel:(ECLogChannel*)channel;
 @end
+
+EC_ASSUME_NONNULL_END

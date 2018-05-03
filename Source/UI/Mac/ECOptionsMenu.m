@@ -57,9 +57,9 @@
 	ECLogManager* logManager = [ECLogManager sharedInstance];
 	if (logManager.showMenu)
 	{
-		self.options = [logManager optionsSettings];
+		self.options = [logManager options];
 		[self removeAllItemsEC];
-		[self buildMenuWithOptions:self.options];
+		[self buildMenuWithOptions:self.options action:@selector(optionSelected:)];
 	}
 }
 
@@ -68,8 +68,9 @@
 //! We make some global items, then a submenu for each registered channel.
 // --------------------------------------------------------------------------
 
-- (void)buildMenuWithOptions:(NSDictionary*)options
+- (void)buildMenuWithOptions:(NSDictionary*)options action:(SEL)action
 {
+	NSMutableArray* items = [NSMutableArray new];
 	for (NSString* option in options)
 	{
 		NSDictionary* optionData = options[option];
@@ -77,18 +78,37 @@
 		if (!title)
 			title = option;
 
-		NSMenuItem* item = [self addItemWithTitle:title action:@selector(optionSelected:) keyEquivalent:@""];
+		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:title action:action keyEquivalent:@""];
 		item.target = self;
 		item.representedObject = option;
+		[items addObject:item];
 
 		NSDictionary* suboptions = optionData[@"suboptions"];
 		if (suboptions)
 		{
 			item.action = nil;
 			ECOptionsMenu* submenu = [[ECOptionsMenu alloc] initWithTitle:option];
-			[submenu buildMenuWithOptions:suboptions];
+			[submenu buildMenuWithOptions:suboptions action:action];
 			item.submenu = submenu;
 		}
+
+		NSDictionary* values = optionData[@"values"];
+		if (values)
+		{
+			item.action = nil;
+			ECOptionsMenu* submenu = [[ECOptionsMenu alloc] initWithTitle:option];
+			[submenu buildMenuWithOptions:values action:@selector(valueSelected:)];
+			item.submenu = submenu;
+		}
+
+	}
+
+	NSArray* sorted = [items sortedArrayUsingComparator:^NSComparisonResult(NSMenuItem*  EC_Nonnull item1, NSMenuItem*  EC_Nonnull item2) {
+		return [item1.title compare:item2.title];
+	}];
+
+	for (NSMenuItem* item in sorted) {
+		[self addItem:item];
 	}
 }
 
@@ -105,6 +125,15 @@
 	[defaults setBool:![defaults boolForKey:option] forKey:option];
 }
 
+- (IBAction)valueSelected:(NSMenuItem*)item
+{
+	NSString* value = item.representedObject;
+	NSString* option = item.parentItem.representedObject;
+	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:value forKey:option];
+	
+}
+
 // --------------------------------------------------------------------------
 //! Update the state of the menu items to reflect the current state of the
 //! channels/handlers that they represent.
@@ -118,6 +147,13 @@
 		NSString* option = item.representedObject;
 		NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 		item.state = [defaults boolForKey:option] ? NSOnState : NSOffState;
+	}
+	else if (item.action == @selector(valueSelected:))
+	{
+		NSString* value = item.representedObject;
+		NSString* option = item.parentItem.representedObject;
+		NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+		item.state = [[defaults valueForKey:option] isEqualToString:value];
 	}
 
 	return enabled;
