@@ -52,6 +52,7 @@
 	{                    \
 	} while (0)
 #define ECCastTo(_class_, _expression_) ((_class_*)[ECAssertion assertObject:(_expression_)isOfClass:([_class_ class])])
+#define ECSafeCastTo ECCastTo
 
 #else
 
@@ -66,5 +67,6 @@
 	} while (0)
 #define ECReleaseOnly(x) x
 #define ECCastTo(_class_, _expression_) ((_class_*)(_expression_))
+#define ECSafeCastTo(_class_, _expression_) ([_expression_ isKindOfClass:[_class_ class]] ? (_class_*)(_expression_) : nil)
 
 #endif
