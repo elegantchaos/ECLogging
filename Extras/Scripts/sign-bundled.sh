@@ -25,12 +25,12 @@ verbose()
 sign()
 {
   local BUNDLEID="$1"
-  local CODE_SIGN_IDENTITY="$2"
+  local IDENTITY="$2"
   local FILE="$3"
   local NAME=`basename "$FILE"`
 
   verbose "Signing $NAME with BUNDLEID:'$BUNDLEID'"
-  verbose "IDENTITY:'$CODE_SIGN_IDENTITY'"
+  verbose "IDENTITY:'$IDENTITY'"
   verbose "FILE:'$FILE'"
 
   # get current signing details
@@ -53,7 +53,7 @@ sign()
     fi
 
     verbose "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
-    verbose "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
+    verbose "current:$CURRENT_AUTHORITY required:$IDENTITY"
 
   else
 
@@ -67,14 +67,14 @@ sign()
   fi
 
   # check if we need to resign (resigning can be slow, so we check first)
-  if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
-    echo "Resigning $NAME as $CODE_SIGN_IDENTITY with id '$BUNDLEID'"
+  if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$IDENTITY"*) ]] ; then
+    echo "Resigning $NAME as $IDENTITY with id '$BUNDLEID'"
     if [[ ("$CURRENT_IDENTIFIER" != "") || ("$CURRENT_AUTHORITY" != "") ]]; then
         echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
     fi
-    SIGN_OUTPUT=$(codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}" 2>&1)
+    SIGN_OUTPUT=$(codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${IDENTITY}" "${FILE}" 2>&1)
 
-    verbose "> codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign '${CODE_SIGN_IDENTITY}' '${FILE}'"
+    verbose "> codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign '${IDENTITY}' '${FILE}'"
     verbose "$SIGN_OUTPUT"
     if [ $? != 0 ];
     then
