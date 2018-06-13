@@ -90,7 +90,7 @@ sign_folder()
   local FOLDER="$1"
   local NAME=`basename "$FOLDER/"`
   if [ -e "$FOLDER/" ]; then
-    #echo "Signing $NAME as: ${CODE_SIGN_IDENTITY}"
+    #echo "Signing $NAME as: ${EXPANDED_CODE_SIGN_IDENTITY}"
     local f
     for f in "$FOLDER"/*
     do
@@ -120,7 +120,7 @@ sign_folder()
       fi
 
       # now sign this bundle
-      sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
+      sign "${BUNDLEID}" "${EXPANDED_CODE_SIGN_IDENTITY}" "$f"
 
     done
   fi
@@ -145,7 +145,7 @@ sign_binaries()
             fi
         elif [[ (-x "$cf") ]]; then
           verbose "Resigning script ${cf}"
-          sign "$APPID" "${CODE_SIGN_IDENTITY}" "$cf"
+          sign "$APPID" "${EXPANDED_CODE_SIGN_IDENTITY}" "$cf"
         fi
     done
     verbose "Done signing binaries for: $1"
@@ -158,18 +158,12 @@ APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "${BUILT_INFO_PLIS
 echo "Resigning bundled items."
 echo "App bundle is $APPID."
 
-if [[ "$CODE_SIGN_IDENTITY" == "" ]] ; then
+if [[ "$EXPANDED_CODE_SIGN_IDENTITY" == "" ]] ; then
   echo "App not signed, using default identity."
-  CODE_SIGN_IDENTITY="3rd Party Mac Developer Application"
+  EXPANDED_CODE_SIGN_IDENTITY="3rd Party Mac Developer Application"
 fi
 
-# Bit of a hack: according to the codesign tool, Mac Developer is ambiguous (also matches 3rd Party Mac Developer)
-# Mac Developer: shouldn't be, so we change it if necessary.
-if [[ "$CODE_SIGN_IDENTITY" == "Mac Developer" ]] ; then
-  CODE_SIGN_IDENTITY="Mac Developer:"
-fi
-
-echo "Using identity $CODE_SIGN_IDENTITY"
+echo "Using identity $EXPANDED_CODE_SIGN_IDENTITY"
 
 # Sign Plugins
 verbose "Resigning plugins"
