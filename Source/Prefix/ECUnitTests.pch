@@ -18,5 +18,7 @@
 @import CoreFoundation;
 @import Foundation;
 @import XCTest;
+@import ECLogging;
+@import Chocolat;
 
 #endif

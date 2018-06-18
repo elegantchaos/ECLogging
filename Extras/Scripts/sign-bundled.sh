@@ -25,12 +25,12 @@ verbose()
 sign()
 {
   local BUNDLEID="$1"
-  local CODE_SIGN_IDENTITY="$2"
+  local IDENTITY="$2"
   local FILE="$3"
   local NAME=`basename "$FILE"`
 
-  verbose "Sign called with BUNDLEID:'$BUNDLEID'"
-  verbose "IDENTITY:'$CODE_SIGN_IDENTITY'"
+  verbose "Signing $NAME with BUNDLEID:'$BUNDLEID'"
+  verbose "IDENTITY:'$IDENTITY'"
   verbose "FILE:'$FILE'"
 
   # get current signing details
@@ -53,7 +53,7 @@ sign()
     fi
 
     verbose "current:$CURRENT_IDENTIFIER required:$BUNDLEID"
-    verbose "current:$CURRENT_AUTHORITY required:$CODE_SIGN_IDENTITY"
+    verbose "current:$CURRENT_AUTHORITY required:$IDENTITY"
 
   else
 
@@ -67,13 +67,19 @@ sign()
   fi
 
   # check if we need to resign (resigning can be slow, so we check first)
-  if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$CODE_SIGN_IDENTITY"*) ]] ; then
-    echo "Resigning $NAME as $CODE_SIGN_IDENTITY with id '$BUNDLEID'"
+  if [[ ("$CURRENT_IDENTIFIER" != "$BUNDLEID") || ("$CURRENT_AUTHORITY" != "$IDENTITY"*) ]] ; then
+    echo "Resigning $NAME as $IDENTITY with id '$BUNDLEID'"
     if [[ ("$CURRENT_IDENTIFIER" != "") || ("$CURRENT_AUTHORITY" != "") ]]; then
         echo "(old identifier was $CURRENT_IDENTIFIER, old authority was $CURRENT_AUTHORITY)"
     fi
-    SIGN_OUTPUT=$(codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${CODE_SIGN_IDENTITY}" "${FILE}" 2>&1)
+    SIGN_OUTPUT=$(codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign "${IDENTITY}" "${FILE}" 2>&1)
+
+    verbose "> codesign --verbose=2 --deep --force --identifier ${BUNDLEID} $OTHER_CODE_SIGN_FLAGS --sign '${IDENTITY}' '${FILE}'"
     verbose "$SIGN_OUTPUT"
+    if [ $? != 0 ];
+    then
+        echo "Code signing failed for $NAME"
+    fi
   else
     verbose "Didn't need to sign $NAME - already signed correctly as $CURRENT_IDENTIFIER $CURRENT_AUTHORITY"
   fi
@@ -84,7 +90,7 @@ sign_folder()
   local FOLDER="$1"
   local NAME=`basename "$FOLDER/"`
   if [ -e "$FOLDER/" ]; then
-    #echo "Signing $NAME as: ${CODE_SIGN_IDENTITY}"
+    #echo "Signing $NAME as: ${EXPANDED_CODE_SIGN_IDENTITY}"
     local f
     for f in "$FOLDER"/*
     do
@@ -114,7 +120,7 @@ sign_folder()
       fi
 
       # now sign this bundle
-      sign "${BUNDLEID}" "${CODE_SIGN_IDENTITY}" "$f"
+      sign "${BUNDLEID}" "${EXPANDED_CODE_SIGN_IDENTITY}" "$f"
 
     done
   fi
@@ -139,7 +145,7 @@ sign_binaries()
             fi
         elif [[ (-x "$cf") ]]; then
           verbose "Resigning script ${cf}"
-          sign "$APPID" "${CODE_SIGN_IDENTITY}" "$cf"
+          sign "$APPID" "${EXPANDED_CODE_SIGN_IDENTITY}" "$cf"
         fi
     done
     verbose "Done signing binaries for: $1"
@@ -152,18 +158,12 @@ APPID=`/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "${BUILT_INFO_PLIS
 echo "Resigning bundled items."
 echo "App bundle is $APPID."
 
-if [[ "$CODE_SIGN_IDENTITY" == "" ]] ; then
+if [[ "$EXPANDED_CODE_SIGN_IDENTITY" == "" ]] ; then
   echo "App not signed, using default identity."
-  CODE_SIGN_IDENTITY="3rd Party Mac Developer Application"
+  EXPANDED_CODE_SIGN_IDENTITY="3rd Party Mac Developer Application"
 fi
 
-# Bit of a hack: according to the codesign tool, Mac Developer is ambiguous (also matches 3rd Party Mac Developer)
-# Mac Developer: shouldn't be, so we change it if necessary.
-if [[ "$CODE_SIGN_IDENTITY" == "Mac Developer" ]] ; then
-  CODE_SIGN_IDENTITY="Mac Developer:"
-fi
-
-echo "Using identity $CODE_SIGN_IDENTITY"
+echo "Using identity $EXPANDED_CODE_SIGN_IDENTITY"
 
 # Sign Plugins
 verbose "Resigning plugins"

@@ -18,11 +18,11 @@
 #pragma mark - Channel Declaration Macros
 
 #define ECDeclareLogChannel(channel) \
-	extern ECLogChannel* getChannel##channel(void)
+	extern ECLogChannel* EC_Nonnull getChannel##channel(void)
 
 #define ECDefineLogChannel(channel)                                            \
-	extern ECLogChannel* getChannel##channel(void);                            \
-	ECLogChannel* getChannel##channel(void)                                    \
+	extern ECLogChannel* EC_Nonnull getChannel##channel(void);                            \
+	ECLogChannel* EC_Nonnull getChannel##channel(void)                                    \
 	{                                                                          \
 		static dispatch_once_t onceToken;                                      \
 		static ECLogChannel* instance = nil;                                   \

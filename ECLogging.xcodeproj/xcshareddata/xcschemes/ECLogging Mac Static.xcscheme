@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "NO"
@@ -61,8 +61,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "226889D81AEE4B49005510E5"
-               BuildableName = "ECLoggingMacTestsStatic.xctest"
-               BlueprintName = "ECLoggingMacTestsStatic"
+               BuildableName = "ECLoggingTestsMacStatic.xctest"
+               BlueprintName = "ECLoggingTestsMacStatic"
                ReferencedContainer = "container:ECLogging.xcodeproj">
             </BuildableReference>
          </TestableReference>

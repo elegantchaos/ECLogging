@@ -4,6 +4,9 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#include "ECFramework.xcconfig"
 #include "ECLoggingShared.xcconfig"
 
-MODULEMAP_FILE = Source/$(PRODUCT_NAME)IOS.modulemap
+TARGETED_DEVICE_FAMILY = 1,2
+
+MODULEMAP_FILE = Source/$(PRODUCT_NAME)FrameworkIOS.modulemap

@@ -4,8 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import <ECLogging/ECLogging.h>
+#import "ECLogManager.h"
 
 @interface ECLogManagerIOSUISupport : NSObject <ECLogManagerDelegate>
-+ (void)showUI;
 @end

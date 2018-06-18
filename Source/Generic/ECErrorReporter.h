@@ -6,6 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
+EC_ASSUME_NONNULL_BEGIN
+
 @class ECLogChannel;
 @class ECLogHandler;
 
@@ -34,3 +36,5 @@
 + (void)reportError:(NSError*)error message:(NSString*)message, ... NS_FORMAT_FUNCTION(2, 3);
 
 @end
+
+EC_ASSUME_NONNULL_END
