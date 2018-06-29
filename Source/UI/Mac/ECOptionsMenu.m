@@ -80,7 +80,12 @@
 
 		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:title action:action keyEquivalent:@""];
 		item.target = self;
-		item.representedObject = option;
+		NSObject *value = optionData[@"value"];
+		if (value != nil) {
+			item.representedObject = value;
+		} else {
+			item.representedObject = option;
+		}
 		[items addObject:item];
 
 		NSDictionary* suboptions = optionData[@"suboptions"];
@@ -153,7 +158,7 @@
 		NSString* value = item.representedObject;
 		NSString* option = item.parentItem.representedObject;
 		NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-		item.state = [[defaults valueForKey:option] isEqualToString:value];
+		item.state = [[defaults valueForKey:option] isEqual:value];
 	}
 
 	return enabled;
