@@ -81,11 +81,7 @@
 		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:title action:action keyEquivalent:@""];
 		item.target = self;
 		NSObject *value = optionData[@"value"];
-		if (value != nil) {
-			item.representedObject = value;
-		} else {
-			item.representedObject = option;
-		}
+		item.representedObject = (value ? value : option);
 		[items addObject:item];
 
 		NSDictionary* suboptions = optionData[@"suboptions"];
