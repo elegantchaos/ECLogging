@@ -7,7 +7,7 @@ Most of the commands have a Log and a Debug variant. The Log version always work
 Before you can log to a channel, you need to define it:
 
     ECDefineLogChannel(SomeChannel);
-    ECDefineDebugChannel(AnotherChannel);
+    
 
 Logging something to a channel is very like NSLog, except that you also pass the channel in:
 

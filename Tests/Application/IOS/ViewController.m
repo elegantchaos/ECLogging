@@ -14,7 +14,7 @@
 
 #pragma mark - Channels
 
-ECDefineDebugChannel(LoggingSampleViewControllerChannel);
+
 
 @implementation ViewController
 

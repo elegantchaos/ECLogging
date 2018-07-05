@@ -55,13 +55,9 @@ typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
 
  Channels must be defined before use. This is done once for each channel, in a .m file. For example:
 
-	ECDefineLogChannel(MyLogChannel);
-	ECDefineDebugChannel(MyDebugChannel);
 
  If you want to share a channel between multiple files, you can also declare it in a .h file:
 
-	ECDeclareLogChannel(MyLogChannel);
-	ECDeclareDebugChannel(MyDebugChannel);
 
  ### Usage
 

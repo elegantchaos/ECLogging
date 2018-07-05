@@ -19,7 +19,7 @@
 
 #pragma mark - Channels
 
-ECDefineDebugChannel(ECLoggingViewControllerChannel);
+
 
 #pragma mark - View lifecycle
 

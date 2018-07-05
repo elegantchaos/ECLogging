@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-ECDefineDebugChannel(ApplicationChannel);
+
 
 @interface AppDelegate ()
 @property (strong, nonatomic) ECLogManagerIOSUISupport* logSupport;

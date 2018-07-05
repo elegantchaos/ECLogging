@@ -26,7 +26,7 @@ static NSString* const DebugChannelsViewCell = @"DebugChannelsViewCell";
 // Log Channels
 // --------------------------------------------------------------------------
 
-ECDefineDebugChannel(DebugChannelsViewChannel);
+
 
 // --------------------------------------------------------------------------
 //! Finish setting up the view.
