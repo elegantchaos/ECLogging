@@ -31,54 +31,39 @@ ECDefineLogChannel(OtherChannel);
 	ECLogManagerMacUISupport* logSupport = [ECLogManagerMacUISupport new];
 	lm.delegate = logSupport;
 	self.logSupport = logSupport;
-
-
-	ECDebug(ApplicationChannel, @"will finish launching");
-
-	// example of logging a non-string object
-	ECDebug(ObjectChannel, self);
-	ECDebug(ObjectChannel, [NSImage imageNamed:NSImageNameActionTemplate]);
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	ECDebug(ApplicationChannel, @"did finish launching");
 }
 
 - (void)applicationWillHide:(NSNotification *)notification
 {
-	ECDebug(ApplicationChannel, @"will hide");
 }
 
 - (void)applicationDidHide:(NSNotification *)notification
 {
-	ECDebug(ApplicationChannel, @"did hide");
 }
 
 - (void)applicationWillUnhide:(NSNotification *)notification
 {
-	ECDebug(ApplicationChannel, @"will unhide");
 }
 
 - (void)applicationDidUnhide:(NSNotification *)notification
 {
-	ECDebug(ApplicationChannel, @"did unhide");
 }
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification
 
 {
-	ECDebug(ApplicationChannel, @"will become active");
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-	ECDebug(ApplicationChannel, @"did become active");
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
-	ECDebug(ApplicationChannel, @"will resign active");
 
 	// save current log channels state
 	[[ECLogManager sharedInstance] saveChannelSettings];
@@ -86,29 +71,24 @@ ECDefineLogChannel(OtherChannel);
 
 - (void)applicationDidResignActive:(NSNotification *)notification
 {
-	ECDebug(ApplicationChannel, @"did resign active");
 }
 
 - (void)applicationWillUpdate:(NSNotification *)notification
 {
-	ECDebug(ApplicationUpdateChannel, @"will update");
 }
 
 - (void)applicationDidUpdate:(NSNotification *)notification
 {
-	ECDebug(ApplicationUpdateChannel, @"did update");
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-	ECDebug(ApplicationChannel, @"will terminate");
 
 	[[ECLogManager sharedInstance] shutdown];
 }
 
 - (void)applicationDidChangeScreenParameters:(NSNotification *)notification
 {
-	ECDebug(ApplicationChannel, @"did change screen parameters");
 }
 
 #pragma mark - Actions

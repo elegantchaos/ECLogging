@@ -34,8 +34,6 @@ ECDefineDebugChannel(DebugChannelsViewChannel);
 
 - (void)viewDidLoad
 {
-	ECDebug(DebugChannelsViewChannel, @"setting up view");
-
 	self.channels = [[ECLogManager sharedInstance] channelsSortedByName];
 	self.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
 	self.tableView.rowHeight = 32.0;

@@ -32,8 +32,6 @@ ECDefineDebugChannel(DebugHandlersViewChannel);
 
 - (void)viewDidLoad
 {
-	ECDebug(DebugHandlersViewChannel, @"setting up view");
-
 	self.handlers = [[ECLogManager sharedInstance] handlersSortedByName];
 	[super viewDidLoad];
 }

@@ -50,7 +50,6 @@ typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
 
  Log channels are always available.
 
- Debug channels are only available in debug targets (ones where EC_DEBUG is defined). In non-debug builds, debug channels don't exist. Anything inside ECDebug() messages won't get compiled or executed at all. This allows you to put potentially time-consuming logging code into these calls, safe in the knowledge that it won't affect the final performance of your app.
 
  ### Defining Channels
 
@@ -68,9 +67,6 @@ typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
 
  To use a channel, you send stuff to it with ECLog or ECDebug:
 
-	 ECLog(MyLogChannel, @"this is a test %@ %d", @"blah", 123);
-
-	 ECDebug(MyDebugChannel, @"doodah");
 
  As mentioned above, ECLog statements will always be compiled, so you need to use them with channels defined by ECDefineLogChannel.
 
@@ -79,9 +75,6 @@ typedef NS_ENUM(NSUInteger, ECSystemLogLevel) {
  ### Logging Objects
 
  As well as the more usual text logging, you can also send arbitrary objects to a log channel.
-
-	 NSImage* image = [NSImage imageNamed:@"blah.png"];
-	 ECDebug(MyLogChannel, image);
 
  What the log handlers do with objects that you log is up to them. The default behaviour for simple text-based log handlers is just to call [object description] on the object and log that.
 

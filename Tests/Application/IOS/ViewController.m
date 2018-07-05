@@ -22,20 +22,18 @@ ECDefineDebugChannel(LoggingSampleViewControllerChannel);
 #pragma mark - View lifecycle
 
 - (void)viewDidAppear:(BOOL)animated
-	{
-		[super viewDidAppear:animated];
-		[[ECLogManager sharedInstance] saveChannelSettings];
-	}
+{
+	[super viewDidAppear:animated];
+	[[ECLogManager sharedInstance] saveChannelSettings];
+}
 
 - (IBAction)tappedShowDebugView:(id)sender
-	{
-		[[ECLogManager sharedInstance] showUI];
-	}
+{
+	[[ECLogManager sharedInstance] showUI];
+}
 
 - (IBAction)tappedTestOutput:(id)sender
-	{
-		ECDebug(LoggingSampleViewControllerChannel, @"some test output");
-		ECDebug(LoggingSampleViewControllerChannel, @"some more output this should spill over many lines hopefully at least it will if I really keep wittering on and on for a really long time");
-	}
+{
+}
 
 @end

@@ -76,7 +76,6 @@ Item kItems[] = {
 
 - (void)viewDidLoad
 {
-	ECDebug(DebugViewChannel, @"setting up view");
 	self.title = @"Debug";
 	self.settingsFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
 	[super viewDidLoad];
