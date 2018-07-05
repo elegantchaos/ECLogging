@@ -15,8 +15,6 @@
 #pragma mark - Channels
 
 // these get used in Debug only
-ECDefineDebugChannel(ApplicationChannel);
-ECDefineDebugChannel(ApplicationUpdateChannel);
 ECDefineDebugChannel(ObjectChannel);
 
 // these channels get used in Debug and Release
