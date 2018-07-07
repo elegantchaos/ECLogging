@@ -1,3 +1,6 @@
+ZTRACE_ECLOGGINGIOSRESOURCES = 67
+ZTRACE_PATH = $(inherited)_67
+
 // --------------------------------------------------------------------------
 //  Copyright 2017 Elegant Chaos Limited. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's

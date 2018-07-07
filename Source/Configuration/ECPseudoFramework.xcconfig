@@ -1,3 +1,6 @@
+ZTRACE_ECPSEUDOFRAMEWORK = 77
+ZTRACE_PATH = $(inherited)_77
+
 // --------------------------------------------------------------------------
 //  Copyright 2017 Elegant Chaos Limited. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's

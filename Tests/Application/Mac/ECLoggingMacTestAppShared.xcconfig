@@ -1,3 +1,6 @@
+ZTRACE_ECLOGGINGMACTESTAPPSHARED = 82
+ZTRACE_PATH = $(inherited)_82
+
 // --------------------------------------------------------------------------
 //  Copyright 2017 Sam Deane, Elegant Chaos. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
