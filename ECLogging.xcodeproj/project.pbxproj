@@ -378,7 +378,6 @@
 		22BBED271D19A151003B79CA /* ECLogHandlerStderr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECLogHandlerStderr.m; path = Source/Generic/ECLogHandlerStderr.m; sourceTree = SOURCE_ROOT; };
 		22BBED281D19A151003B79CA /* ECLogHandlerStdout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECLogHandlerStdout.h; path = Source/Generic/ECLogHandlerStdout.h; sourceTree = SOURCE_ROOT; };
 		22BBED291D19A151003B79CA /* ECLogHandlerStdout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECLogHandlerStdout.m; path = Source/Generic/ECLogHandlerStdout.m; sourceTree = SOURCE_ROOT; };
-		22C6C7A61F2894110090EC71 /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D6EF4F1B021900004F9FC7 /* ParameterisedTestsExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParameterisedTestsExample.m; path = Tests/Unit/ParameterisedTestsExample.m; sourceTree = SOURCE_ROOT; };
 		22D6EF501B021900004F9FC7 /* RunLoopExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RunLoopExample.m; path = Tests/Unit/RunLoopExample.m; sourceTree = SOURCE_ROOT; };
 		22D6EF571B021952004F9FC7 /* HierarchicalExample.testsuite */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HierarchicalExample.testsuite; path = Tests/Unit/HierarchicalExample.testsuite; sourceTree = SOURCE_ROOT; };
@@ -486,13 +485,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		22C6C7A31F2894110090EC71 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		22F408E61EB8912C00DBB6BB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -523,7 +515,6 @@
 				2221872C19DAB60900F08CCE /* libECLoggingUI.a */,
 				226889E71AEE4B49005510E5 /* ECLoggingTestsMacStatic.xctest */,
 				22F408E91EB8912C00DBB6BB /* ECLoggingMacTestApp.app */,
-				22C6C7A61F2894110090EC71 /* .app */,
 			);
 			name = Products;
 			path = ../..;
@@ -1265,23 +1256,6 @@
 			productReference = 228CF1E917562478003E1D25 /* libECLogging.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		22C6C7A51F2894110090EC71 /* ECLoggingIOSTestApp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 22C6C7B91F2894110090EC71 /* Build configuration list for PBXNativeTarget "ECLoggingIOSTestApp" */;
-			buildPhases = (
-				22C6C7A21F2894110090EC71 /* Sources */,
-				22C6C7A31F2894110090EC71 /* Frameworks */,
-				22C6C7A41F2894110090EC71 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ECLoggingIOSTestApp;
-			productName = ECLoggingIOSTest;
-			productReference = 22C6C7A61F2894110090EC71 /* .app */;
-			productType = "com.apple.product-type.application";
-		};
 		22F408E81EB8912C00DBB6BB /* ECLoggingMacTestApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22F409191EB8912D00DBB6BB /* Build configuration list for PBXNativeTarget "ECLoggingMacTestApp" */;
@@ -1352,11 +1326,6 @@
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
-					22C6C7A51F2894110090EC71 = {
-						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = 2H48644JM2;
-						ProvisioningStyle = Manual;
-					};
 					22F408E81EB8912C00DBB6BB = {
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Manual;
@@ -1394,7 +1363,6 @@
 				226889D81AEE4B49005510E5 /* ECLoggingTestsMacStatic */,
 				22A204F2172006AA00A6045D /* Package Release */,
 				22F408E81EB8912C00DBB6BB /* ECLoggingMacTestApp */,
-				22C6C7A51F2894110090EC71 /* ECLoggingIOSTestApp */,
 			);
 		};
 /* End PBXProject section */
@@ -1433,13 +1401,6 @@
 				22D6EF5B1B021952004F9FC7 /* HierarchicalExample.testsuite in Resources */,
 				22D6EF611B021952004F9FC7 /* ParameterisedTestsExample.plist in Resources */,
 				22D6EF4D1B0218EA004F9FC7 /* (null) in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22C6C7A41F2894110090EC71 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1626,13 +1587,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		22C6C7A21F2894110090EC71 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		22F408E51EB8912C00DBB6BB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1806,18 +1760,6 @@
 			};
 			name = Release;
 		};
-		22C6C7BA1F2894110090EC71 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		22C6C7BB1F2894110090EC71 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Release;
-		};
 		22F409131EB8912D00DBB6BB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 224F77BA1EB8EAEA002A4FEC /* ECLoggingMacTestAppDebug.xcconfig */;
@@ -1917,15 +1859,6 @@
 			buildConfigurations = (
 				22A204F3172006AA00A6045D /* Debug */,
 				22A204F4172006AA00A6045D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		22C6C7B91F2894110090EC71 /* Build configuration list for PBXNativeTarget "ECLoggingIOSTestApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				22C6C7BA1F2894110090EC71 /* Debug */,
-				22C6C7BB1F2894110090EC71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
