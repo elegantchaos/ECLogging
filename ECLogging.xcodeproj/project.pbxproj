@@ -76,14 +76,12 @@
 		2221875219DABA6000F08CCE /* NSString+ECLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4D214F53D31009142F7 /* NSString+ECLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2221875319DABA6000F08CCE /* NSString+ECLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A4D314F53D31009142F7 /* NSString+ECLogging.m */; };
 		2221875A19DAC5C700F08CCE /* ECLogging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
-		2251BA6215DBD93700F2FE40 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2251BA6115DBD93700F2FE40 /* BasicTests.m */; };
 		225B84E21EBA489000E0F3D5 /* ECAssertionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 225B84DB1EB9ED1600E0F3D5 /* ECAssertionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225B84E31EBA489100E0F3D5 /* ECAssertionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 225B84DB1EB9ED1600E0F3D5 /* ECAssertionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225B84E41EBA48A500E0F3D5 /* ECAssertionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 225B84DC1EB9ED1600E0F3D5 /* ECAssertionHandler.m */; };
 		225B84E51EBA48A500E0F3D5 /* ECAssertionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 225B84DC1EB9ED1600E0F3D5 /* ECAssertionHandler.m */; };
 		226889DC1AEE4B49005510E5 /* ComparisonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6A24A183E0CA800873C05 /* ComparisonTests.m */; };
 		226889DD1AEE4B49005510E5 /* StringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FA575F1AB085E10045A364 /* StringTests.m */; };
-		226889DE1AEE4B49005510E5 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2251BA6115DBD93700F2FE40 /* BasicTests.m */; };
 		226889E01AEE4B49005510E5 /* libECLogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 228CF1E917562478003E1D25 /* libECLogging.a */; };
 		226889E11AEE4B49005510E5 /* ECUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FF8EC416F1E5EB008FC10D /* ECUnitTests.framework */; };
 		226889E91AEE4B64005510E5 /* ECLogging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251B9FF15DBCC3E00F2FE40 /* ECLogging.framework */; };
@@ -267,7 +265,6 @@
 		2251BA5D15DBD68500F2FE40 /* IOSTestsRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = IOSTestsRelease.xcconfig; sourceTree = "<group>"; };
 		2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacTestsDebug.xcconfig; sourceTree = "<group>"; };
 		2251BA5F15DBD68500F2FE40 /* MacTestsRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacTestsRelease.xcconfig; sourceTree = "<group>"; };
-		2251BA6115DBD93700F2FE40 /* BasicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicTests.m; path = ../../Source/Tests/BasicTests.m; sourceTree = "<group>"; };
 		2251BA6C15DBDA5100F2FE40 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2251BAE315DBEA2C00F2FE40 /* ECLoggingMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLoggingMacros.h; sourceTree = "<group>"; };
 		225B84DB1EB9ED1600E0F3D5 /* ECAssertionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAssertionHandler.h; sourceTree = "<group>"; };
@@ -775,7 +772,6 @@
 		22F409221EB8933600DBB6BB /* Unit */ = {
 			isa = PBXGroup;
 			children = (
-				2251BA6115DBD93700F2FE40 /* BasicTests.m */,
 				22B6A24A183E0CA800873C05 /* ComparisonTests.m */,
 				22E817911D14825600DD8803 /* ECLoggingTests-Bridging-Header.h */,
 				22D6EF631B021982004F9FC7 /* HierarchicalExample.m */,
@@ -1357,7 +1353,6 @@
 				22B6A24C183E0CA800873C05 /* ComparisonTests.m in Sources */,
 				22FA57601AB085E10045A364 /* StringTests.m in Sources */,
 				22E817981D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */,
-				2251BA6215DBD93700F2FE40 /* BasicTests.m in Sources */,
 				22D6EF541B021900004F9FC7 /* RunLoopExample.m in Sources */,
 				22D6EF641B021982004F9FC7 /* HierarchicalExample.m in Sources */,
 				22E8179B1D149F6C00DD8803 /* StringTests.swift in Sources */,
@@ -1372,7 +1367,6 @@
 				226889DC1AEE4B49005510E5 /* ComparisonTests.m in Sources */,
 				226889DD1AEE4B49005510E5 /* StringTests.m in Sources */,
 				22E817991D149A7800DD8803 /* ParameterisedTestsExample.m in Sources */,
-				226889DE1AEE4B49005510E5 /* BasicTests.m in Sources */,
 				22D6EF551B021900004F9FC7 /* RunLoopExample.m in Sources */,
 				22D6EF651B021982004F9FC7 /* HierarchicalExample.m in Sources */,
 			);
