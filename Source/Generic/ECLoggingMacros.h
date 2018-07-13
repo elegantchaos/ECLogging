@@ -72,26 +72,14 @@
 
 #if EC_DEBUG
 
-#define ECDebug ECLog
 #define ECDebugDynamic ECLogDynamic
-#define ECDebugIf ECLogIf
-#define ECDefineDebugChannel ECDefineLogChannel
-#define ECDeclareDebugChannel ECDeclareLogChannel
 #define ECDebugChannelEnabled ECChannelEnabled
 #define ECDebugOptionEnabled(key) ECOptionEnabled(key)
-#define ECEnableDebugChannel ECEnableChannel
-#define ECDisableDebugChannel ECDisableChannel
 
 #else
 
-#define ECDebug(...)
 #define ECDebugDynamic(...)
-#define ECDebugIf(...)
-#define ECDefineDebugChannel(...)
-#define ECDeclareDebugChannel(...)
 #define ECDebugChannelEnabled(channel) (false)
 #define ECDebugOptionEnabled(key) NO
-#define ECEnableDebugChannel(...)
-#define ECDisableDebugChannel(...)
 
 #endif

@@ -7,17 +7,15 @@ Most of the commands have a Log and a Debug variant. The Log version always work
 Before you can log to a channel, you need to define it:
 
     ECDefineLogChannel(SomeChannel);
-    ECDefineDebugChannel(AnotherChannel);
+    
 
 Logging something to a channel is very like NSLog, except that you also pass the channel in:
 
     ECLog(SomeChannel, @"some text %d", someInt);
-    ECDebug(AnotherChannel, @"my array looks like this %@", someArray);
 
 You can also log arbitrary objects, for example:
 
     NSImage* image = [NSImage imageNamed:@"image.png"];
-    ECDebug(AnotherChannel, image);
 
 The default log handlers deal with arbitrary objects by logging their description, but custom handlers can do more clever things like actually displaying images.
 
@@ -38,8 +36,6 @@ You can turn individual channels on:
 Using the UI is the best way, since the changes will only apply to the machine you're on (so each user can enable a different set of channels).
 
 ## Release Builds
-
-ECDebug channels compile out completely for release builds, so anything in an ECDebug() call doesn't happen in release.
 
 ECLog calls don't - this allows you to leave some logging in to your release, default it to off, but allow a user to turn it on to help you track down bugs.
 
