@@ -7,6 +7,7 @@
 
 #import "ECOptionsMenu.h"
 #import "NSMenu+ECLogging.h"
+#import "ECLogManager.h"
 
 // --------------------------------------------------------------------------
 // Private Methods

@@ -9,30 +9,10 @@
 
 #pragma mark - Assertions Enabled
 
-#import "ECLoggingMacros.h"
-
-@class ECLogChannel;
-
-ECDeclareLogChannel(AssertionChannel);
-
-#define ECAssert(expression)																\
-	do {																					\
-		BOOL _expression_ok = ((int)(expression)) != 0;                                     \
-		if (!_expression_ok) {                                                              \
-			ECLog(AssertionChannel, @"%s was false", #expression);							\
-		}																					\
-		NSAssert(_expression_ok, @"ECAssertion failed for expression: %s", #expression);	\
-	} while (0)
+#define ECAssert(expression) NSAssert((int)(expression) != 0, @"ECAssertion failed for expression: %s", #expression);
 
 #ifdef __OBJC
-#define ECAssertC(expression)																\
-	do {																					\
-		BOOL _expression_ok = ((int)(expression)) != 0;                                     \
-		if (!_expression_ok) {                                                              \
-			ECLog(AssertionChannel, @"%s was false", #expression);							\
-		}																					\
-		NSAssertC(_expression_ok, @"ECAssertion failed for expression: %s", #expression);   \
-	} while (0)
+#define ECAssertC(expression) NSAssertC((int)(expression) != 0, @"ECAssertion failed for expression: %s", #expression);
 #else
 #define ECAssertC assert
 #endif

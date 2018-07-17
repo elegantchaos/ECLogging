@@ -6,8 +6,9 @@
 
 #import "ECLogManagerMacUISupport.h"
 #import "ECDebugMenu.h"
-#import "ECLoggingMenu.h"
 #import "ECOptionsMenu.h"
+#import "ECLoggingMacros.h"
+#import "ECAssertion.h"
 
 @implementation ECLogManagerMacUISupport
 
@@ -75,7 +76,6 @@
 	if (manager.showMenu)
 	{
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
-			[self installDebugSubmenuWithTitle:NSLocalizedString(@"Logging", @"logging submenu title") class:[ECLoggingMenu class]];
 			[self installDebugSubmenuWithTitle:NSLocalizedString(@"Options", @"options submenu title") class:[ECOptionsMenu class]];
 			NSMenu* utilities = [self installDebugSubmenuWithTitle:NSLocalizedString(@"Utilities", @"utilities submenu title") class:[NSMenu class]];
 			[utilities addItemWithTitle:NSLocalizedString(@"Crash Now", @"cause the application to crash deliberately") action:@selector(crashNow:) keyEquivalent:@""].target = self;
@@ -105,7 +105,6 @@
 
 - (void)handleBackgroundOrQuitting:(NSNotification*)notification
 {
-	[[ECLogManager sharedInstance] saveChannelSettings];
 }
 
 /// --------------------------------------------------------------------------

@@ -4,6 +4,8 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#import <AppKit/Appkit.h>
+
 /**
  * A menu subclass that you can use to house debug related items, including
  * an instance of ECLoggingMenu.

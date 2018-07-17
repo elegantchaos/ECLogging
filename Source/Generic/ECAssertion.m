@@ -5,10 +5,6 @@
 // --------------------------------------------------------------------------
 
 #include "ECAssertion.h"
-#include "ECLogChannel.h"
-#include "ECLoggingMacros.h"
-
-ECDefineLogChannel(AssertionChannel);
 
 @implementation ECAssertion
 
