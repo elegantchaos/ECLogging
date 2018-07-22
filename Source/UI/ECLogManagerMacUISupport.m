@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------
 
 #import "ECLogManagerMacUISupport.h"
-#import "ECDebugMenu.h"
 #import "ECOptionsMenu.h"
 #import "ECLoggingMacros.h"
 #import "ECAssertion.h"
@@ -34,7 +33,7 @@
 		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
 		result = item;
 
-		ECDebugMenu* menu = [[ECDebugMenu alloc] initWithTitle:title];
+		NSMenu* menu = [[NSMenu alloc] initWithTitle:title];
 		item.submenu = menu;
 
 		[menubar addItem:item];
@@ -78,31 +77,9 @@
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 			[self installDebugSubmenuWithTitle:NSLocalizedString(@"Options", @"options submenu title") class:[ECOptionsMenu class]];
 			NSMenu* utilities = [self installDebugSubmenuWithTitle:NSLocalizedString(@"Utilities", @"utilities submenu title") class:[NSMenu class]];
-			[utilities addItemWithTitle:NSLocalizedString(@"Crash Now", @"cause the application to crash deliberately") action:@selector(crashNow:) keyEquivalent:@""].target = self;
-			[utilities addItemWithTitle:NSLocalizedString(@"Assert Now", @"fire an assertion deliberately") action:@selector(assertNow:) keyEquivalent:@""].target = self;
 			[utilities addItemWithTitle:NSLocalizedString(@"Reveal Application Support", @"show the application support folder in the finder") action:@selector(revealApplicationSupport:) keyEquivalent:@""].target = self;
 		}];
 	}
-}
-
-/// --------------------------------------------------------------------------
-/// Cause a crash.
-/// Useful for testing crash logging etc.
-/// --------------------------------------------------------------------------
-
-- (void)crashNow:(id)sender
-{
-	*((char*)0x1) = 123;
-}
-
-/// --------------------------------------------------------------------------
-/// Cause an assertion failure.
-/// Useful for testing crash logging etc.
-/// --------------------------------------------------------------------------
-
-- (void)assertNow:(id)sender
-{
-	ECAssertShouldntBeHere();
 }
 
 /// --------------------------------------------------------------------------

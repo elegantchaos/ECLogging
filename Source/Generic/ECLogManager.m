@@ -8,6 +8,8 @@
 
 @interface ECLogManager ()
 @property (strong, nonatomic) NSDictionary* defaultSettings;
+@property (strong, nonatomic, nullable) NSDictionary* settings;
+
 @end
 
 
@@ -86,7 +88,7 @@ static ECLogManager* gSharedInstance = nil;
 	}
 }
 
-- (void)mergeSettings:(NSMutableDictionary*)settings withOverrides:(NSDictionary*)overrides name:(ec_nullable NSString*)name {
+- (void)mergeSettings:(NSMutableDictionary*)settings withOverrides:(NSDictionary*)overrides name:(nullable NSString*)name {
 	[settings addEntriesFromDictionary:overrides];
 }
 

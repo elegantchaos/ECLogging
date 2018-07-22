@@ -29,31 +29,16 @@
 	Only the top menu wants to be set up - if we're a submenu, don't bother.
  */
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
 	[super awakeFromNib];
-	if (![self.supermenu isKindOfClass:[self class]])
-	{
-		[self setupAsRootMenu];
-	}
+	[self setupAsRootMenu];
 }
-
-// --------------------------------------------------------------------------
-//! Clean up.
-// --------------------------------------------------------------------------
-
-- (void)dealloc
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 
 // --------------------------------------------------------------------------
 //! Create the menu items.
 // --------------------------------------------------------------------------
 
-- (void)setupAsRootMenu
-{
+- (void)setupAsRootMenu {
 	ECLogManager* logManager = [ECLogManager sharedInstance];
 	if (logManager.showMenu)
 	{
@@ -68,8 +53,7 @@
 //! We make some global items, then a submenu for each registered channel.
 // --------------------------------------------------------------------------
 
-- (void)buildMenuWithOptions:(NSDictionary*)options action:(SEL)action
-{
+- (void)buildMenuWithOptions:(NSDictionary*)options action:(SEL)action {
 	NSMutableArray* items = [NSMutableArray new];
 	for (NSString* option in options)
 	{
@@ -104,7 +88,7 @@
 
 	}
 
-	NSArray* sorted = [items sortedArrayUsingComparator:^NSComparisonResult(NSMenuItem*  EC_Nonnull item1, NSMenuItem*  EC_Nonnull item2) {
+	NSArray* sorted = [items sortedArrayUsingComparator:^NSComparisonResult(NSMenuItem*  _Nonnull item1, NSMenuItem*  _Nonnull item2) {
 		return [item1.title compare:item2.title];
 	}];
 
@@ -119,15 +103,13 @@
 //! Respond to an option menu item being selected.
 // --------------------------------------------------------------------------
 
-- (IBAction)optionSelected:(NSMenuItem*)item
-{
+- (IBAction)optionSelected:(NSMenuItem*)item {
 	NSString* option = item.representedObject;
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setBool:![defaults boolForKey:option] forKey:option];
 }
 
-- (IBAction)valueSelected:(NSMenuItem*)item
-{
+- (IBAction)valueSelected:(NSMenuItem*)item {
 	NSString* value = item.representedObject;
 	NSString* option = item.parentItem.representedObject;
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -140,17 +122,13 @@
 //! channels/handlers that they represent.
 // --------------------------------------------------------------------------
 
-- (BOOL)validateMenuItem:(NSMenuItem*)item
-{
+- (BOOL)validateMenuItem:(NSMenuItem*)item {
 	BOOL enabled = YES;
-	if (item.action == @selector(optionSelected:))
-	{
+	if (item.action == @selector(optionSelected:)) {
 		NSString* option = item.representedObject;
 		NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 		item.state = [defaults boolForKey:option] ? NSOnState : NSOffState;
-	}
-	else if (item.action == @selector(valueSelected:))
-	{
+	} else if (item.action == @selector(valueSelected:)) {
 		NSString* value = item.representedObject;
 		NSString* option = item.parentItem.representedObject;
 		NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -159,7 +137,5 @@
 
 	return enabled;
 }
-
-// 		if (strncmp([value objCType], @encode(BOOL), sizeof(@encode(BOOL))) == 0) {
 
 @end

@@ -33,20 +33,16 @@
 #define ECAssertSubclassShouldOverrideBase(imp) imp(FALSE)
 #define ECAssertNonNilBase(expression, imp) imp((expression) != nil)
 #define ECAssertNilBase(expression, imp) imp((expression) == nil)
-#define ECAssertCountAtLeastBase(container, countMinimum, imp) imp([(container)count] >= (countMinimum))
-#define ECAssertEmptyBase(object, imp)
 #define ECAssertIsMainThreadBase(imp) imp(([NSThread isMainThread]))
 #define ECAssertFailBase(imp) imp(FALSE)
 
 
 #define ECAssertContains(container, object) ECAssertContainsBase(container, object, ECAssert)
-#define ECAssertContainsC(container, object) ECAssertContainsBase(container, object, ECAssertC)
 
 #define ECAssertDoesntContain(container, object) ECAssertDoesntContainBase(container, object, ECAssert)
 #define ECAssertDoesntContainC(container, object) ECAssertDoesntContainBase(container, object, ECAssertC)
 
 #define ECAssertSubclassShouldOverride() ECAssertSubclassShouldOverrideBase(ECAssert)
-#define ECAssertSubclassShouldOverrideC() ECAssertSubclassShouldOverrideBase(ECAssertC)
 
 #define ECAssertShouldntBeHere() ECAssertShouldntBeHereBase(ECAssert)
 #define ECAssertShouldntBeHereC() ECAssertShouldntBeHereBase(ECAssertC)
@@ -55,38 +51,20 @@
 #define ECAssertNonNilC(expression) ECAssertNonNilBase(expression, ECAssertC)
 
 #define ECAssertNil(expression) ECAssertNilBase(expression, ECAssert)
-#define ECAssertNilC(expression) ECAssertNilBase(expression, ECAssertC)
 
-#define ECAssertCountAtLeast(container, countMinimum) ECAssertCountAtLeastBase(container, countMinimum, ECAssert)
-#define ECAssertCountAtLeastC(container, countMinimum) ECAssertCountAtLeastBase(container, countMinimum, ECAssertC)
 
-#define ECAssertEmpty(item)                              \
-	do                                                   \
-	{                                                    \
-		if ([item respondsToSelector:@selector(length)]) \
-		{                                                \
-			ECAssert([(NSString*)item length] == 0);     \
-		}                                                \
-		else                                             \
-		{                                                \
-			ECAssert([item count] == 0);                 \
-		}                                                \
-	} while (0)
+
 
 #define ECAssertIsKindOfClass(o, c) ECAssert(((o) == nil) || [o isKindOfClass:[c class]])
-#define ECAssertIsMemberOfClass(o, c) ECAssert(((o) == nil) || [o isMemberOfClass:[c class]])
 #define ECAssertConformsToProtocol(o, p) ECAssert(((o) == nil) || [o conformsToProtocol:@protocol(p)])
 
 #define ECAssertIsKindOfClassDynamic(o, dc) ECAssert(((o) == nil) || [o isKindOfClass:dc])
-#define ECAssertIsMemberOfClassDynamic(o, dc) ECAssert(((o) == nil) || [o isMemberOfClass:dc])
 
 #define ECAssertIsMainThread() ECAssertIsMainThreadBase(ECAssert)
-#define ECAssertIsMainThreadC() ECAssertIsMainThreadBase(ECAssertC)
 
 #define ECAssertFail()	{ ECAssertFailBase(ECAssert); }
-#define ECAssertFailC()	{ ECAssertFailBase(ECAssertC); }
 
-EC_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 @interface ECAssertion : NSObject
 
@@ -94,4 +72,4 @@ EC_ASSUME_NONNULL_BEGIN
 
 @end
 
-EC_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

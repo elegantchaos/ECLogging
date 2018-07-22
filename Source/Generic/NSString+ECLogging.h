@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-EC_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (ECLogging)
 
@@ -47,7 +47,7 @@ EC_ASSUME_NONNULL_BEGIN
  @discussion For ruggedness, we allow nil to be passed in as the string to test. It is treated as the empty string for the purposes of comparison.
  */
 
-- (BOOL)matchesString:(ec_nullable NSString*)string divergingAfter:(NSString* EC_Nonnull * EC_Nonnull)prefix atIndex:(NSUInteger*)index divergentChar:(UniChar*)divergentChar expectedChar:(UniChar*)expectedChar;
+- (BOOL)matchesString:(nullable NSString*)string divergingAfter:(NSString* _Nonnull * _Nonnull)prefix atIndex:(NSUInteger*)index divergentChar:(UniChar*)divergentChar expectedChar:(UniChar*)expectedChar;
 
 /**
  Check that two strings match. If they don't, return some information about the point where they diverged:
@@ -59,7 +59,7 @@ EC_ASSUME_NONNULL_BEGIN
  @discussion For ruggedness, we allow nil to be passed in as the string to test. It is treated as the empty string for the purposes of comparison.
  */
 
-- (BOOL)matchesString:(ec_nullable NSString*)string divergingAtLine:(NSUInteger*)divergingLine after:(NSString* EC_Nonnull * EC_Nonnull)after diverged:(NSString* EC_Nonnull * EC_Nonnull)diverged expected:(NSString* EC_Nonnull * EC_Nonnull)expected;
+- (BOOL)matchesString:(nullable NSString*)string divergingAtLine:(NSUInteger*)divergingLine after:(NSString* _Nonnull * _Nonnull)after diverged:(NSString* _Nonnull * _Nonnull)diverged expected:(NSString* _Nonnull * _Nonnull)expected;
 
 /**
  Check that two strings match, ignoring extra lines in either string that only consist of whitespace.
@@ -72,7 +72,7 @@ EC_ASSUME_NONNULL_BEGIN
  @discussion For ruggedness, we allow nil to be passed in as the string to test. It is treated as the empty string for the purposes of comparison.
  */
 
-- (BOOL)matchesString:(ec_nullable NSString*)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString* EC_Nonnull * EC_Nonnull)diverged expected:(NSString* EC_Nonnull * EC_Nonnull)expected;
+- (BOOL)matchesString:(nullable NSString*)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString* _Nonnull * _Nonnull)diverged expected:(NSString* _Nonnull * _Nonnull)expected;
 
 /**
  Check that two strings match, ignoring extra lines in either string that only consist of whitespace.
@@ -85,8 +85,8 @@ EC_ASSUME_NONNULL_BEGIN
  @discussion For ruggedness, we allow nil to be passed in as the string to test. It is treated as the empty string for the purposes of comparison.
  */
 
-- (BOOL)matchesString:(ec_nullable NSString*)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString* EC_Nonnull * EC_Nonnull)diverged expected:(NSString* EC_Nonnull * EC_Nonnull)expected window:(NSInteger)window;
+- (BOOL)matchesString:(nullable NSString*)string divergingAtLine1:(NSUInteger*)line1 andLine2:(NSUInteger*)line2 diverged:(NSString* _Nonnull * _Nonnull)diverged expected:(NSString* _Nonnull * _Nonnull)expected window:(NSInteger)window;
 
 @end
 
-EC_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

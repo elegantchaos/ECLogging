@@ -4,8 +4,14 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-#import "ECDebugMenu.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation ECDebugMenu
+@class ECLogManager;
+
+@interface ECOptionsMenu : NSMenu
+
+- (void)setupAsRootMenu;
+
+- (IBAction)optionSelected:(id)sender;
 
 @end

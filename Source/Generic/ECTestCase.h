@@ -136,8 +136,6 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 	ECTestAssertSizeIsEqualWithEpsilon(r1.size, r2.size, e); \
 	} while(0)
 
-#define ECTestLog NSLog
-
 /**
 * This class contains a few utility methods which:
 *

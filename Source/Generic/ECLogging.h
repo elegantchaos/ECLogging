@@ -13,5 +13,4 @@
 #import "ECLoggingMacros.h"
 #import "NSString+ECLogging.h"
 #import "ECLogManagerMacUISupport.h"
-#import "ECDebugMenu.h"
 #import "ECOptionsMenu.h"

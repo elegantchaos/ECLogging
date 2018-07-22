@@ -4,7 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-EC_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 @class ECLogChannel;
 @class ECLogHandler;
@@ -16,59 +16,20 @@ EC_ASSUME_NONNULL_BEGIN
 - (void)showUIForLogManager:(ECLogManager*)manager;
 @end
 
-/**
- * Singleton which keeps track of all the log channels and log handlers, and mediates the logging process.
- * 
- * The singleton is obtained using [ECLogManager sharedInstance], but you don't generally need to access it directly.
- *
- * See <Index> for more details.
- */
 
 @interface ECLogManager : NSObject
 
 
-/**
- * Return the shared log manager.
- */
-
 + (ECLogManager*)sharedInstance;
 
-// --------------------------------------------------------------------------
-// Public Properties
-// --------------------------------------------------------------------------
-
-@property (strong, nonatomic, ec_nullable) NSMutableArray* defaultHandlers;
-
-/**
- All the ECLogManager settings.
- */
-
-@property (strong, nonatomic, ec_nullable) NSDictionary* settings;
-
-/**
- Options, as specified in the settings files.
- These are used to build an Options menu, as a quick way of changing user default values.
- */
 
 @property (strong, nonatomic, readonly) NSDictionary* options;
 
 @property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
 @property (assign, nonatomic) BOOL showMenu;
 
-/**
- Display some UI which allows configuration of the log manager.
- This is implemented by the delegate, and can be an overlay, a separate window, or
- anything else appropriate.
- */
-
 - (void)showUI;
 
 @end
 
-// --------------------------------------------------------------------------
-// Notifications
-// --------------------------------------------------------------------------
-
-extern NSString* const LogChannelsChanged;
-
-EC_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END
