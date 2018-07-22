@@ -83,28 +83,6 @@
 			[utilities addItemWithTitle:NSLocalizedString(@"Reveal Application Support", @"show the application support folder in the finder") action:@selector(revealApplicationSupport:) keyEquivalent:@""].target = self;
 		}];
 	}
-
-	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self selector:@selector(handleBackgroundOrQuitting:) name:NSApplicationWillResignActiveNotification object:nil];
-	[nc addObserver:self selector:@selector(handleBackgroundOrQuitting:) name:NSApplicationWillTerminateNotification object:nil];
-}
-
-/// --------------------------------------------------------------------------
-/// Perform some extra Mac-only cleanup.
-/// --------------------------------------------------------------------------
-
-- (void)logManagerWillShutdown:(ECLogManager*)manager
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-/// --------------------------------------------------------------------------
-/// When the app is switched to the background, save out channel
-/// settings.
-/// --------------------------------------------------------------------------
-
-- (void)handleBackgroundOrQuitting:(NSNotification*)notification
-{
 }
 
 /// --------------------------------------------------------------------------

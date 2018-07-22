@@ -59,7 +59,7 @@
 	if (logManager.showMenu)
 	{
 		self.options = [logManager options];
-		[self removeAllItemsEC];
+		[self removeAllItems];
 		[self buildMenuWithOptions:self.options action:@selector(optionSelected:)];
 	}
 }
