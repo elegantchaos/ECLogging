@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------
 
 #import "ECDebugMenu.h"
-#import "NSMenu+ECLogging.h"
 
 @implementation ECDebugMenu
 

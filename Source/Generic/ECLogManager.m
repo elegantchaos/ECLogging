@@ -81,19 +81,13 @@ static ECLogManager* gSharedInstance = nil;
 
 - (void)notifyDelegateOfStartup {
 	id<ECLogManagerDelegate> delegate = self.delegate;
-	if ([delegate respondsToSelector:@selector(logManagerDidStartup:)])
-	{
+	if ([delegate respondsToSelector:@selector(logManagerDidStartup:)]) {
 		[delegate logManagerDidStartup:self];
 	}
 }
 
 - (void)mergeSettings:(NSMutableDictionary*)settings withOverrides:(NSDictionary*)overrides name:(ec_nullable NSString*)name {
-	if (overrides) {
-		NSArray* keys = overrides.allKeys;
-		for (NSString* key in keys) {
-			settings[key] = overrides[key];
-		}
-	}
+	[settings addEntriesFromDictionary:overrides];
 }
 
 - (void)mergeSettings:(NSMutableDictionary*)settings fromURL:(NSURL*)url {
@@ -147,14 +141,6 @@ static ECLogManager* gSharedInstance = nil;
 
 - (NSDictionary*)options {
 	return self.settings[OptionsKey];
-}
-
-// --------------------------------------------------------------------------
-//! Revert all channels to default settings.
-// --------------------------------------------------------------------------
-
-- (void)resetAllSettings {
-	[self loadSettings];
 }
 
 - (void)showUI {

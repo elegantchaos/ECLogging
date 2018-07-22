@@ -15,4 +15,3 @@
 #import "ECLogManagerMacUISupport.h"
 #import "ECDebugMenu.h"
 #import "ECOptionsMenu.h"
-#import "NSMenu+ECLogging.h"
