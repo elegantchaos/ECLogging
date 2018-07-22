@@ -34,7 +34,6 @@ NSString* const LogChannelsChanged = @"LogChannelsChanged";
 static NSString* const DebugLogSettingsFile = @"ECLoggingDebug";
 static NSString* const LogSettingsFile = @"ECLogging";
 
-static NSString* const ChannelsKey = @"Channels";
 static NSString* const ContextKey = @"Context";
 static NSString* const DefaultKey = @"Default";
 static NSString* const EnabledKey = @"Enabled";
@@ -44,7 +43,6 @@ static NSString* const ForceDebugMenuKey = @"ECLoggingMenu";
 static NSString* const HandlersKey = @"Handlers";
 static NSString* const InstallDebugMenuKey = @"InstallMenu";
 static NSString* const LevelKey = @"Level";
-static NSString* const LogManagerSettingsKey = @"ECLogging";
 static NSString* const OptionsKey = @"Options";
 static NSString* const ResetSettingsKey = @"ECLoggingReset";
 static NSString *const SuppressedAssertionsKey = @"SuppressedAssertions";
@@ -62,16 +60,7 @@ static ECLogManager* gSharedInstance = nil;
 /// Return the shared instance.
 /// --------------------------------------------------------------------------
 
-+ (ECLogManager*)sharedInstance
-{
-#if TEST_WARNING
-	int x = 10;
-#endif
-#if TEST_ANALYZER
-	NSString* string = @"blah";
-	string = @"doodah";
-#endif
-
++ (ECLogManager*)sharedInstance {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		gSharedInstance = [ECLogManager new];
@@ -84,13 +73,11 @@ static ECLogManager* gSharedInstance = nil;
 //! Initialise the log manager.
 // --------------------------------------------------------------------------
 
-- (instancetype)init
-{
-	if ((self = [super init]) != nil)
-	{
+- (instancetype)init {
+	self = [super init];
+	if (self) {
 		[self startup];
 	}
-
 	return self;
 }
 
@@ -143,22 +130,9 @@ static ECLogManager* gSharedInstance = nil;
 
 - (void)mergeSettings:(NSMutableDictionary*)settings withOverrides:(NSDictionary*)overrides name:(ec_nullable NSString*)name {
 	if (overrides) {
-		if (name) {
-		}
-
 		NSArray* keys = overrides.allKeys;
 		for (NSString* key in keys) {
-			id existing = settings[key];
-			id override = overrides[key];
-			if (existing && [existing isKindOfClass:[NSDictionary class]] && [override isKindOfClass:[NSDictionary class]]) {
-				if ([key isEqualToString:HandlersKey] || [key isEqualToString:ChannelsKey]) {
-					NSMutableDictionary* merged = [existing mutableCopy];
-					[self mergeSettings:merged withOverrides:override name:[NSString stringWithFormat:@"%@.%@", name, key]];
-					override = merged;
-				}
-			}
-
-			settings[key] = override;
+			settings[key] = overrides[key];
 		}
 	}
 }
@@ -195,7 +169,6 @@ static ECLogManager* gSharedInstance = nil;
 		NSDictionary* defaults = @{
 								   VersionKey : @(kSettingsVersion),
 								   HandlersKey: @{ @"ECLogHandlerNSLog": @{ @"Default": @YES } },
-								   ChannelsKey: @{}
 								   };
 
 		NSMutableDictionary* settings = [defaults mutableCopy];
@@ -244,12 +217,10 @@ static ECLogManager* gSharedInstance = nil;
 	NSDictionary* savedSettings;
 	if (skipSavedSettings)
 	{
-		[userSettings removeObjectForKey:LogManagerSettingsKey];
 		savedSettings = nil;
 	}
 	else
 	{
-		savedSettings = [userSettings dictionaryForKey:LogManagerSettingsKey];
 	}
 
 	NSMutableDictionary* settings = [[self defaultSettings] mutableCopy];
@@ -283,45 +254,8 @@ static ECLogManager* gSharedInstance = nil;
 //! Revert all channels to default settings.
 // --------------------------------------------------------------------------
 
-- (void)resetAllSettings
-{
-	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LogManagerSettingsKey];
+- (void)resetAllSettings {
 	[self loadSettings];
-}
-
-
-- (BOOL)debugChannelsAreEnabled {
-#if EC_DEBUG
-	return YES;
-#else
-	return NO;
-#endif
-}
-
-- (BOOL)assertionsAreEnabled {
-#if NS_BLOCK_ASSERTIONS
-	return NO;
-#else
-	return YES;
-#endif
-}
-
-- (BOOL)isAssertionSuppressedForKey:(NSString*)key {
-	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	NSDictionary* suppressedAssertions = [defaults valueForKey:SuppressedAssertionsKey];
-	return [suppressedAssertions[key] boolValue];
-}
-
-- (void)suppressAssertionForKey:(NSString*)key {
-	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	NSMutableDictionary* suppressedAssertions = [([defaults valueForKey:SuppressedAssertionsKey] ?: @{}) mutableCopy] ;
-	suppressedAssertions[key] = @(YES);
-	[defaults setValue:suppressedAssertions forKey:SuppressedAssertionsKey];
-}
-
-- (void)resetAllAssertions {
-	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	[defaults removeObjectForKey:SuppressedAssertionsKey];
 }
 
 - (void)showUI {
