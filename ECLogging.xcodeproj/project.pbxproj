@@ -37,8 +37,6 @@
 		2277CE3F16D6B01800835964 /* Scripts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277CE3916D6AFA000835964 /* Scripts */; };
 		2277CE4916D6B2B900835964 /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2277CE5916D6B9A400835964 /* ECLogging.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2283A4CB14F53C6F009142F7 /* ECLogging.pch */; settings = {ATTRIBUTES = (Public, ); }; };
-		2285B5EE1899855400919FA7 /* ECTestPerformanceCounter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2285B5EC1899855400919FA7 /* ECTestPerformanceCounter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2285B5F01899855400919FA7 /* ECTestPerformanceCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2285B5ED1899855400919FA7 /* ECTestPerformanceCounter.m */; };
 		228CF1F4175624F2003E1D25 /* ECMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 2277CE4316D6B2B900835964 /* ECMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		228CF1F7175624FB003E1D25 /* ECAssertion.h in Headers */ = {isa = PBXBuildFile; fileRef = 2283A43D14F53BCC009142F7 /* ECAssertion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		228CF1F8175624FB003E1D25 /* ECAssertion.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283A43E14F53BCC009142F7 /* ECAssertion.m */; };
@@ -182,8 +180,6 @@
 		2283A4CB14F53C6F009142F7 /* ECLogging.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogging.pch; sourceTree = "<group>"; };
 		2283A4D214F53D31009142F7 /* NSString+ECLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ECLogging.h"; sourceTree = "<group>"; };
 		2283A4D314F53D31009142F7 /* NSString+ECLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ECLogging.m"; sourceTree = "<group>"; };
-		2285B5EC1899855400919FA7 /* ECTestPerformanceCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTestPerformanceCounter.h; sourceTree = "<group>"; };
-		2285B5ED1899855400919FA7 /* ECTestPerformanceCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTestPerformanceCounter.m; sourceTree = "<group>"; };
 		228CF1D417562136003E1D25 /* ECLoggingMacDebugStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacDebugStatic.xcconfig; sourceTree = "<group>"; };
 		228CF1D517562136003E1D25 /* ECLoggingMacReleaseStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacReleaseStatic.xcconfig; sourceTree = "<group>"; };
 		228CF1D617562182003E1D25 /* ECStaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECStaticLibrary.xcconfig; sourceTree = "<group>"; };
@@ -443,8 +439,6 @@
 				2277CE4716D6B2B900835964 /* ECTestCase.m */,
 				22B6A243183E0C5400873C05 /* ECTestComparisons.h */,
 				22B6A244183E0C5400873C05 /* ECTestComparisons.m */,
-				2285B5EC1899855400919FA7 /* ECTestPerformanceCounter.h */,
-				2285B5ED1899855400919FA7 /* ECTestPerformanceCounter.m */,
 				2277CE4816D6B2B900835964 /* ECUnitTests.h */,
 			);
 			name = Testing;
@@ -697,7 +691,6 @@
 				22F861291B029C0F00586780 /* ECParameterisedTestSuite.h in Headers */,
 				22FF8EB916F1E5EB008FC10D /* ECUnitTests.h in Headers */,
 				22B6A245183E0C5400873C05 /* ECTestComparisons.h in Headers */,
-				2285B5EE1899855400919FA7 /* ECTestPerformanceCounter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -985,7 +978,6 @@
 				22B6A247183E0C5400873C05 /* ECTestComparisons.m in Sources */,
 				22FF8E9A16F1E5EB008FC10D /* ECParameterisedTestCase.m in Sources */,
 				22FF8E9B16F1E5EB008FC10D /* ECTestCase.m in Sources */,
-				2285B5F01899855400919FA7 /* ECTestPerformanceCounter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
