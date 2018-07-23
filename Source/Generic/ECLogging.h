@@ -12,5 +12,3 @@
 #import "ECAssertion.h"
 #import "ECLoggingMacros.h"
 #import "NSString+ECLogging.h"
-#import "ECOptionsMenu.h"
-#import "ECLogManager.h"
