@@ -8,26 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ECLogChannel;
-@class ECLogHandler;
-@class ECLogManager;
-
-//@protocol ECLogManagerDelegate <NSObject>
-//@optional
-//- (void)logManagerDidStartup:(ECLogManager*)manager;
-//- (void)showUIForLogManager:(ECLogManager*)manager;
-//@end
-
-
 @interface ECLogManager : NSObject
-
-
-+ (ECLogManager*)sharedInstance;
-
-
 @property (strong, nonatomic, readonly) NSDictionary* options;
 
-//@property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
++ (ECLogManager*)sharedInstance;
 
 @end
 
