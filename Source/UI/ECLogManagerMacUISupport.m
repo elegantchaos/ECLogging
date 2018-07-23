@@ -72,14 +72,13 @@
 
 - (void)logManagerDidStartup:(ECLogManager*)manager
 {
-	if (manager.showMenu)
-	{
-		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
-			[self installDebugSubmenuWithTitle:NSLocalizedString(@"Options", @"options submenu title") class:[ECOptionsMenu class]];
-			NSMenu* utilities = [self installDebugSubmenuWithTitle:NSLocalizedString(@"Utilities", @"utilities submenu title") class:[NSMenu class]];
-			[utilities addItemWithTitle:NSLocalizedString(@"Reveal Application Support", @"show the application support folder in the finder") action:@selector(revealApplicationSupport:) keyEquivalent:@""].target = self;
-		}];
-	}
+#if EC_DEBUG
+	[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+		[self installDebugSubmenuWithTitle:NSLocalizedString(@"Options", @"options submenu title") class:[ECOptionsMenu class]];
+		NSMenu* utilities = [self installDebugSubmenuWithTitle:NSLocalizedString(@"Utilities", @"utilities submenu title") class:[NSMenu class]];
+		[utilities addItemWithTitle:NSLocalizedString(@"Reveal Application Support", @"show the application support folder in the finder") action:@selector(revealApplicationSupport:) keyEquivalent:@""].target = self;
+	}];
+#endif
 }
 
 /// --------------------------------------------------------------------------

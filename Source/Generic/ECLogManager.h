@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) NSDictionary* options;
 
 @property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
-@property (assign, nonatomic) BOOL showMenu;
 
 - (void)showUI;
 

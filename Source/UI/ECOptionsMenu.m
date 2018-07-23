@@ -34,12 +34,11 @@
 
 - (void)setupAsRootMenu {
 	ECLogManager* logManager = [ECLogManager sharedInstance];
-	if (logManager.showMenu)
-	{
+#if EC_DEBUG
 		self.options = [logManager options];
 		[self removeAllItems];
 		[self buildMenuWithOptions:self.options action:@selector(optionSelected:)];
-	}
+#endif
 }
 
 // --------------------------------------------------------------------------
