@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECLogManager.h"
+#import "ECOptionsMenu.h"
 
 @interface ECLogManager ()
 @property (strong, nonatomic) NSDictionary* defaultSettings;
@@ -28,6 +29,65 @@ static ECLogManager* gSharedInstance = nil;
 
 	return gSharedInstance;
 }
+
+
+
+
+
+
+
+
+// --------------------------------------------------------------------------
+// Properties
+// --------------------------------------------------------------------------
+
+
+/// --------------------------------------------------------------------------
+/// Return the top level Debug menu item.
+/// If it doesn't already exist, we add one.
+/// --------------------------------------------------------------------------
+
+
+
+/// --------------------------------------------------------------------------
+/// Reveal our application support folder.
+/// This will open the one in our container, if we're sandboxed.
+/// --------------------------------------------------------------------------
+
+- (void)revealApplicationSupport:(id)sender
+{
+	NSError* error;
+	NSFileManager* fm = [NSFileManager defaultManager];
+	NSURL* url = [fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
+	if (url)
+	{
+		NSString* identifier = [[NSBundle mainBundle] bundleIdentifier];
+		while ([identifier length])
+		{
+			NSURL* specificURL = [url URLByAppendingPathComponent:identifier];
+			if ([fm fileExistsAtPath:[specificURL path]])
+			{
+				url = specificURL;
+				break;
+			}
+			else
+			{
+				identifier = [identifier stringByDeletingPathExtension];
+			}
+		}
+		[[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[url]];
+	}
+}
+
+
+
+
+
+
+
+
+
+
 
 - (instancetype)init {
 	self = [super init];
@@ -56,22 +116,61 @@ static ECLogManager* gSharedInstance = nil;
 }
 
 - (void)finishStartup {
-	[self notifyDelegateOfStartup];
+	
+#if EC_DEBUG
+	[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+		[self installDebugSubmenuWithTitle:NSLocalizedString(@"Options", @"options submenu title") class:[ECOptionsMenu class]];
+		NSMenu* utilities = [self installDebugSubmenuWithTitle:NSLocalizedString(@"Utilities", @"utilities submenu title") class:[NSMenu class]];
+		[utilities addItemWithTitle:NSLocalizedString(@"Reveal Application Support", @"show the application support folder in the finder") action:@selector(revealApplicationSupport:) keyEquivalent:@""].target = self;
+	}];
+#endif
 }
 
-- (void)notifyDelegateOfStartup {
-	id<ECLogManagerDelegate> delegate = self.delegate;
-	if ([delegate respondsToSelector:@selector(logManagerDidStartup:)]) {
-		[delegate logManagerDidStartup:self];
+- (NSMenu*)installDebugSubmenuWithTitle:(NSString*)title class:(Class)menuClass
+{
+	NSMenuItem* debugItem = [self debugMenuItem];
+	NSMenuItem* submenuItem = [debugItem.submenu itemWithTitle:title];
+	if (!submenuItem)
+	{
+		submenuItem = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
+		
+		id menu = [[menuClass alloc] initWithTitle:title];
+		if ([menu respondsToSelector:@selector(setupAsRootMenu)])
+			[menu setupAsRootMenu];
+		
+		submenuItem.submenu = menu;
+		
+		[debugItem.submenu addItem:submenuItem];
 	}
+	
+	return submenuItem.submenu;
 }
 
-- (void)mergeSettings:(NSMutableDictionary*)settings fromURL:(NSURL*)url {
-	if (url) {
-		NSDictionary* overrides = [NSDictionary dictionaryWithContentsOfURL:url];
-		[settings addEntriesFromDictionary:overrides];
+- (NSMenuItem*)debugMenuItem
+{
+	NSMenuItem* result;
+	
+	NSString* title = NSLocalizedString(@"Debug", @"Debug menu title");
+	NSMenu* menubar = [NSApp mainMenu];
+	result = [menubar itemWithTitle:title];
+	if (!result)
+	{
+		NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
+		result = item;
+		
+		NSMenu* menu = [[NSMenu alloc] initWithTitle:title];
+		item.submenu = menu;
+		
+		[menubar addItem:item];
 	}
+	
+	return result;
 }
+
+
+
+
+
 
 - (NSDictionary*)defaultSettings {
 	if (!_defaultSettings) {
@@ -93,15 +192,20 @@ static ECLogManager* gSharedInstance = nil;
 	return _defaultSettings;
 }
 
-- (NSDictionary*)options {
-	return self.settings[OptionsKey];
+- (void)mergeSettings:(NSMutableDictionary*)settings fromURL:(NSURL*)url {
+	if (url) {
+		NSDictionary* overrides = [NSDictionary dictionaryWithContentsOfURL:url];
+		[settings addEntriesFromDictionary:overrides];
+	}
 }
 
-- (void)showUI {
-	id<ECLogManagerDelegate> delegate = self.delegate;
-	if ([delegate respondsToSelector:@selector(showUIForLogManager:)]) {
-		[delegate showUIForLogManager:self];
-	 }
+
+
+
+
+
+- (NSDictionary*)options {
+	return self.settings[OptionsKey];
 }
 
 @end

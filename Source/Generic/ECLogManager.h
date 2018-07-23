@@ -4,17 +4,19 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
+#import <Cocoa/Cocoa.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class ECLogChannel;
 @class ECLogHandler;
 @class ECLogManager;
 
-@protocol ECLogManagerDelegate <NSObject>
-@optional
-- (void)logManagerDidStartup:(ECLogManager*)manager;
-- (void)showUIForLogManager:(ECLogManager*)manager;
-@end
+//@protocol ECLogManagerDelegate <NSObject>
+//@optional
+//- (void)logManagerDidStartup:(ECLogManager*)manager;
+//- (void)showUIForLogManager:(ECLogManager*)manager;
+//@end
 
 
 @interface ECLogManager : NSObject
@@ -25,9 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic, readonly) NSDictionary* options;
 
-@property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
-
-- (void)showUI;
+//@property (weak, nonatomic) id<ECLogManagerDelegate> delegate;
 
 @end
 
