@@ -9,19 +9,4 @@
 
 @implementation ECDebugMenu
 
-
-#pragma mark - Lifecycle
-
-// --------------------------------------------------------------------------
-//! Set up after creation from a nib.
-// --------------------------------------------------------------------------
-
-- (void)awakeFromNib
-{
-	if (![ECLogManager sharedInstance].showMenu)
-	{
-		[self removeFromParentEC];
-	}
-}
-
 @end
