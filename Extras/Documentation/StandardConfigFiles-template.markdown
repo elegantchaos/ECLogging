@@ -20,7 +20,7 @@ The bottom layer contains settings for any project.
 
 There are two variations, one for each of the Debug and Release configurations: 
 
-- ECDebug.xcconfig
+- BCDebug.xcconfig
 - ECRelease.xcconfig
 
 These define extra settings to be used by all projects when built in Debug or Release respectively. Both of these also include another file:

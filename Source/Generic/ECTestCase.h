@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 
 #ifdef _XCTPrimitiveAssertGreaterThan // indicates a newer version of XCTest
 // Yosemite version of XCTest takes a self parameter for _XCTRegisterFailure
-#define ECAssertTest(expr, isTrueVal, expString, description, ...)                                \
+#define BCAssertTest(expr, isTrueVal, expString, description, ...)                                \
 	do                                                                                            \
 	{                                                                                             \
 		if (!(expr))                                                                              \
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 		}                                                                                         \
 	} while (0)
 #else
-#define ECAssertTest(expr, isTrueVal, expString, description, ...)                                \
+#define BCAssertTest(expr, isTrueVal, expString, description, ...)                                \
 	do                                                                                            \
 	{                                                                                             \
 		if (!(expr))                                                                              \
@@ -72,15 +72,15 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 #define ECTestAssertZero(x) ECTestAssertTrueFormat((x) == 0, @"%s should be zero, was %0x", #x, (unsigned int)x)
 #define ECTestAssertTrue(x) ECTestAssertTrueFormat((x), "%s should be true", #x)
 #define ECTestAssertFalse(x) ECTestAssertFalseFormat((x), "%s should be false", #x)
-#define ECTestAssertStringIsEqual(x, y) ECAssertTest([(x)isEqualToString:(y)], NO, @"" #x " and " #y " match", @"Values were \"%@\" and \"%@\"", x, y)
-#define ECTestAssertStringBeginsWith(x, y) ECAssertTest([ECTestCase string:(x) beginsWithString:(y)], NO, @"" #x " begins with " #y, @"Values were \"%@\" and \"%@\"", x, y)
-#define ECTestAssertStringEndsWith(x, y) ECAssertTest([ECTestCase string:(x) endsWithString:(y)], NO, @"" #x " ends with " #y, @"Values were \"%@\" and \"%@\"", x, y)
-#define ECTestAssertStringContains(x, y) ECAssertTest([ECTestCase string:x containsString:(y)], NO, @"" #x " contains " #y, @"Values were \"%@\" and \"%@\"", x, y)
-#define ECTestAssertIsEmpty(x) ECAssertTest([ECTestCase genericCount:(x)] == 0, NO, @"Object" #x "is empty", @"Value is %@", x)
-#define ECTestAssertNotEmpty(x) ECAssertTest([ECTestCase genericCount:(x)] != 0, YES, @"Object" #x "is empty", @"Value is %@", x)
-#define ECTestAssertLength(x, l) ECAssertTest([ECTestCase genericCount:(x)] == l, NO, @"Length of " #x " is " #l, @"Value is %@, length is %ld", x, (long)[ECTestCase genericCount:x])
-#define ECTestAssertIsEqual(x, y) ECAssertTest([(x) isEqual:(y)], NO, @"" #x " and " #y " are equal", @"Values were %@ and %@", x, y)
-#define ECTestAssertIsNotEqual(x, y) ECAssertTest(![(x) isEqual:(y)], NO, @"" #x " and " #y " are not equal", @"Values were %@ and %@", x, y)
+#define ECTestAssertStringIsEqual(x, y) BCAssertTest([(x)isEqualToString:(y)], NO, @"" #x " and " #y " match", @"Values were \"%@\" and \"%@\"", x, y)
+#define ECTestAssertStringBeginsWith(x, y) BCAssertTest([ECTestCase string:(x) beginsWithString:(y)], NO, @"" #x " begins with " #y, @"Values were \"%@\" and \"%@\"", x, y)
+#define ECTestAssertStringEndsWith(x, y) BCAssertTest([ECTestCase string:(x) endsWithString:(y)], NO, @"" #x " ends with " #y, @"Values were \"%@\" and \"%@\"", x, y)
+#define ECTestAssertStringContains(x, y) BCAssertTest([ECTestCase string:x containsString:(y)], NO, @"" #x " contains " #y, @"Values were \"%@\" and \"%@\"", x, y)
+#define ECTestAssertIsEmpty(x) BCAssertTest([ECTestCase genericCount:(x)] == 0, NO, @"Object" #x "is empty", @"Value is %@", x)
+#define ECTestAssertNotEmpty(x) BCAssertTest([ECTestCase genericCount:(x)] != 0, YES, @"Object" #x "is empty", @"Value is %@", x)
+#define ECTestAssertLength(x, l) BCAssertTest([ECTestCase genericCount:(x)] == l, NO, @"Length of " #x " is " #l, @"Value is %@, length is %ld", x, (long)[ECTestCase genericCount:x])
+#define ECTestAssertIsEqual(x, y) BCAssertTest([(x) isEqual:(y)], NO, @"" #x " and " #y " are equal", @"Values were %@ and %@", x, y)
+#define ECTestAssertIsNotEqual(x, y) BCAssertTest(![(x) isEqual:(y)], NO, @"" #x " and " #y " are not equal", @"Values were %@ and %@", x, y)
 #define ECTestAssertTextIsEqual(x, y) [self assertString:(x) matchesString:(y)]
 #define ECTestAssertNoError(e) ECTestAssertTrueFormat(e == 0, @"expected no error, but got %@", e)
 #define ECTestAssertOkNoError(status, e) ECTestAssertTrueFormat(status, @"expected %s to be true, but got %@", #status, e)
@@ -88,7 +88,7 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 #define ECTestAssertIsKindOfClass(o, c) ECTestAssertTrueFormat(((o) == nil) || [(o) isKindOfClass:[c class]], @"%s should be a kind of %s, is actually a %@", #o, #c, [o class])
 #define ECTestAssertIsMemberOfClass(o, c) ECTestAssertTrueFormat(((o) == nil) || [(o) isMemberOfClass:[c class]], @"%s should be a %s, is actually a %@", #o, #c, [o class])
 
-#define ECTestAssertOperator(x, t, y, f, c) ECAssertTest((x)t(y), NO, @"" #x #t #y, @"Values are " f " and " f ")", ((c)(x)), ((c)(y)))
+#define ECTestAssertOperator(x, t, y, f, c) BCAssertTest((x)t(y), NO, @"" #x #t #y, @"Values are " f " and " f ")", ((c)(x)), ((c)(y)))
 
 #define ECTestAssertIntegerIsEqual(x, y) ECTestAssertOperator((x), ==, (y), "%ld", long)
 #define ECTestAssertIntegerIsNotEqual(x, y) ECTestAssertOperator((x), !=, (y), "%ld", long)
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
 #define ECTestAssertRealIsLess(x, y) ECTestAssertOperator((x), <, (y), "%lf", double)
 #define ECTestAssertRealIsLessEqual(x, y) ECTestAssertOperator((x), <=, (y), "%lf", double)
 
-#define ECTestAssertRealIsEqualWithEpsilon(x, y, e) ECAssertTest(fabs((x) - (y)) < (e), NO, @"" #x " == " #y " within range " #e, @"Values are %lf and %lf)", (double)(x), (double)(y))
+#define ECTestAssertRealIsEqualWithEpsilon(x, y, e) BCAssertTest(fabs((x) - (y)) < (e), NO, @"" #x " == " #y " within range " #e, @"Values are %lf and %lf)", (double)(x), (double)(y))
 
 #define ECTestAssertPointIsEqual(p1, p2) do { \
 	ECTestAssertRealIsEqual(p1.x, p2.x); \
@@ -170,9 +170,9 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
  Perform some more detailed checking of two bits of text.
  
  The comparison modes determine exactly how differences are reported.
- - ECAssertStringTestShowChars:  we report the differing lengths, and the characters where they diverge
- - ECAssertStringTestShowLines: we report the lines where they diverge
- - ECAssertStringTestShowLinesIgnoreWhitespace: we report the lines where they diverge, ignoring blank lines
+ - BCAssertStringTestShowChars:  we report the differing lengths, and the characters where they diverge
+ - BCAssertStringTestShowLines: we report the lines where they diverge
+ - BCAssertStringTestShowLinesIgnoreWhitespace: we report the lines where they diverge, ignoring blank lines
  
  @param string1 First string to compare.
  @param string2 Second string to compare.
@@ -187,9 +187,9 @@ typedef NS_ENUM(NSUInteger, ECTestComparisonMode)
  If they don't match, we call STFail reporting the point where they differed.
 
  The comparison modes determine exactly how differences are reported.
- - ECAssertStringTestShowChars:  we report the differing lengths, and the characters where they diverge
- - ECAssertStringTestShowLines: we report the lines where they diverge
- - ECAssertStringTestShowLinesIgnoreWhitespace: we report the lines where they diverge, ignoring blank lines
+ - BCAssertStringTestShowChars:  we report the differing lengths, and the characters where they diverge
+ - BCAssertStringTestShowLines: we report the lines where they diverge
+ - BCAssertStringTestShowLinesIgnoreWhitespace: we report the lines where they diverge, ignoring blank lines
 
  @param string1 First string to compare.
  @param string2 Second string to compare.

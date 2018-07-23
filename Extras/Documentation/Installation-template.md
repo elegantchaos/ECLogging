@@ -52,7 +52,7 @@ Other than that, it should all work the same way - it is, after all, the same co
 
 ###Defines
 
-One other thing you need to do is to #define either EC_DEBUG 1, or EC_RELEASE 1, to tell ECLogging what to do with debug channels, assertions, and so on.
+One other thing you need to do is to #define either BC_DEBUG 1, or BC_RELEASE 1, to tell ECLogging what to do with debug channels, assertions, and so on.
 
 There are some handy prefix files that do this for you, so one way to do it is to #import them from within your own precompiled headers.
 

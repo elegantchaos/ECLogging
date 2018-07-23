@@ -9,7 +9,6 @@
  * Standard definitions for all libraries.
  */
 
-#import "ECMacros.h"
 
 #ifdef __OBJC__
 
