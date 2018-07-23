@@ -1,8 +1,0 @@
-framework module ECUnitTests {
-  umbrella header "ECUnitTests.h"
-
-  config_macros [exhaustive] EC_DEBUG, EC_RELEASE
-
-  export *
-  module * { export * }
-}

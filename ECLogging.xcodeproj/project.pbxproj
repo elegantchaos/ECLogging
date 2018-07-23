@@ -121,20 +121,16 @@
 		2202EDDA1F27928300C8FE22 /* ECLoggingIOSSharedStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSSharedStatic.xcconfig; sourceTree = "<group>"; };
 		2202EDDB1F27928300C8FE22 /* ECLoggingIOSDebugStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSDebugStatic.xcconfig; sourceTree = "<group>"; };
 		2202EDDC1F27928300C8FE22 /* ECLoggingIOSReleaseStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSReleaseStatic.xcconfig; sourceTree = "<group>"; };
-		2202EDDE1F2795B700C8FE22 /* ECLoggingFrameworkIOS.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECLoggingFrameworkIOS.modulemap; sourceTree = "<group>"; };
 		2202EE291F27B7BA00C8FE22 /* ECUnitTestsIOSDebugStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsIOSDebugStatic.xcconfig; sourceTree = "<group>"; };
 		2202EE2A1F27B7BA00C8FE22 /* ECUnitTestsIOSReleaseStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsIOSReleaseStatic.xcconfig; sourceTree = "<group>"; };
 		2202EE2B1F27B7BA00C8FE22 /* ECUnitTestsIOSSharedStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECUnitTestsIOSSharedStatic.xcconfig; sourceTree = "<group>"; };
-		2202EE311F27B90500C8FE22 /* ECUnitTestsIOS.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECUnitTestsIOS.modulemap; sourceTree = "<group>"; };
 		2221873019DAB73300F08CCE /* ECLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECLogging.h; sourceTree = "<group>"; };
-		2221873A19DAB8B800F08CCE /* ECLoggingUI.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECLoggingUI.pch; sourceTree = "<group>"; };
 		2221873B19DAB91B00F08CCE /* MacUIDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacUIDebug.xcconfig; sourceTree = "<group>"; };
 		2221873C19DAB91B00F08CCE /* MacUIDebugStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacUIDebugStatic.xcconfig; sourceTree = "<group>"; };
 		2221873D19DAB91B00F08CCE /* MacUIRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacUIRelease.xcconfig; sourceTree = "<group>"; };
 		2221873E19DAB91B00F08CCE /* MacUIReleaseStatic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MacUIReleaseStatic.xcconfig; sourceTree = "<group>"; };
 		2230CDAB17636DBA0026AA5E /* ECMacCommandLine.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECMacCommandLine.xcconfig; sourceTree = "<group>"; };
 		22381E161A6C35BF000AD60A /* ECLogging.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECLogging.modulemap; sourceTree = "<group>"; };
-		223C3B1F1AAB61F8003CCFFC /* IOSTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOSTests.pch; sourceTree = "<group>"; };
 		223C3B201AAB61F8003CCFFC /* MacTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacTests.pch; sourceTree = "<group>"; };
 		224E84D517AAB98F002EB661 /* ECOptionsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECOptionsMenu.h; sourceTree = "<group>"; };
 		224E84D617AAB98F002EB661 /* ECOptionsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECOptionsMenu.m; sourceTree = "<group>"; };
@@ -198,7 +194,6 @@
 		22E167141D25654100C850DC /* ECLoggingMacSharedFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingMacSharedFramework.xcconfig; sourceTree = "<group>"; };
 		22E817871D11F18000DD8803 /* ECUnitTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECUnitTests.pch; sourceTree = "<group>"; };
 		22E817881D11F3DD00DD8803 /* ECLoggingIOSResources.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ECLoggingIOSResources.xcconfig; sourceTree = "<group>"; };
-		22E817891D11FAE100DD8803 /* ECLoggingIOS.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ECLoggingIOS.modulemap; sourceTree = "<group>"; };
 		22E817911D14825600DD8803 /* ECLoggingTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ECLoggingTests-Bridging-Header.h"; path = "../../Source/Tests/ECLoggingTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		22E817941D14825700DD8803 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringTests.swift; path = ../../Source/Tests/StringTests.swift; sourceTree = "<group>"; };
 		22F2FEEB164140D800CD3C7C /* .appledoc.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = .appledoc.plist; sourceTree = "<group>"; };
@@ -321,10 +316,7 @@
 			children = (
 				22381E161A6C35BF000AD60A /* ECLogging.modulemap */,
 				22E167131D2564AB00C850DC /* ECLoggingFramework.modulemap */,
-				2202EDDE1F2795B700C8FE22 /* ECLoggingFrameworkIOS.modulemap */,
-				22E817891D11FAE100DD8803 /* ECLoggingIOS.modulemap */,
 				22B83F0D1A8F8B1600FA8A8E /* ECUnitTests.modulemap */,
-				2202EE311F27B90500C8FE22 /* ECUnitTestsIOS.modulemap */,
 			);
 			name = "Module Maps";
 			sourceTree = "<group>";
@@ -461,8 +453,6 @@
 			children = (
 				2283A4CB14F53C6F009142F7 /* ECLogging.pch */,
 				22E817871D11F18000DD8803 /* ECUnitTests.pch */,
-				2221873A19DAB8B800F08CCE /* ECLoggingUI.pch */,
-				223C3B1F1AAB61F8003CCFFC /* IOSTests.pch */,
 				223C3B201AAB61F8003CCFFC /* MacTests.pch */,
 			);
 			path = Prefix;
