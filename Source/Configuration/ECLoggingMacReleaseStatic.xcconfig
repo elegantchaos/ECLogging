@@ -1,3 +1,6 @@
+ZTRACE_ECLOGGINGMACRELEASESTATIC = 43
+ZTRACE_PATH = $(inherited)_43
+
 // --------------------------------------------------------------------------
 //  Copyright 2017 Elegant Chaos Limited. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's

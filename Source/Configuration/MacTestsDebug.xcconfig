@@ -1,3 +1,6 @@
+ZTRACE_MACTESTSDEBUG = 75
+ZTRACE_PATH = $(inherited)_75
+
 // --------------------------------------------------------------------------
 //  Copyright 2017 Elegant Chaos Limited. All rights reserved.
 //  This source code is distributed under the terms of Elegant Chaos's
