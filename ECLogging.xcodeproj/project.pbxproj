@@ -870,7 +870,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Debug;
 		};
@@ -878,7 +877,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacTestsRelease.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Release;
 		};
@@ -886,7 +884,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5E15DBD68500F2FE40 /* MacTestsDebug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Debug;
 		};
@@ -894,7 +891,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2251BA5F15DBD68500F2FE40 /* MacTestsRelease.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 			};
 			name = Release;
 		};
