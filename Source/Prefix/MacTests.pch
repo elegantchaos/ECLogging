@@ -11,8 +11,8 @@
 // Shared Settings
 // --------------------------------------------------------------------------
 
-@import Foundation;
-@import ECLogging;
-@import ECUnitTests;
+//@import Foundation;
+//@import ECLogging;
+//@import ECUnitTests;
 
 #endif

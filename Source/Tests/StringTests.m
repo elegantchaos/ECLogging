@@ -3,6 +3,8 @@
 //  This source code is distributed under the terms of Elegant Chaos's
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
+@import BCFoundation;
+@import ECUnitTests;
 
 #define TEST_CRASH 0 // enable this to deliberately crash a test
 #define TEST_FAILURE 0 // enable this to deliberately fail a test

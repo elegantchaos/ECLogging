@@ -15,10 +15,10 @@
 // Shared Settings
 // --------------------------------------------------------------------------
 
-@import CoreFoundation;
-@import Foundation;
-@import XCTest;
-@import ECLogging;
-@import Chocolat;
+//@import CoreFoundation;
+//@import Foundation;
+//@import XCTest;
+//@import ECLogging;
+//@import Chocolat;
 
 #endif

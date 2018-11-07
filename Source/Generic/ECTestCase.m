@@ -7,6 +7,7 @@
 #if !TARGET_OS_IPHONE
 @import Cocoa;
 #endif
+@import Chocolat;
 
 #import "ECTestCase.h"
 #import "ECParameterisedTestCase.h"

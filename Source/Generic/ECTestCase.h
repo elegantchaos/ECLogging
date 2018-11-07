@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------
 
 #import "ECTestComparisons.h"
-
+@import XCTest;
 
 @class NSBitmapImageRep;
 

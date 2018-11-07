@@ -3,6 +3,7 @@
 //  Copyright (c) 2015 Sam Deane, Elegant Chaos. All rights reserved.
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
+@import Foundation;
 
 // Property list, dictionary, etc. test comparison options
 typedef NS_OPTIONS(NSUInteger, ECTestComparisonOptions)
