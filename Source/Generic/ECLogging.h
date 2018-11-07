@@ -4,7 +4,7 @@
 //  liberal license: http://www.elegantchaos.com/license/liberal
 // --------------------------------------------------------------------------
 
-@import Foundation;
+//@import Foundation;
 
 #import "ECIODelegate.h"
 #import "NSString+ECLogging.h"

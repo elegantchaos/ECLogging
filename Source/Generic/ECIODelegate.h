@@ -5,6 +5,7 @@
 //  Created by Mathieu Dutour on 18/10/2017.
 //  Copyright © 2017 Elegant Chaos. All rights reserved.
 //
+@import Foundation;
 
 /**
  Defines an abstract IO API for doing two things:
