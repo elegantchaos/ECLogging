@@ -8,5 +8,5 @@ ZTRACE_PATH = $(inherited)_63
 // --------------------------------------------------------------------------
 
 PRODUCT_BUNDLE_IDENTIFIER = com.elegantchaos.frameworks.eclogging
-GCC_PREFIX_HEADER = Source/Prefix/ECLogging.pch
+GCC_PREFIX_HEADER = 
 

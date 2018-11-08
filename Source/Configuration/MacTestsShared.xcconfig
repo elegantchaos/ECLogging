@@ -9,6 +9,6 @@ ZTRACE_PATH = $(inherited)_66
 
 #include "TestsShared.xcconfig"
 
-GCC_PREFIX_HEADER = Source/Prefix/MacTests.pch
+GCC_PREFIX_HEADER = 
 
 EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
